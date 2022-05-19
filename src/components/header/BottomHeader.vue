@@ -139,7 +139,7 @@ export default {
 <style>
 .bottom-header {
   background-color: #fff;
-  box-shadow: inset 0px -1px 0px #ebebeb;
+  /* box-shadow: inset 0px -1px 0px #ebebeb; */
 }
 
 .bottom-header .carousel {

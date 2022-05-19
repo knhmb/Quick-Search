@@ -35,7 +35,7 @@ export default {
 }
 
 .slider .el-carousel .el-carousel__container {
-  height: 60vh !important;
+  height: 50vh !important;
 }
 
 .slider .el-carousel__arrow {
@@ -62,5 +62,20 @@ export default {
   object-fit: cover;
   margin: 0 2rem;
   border-radius: 8px;
+}
+
+@media screen and (max-width: 1300px) {
+  .slider .el-carousel .el-carousel__container {
+    height: 40vh !important;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .slider .el-carousel .el-carousel__container {
+    height: 20vh !important;
+  }
+
+  .slider .el-carousel {
+    overflow: hidden;
+  }
 }
 </style>
