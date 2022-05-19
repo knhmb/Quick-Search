@@ -47,6 +47,7 @@ export default {
 <style>
 .middle-header {
   background: #fff;
+  box-shadow: inset 0px -1px 0px #ebebeb;
 }
 
 .middle-header .el-row {
