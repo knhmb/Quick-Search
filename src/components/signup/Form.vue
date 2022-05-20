@@ -1,0 +1,150 @@
+<template>
+  <div class="register-form">
+    <el-form>
+      <el-row>
+        <el-col>
+          <el-form-item>
+            <el-input placeholder="帳號名稱"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col>
+          <el-form-item>
+            <el-input placeholder="電郵地址"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col>
+          <el-form-item>
+            <el-input placeholder="真實姓名"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col>
+          <el-form-item>
+            <el-input
+              type="password"
+              show-password
+              placeholder="密碼"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col>
+          <el-form-item>
+            <el-input
+              type="password"
+              show-password
+              placeholder="再次輸入密碼"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col>
+          <el-button>註冊</el-button>
+        </el-col>
+        <el-col>
+          <p class="policy">
+            註冊即代表您承認並同意本公司所有 <span>私隱政策</span> 及
+            <span>條款和細則</span>
+          </p>
+        </el-col>
+      </el-row>
+    </el-form>
+    <!-- <div class="have-account">
+      <p>已有 <span>Quick Search</span> 帳號？</p>
+      <el-button @click="login">登入</el-button>
+    </div> -->
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      ruleForm: {
+        username: "",
+        password: "",
+      },
+    };
+  },
+};
+</script>
+
+<style scoped>
+.register-form .el-form {
+  padding: 0 20px;
+  margin-top: 1rem;
+}
+
+.register-form .el-row {
+  align-items: center;
+}
+
+.register-form :deep(.el-input__wrapper) {
+  background: #f5f4f0;
+  border-radius: 8px;
+  padding: 0.3rem 1rem;
+}
+
+.register-form p,
+.register-form .have-account p {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #393939;
+}
+
+.register-form p span {
+  color: #985f35;
+}
+
+.register-form .el-button {
+  background: linear-gradient(
+      268.49deg,
+      rgba(255, 136, 51, 0.4) 0%,
+      rgba(255, 136, 51, 0) 100%
+    ),
+    #7a4117;
+  border-color: linear-gradient(
+      268.49deg,
+      rgba(255, 136, 51, 0.4) 0%,
+      rgba(255, 136, 51, 0) 100%
+    ),
+    #7a4117;
+  border-radius: 8px;
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  font-feature-settings: "liga" off;
+  color: #ffffff;
+  width: 100%;
+  padding: 1.4rem;
+  margin: 1rem 0;
+}
+
+/* .register-form .have-account {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  background: #f5f4f0;
+  border-radius: 0px 0px 16px 16px;
+  margin-top: 2rem;
+  padding: 0 20px 10px 20px;
+}
+
+.register-form .have-account .el-button {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #7a4117;
+  border-color: #7a4117;
+  background: transparent;
+  width: 20%;
+  padding: 1.2rem;
+} */
+</style>

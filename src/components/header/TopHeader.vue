@@ -22,7 +22,7 @@
       <div class="right-section">
         <div class="vendor-login">
           <img src="../../assets/header-vendor-login@2x.png" alt="" />
-          <span>商戶專區</span>
+          <span @click="openDialog">商戶專區</span>
         </div>
         <div class="member-login">
           <img src="../../assets/header-member-login@2x.png" alt="" />
@@ -31,14 +31,47 @@
       </div>
     </base-container>
   </div>
+  <div class="dialog">
+    <el-dialog
+      @closed="resetFormTitle"
+      v-model="dialogVisible"
+      :title="formTitle"
+      width="30%"
+    >
+      <Login v-if="formTitle === '登入'" />
+      <Signup v-if="formTitle === `新會員註冊`" />
+    </el-dialog>
+  </div>
 </template>
 
 <script>
 import { ArrowDown } from "@element-plus/icons-vue";
+import Login from "../login/Login.vue";
+import Signup from "../signup/Signup.vue";
 
 export default {
   components: {
     ArrowDown,
+    Login,
+    Signup,
+  },
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
+  computed: {
+    formTitle() {
+      return this.$store.getters.formTitle;
+    },
+  },
+  methods: {
+    openDialog() {
+      this.dialogVisible = true;
+    },
+    resetFormTitle() {
+      this.$store.commit("changeFormTitle", "登入");
+    },
   },
 };
 </script>
@@ -90,5 +123,24 @@ export default {
 .top-header .right-section {
   display: flex;
   align-items: center;
+}
+
+.dialog :deep(.el-dialog) {
+  border-radius: 16px;
+  /* max-width: 416px; */
+}
+
+.dialog :deep(.el-dialog__body) {
+  padding: 0;
+}
+
+.dialog :deep(.el-dialog__title) {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 36px;
+  font-feature-settings: "liga" off;
+  color: #393939;
 }
 </style>

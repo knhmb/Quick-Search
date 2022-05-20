@@ -1,0 +1,149 @@
+<template>
+  <div class="login-form">
+    <el-form>
+      <el-row>
+        <el-col>
+          <el-form-item>
+            <el-input
+              v-model="ruleForm.username"
+              placeholder="帳號名稱"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col>
+          <el-form-item>
+            <el-input
+              v-model="ruleForm.password"
+              type="password"
+              show-password
+              placeholder="密碼"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-checkbox label="記住我"></el-checkbox>
+        </el-col>
+        <el-col class="forgot-password-section" :span="12">
+          <p class="forgot-password">忘記密碼?</p>
+        </el-col>
+        <el-col>
+          <el-button>登入</el-button>
+        </el-col>
+      </el-row>
+    </el-form>
+    <div class="have-account">
+      <p>還沒有帳號？現在註冊！</p>
+      <el-button @click="register">註冊</el-button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      ruleForm: {
+        username: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    register() {
+      this.$store.commit("changeFormTitle", "新會員註冊");
+    },
+  },
+};
+</script>
+
+<style scoped>
+.login-form .el-form {
+  padding: 0 20px;
+}
+
+.login-form .el-row {
+  align-items: center;
+}
+
+.login-form :deep(.el-input__wrapper) {
+  background: #f5f4f0;
+  border-radius: 8px;
+  padding: 0.3rem 1rem;
+}
+
+.login-form :deep(.el-checkbox__input.is-checked .el-checkbox__inner) {
+  background: #985f35;
+  border-color: #985f35;
+}
+
+.login-form :deep(.el-checkbox__label),
+.login-form .forgot-password-section p,
+.login-form .have-account p {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #393939;
+}
+
+.login-form :deep(.el-checkbox.is-checked .el-checkbox__label) {
+  color: #985f35;
+}
+
+.login-form .forgot-password-section {
+  text-align: end;
+}
+
+.login-form .el-button {
+  background: linear-gradient(
+      268.49deg,
+      rgba(255, 136, 51, 0.4) 0%,
+      rgba(255, 136, 51, 0) 100%
+    ),
+    #7a4117;
+  border-color: linear-gradient(
+      268.49deg,
+      rgba(255, 136, 51, 0.4) 0%,
+      rgba(255, 136, 51, 0) 100%
+    ),
+    #7a4117;
+  border-radius: 8px;
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  font-feature-settings: "liga" off;
+  color: #ffffff;
+  width: 100%;
+  padding: 1.4rem;
+  margin-top: 1rem;
+}
+
+.login-form .have-account {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  background: #f5f4f0;
+  border-radius: 0px 0px 16px 16px;
+  margin-top: 2rem;
+  padding: 0 20px 10px 20px;
+}
+
+.login-form .have-account .el-button {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #7a4117;
+  border-color: #7a4117;
+  background: transparent;
+  width: 20%;
+  padding: 1.2rem;
+}
+</style>
