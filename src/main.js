@@ -6,10 +6,12 @@ import router from "./route";
 import store from "./store/store";
 
 import BaseContainer from "./ui/BaseContainer";
+import BaseCard from "./ui/BaseCard";
 
 const app = createApp(App);
 
 app.component("base-container", BaseContainer);
+app.component("base-card", BaseCard);
 
 app.use(ElementPlus);
 app.use(router);

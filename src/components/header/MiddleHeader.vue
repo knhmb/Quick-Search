@@ -3,7 +3,11 @@
     <base-container>
       <el-row>
         <el-col :sm="24" :md="4">
-          <img src="../../assets/brand-logo@2x.png" alt="" />
+          <img
+            @click="$router.push('/')"
+            src="../../assets/brand-logo@2x.png"
+            alt=""
+          />
         </el-col>
         <el-col :sm="24" :md="16">
           <el-input
@@ -56,6 +60,7 @@ export default {
 
 .middle-header img {
   width: 100%;
+  cursor: pointer;
 }
 
 .middle-header .el-row .el-input .el-input__wrapper {
