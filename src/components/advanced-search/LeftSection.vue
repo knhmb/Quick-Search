@@ -23,6 +23,54 @@
             </template>
           </el-tree>
         </div>
+        <div class="single-content checkboxes unhide-img">
+          <el-row>
+            <el-col :span="12">
+              <p>價格範圍</p>
+            </el-col>
+            <el-col :span="12">
+              <img src="../../assets/chevron-up-black@2x.png" alt="" />
+            </el-col>
+            <el-col :span="24">
+              <div class="slider-content">
+                <p>任何</p>
+                <el-slider range v-model="sliderValue" />
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+        <div class="single-content checkboxes unhide-img">
+          <el-row>
+            <el-col :span="12">
+              <p>優惠</p>
+            </el-col>
+            <el-col :span="12">
+              <img src="../../assets/chevron-up-black@2x.png" alt="" />
+            </el-col>
+            <el-col>
+              <el-checkbox label="有優惠"></el-checkbox>
+              <el-checkbox label="無優惠"></el-checkbox>
+            </el-col>
+          </el-row>
+        </div>
+        <div class="single-content checkboxes unhide-img">
+          <el-row>
+            <el-col :span="12">
+              <p>付款方式</p>
+            </el-col>
+            <el-col :span="12">
+              <img src="../../assets/chevron-up-black@2x.png" alt="" />
+            </el-col>
+            <el-col>
+              <el-checkbox label="現金"></el-checkbox>
+              <el-checkbox label="八達通"></el-checkbox>
+              <el-checkbox label="信用卡"></el-checkbox>
+              <el-checkbox label="微信"></el-checkbox>
+              <el-checkbox label="支付寶"></el-checkbox>
+              <el-checkbox label="轉數快"></el-checkbox>
+            </el-col>
+          </el-row>
+        </div>
       </div>
     </base-card>
   </div>
@@ -37,6 +85,7 @@ export default {
         label: "label",
         disabled: "disabled",
       },
+      sliderValue: "",
       data: [
         {
           id: 1,
@@ -215,10 +264,58 @@ export default {
   justify-content: space-between;
 }
 
-.left-section .single-content.checkboxes {
+.left-section .single-content.checkboxes:not(:last-of-type) {
   border-bottom: 1px solid #e0e0e0;
   border-radius: 0.1px;
   padding-bottom: 1rem;
+}
+
+.left-section .single-content.checkboxes.unhide-img {
+  display: block;
+}
+
+.left-section .single-content.checkboxes.unhide-img .slider-content {
+  padding: 0 1rem;
+  margin-top: 0.5rem;
+}
+
+.left-section .single-content.checkboxes.unhide-img .slider-content p {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  font-feature-settings: "liga" off;
+  color: #393939;
+  text-align: right;
+}
+
+.left-section
+  .single-content.single-content.checkboxes.unhide-img
+  :deep(.el-slider__bar) {
+  background-color: #985f35;
+}
+
+.left-section
+  .single-content.single-content.checkboxes.unhide-img
+  .el-checkbox {
+  display: block;
+}
+
+.left-section
+  .single-content.single-content.checkboxes.unhide-img
+  .el-checkbox:first-of-type {
+  margin-top: 1rem;
+}
+
+.left-section
+  .single-content.single-content.checkboxes.unhide-img
+  :deep(.el-slider__button) {
+  border-color: #985f35;
+}
+.left-section .single-content.checkboxes.unhide-img img {
+  display: block;
+  margin-left: auto;
 }
 
 .left-section .single-content img {
@@ -226,9 +323,9 @@ export default {
   display: none;
 }
 
-.left-section :deep(.is-penultimate img) {
+/* .left-section :deep(.is-penultimate img) {
   display: block;
-}
+} */
 
 .left-section .el-tree {
   padding-left: 1rem;
