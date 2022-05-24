@@ -1,147 +1,149 @@
 <template>
-  <div class="first-tab">
-    <div class="content">
-      <h5>預約服務</h5>
-      <div class="form-section">
-        <label>選擇人數</label>
-        <el-select placeholder="2位"></el-select>
-      </div>
-      <div class="form-section">
-        <label>選擇人數</label>
-        <v-date-picker
-          v-model="date"
-          locale="zh"
-          :columns="$screens({ default: 1, lg: 2 })"
-        />
-        <div class="time-picker">
-          <base-card>
-            <span>可選日子</span>
-            <div class="box">15</div>
-            <span>已選日子</span>
-            <div class="box active">15</div>
-            <span>預約已滿</span>
-            <div class="box">15</div>
-          </base-card>
+  <div class="box-card">
+    <div class="first-tab">
+      <div class="content">
+        <h5>預約服務</h5>
+        <div class="form-section">
+          <label>選擇人數</label>
+          <el-select placeholder="2位"></el-select>
         </div>
+        <div class="form-section">
+          <label>選擇人數</label>
+          <v-date-picker
+            v-model="date"
+            locale="zh"
+            :columns="$screens({ default: 1, lg: 2 })"
+          />
+          <div class="time-picker">
+            <base-card>
+              <span>可選日子</span>
+              <div class="box">15</div>
+              <span>已選日子</span>
+              <div class="box active">15</div>
+              <span>預約已滿</span>
+              <div class="box">15</div>
+            </base-card>
+          </div>
+        </div>
+        <div class="form-section">
+          <label>選擇時間</label>
+          <p class="am">上午時段</p>
+          <el-row :gutter="15">
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '9:00'"
+                :class="{ 'is-active': isActive === '9:00' }"
+              >
+                9:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '10:00'"
+                :class="{ 'is-active': isActive === '10:00' }"
+              >
+                10:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '11:00'"
+                :class="{ 'is-active': isActive === '11:00' }"
+              >
+                11:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '12:00'"
+                :class="{ 'is-active': isActive === '12:00' }"
+              >
+                12:00
+              </div>
+            </el-col>
+          </el-row>
+          <p class="am">上午時段</p>
+          <el-row :gutter="15">
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '13:00'"
+                :class="{ 'is-active': isActive === '13:00' }"
+              >
+                13:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '14:00'"
+                :class="{ 'is-active': isActive === '14:00' }"
+              >
+                14:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '15:00'"
+                :class="{ 'is-active': isActive === '15:00' }"
+              >
+                15:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '16:00'"
+                :class="{ 'is-active': isActive === '16:00' }"
+              >
+                16:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '17:00'"
+                :class="{ 'is-active': isActive === '17:00' }"
+              >
+                17:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '18:00'"
+                :class="{ 'is-active': isActive === '18:00' }"
+              >
+                18:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '19:00'"
+                :class="{ 'is-active': isActive === '19:00' }"
+              >
+                19:00
+              </div>
+            </el-col>
+            <el-col :span="6">
+              <div
+                class="time-box"
+                @click="isActive = '20:00'"
+                :class="{ 'is-active': isActive === '20:00' }"
+              >
+                20:00
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+        <el-button>前往預約</el-button>
       </div>
-      <div class="form-section">
-        <label>選擇時間</label>
-        <p class="am">上午時段</p>
-        <el-row :gutter="15">
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '9:00'"
-              :class="{ 'is-active': isActive === '9:00' }"
-            >
-              9:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '10:00'"
-              :class="{ 'is-active': isActive === '10:00' }"
-            >
-              10:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '11:00'"
-              :class="{ 'is-active': isActive === '11:00' }"
-            >
-              11:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '12:00'"
-              :class="{ 'is-active': isActive === '12:00' }"
-            >
-              12:00
-            </div>
-          </el-col>
-        </el-row>
-        <p class="am">上午時段</p>
-        <el-row :gutter="15">
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '13:00'"
-              :class="{ 'is-active': isActive === '13:00' }"
-            >
-              13:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '14:00'"
-              :class="{ 'is-active': isActive === '14:00' }"
-            >
-              14:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '15:00'"
-              :class="{ 'is-active': isActive === '15:00' }"
-            >
-              15:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '16:00'"
-              :class="{ 'is-active': isActive === '16:00' }"
-            >
-              16:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '17:00'"
-              :class="{ 'is-active': isActive === '17:00' }"
-            >
-              17:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '18:00'"
-              :class="{ 'is-active': isActive === '18:00' }"
-            >
-              18:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '19:00'"
-              :class="{ 'is-active': isActive === '19:00' }"
-            >
-              19:00
-            </div>
-          </el-col>
-          <el-col :span="6">
-            <div
-              class="time-box"
-              @click="isActive = '20:00'"
-              :class="{ 'is-active': isActive === '20:00' }"
-            >
-              20:00
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <el-button>前往預約</el-button>
     </div>
   </div>
 </template>
@@ -158,6 +160,11 @@ export default {
 </script>
 
 <style scoped>
+.right-section .box-card {
+  box-shadow: inset 0px -1px 0px #e0e0e0;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+}
 .first-tab {
   position: relative;
 }
