@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import BasicSearch from "./pages/BasicSearch";
 import AdvancedSearch from "./pages/AdvancedSearch";
 import ShoppingCart from "./pages/ShoppingCart";
+import Comment from "./pages/Comment";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,6 +14,7 @@ const router = createRouter({
     { path: "/basic-search", component: BasicSearch },
     { path: "/advanced-search", component: AdvancedSearch },
     { path: "/shopping-cart", component: ShoppingCart },
+    { path: "/comment", component: Comment },
   ],
 });
 
