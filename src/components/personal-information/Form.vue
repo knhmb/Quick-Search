@@ -79,6 +79,16 @@ export default {
   width: 100%;
 }
 
+.form :deep(.el-form-item .el-form-item__label) {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  font-feature-settings: "liga" off;
+  color: #393939;
+}
+
 .form .el-button {
   background: #985f35;
   border-radius: 8px;

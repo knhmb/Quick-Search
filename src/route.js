@@ -7,6 +7,8 @@ import ShoppingCart from "./pages/ShoppingCart";
 import Comment from "./pages/Comment";
 import MemberProfile from "./pages/MemberProfile";
 import PersonalInformation from "./pages/PersonalInformation";
+import ChangePassword from "./pages/ChangePassword";
+import BookingList from "./pages/BookingList";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,6 +27,16 @@ const router = createRouter({
           path: "personal-information",
           component: PersonalInformation,
           name: "personal-information",
+        },
+        {
+          path: "change-password",
+          component: ChangePassword,
+          name: "change-password",
+        },
+        {
+          path: "booking-list",
+          component: BookingList,
+          name: "booking-list",
         },
       ],
     },

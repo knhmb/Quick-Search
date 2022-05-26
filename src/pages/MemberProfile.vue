@@ -17,8 +17,20 @@
                   <img :src="accountImg" alt="" /> 帳號設定
                 </li>
               </router-link>
-              <li><img :src="passwordImg" alt="" /> 密碼管理</li>
-              <li><img :src="bookingImg" alt="" /> 預約列表</li>
+              <router-link
+                :to="{ name: 'change-password' }"
+                v-slot="{ navigate }"
+              >
+                <li @click="navigate">
+                  <img :src="passwordImg" alt="" /> 密碼管理
+                </li>
+              </router-link>
+              <router-link :to="{ name: 'booking-list' }" v-slot="{ navigate }">
+                <li @click="navigate">
+                  <img :src="bookingImg" alt="" /> 預約列表
+                </li>
+              </router-link>
+
               <li><img :src="couponImg" alt="" /> 優惠列表</li>
               <li><img :src="bookmarkImg" alt="" /> 我的收藏</li>
               <li><img :src="notificationImg" alt="" /> 訊息管理</li>
