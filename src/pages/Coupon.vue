@@ -1,5 +1,5 @@
 <template>
-  <section class="booking-list">
+  <section class="coupon">
     <base-card>
       <h4>預約列表</h4>
       <div class="component-switch">
@@ -16,19 +16,19 @@
           已完成
         </p>
       </div>
-      <Card v-if="currentOption === 'first'" />
+      <first-tab v-if="currentOption === 'first'"></first-tab>
       <second-tab v-else></second-tab>
     </base-card>
   </section>
 </template>
 
 <script>
-import Card from "../components/booking-list/Card.vue";
-import SecondTab from "../components/booking-list/SecondTab.vue";
+import FirstTab from "../components/coupon/FirstTab.vue";
+import SecondTab from "../components/coupon/SecondTab.vue";
 
 export default {
   components: {
-    Card,
+    FirstTab,
     SecondTab,
   },
   data() {
@@ -40,11 +40,11 @@ export default {
 </script>
 
 <style scoped>
-.booking-list .base-card {
+.coupon .base-card {
   padding: 1rem 0;
 }
 
-.booking-list h4 {
+.coupon h4 {
   font-family: "PingFang HK";
   font-style: normal;
   font-weight: 500;
@@ -57,13 +57,13 @@ export default {
   padding-right: 1rem;
 }
 
-.booking-list .component-switch {
+.coupon .component-switch {
   box-shadow: inset 0px -1px 0px #e0e0e0;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
 
-.booking-list .component-switch p {
+.coupon .component-switch p {
   font-family: "PingFang HK";
   font-style: normal;
   font-weight: 500;
@@ -78,15 +78,15 @@ export default {
   position: relative;
 }
 
-.booking-list .component-switch p:hover {
+.coupon .component-switch p:hover {
   color: #985f35;
 }
 
-.booking-list .component-switch p.is-active {
+.coupon .component-switch p.is-active {
   color: #985f35;
 }
 
-.booking-list .component-switch p.is-active::after {
+.coupon .component-switch p.is-active::after {
   content: "";
   position: absolute;
   background: #985f35;

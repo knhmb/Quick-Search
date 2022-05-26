@@ -30,10 +30,21 @@
                   <img :src="bookingImg" alt="" /> 預約列表
                 </li>
               </router-link>
-
-              <li><img :src="couponImg" alt="" /> 優惠列表</li>
-              <li><img :src="bookmarkImg" alt="" /> 我的收藏</li>
-              <li><img :src="notificationImg" alt="" /> 訊息管理</li>
+              <router-link :to="{ name: 'coupon' }" v-slot="{ navigate }">
+                <li @click="navigate">
+                  <img :src="couponImg" alt="" /> 優惠列表
+                </li>
+              </router-link>
+              <router-link :to="{ name: 'bookmark' }" v-slot="{ navigate }">
+                <li @click="navigate">
+                  <img :src="bookmarkImg" alt="" /> 我的收藏
+                </li>
+              </router-link>
+              <router-link :to="{ name: 'notification' }" v-slot="{ navigate }">
+                <li @click="navigate">
+                  <img :src="notificationImg" alt="" /> 訊息管理
+                </li>
+              </router-link>
             </ul>
           </base-card>
         </el-col>

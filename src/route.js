@@ -9,6 +9,9 @@ import MemberProfile from "./pages/MemberProfile";
 import PersonalInformation from "./pages/PersonalInformation";
 import ChangePassword from "./pages/ChangePassword";
 import BookingList from "./pages/BookingList";
+import Coupon from "./pages/Coupon";
+import Bookmark from "./pages/Bookmark";
+import Notification from "./pages/Notification";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -37,6 +40,21 @@ const router = createRouter({
           path: "booking-list",
           component: BookingList,
           name: "booking-list",
+        },
+        {
+          path: "coupon",
+          component: Coupon,
+          name: "coupon",
+        },
+        {
+          path: "bookmark",
+          component: Bookmark,
+          name: "bookmark",
+        },
+        {
+          path: "notification",
+          component: Notification,
+          name: "notification",
         },
       ],
     },
