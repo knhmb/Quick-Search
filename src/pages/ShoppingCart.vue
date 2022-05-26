@@ -11,6 +11,9 @@
         </el-col>
       </el-row>
     </base-container>
+    <div class="img-content">
+      <img class="comment-img" src="../assets/vector.png" alt="" />
+    </div>
   </div>
 </template>
 
@@ -31,5 +34,23 @@ export default {
 <style scoped>
 .shopping-cart {
   background-color: #ddd;
+  position: relative;
+}
+
+.shopping-cart .img-content {
+  position: absolute;
+  right: 2.5rem;
+  top: 40rem;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fec135;
+  border-radius: 100%;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopping-cart img.comment-img {
+  width: 1.3rem;
 }
 </style>

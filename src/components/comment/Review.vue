@@ -81,6 +81,10 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
+.review .el-row:nth-of-type(2) .el-col.el-col-8 {
+  margin-bottom: 6rem;
+}
+
 .review p {
   font-family: "PingFang HK";
   font-style: normal;
