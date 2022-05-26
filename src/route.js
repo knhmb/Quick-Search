@@ -5,6 +5,8 @@ import BasicSearch from "./pages/BasicSearch";
 import AdvancedSearch from "./pages/AdvancedSearch";
 import ShoppingCart from "./pages/ShoppingCart";
 import Comment from "./pages/Comment";
+import MemberProfile from "./pages/MemberProfile";
+import PersonalInformation from "./pages/PersonalInformation";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,6 +17,17 @@ const router = createRouter({
     { path: "/advanced-search", component: AdvancedSearch },
     { path: "/shopping-cart", component: ShoppingCart },
     { path: "/comment", component: Comment },
+    {
+      path: "/member-profile",
+      component: MemberProfile,
+      children: [
+        {
+          path: "personal-information",
+          component: PersonalInformation,
+          name: "personal-information",
+        },
+      ],
+    },
   ],
 });
 
