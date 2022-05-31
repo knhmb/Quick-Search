@@ -3,10 +3,10 @@
     <top-section></top-section>
     <base-container>
       <el-row :gutter="15">
-        <el-col :span="7">
+        <el-col :sm="12" :md="7">
           <left-section></left-section>
         </el-col>
-        <el-col :span="17">
+        <el-col :sm="12" :md="17">
           <right-section></right-section>
         </el-col>
       </el-row>

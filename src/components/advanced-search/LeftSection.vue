@@ -234,6 +234,10 @@ export default {
 </script>
 
 <style scoped>
+.left-section {
+  margin-bottom: 1rem;
+}
+
 .left-section p.title {
   font-family: "PingFang HK";
   font-style: normal;

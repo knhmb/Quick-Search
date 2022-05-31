@@ -2,10 +2,10 @@
   <div class="right-section">
     <base-card>
       <el-row>
-        <el-col :span="12">
+        <el-col :sm="24" :md="12">
           <p>找到 <span>924</span> 個搜尋結果</p>
         </el-col>
-        <el-col style="text-align: right" :span="12">
+        <el-col class="input-select" :sm="24" :md="12">
           <span>排序方式 :</span>
           <el-select placeholder="綜合數多至少">
             <el-option />
@@ -125,5 +125,15 @@
 .right-section
   :deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
   background-color: #985f35;
+}
+
+.right-section .input-select {
+  text-align: right;
+}
+
+@media screen and (max-width: 767px) {
+  .right-section .input-select {
+    margin-top: 1rem;
+  }
 }
 </style>

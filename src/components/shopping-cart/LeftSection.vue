@@ -69,6 +69,10 @@
 </template>
 
 <style scoped>
+.left-section {
+  margin-bottom: 1rem;
+}
+
 .left-section,
 .left-section .base-card {
   background-color: #efdfc8;

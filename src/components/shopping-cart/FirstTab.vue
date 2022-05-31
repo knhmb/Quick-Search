@@ -12,7 +12,7 @@
           <v-date-picker
             v-model="date"
             locale="zh"
-            :columns="$screens({ default: 1, lg: 2 })"
+            :columns="$screens({ default: 1, lg: 1 })"
           />
           <div class="time-picker">
             <base-card>
@@ -29,7 +29,7 @@
           <label>選擇時間</label>
           <p class="am">上午時段</p>
           <el-row :gutter="15">
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '9:00'"
@@ -38,7 +38,7 @@
                 9:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '10:00'"
@@ -47,7 +47,7 @@
                 10:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '11:00'"
@@ -56,7 +56,7 @@
                 11:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '12:00'"
@@ -68,7 +68,7 @@
           </el-row>
           <p class="am">上午時段</p>
           <el-row :gutter="15">
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '13:00'"
@@ -77,7 +77,7 @@
                 13:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '14:00'"
@@ -86,7 +86,7 @@
                 14:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '15:00'"
@@ -95,7 +95,7 @@
                 15:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '16:00'"
@@ -104,7 +104,7 @@
                 16:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '17:00'"
@@ -113,7 +113,7 @@
                 17:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '18:00'"
@@ -122,7 +122,7 @@
                 18:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '19:00'"
@@ -131,7 +131,7 @@
                 19:00
               </div>
             </el-col>
-            <el-col :span="6">
+            <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '20:00'"
@@ -311,5 +311,32 @@ export default {
   padding: 1.5rem;
   margin-left: auto;
   display: flex;
+}
+
+@media screen and (max-width: 991px) {
+  .first-tab .el-button {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  .first-tab .time-picker .base-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .first-tab .time-picker .base-card .box,
+  .first-tab .time-picker .base-card .box.active,
+  .first-tab .time-picker .base-card .box:not(:last-of-type) {
+    margin: 0;
+  }
+
+  .first-tab .time-picker .base-card .box,
+  .first-tab .time-picker .base-card .box.active,
+  .first-tab .time-picker .base-card .box:not(:last-of-type) {
+    margin: 0.5rem 0 1rem 0;
+  }
 }
 </style>

@@ -3,10 +3,10 @@
     <top-section></top-section>
     <base-container>
       <el-row :gutter="15">
-        <el-col :span="8">
+        <el-col :sm="24" :md="8">
           <left-section></left-section>
         </el-col>
-        <el-col :span="16">
+        <el-col :sm="24" :md="16">
           <right-section></right-section>
         </el-col>
       </el-row>
@@ -52,5 +52,13 @@ export default {
 
 .shopping-cart img.comment-img {
   width: 1.3rem;
+}
+
+@media screen and (max-width: 767px) {
+  .shopping-cart .img-content {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1.5rem;
+  }
 }
 </style>

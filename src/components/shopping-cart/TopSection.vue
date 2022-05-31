@@ -9,10 +9,10 @@
           <el-breadcrumb-item>Shop Name Shop Name Shop Name</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row :gutter="15">
-          <el-col :span="4">
+          <el-col :sm="12" :md="4">
             <img class="product-img" src="../../assets/avatar.png" alt="" />
           </el-col>
-          <el-col :span="13">
+          <el-col :sm="24" :md="13">
             <h5>Shop Name Shop Name Shop Name</h5>
             <el-rate show-score disabled model-value="4" />
             <img
@@ -22,7 +22,7 @@
             />
             <p>旺角 ． $120-320 ． 髮型店</p>
           </el-col>
-          <el-col style="text-align: end" :span="7">
+          <el-col style="text-align: end" :sm="12" :md="7">
             <img
               class="shop-profile-icon"
               src="../../assets/shop-profile-comment@2x.png"
@@ -197,5 +197,12 @@ export default {
 .top-section .reviews .container .rating span {
   margin-left: 0.5rem;
   margin-right: 2rem;
+}
+
+@media screen and (max-width: 991px) {
+  .top-section .reviews {
+    padding-left: 0;
+    margin-top: 4rem;
+  }
 }
 </style>
