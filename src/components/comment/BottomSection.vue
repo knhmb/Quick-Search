@@ -2,14 +2,14 @@
   <div class="bottom-section">
     <base-card>
       <el-row>
-        <el-col :span="17">
+        <el-col :sm="24" :md="24" :lg="17">
           <p>
             按下「提交評價」，你確認遵守
             <span>〈商品說明條例〉</span
             >並同意<span>使用條款</span>及<span>私隱條例</span>。
           </p>
         </el-col>
-        <el-col style="text-align: end" :span="7">
+        <el-col style="text-align: end" :sm="24" :md="24" :lg="7">
           <el-button class="cancel">取消</el-button>
           <el-button class="submit">發表評價</el-button>
         </el-col>
@@ -61,5 +61,11 @@
   color: #fff;
   background: #985f35;
   border-color: #985f35;
+}
+
+@media screen and (max-width: 1199px) {
+  .bottom-section .el-button {
+    margin-top: 1rem;
+  }
 }
 </style>

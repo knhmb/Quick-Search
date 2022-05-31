@@ -59,6 +59,7 @@ export default {
     top: 50%;
     transform: translateY(-50%);
     right: 1.5rem;
+    display: none;
   }
 }
 </style>

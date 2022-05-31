@@ -3,26 +3,26 @@
     <base-card>
       <h5>填寫評價</h5>
       <el-row>
-        <el-col :span="5">
+        <el-col :sm="12" :md="5">
           <label>評價標題</label>
         </el-col>
-        <el-col :span="19">
+        <el-col :sm="24" :md="19">
           <el-input placeholder="請輸入標題"></el-input>
         </el-col>
-        <el-col :span="5">
+        <el-col :sm="12" :md="5">
           <label>評價內容</label>
         </el-col>
-        <el-col :span="19">
+        <el-col :sm="24" :md="19">
           <el-input
             type="textarea"
             rows="12"
             placeholder="請輸入內容"
           ></el-input>
         </el-col>
-        <el-col :span="5">
+        <el-col :sm="12" :md="5">
           <label>上傳相片</label>
         </el-col>
-        <el-col :span="19">
+        <el-col :sm="24" :md="19">
           <el-upload action="#" list-type="picture-card" :auto-upload="false">
             <el-icon><Plus /></el-icon>
 
@@ -112,5 +112,15 @@ export default {
 .form :deep(.el-upload.el-upload--picture-card) {
   width: 6rem;
   height: 6rem;
+}
+
+@media screen and (max-width: 1199px) {
+  .form {
+    margin-bottom: 1rem;
+  }
+
+  .form .el-col {
+    margin-bottom: 1rem;
+  }
 }
 </style>

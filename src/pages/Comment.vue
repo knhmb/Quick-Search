@@ -3,10 +3,10 @@
     <top-section></top-section>
     <base-container>
       <el-row :gutter="15">
-        <el-col :span="15">
+        <el-col :sm="24" :lg="15">
           <Form />
         </el-col>
-        <el-col :span="9">
+        <el-col :sm="24" :lg="9">
           <Review />
         </el-col>
         <el-col>
@@ -57,5 +57,11 @@ export default {
 
 .comment img.comment-img {
   width: 1.3rem;
+}
+
+@media screen and (max-width: 767px) {
+  .comment .img-content {
+    display: none;
+  }
 }
 </style>

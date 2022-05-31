@@ -126,9 +126,9 @@
   }
 }
 
-@media screen and (max-width: 404px) {
+/* @media screen and (max-width: 404px) {
   .footer::after {
     bottom: 5rem;
   }
-}
+} */
 </style>

@@ -4,10 +4,10 @@
       <base-card>
         <h4>店鋪資訊</h4>
         <el-row :gutter="15">
-          <el-col :span="5">
+          <el-col :sm="12" :md="5">
             <img src="../../assets/avatar.png" alt="" />
           </el-col>
-          <el-col :span="19">
+          <el-col :sm="24" :md="19">
             <h5>Shop Name Shop Name Shop Name</h5>
             <div class="info">
               <p>電話號碼</p>
