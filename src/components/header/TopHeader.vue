@@ -28,10 +28,7 @@
           <img src="../../assets/header-member-login@2x.png" alt="" />
           <span>會員登入/註冊</span>
         </div>
-        <div
-          @click="isCollapse = !isCollapse"
-          class="hamburger-icon hidden-sm-and-up"
-        >
+        <div @click="openSideNav" class="hamburger-icon hidden-sm-and-up">
           <div class="hamburger"></div>
           <div class="hamburger"></div>
           <div class="hamburger"></div>
@@ -39,23 +36,24 @@
       </div>
     </base-container>
   </div>
-  <div v-if="isCollapse" ref="mySidenav" class="sidenav">
-    <div @click="isCollapse = false" class="close"></div>
-    <div class="vendor-login">
-      <img src="../../assets/header-vendor-login@2x.png" alt="" />
-      <span @click="openDialog">商戶專區</span>
+  <teleport to="body">
+    <div v-if="isCollapse" ref="mySidenav" class="sidenav">
+      <div @click="closeSideNav" class="close"></div>
+      <div class="vendor-login">
+        <img src="../../assets/header-vendor-login@2x.png" alt="" />
+        <span @click="openDialog">商戶專區</span>
+      </div>
+      <div class="member-login">
+        <img src="../../assets/header-member-login@2x.png" alt="" />
+        <span>會員登入/註冊</span>
+      </div>
     </div>
-    <div class="member-login">
-      <img src="../../assets/header-member-login@2x.png" alt="" />
-      <span>會員登入/註冊</span>
-    </div>
-  </div>
+  </teleport>
   <div class="dialog">
     <el-dialog
       @closed="resetFormTitle"
       v-model="dialogVisible"
       :title="formTitle"
-      width="30%"
     >
       <Login v-if="formTitle === '登入'" />
       <Signup v-if="formTitle === `新會員註冊`" />
@@ -89,11 +87,22 @@ export default {
     openDialog() {
       this.dialogVisible = true;
       this.isCollapse = false;
+      document.querySelector("body").style.overflowY = "hidden";
+
       // this.$refs.mySidenav.style.width = "0";
       // this.$refs.mySidenav.style.display = "none";
     },
+    openSideNav() {
+      this.isCollapse = !this.isCollapse;
+      document.querySelector("body").style.overflowY = "hidden";
+    },
+    closeSideNav() {
+      this.isCollapse = false;
+      document.querySelector("body").style.overflowY = "visible";
+    },
     resetFormTitle() {
       this.$store.commit("changeFormTitle", "登入");
+      document.querySelector("body").style.overflowY = "visible";
     },
   },
 };
@@ -203,6 +212,7 @@ export default {
 .dialog :deep(.el-dialog) {
   border-radius: 16px;
   /* max-width: 416px; */
+  width: 30rem;
 }
 
 .dialog :deep(.el-dialog__body) {
@@ -240,6 +250,12 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .dialog :deep(.el-dialog) {
+    width: 20rem;
   }
 }
 </style>
