@@ -2,7 +2,7 @@
   <section class="member-profile">
     <base-container>
       <el-row :gutter="15">
-        <el-col :span="7">
+        <el-col :sm="24" :lg="7">
           <base-card>
             <div class="avatar-content">
               <img src="../assets/avatar-sample02@2x.jpg" alt="" />
@@ -92,7 +92,7 @@
             </ul>
           </base-card>
         </el-col>
-        <el-col :span="17">
+        <el-col :sm="24" :lg="17">
           <router-view></router-view>
         </el-col>
       </el-row>
@@ -223,6 +223,10 @@ export default {
 
 .member-profile .el-row {
   margin-top: 0.5rem;
+}
+
+.member-profile .el-row .el-col:first-of-type {
+  margin-bottom: 1.5rem;
 }
 
 .member-profile .avatar-content {

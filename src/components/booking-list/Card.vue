@@ -4,10 +4,10 @@
       <el-col v-for="item in 9" :key="item">
         <div class="card">
           <el-row :gutter="15">
-            <el-col :span="8">
+            <el-col :sm="24" :md="8">
               <img src="../../assets/shop-sample01@2x.jpg" alt="" />
             </el-col>
-            <el-col :span="16">
+            <el-col :sm="24" :md="16">
               <div class="box">
                 <small> 已確認 </small>
               </div>
@@ -111,6 +111,7 @@
   display: inline-block;
   padding: 0.5rem;
   width: 6rem;
+  margin-bottom: 1rem;
 }
 
 .booking-list-card .info-box:nth-of-type(3) {
@@ -159,5 +160,11 @@
   :deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
   background-color: #985f35;
   border-color: #985f35;
+}
+
+@media screen and (max-width: 991px) {
+  .booking-list-card .box {
+    margin-top: 1rem;
+  }
 }
 </style>

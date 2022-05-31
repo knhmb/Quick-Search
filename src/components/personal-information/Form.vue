@@ -17,7 +17,7 @@
             <el-input v-model="ruleForm.actualName" disabled></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :sm="12" :md="8">
           <el-form-item label="出生日期">
             <el-input
               v-model="ruleForm.dob"
@@ -26,7 +26,7 @@
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :sm="12" :md="8">
           <el-form-item label="電話號碼">
             <el-input
               v-model="ruleForm.phoneNumber"
@@ -34,7 +34,7 @@
             ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :sm="12" :md="8">
           <el-form-item label="性別">
             <el-select
               placeholder="選擇性別"
@@ -71,6 +71,10 @@ export default {
 </script>
 
 <style scoped>
+.form .el-select {
+  width: 100%;
+}
+
 .form :deep(.el-form .el-input__wrapper) {
   background: #f5f4f0;
   border: 1px solid #ebeae6;
