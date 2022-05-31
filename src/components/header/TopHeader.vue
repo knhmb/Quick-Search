@@ -20,16 +20,35 @@
         </el-dropdown>
       </div>
       <div class="right-section">
-        <div class="vendor-login">
+        <div class="vendor-login hidden-xs-only">
           <img src="../../assets/header-vendor-login@2x.png" alt="" />
           <span @click="openDialog">商戶專區</span>
         </div>
-        <div class="member-login">
+        <div class="member-login hidden-xs-only">
           <img src="../../assets/header-member-login@2x.png" alt="" />
           <span>會員登入/註冊</span>
         </div>
+        <div
+          @click="isCollapse = !isCollapse"
+          class="hamburger-icon hidden-sm-and-up"
+        >
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+        </div>
       </div>
     </base-container>
+  </div>
+  <div v-if="isCollapse" ref="mySidenav" class="sidenav">
+    <div @click="isCollapse = false" class="close"></div>
+    <div class="vendor-login">
+      <img src="../../assets/header-vendor-login@2x.png" alt="" />
+      <span @click="openDialog">商戶專區</span>
+    </div>
+    <div class="member-login">
+      <img src="../../assets/header-member-login@2x.png" alt="" />
+      <span>會員登入/註冊</span>
+    </div>
   </div>
   <div class="dialog">
     <el-dialog
@@ -58,6 +77,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      isCollapse: false,
     };
   },
   computed: {
@@ -68,6 +88,9 @@ export default {
   methods: {
     openDialog() {
       this.dialogVisible = true;
+      this.isCollapse = false;
+      // this.$refs.mySidenav.style.width = "0";
+      // this.$refs.mySidenav.style.display = "none";
     },
     resetFormTitle() {
       this.$store.commit("changeFormTitle", "登入");
@@ -125,6 +148,58 @@ export default {
   align-items: center;
 }
 
+.top-header div.hamburger {
+  width: 1.5rem;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #985f35;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 1rem;
+}
+
+.close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before,
+.close:after {
+  position: absolute;
+  left: 15px;
+  content: "";
+  height: 33px;
+  width: 2px;
+  background-color: #fff;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
 .dialog :deep(.el-dialog) {
   border-radius: 16px;
   /* max-width: 416px; */
@@ -142,5 +217,29 @@ export default {
   line-height: 36px;
   font-feature-settings: "liga" off;
   color: #393939;
+}
+
+@media screen and (max-width: 991px) {
+  .sidenav {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding-top: 8rem;
+  }
+  .sidenav img {
+    margin-right: 0.3rem;
+    width: 1.5rem;
+  }
+
+  .sidenav span {
+    color: #fff;
+  }
+
+  .sidenav .vendor-login,
+  .sidenav .member-login {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
 }
 </style>

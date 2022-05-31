@@ -64,7 +64,13 @@ export default {
   border-radius: 8px;
 }
 
-@media screen and (max-width: 1300px) {
+.slider .el-carousel__indicators.el-carousel__indicators--horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* @media screen and (max-width: 1300px) {
   .slider .el-carousel .el-carousel__container {
     height: 40vh !important;
   }
@@ -77,5 +83,5 @@ export default {
   .slider .el-carousel {
     overflow: hidden;
   }
-}
+} */
 </style>

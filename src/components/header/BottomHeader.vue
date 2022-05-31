@@ -120,6 +120,10 @@ export default {
         "工程裝飾",
       ],
       breakpoints: {
+        500: {
+          itemsToShow: 1.5,
+          snapAlign: "center",
+        },
         // 700px and up
         700: {
           itemsToShow: 3.5,
@@ -210,5 +214,11 @@ export default {
 
 .el-menu--horizontal.custom-menu img {
   width: 1.3rem;
+}
+
+@media screen and (max-width: 991px) {
+  .bottom-header .carousel .carousel__slide {
+    margin-left: 0;
+  }
 }
 </style>

@@ -4,7 +4,7 @@
       <h4>精選活動</h4>
     </base-container>
     <el-row justify="space-between">
-      <el-col :span="4">
+      <el-col :sm="12" :md="4">
         <img src="../../assets/adv-sample01@2x.jpg" alt="" />
         <img src="../../assets/adv-sample02@2x.jpg" alt="" />
         <img src="../../assets/adv-sample03@2x.jpg" alt="" />
@@ -12,9 +12,9 @@
         <img src="../../assets/adv-sample02@2x.jpg" alt="" />
         <img src="../../assets/adv-sample03@2x.jpg" alt="" />
       </el-col>
-      <el-col :span="15">
+      <el-col class="middle-col" :sm="24" :md="15">
         <el-row :gutter="10">
-          <el-col v-for="img in imgs" :key="img" :span="8">
+          <el-col v-for="img in imgs" :key="img" :sm="12" :md="8">
             <div class="card">
               <img :src="img.src" alt="" />
               <div class="content">
@@ -27,7 +27,7 @@
         </el-row>
         <popular-categories></popular-categories>
       </el-col>
-      <el-col :span="4">
+      <el-col :sm="12" :md="4">
         <img src="../../assets/adv-sample01@2x.jpg" alt="" />
         <img src="../../assets/adv-sample02@2x.jpg" alt="" />
         <img src="../../assets/adv-sample03@2x.jpg" alt="" />
@@ -134,5 +134,19 @@ export default {
 
 .home-main-content .card img {
   border-radius: 8px 8px 0 0;
+}
+
+@media screen and (max-width: 991px) {
+  .home-main-content .el-row.is-justify-space-between {
+    justify-content: center;
+  }
+
+  .home-main-content h4 {
+    text-align: center;
+  }
+
+  .home-main-content .el-col.middle-col {
+    margin: 2rem 0;
+  }
 }
 </style>

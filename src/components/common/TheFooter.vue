@@ -125,4 +125,10 @@
     margin-bottom: 1rem;
   }
 }
+
+@media screen and (max-width: 404px) {
+  .footer::after {
+    bottom: 5rem;
+  }
+}
 </style>

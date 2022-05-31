@@ -103,4 +103,10 @@ export default {
   width: 1.5rem;
   margin-right: 0.2rem;
 }
+
+@media screen and (max-width: 991px) {
+  .middle-header .el-row .el-input .el-input__wrapper {
+    margin: 1.5rem 0;
+  }
+}
 </style>
