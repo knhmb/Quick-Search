@@ -1,7 +1,7 @@
 <template>
   <div class="second-tab">
     <el-row :gutter="10">
-      <el-col v-for="item in 12" :key="item" :span="8">
+      <el-col v-for="item in 12" :key="item" :sm="12" :md="8">
         <div class="card">
           <div class="header">
             <h5>折扣優惠</h5>

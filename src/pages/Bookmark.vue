@@ -3,7 +3,7 @@
     <base-card>
       <h4>我的收藏</h4>
       <el-row :gutter="15">
-        <el-col v-for="item in 12" :key="item" :span="8">
+        <el-col v-for="item in 12" :key="item" :sm="12" :md="8">
           <div class="card">
             <img src="../assets/shop-sample01@2x.jpg" alt="" />
             <div class="content">

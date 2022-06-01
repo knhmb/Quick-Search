@@ -194,4 +194,19 @@
   background-color: #985f35;
   border-color: #985f35;
 }
+
+@media screen and (max-width: 500px) {
+  .notification .card .header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .notification .card .header .avatar {
+    margin-bottom: 1rem;
+  }
+
+  .notification .card .header .text {
+    align-self: flex-start;
+  }
+}
 </style>
