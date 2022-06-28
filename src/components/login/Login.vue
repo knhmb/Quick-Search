@@ -18,7 +18,7 @@
       </el-row>
       <el-divider content-position="center">或使用帳號登入</el-divider>
     </div>
-    <Form />
+    <Form @closedDialog="$emit('closedDialog', false)" />
   </section>
 </template>
 

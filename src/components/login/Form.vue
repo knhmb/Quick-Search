@@ -1,9 +1,9 @@
 <template>
   <div class="login-form">
-    <el-form>
+    <el-form :rules="rules" :model="ruleForm" ref="ruleFormRef">
       <el-row>
         <el-col>
-          <el-form-item>
+          <el-form-item prop="username">
             <el-input
               v-model="ruleForm.username"
               placeholder="帳號名稱"
@@ -11,7 +11,7 @@
           </el-form-item>
         </el-col>
         <el-col>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               v-model="ruleForm.password"
               type="password"
@@ -27,7 +27,7 @@
           <p class="forgot-password">忘記密碼?</p>
         </el-col>
         <el-col>
-          <el-button>登入</el-button>
+          <el-button @click="login">登入</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
 export default {
   data() {
     return {
@@ -46,11 +47,51 @@ export default {
         username: "",
         password: "",
       },
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "Username is required!",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "Password is required!",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
     register() {
       this.$store.commit("changeFormTitle", "新會員註冊");
+    },
+    login() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            username: this.ruleForm.username,
+            password: this.ruleForm.password,
+          };
+          console.log(data);
+          this.$store
+            .dispatch("auth/login", data)
+            .then(() => {
+              this.$emit("closedDialog", false);
+              this.$refs.ruleFormRef.resetFields();
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: err.response.data.message,
+                type: "error",
+              });
+            });
+        }
+      });
     },
   },
 };

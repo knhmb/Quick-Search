@@ -14,6 +14,9 @@ export default {
     Slider,
     Main,
   },
+  created() {
+    this.$store.dispatch("dashboard/getCategories");
+  },
 };
 </script>
 

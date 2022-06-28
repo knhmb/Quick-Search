@@ -22,11 +22,22 @@
       <div class="right-section">
         <div class="vendor-login hidden-xs-only">
           <img src="../../assets/header-vendor-login@2x.png" alt="" />
-          <span @click="openDialog">商戶專區</span>
+          <span>商戶專區</span>
         </div>
         <div class="member-login hidden-xs-only">
-          <img src="../../assets/header-member-login@2x.png" alt="" />
-          <span>會員登入/註冊</span>
+          <img
+            v-if="!isLoggedIn"
+            src="../../assets/header-member-login@2x.png"
+            alt=""
+          />
+          <span v-if="!isLoggedIn" @click="openDialog">會員登入/註冊</span>
+          <img
+            @click="logout"
+            v-if="isLoggedIn"
+            class="avatar-img"
+            src="../../assets/avatar-sample02@2x.jpg"
+            alt=""
+          />
         </div>
         <div @click="openSideNav" class="hamburger-icon hidden-sm-and-up">
           <div class="hamburger"></div>
@@ -41,11 +52,11 @@
       <div @click="closeSideNav" class="close"></div>
       <div class="vendor-login">
         <img src="../../assets/header-vendor-login@2x.png" alt="" />
-        <span @click="openDialog">商戶專區</span>
+        <span>商戶專區</span>
       </div>
       <div class="member-login">
         <img src="../../assets/header-member-login@2x.png" alt="" />
-        <span>會員登入/註冊</span>
+        <span @click="openDialog">會員登入/註冊</span>
       </div>
     </div>
   </teleport>
@@ -55,8 +66,14 @@
       v-model="dialogVisible"
       :title="formTitle"
     >
-      <Login v-if="formTitle === '登入'" />
-      <Signup v-if="formTitle === `新會員註冊`" />
+      <Login
+        @closedDialog="dialogVisible = $event"
+        v-if="formTitle === '登入'"
+      />
+      <Signup
+        @dialogClosed="dialogVisible = $event"
+        v-if="formTitle === `新會員註冊`"
+      />
     </el-dialog>
   </div>
 </template>
@@ -82,6 +99,9 @@ export default {
     formTitle() {
       return this.$store.getters.formTitle;
     },
+    isLoggedIn() {
+      return this.$store.getters["auth/isLoggedIn"];
+    },
   },
   methods: {
     openDialog() {
@@ -103,6 +123,9 @@ export default {
     resetFormTitle() {
       this.$store.commit("changeFormTitle", "登入");
       document.querySelector("body").style.overflowY = "visible";
+    },
+    logout() {
+      this.$store.dispatch("auth/logout");
     },
   },
 };
@@ -129,6 +152,13 @@ export default {
 .top-header .right-section img {
   margin-right: 0.3rem;
   width: 1.2rem;
+}
+
+.top-header .right-section .member-login img.avatar-img {
+  border-radius: 100%;
+  width: 2rem;
+  border: 1px solid #f5f5f5;
+  cursor: pointer;
 }
 
 .top-header .el-dropdown-link,

@@ -1,42 +1,50 @@
 <template>
   <div class="register-form">
-    <el-form>
+    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules">
       <el-row>
         <el-col>
-          <el-form-item>
-            <el-input placeholder="帳號名稱"></el-input>
+          <el-form-item prop="username">
+            <el-input
+              v-model="ruleForm.username"
+              placeholder="帳號名稱"
+            ></el-input>
           </el-form-item>
         </el-col>
         <el-col>
-          <el-form-item>
-            <el-input placeholder="電郵地址"></el-input>
+          <el-form-item prop="email">
+            <el-input
+              v-model="ruleForm.email"
+              placeholder="電郵地址"
+            ></el-input>
           </el-form-item>
         </el-col>
         <el-col>
-          <el-form-item>
-            <el-input placeholder="真實姓名"></el-input>
+          <el-form-item prop="name">
+            <el-input v-model="ruleForm.name" placeholder="真實姓名"></el-input>
           </el-form-item>
         </el-col>
         <el-col>
-          <el-form-item>
+          <el-form-item prop="password">
             <el-input
               type="password"
               show-password
               placeholder="密碼"
+              v-model="ruleForm.password"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col>
-          <el-form-item>
+          <el-form-item prop="confirmPassword">
             <el-input
               type="password"
               show-password
               placeholder="再次輸入密碼"
+              v-model="ruleForm.confirmPassword"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col>
-          <el-button>註冊</el-button>
+          <el-button @click="signup">註冊</el-button>
         </el-col>
         <el-col>
           <p class="policy">
@@ -54,14 +62,101 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
+
 export default {
   data() {
+    const validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("Please input the password"));
+      } else {
+        if (this.ruleForm.confirmPassword !== "") {
+          if (!this.$refs.ruleFormRef) return;
+          this.$refs.ruleFormRef.validateField("confirmPassword", () => null);
+        }
+        callback();
+      }
+    };
+    const validateConfirmPass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("Please input the password again"));
+      } else if (value !== this.ruleForm.password) {
+        callback(new Error("Two inputs don't match!"));
+      } else {
+        callback();
+      }
+    };
+
     return {
       ruleForm: {
         username: "",
+        email: "",
+        name: "",
         password: "",
+        confirmPassword: "",
+      },
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "Username is required!",
+            trigger: "blur",
+          },
+        ],
+        email: [
+          {
+            required: true,
+            message: "Email is required!",
+            trigger: "blur",
+            type: "email",
+          },
+        ],
+        name: [
+          {
+            required: true,
+            message: "Name is required!",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          {
+            validator: validatePass,
+            trigger: "blur",
+          },
+        ],
+        confirmPassword: [
+          {
+            validator: validateConfirmPass,
+            trigger: "blur",
+          },
+        ],
       },
     };
+  },
+  methods: {
+    signup() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            name: this.ruleForm.name,
+            email: this.ruleForm.email,
+            username: this.ruleForm.username,
+            password: this.ruleForm.password,
+            password2: this.ruleForm.confirmPassword,
+          };
+          console.log(data);
+          this.$store.dispatch("auth/register", data).then(() => {
+            ElNotification({
+              title: "Success",
+              message: "Regsitered successfully!",
+              type: "success",
+            });
+            this.$refs.ruleFormRef.resetFields();
+            this.$emit("dialogClosed", false);
+          });
+        }
+      });
+    },
   },
 };
 </script>

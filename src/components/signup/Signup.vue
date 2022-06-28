@@ -26,7 +26,7 @@
         </el-row>
       </div>
     </div>
-    <Form v-else></Form>
+    <Form @dialogClosed="$emit('dialogClosed', false)" v-else></Form>
     <div class="have-account">
       <p>已有 <span>Quick Search</span> 帳號？</p>
       <el-button @click="login">登入</el-button>
