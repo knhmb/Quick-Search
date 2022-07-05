@@ -5,11 +5,7 @@ import getters from "./getters";
 export default {
   namespaced: true,
   state() {
-    return {
-      isLoggedIn: false,
-      currentUserDetails: [],
-      userForgotPasswordDetails: [],
-    };
+    return {};
   },
   getters,
   mutations,

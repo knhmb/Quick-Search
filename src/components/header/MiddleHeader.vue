@@ -11,12 +11,12 @@
         </el-col>
         <el-col :sm="24" :md="16">
           <el-input
-            v-model="input"
+            v-model="search"
             placeholder="搜尋店舖名稱、產品、類型"
             clearable
           >
             <template #suffix>
-              <el-icon class="el-input__icon">
+              <el-icon @click="searchItem" class="el-input__icon">
                 <Search />
               </el-icon>
             </template>
@@ -42,8 +42,23 @@ export default {
   },
   data() {
     return {
-      input: "",
+      search: "",
     };
+  },
+  methods: {
+    searchItem() {
+      const data = {
+        search: this.search,
+      };
+
+      this.$store.dispatch("search/searchItem", data).then(() => {
+        this.$router.push({
+          path: "/advanced-search",
+          query: { q: this.search },
+        });
+        this.search = "";
+      });
+    },
   },
 };
 </script>

@@ -5,4 +5,7 @@ export default {
   currentUserDetails(state) {
     return state.currentUserDetails;
   },
+  userForgotPasswordDetails(state) {
+    return state.userForgotPasswordDetails;
+  },
 };

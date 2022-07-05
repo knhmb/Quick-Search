@@ -31,13 +31,19 @@
             alt=""
           />
           <span v-if="!isLoggedIn" @click="openDialog">會員登入/註冊</span>
-          <img
-            @click="logout"
-            v-if="isLoggedIn"
-            class="avatar-img"
-            src="../../assets/avatar-sample02@2x.jpg"
-            alt=""
-          />
+          <div class="user-logged-in">
+            <img
+              @click="isUserDropdown = !isUserDropdown"
+              v-if="isLoggedIn"
+              class="avatar-img"
+              src="../../assets/avatar-sample02@2x.jpg"
+              alt=""
+            />
+            <div v-if="isUserDropdown" class="user-dropdown">
+              <p @click="navigate('/member-profile')">Profile</p>
+              <p @click="logout">Log out</p>
+            </div>
+          </div>
         </div>
         <div @click="openSideNav" class="hamburger-icon hidden-sm-and-up">
           <div class="hamburger"></div>
@@ -74,6 +80,13 @@
         @dialogClosed="dialogVisible = $event"
         v-if="formTitle === `新會員註冊`"
       />
+      <forgot-password-form
+        v-if="formTitle === '忘記密碼'"
+      ></forgot-password-form>
+      <reset-password-form
+        @closedDialog="dialogVisible = $event"
+        v-if="formTitle === '重設密碼'"
+      ></reset-password-form>
     </el-dialog>
   </div>
 </template>
@@ -82,17 +95,22 @@
 import { ArrowDown } from "@element-plus/icons-vue";
 import Login from "../login/Login.vue";
 import Signup from "../signup/Signup.vue";
+import ForgotPasswordForm from "../forgot-password/ForgotPasswordForm.vue";
+import ResetPasswordForm from "../forgot-password/ResetPasswordForm.vue";
 
 export default {
   components: {
     ArrowDown,
     Login,
     Signup,
+    ForgotPasswordForm,
+    ResetPasswordForm,
   },
   data() {
     return {
       dialogVisible: false,
       isCollapse: false,
+      isUserDropdown: false,
     };
   },
   computed: {
@@ -126,6 +144,11 @@ export default {
     },
     logout() {
       this.$store.dispatch("auth/logout");
+      this.isUserDropdown = false;
+    },
+    navigate(path) {
+      this.$router.push(path);
+      this.isUserDropdown = false;
     },
   },
 };
@@ -159,6 +182,34 @@ export default {
   width: 2rem;
   border: 1px solid #f5f5f5;
   cursor: pointer;
+}
+
+.top-header .user-logged-in {
+  position: relative;
+}
+
+.top-header .user-logged-in .user-dropdown {
+  background: #fff;
+  padding: 1rem;
+  width: 10rem;
+  position: absolute;
+  z-index: 1;
+  bottom: -4.8rem;
+  left: 0;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.top-header .user-logged-in .user-dropdown p {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.top-header .user-logged-in .user-dropdown p:not(:last-of-type) {
+  margin-bottom: 0.7rem;
+}
+
+.top-header .user-logged-in .user-dropdown p:hover {
+  padding-left: 0.3rem;
 }
 
 .top-header .el-dropdown-link,

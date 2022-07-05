@@ -5,6 +5,8 @@ import mutations from "./mutations";
 import getters from "./getters";
 import dashboardModule from "./modules/dashboard";
 import authModule from "./modules/auth";
+import profileModule from "./modules/profile";
+import searchModule from "./modules/search";
 
 const store = createStore({
   state() {
@@ -18,6 +20,8 @@ const store = createStore({
   modules: {
     dashboard: dashboardModule,
     auth: authModule,
+    profile: profileModule,
+    search: searchModule,
   },
 });
 

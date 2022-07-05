@@ -7,4 +7,7 @@ export default {
     state.isLoggedIn = false;
     state.currentUserDetails = [];
   },
+  SET_USER_FORGOT_PASSWORD_DETAILS(state, payload) {
+    state.userForgotPasswordDetails = payload;
+  },
 };

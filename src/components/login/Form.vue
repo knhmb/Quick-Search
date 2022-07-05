@@ -24,7 +24,7 @@
           <el-checkbox label="記住我"></el-checkbox>
         </el-col>
         <el-col class="forgot-password-section" :span="12">
-          <p class="forgot-password">忘記密碼?</p>
+          <p @click="forgotPassword" class="forgot-password">忘記密碼?</p>
         </el-col>
         <el-col>
           <el-button @click="login">登入</el-button>
@@ -68,6 +68,9 @@ export default {
   methods: {
     register() {
       this.$store.commit("changeFormTitle", "新會員註冊");
+    },
+    forgotPassword() {
+      this.$store.commit("changeFormTitle", "忘記密碼");
     },
     login() {
       this.$refs.ruleFormRef.validate((valid) => {
@@ -135,6 +138,10 @@ export default {
 
 .login-form .forgot-password-section {
   text-align: end;
+}
+
+.login-form .forgot-password-section p.forgot-password {
+  cursor: pointer;
 }
 
 .login-form .el-button {

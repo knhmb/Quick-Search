@@ -17,4 +17,19 @@ export default {
     localStorage.removeItem("refreshToken");
     context.commit("LOGOUT");
   },
+  async forgotPassword(context, payload) {
+    const response = await axios.post(
+      "/api/v1/accounts/forget-password",
+      payload
+    );
+    console.log(response);
+    context.commit("SET_USER_FORGOT_PASSWORD_DETAILS", response.data.item);
+  },
+  async resetPassword(_, payload) {
+    const response = await axios.post(
+      "/api/v1/accounts/reset-password",
+      payload
+    );
+    console.log(response);
+  },
 };

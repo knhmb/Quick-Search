@@ -12,7 +12,13 @@
         </div>
         <div class="single-content checkboxes">
           <!-- <el-checkbox>港島區</el-checkbox> -->
-          <el-tree accordion :data="data" :props="defaultProps" show-checkbox>
+          <el-tree
+            @check-change="handleChange"
+            accordion
+            :data="data"
+            :props="defaultProps"
+            show-checkbox
+          >
             <template #default="{ node }">
               <span class="custom-tree-node">
                 <span>{{ node.label }}</span>
@@ -34,7 +40,11 @@
             <el-col :span="24">
               <div class="slider-content">
                 <p>任何</p>
-                <el-slider range v-model="sliderValue" />
+                <el-slider
+                  @change="handleChange"
+                  range
+                  v-model="filter.sliderValue"
+                />
               </div>
             </el-col>
           </el-row>
@@ -48,8 +58,16 @@
               <img src="../../assets/chevron-up-black@2x.png" alt="" />
             </el-col>
             <el-col>
-              <el-checkbox label="有優惠"></el-checkbox>
-              <el-checkbox label="無優惠"></el-checkbox>
+              <el-checkbox
+                @change="handleDiscount"
+                v-model="filter.discountCheckbox"
+                label="有優惠"
+              ></el-checkbox>
+              <el-checkbox
+                @change="handleDiscount"
+                v-model="filter.discountCheckbox"
+                label="無優惠"
+              ></el-checkbox>
             </el-col>
           </el-row>
         </div>
@@ -62,12 +80,36 @@
               <img src="../../assets/chevron-up-black@2x.png" alt="" />
             </el-col>
             <el-col>
-              <el-checkbox label="現金"></el-checkbox>
-              <el-checkbox label="八達通"></el-checkbox>
-              <el-checkbox label="信用卡"></el-checkbox>
-              <el-checkbox label="微信"></el-checkbox>
-              <el-checkbox label="支付寶"></el-checkbox>
-              <el-checkbox label="轉數快"></el-checkbox>
+              <el-checkbox
+                @change="handlePayment"
+                v-model="filter.paymentCheckbox"
+                label="現金"
+              ></el-checkbox>
+              <el-checkbox
+                @change="handlePayment"
+                v-model="filter.paymentCheckbox"
+                label="八達通"
+              ></el-checkbox>
+              <el-checkbox
+                @change="handlePayment"
+                v-model="filter.paymentCheckbox"
+                label="信用卡"
+              ></el-checkbox>
+              <el-checkbox
+                @change="handlePayment"
+                v-model="filter.paymentCheckbox"
+                label="微信"
+              ></el-checkbox>
+              <el-checkbox
+                @change="handlePayment"
+                v-model="filter.paymentCheckbox"
+                label="支付寶"
+              ></el-checkbox>
+              <el-checkbox
+                @change="handlePayment"
+                v-model="filter.paymentCheckbox"
+                label="轉數快"
+              ></el-checkbox>
             </el-col>
           </el-row>
         </div>
@@ -80,12 +122,18 @@
 export default {
   data() {
     return {
+      arr: [],
+      filter: {
+        arr: [],
+        discountCheckbox: [],
+        paymentCheckbox: [],
+        sliderValue: "",
+      },
       defaultProps: {
         children: "children",
         label: "label",
         disabled: "disabled",
       },
-      sliderValue: "",
       data: [
         {
           id: 1,
@@ -229,6 +277,68 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    handleChange(data, checked, indeterminate) {
+      console.log(data);
+      console.log(checked);
+      console.log(indeterminate);
+
+      if (checked) {
+        this.filter.arr.push({
+          id: data.id,
+          label: data.label,
+        });
+      } else if (!checked) {
+        this.filter.arr = this.filter.arr.filter((item) => item.id !== data.id);
+      }
+      const filterArr = [];
+
+      this.filter.arr.forEach((item) => {
+        filterArr.push(item.label);
+      });
+      console.log(filterArr);
+
+      const filter = {
+        query: this.$route.query.q ? this.$route.query.q : "",
+        area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
+        price: this.filter.sliderValue ? this.filter.sliderValue : "",
+        discount:
+          this.filter.discountCheckbox.length > 0
+            ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
+            : "",
+      };
+      console.log(filter);
+
+      this.$store.dispatch("search/filterSearch", filter);
+    },
+    handleDiscount() {
+      const filterArr = [];
+
+      this.filter.arr.forEach((item) => {
+        filterArr.push(item.label);
+      });
+      console.log(filterArr);
+
+      const filter = {
+        area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
+        query: this.$route.query.q ? this.$route.query.q : "",
+        price: this.filter.sliderValue ? this.filter.sliderValue : "",
+        discount:
+          this.filter.discountCheckbox.length > 0
+            ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
+            : "",
+        payment:
+          this.filter.paymentCheckbox.length > 0
+            ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
+            : "",
+      };
+      console.log(filter);
+      this.$store.dispatch("search/filterSearch", filter);
+    },
+    handlePayment() {
+      this.handleDiscount();
+    },
   },
 };
 </script>

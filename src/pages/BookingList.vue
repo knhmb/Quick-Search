@@ -36,6 +36,9 @@ export default {
       currentOption: "first",
     };
   },
+  created() {
+    this.$store.dispatch("profile/getBookings");
+  },
 };
 </script>
 
