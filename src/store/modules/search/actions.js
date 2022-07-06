@@ -1,11 +1,12 @@
 import axios from "axios";
 
 export default {
-  async searchItem(_, payload) {
+  async searchItem(context, payload) {
     const response = await axios.get(
       `/api/v1/shops${payload.search ? `?search=${payload.search}` : ""}`
     );
     console.log(response);
+    context.commit("SET_SEARCH_ITEMS", response.data.items);
   },
   async filterSearch(_, payload) {
     console.log(payload);
@@ -23,6 +24,18 @@ export default {
       },
     });
     console.log(response);
+  },
+  async searchSingleShop(context, payload) {
+    // const userToken = localStorage.getItem("accessToken");
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get(`/api/v1/shops/${payload.slug}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_SINGLE_ITEM", response.data.item);
   },
   //   async filterSearch(_, payload) {
   //     console.log(payload.area);

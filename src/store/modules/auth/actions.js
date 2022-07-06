@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../../../route";
 
 export default {
   async register(_, payload) {
@@ -9,13 +10,14 @@ export default {
     const response = await axios.post("/api/v1/authenticate/", payload);
     console.log(response);
     context.commit("LOGIN", response.data.item);
-    localStorage.setItem("accessToken", response.data.accessToken);
-    localStorage.setItem("refreshToken", response.data.refreshToken);
+    sessionStorage.setItem("accessToken", response.data.accessToken);
+    sessionStorage.setItem("refreshToken", response.data.refreshToken);
   },
   logout(context) {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
     context.commit("LOGOUT");
+    router.replace("/");
   },
   async forgotPassword(context, payload) {
     const response = await axios.post(
@@ -31,5 +33,31 @@ export default {
       payload
     );
     console.log(response);
+  },
+  async checkAccessToken() {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get("/api/v1/authenticate/", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+  },
+  async checkRefreshToken(context) {
+    const userToken = sessionStorage.getItem("refreshToken");
+
+    const response = await axios.put(
+      "/api/v1/authenticate/",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    );
+    context.commit("LOGIN", response.data.item);
+    sessionStorage.setItem("accessToken", response.data.accessToken);
+    sessionStorage.setItem("refreshToken", response.data.refreshToken);
   },
 };

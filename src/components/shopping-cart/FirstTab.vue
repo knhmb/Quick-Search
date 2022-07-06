@@ -142,19 +142,45 @@
             </el-col>
           </el-row>
         </div>
-        <el-button>前往預約</el-button>
+        <el-button @click="postDateTime">前往預約</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
+import { ElNotification } from "element-plus";
+
 export default {
   data() {
     return {
       date: new Date(),
       isActive: "14:00",
     };
+  },
+  computed: {
+    isUserLoggedIn() {
+      return this.$store.getters["auth/isLoggedIn"];
+    },
+  },
+  methods: {
+    postDateTime() {
+      const data = {
+        shop: "test",
+        date: `${moment(this.date).format("YYYY-MM-DD")}T${this.isActive}:00Z`,
+      };
+      console.log(data);
+      if (this.isUserLoggedIn) {
+        this.$store.dispatch("shop/postSchedule", data);
+      } else {
+        ElNotification({
+          title: "Error",
+          message: "Please login first!",
+          type: "error",
+        });
+      }
+    },
   },
 };
 </script>

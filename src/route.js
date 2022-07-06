@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+// import store from "./store/store";
 
 import Home from "./pages/Home";
 import BasicSearch from "./pages/BasicSearch";
@@ -12,6 +13,7 @@ import BookingList from "./pages/BookingList";
 import Coupon from "./pages/Coupon";
 import Bookmark from "./pages/Bookmark";
 import Notification from "./pages/Notification";
+// import { ElNotification } from "element-plus";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,7 +23,23 @@ const router = createRouter({
     { path: "/basic-search", component: BasicSearch },
     { path: "/advanced-search", component: AdvancedSearch },
     { path: "/shopping-cart", component: ShoppingCart },
-    { path: "/comment", component: Comment },
+    {
+      path: "/comment",
+      component: Comment,
+      // beforeEnter(to, from, next) {
+      //   if (!store.getters["auth/isLoggedIn"]) {
+      //     next("/home");
+      //     ElNotification({
+      //       title: "Error",
+      //       message: "Please login first!",
+      //       type: "error",
+      //     });
+      //   } else {
+      //     next();
+      //     console.log(store.getters["auth/isLoggedIn"]);
+      //   }
+      // },
+    },
     {
       path: "/member-profile",
       component: MemberProfile,

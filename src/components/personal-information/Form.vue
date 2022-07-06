@@ -1,9 +1,15 @@
 <template>
   <div class="form">
-    <el-form label-position="top">
+    <el-form
+      label-position="top"
+      :rules="rules"
+      :model="ruleForm"
+      ref="ruleFormRef"
+      hide-required-asterisk
+    >
       <el-row :gutter="20">
         <el-col>
-          <el-form-item label="帳號名稱">
+          <el-form-item label="帳號名稱" prop="username">
             <el-input v-model="ruleForm.username"></el-input>
           </el-form-item>
         </el-col>
@@ -43,7 +49,7 @@
           </el-form-item>
         </el-col>
         <el-col>
-          <el-button>儲存</el-button>
+          <el-button @click="edit">儲存</el-button>
         </el-col>
       </el-row>
     </el-form>
@@ -65,7 +71,39 @@ export default {
         phoneNumber: "",
         gender: "",
       },
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "Username is required!",
+            trigger: "blur",
+          },
+        ],
+      },
     };
+  },
+  computed: {
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
+  },
+  methods: {
+    edit() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            id: this.currentUserDetails.id,
+            username: this.ruleForm.username,
+          };
+          this.$store.dispatch("profile/updateUser", data);
+        }
+      });
+    },
+  },
+  created() {
+    this.ruleForm.username = this.currentUserDetails.username;
+    this.ruleForm.email = this.currentUserDetails.email;
+    this.ruleForm.actualName = this.currentUserDetails.name;
   },
 };
 </script>

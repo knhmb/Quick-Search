@@ -11,12 +11,68 @@
         </el-col>
         <el-col style="text-align: end" :sm="24" :md="24" :lg="7">
           <el-button class="cancel">取消</el-button>
-          <el-button class="submit">發表評價</el-button>
+          <el-button class="submit" @click="addReview">發表評價</el-button>
         </el-col>
       </el-row>
     </base-card>
   </div>
 </template>
+
+<script>
+import { ElNotification } from "element-plus";
+export default {
+  props: [
+    "title",
+    "description",
+    "rateServe",
+    "rateSurroundings",
+    "rateArea",
+    "rateCost",
+    "review",
+  ],
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["auth/isLoggedIn"];
+    },
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
+  },
+  methods: {
+    addReview() {
+      if (!this.isLoggedIn) {
+        ElNotification({
+          title: "Error",
+          message: "Please login first!",
+          type: "error",
+        });
+        return;
+      }
+      const data = {
+        account: this.currentUserDetails.username,
+        shop: "test",
+        content: "The test",
+      };
+      this.$store.dispatch("shop/postReview", data).then(() => {
+        ElNotification({
+          title: "success",
+          message: "Review has been added!",
+          type: "success",
+        });
+        this.$router.replace("/");
+      });
+      //   console.log(this.title, this.description);
+      //   console.log(
+      //     this.rateServe,
+      //     this.rateSurroundings,
+      //     this.rateArea,
+      //     this.rateCost
+      //   );
+      //   console.log(this.review);
+    },
+  },
+};
+</script>
 
 <style scoped>
 .bottom-section {

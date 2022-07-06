@@ -7,13 +7,19 @@
           <label>評價標題</label>
         </el-col>
         <el-col :sm="24" :md="19">
-          <el-input placeholder="請輸入標題"></el-input>
+          <el-input
+            @input="handleChange"
+            v-model="title"
+            placeholder="請輸入標題"
+          ></el-input>
         </el-col>
         <el-col :sm="12" :md="5">
           <label>評價內容</label>
         </el-col>
         <el-col :sm="24" :md="19">
           <el-input
+            @input="handleChange"
+            v-model="description"
             type="textarea"
             rows="12"
             placeholder="請輸入內容"
@@ -73,6 +79,20 @@ export default {
     Download,
     Plus,
     ZoomIn,
+  },
+  data() {
+    return {
+      title: "",
+      description: "",
+    };
+  },
+  methods: {
+    handleChange() {
+      this.$emit("valuesChanged", {
+        title: this.title,
+        description: this.description,
+      });
+    },
   },
 };
 </script>

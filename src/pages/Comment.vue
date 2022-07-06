@@ -4,13 +4,24 @@
     <base-container>
       <el-row :gutter="15">
         <el-col :sm="24" :lg="15">
-          <Form />
+          <Form @valuesChanged="setValues" />
         </el-col>
         <el-col :sm="24" :lg="9">
-          <Review />
+          <Review
+            @reviewSelected="setReview"
+            @valuesChanged="setReviewValues"
+          />
         </el-col>
         <el-col>
-          <bottom-section></bottom-section>
+          <bottom-section
+            :title="title"
+            :description="description"
+            :rate-serve="rateServe"
+            :rate-surroundings="rateSurroundings"
+            :rate-area="rateArea"
+            :rate-cost="rateCost"
+            :review="review"
+          ></bottom-section>
         </el-col>
       </el-row>
     </base-container>
@@ -33,6 +44,38 @@ export default {
     Review,
     BottomSection,
   },
+  data() {
+    return {
+      title: "",
+      description: "",
+      rateServe: 0,
+      rateSurroundings: 0,
+      rateArea: 0,
+      rateCost: 0,
+      review: "",
+    };
+  },
+  methods: {
+    setValues({ title, description }) {
+      this.title = title;
+      this.description = description;
+      console.log(this.title, this.description);
+    },
+    setReviewValues(data) {
+      this.rateServe = data.rateServe;
+      this.rateSurroundings = data.rateSurroundings;
+      this.rateArea = data.rateArea;
+      this.rateCost = data.rateCost;
+    },
+    setReview(option) {
+      this.review = option;
+    },
+  },
+  // computed: {
+  //   isLoggedIn() {
+  //     return this.$store.getters['auth/isLoggedIn']
+  //   }
+  // },
 };
 </script>
 

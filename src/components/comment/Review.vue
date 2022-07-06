@@ -16,25 +16,25 @@
           <p>服務</p>
         </el-col>
         <el-col :span="16">
-          <el-rate model-value="0"></el-rate>
+          <el-rate @change="handleChange" v-model="rateServe"></el-rate>
         </el-col>
         <el-col :span="8">
           <p>環境</p>
         </el-col>
         <el-col :span="16">
-          <el-rate model-value="0"></el-rate>
+          <el-rate @change="handleChange" v-model="rateSurroundings"></el-rate>
         </el-col>
         <el-col :span="8">
           <p>地區</p>
         </el-col>
         <el-col :span="16">
-          <el-rate model-value="0"></el-rate>
+          <el-rate @change="handleChange" v-model="rateArea"></el-rate>
         </el-col>
         <el-col :span="8">
           <p>性價比</p>
         </el-col>
         <el-col :span="16">
-          <el-rate model-value="0"></el-rate>
+          <el-rate @change="handleChange" v-model="rateCost"></el-rate>
         </el-col>
       </el-row>
       <el-row>
@@ -43,19 +43,37 @@
         </el-col>
         <el-col :span="8">
           <div class="review-content">
-            <img src="../../assets/rating-excellent-large-off@2x.png" alt="" />
+            <img
+              @click="selectReview('excellent')"
+              @mouseover="hover('excellent')"
+              @mouseleave="unHover('excellent')"
+              :src="ratingExcellent"
+              alt=""
+            />
             <p class="review-comment">喜歡</p>
           </div>
         </el-col>
         <el-col :span="8">
           <div class="review-content">
-            <img src="../../assets/rating-good-large-off@2x.png" alt="" />
+            <img
+              @click="selectReview('good')"
+              @mouseover="hover('good')"
+              @mouseleave="unHover('good')"
+              :src="ratingGood"
+              alt=""
+            />
             <p class="review-comment">喜歡</p>
           </div>
         </el-col>
         <el-col :span="8">
           <div class="review-content">
-            <img src="../../assets/rating-dislike-large-off@2x.png" alt="" />
+            <img
+              @click="selectReview('dislike')"
+              @mouseover="hover('dislike')"
+              @mouseleave="unHover('dislike')"
+              :src="ratingDislike"
+              alt=""
+            />
             <p class="review-comment">喜歡</p>
           </div>
         </el-col>
@@ -63,6 +81,73 @@
     </base-card>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      rateServe: 0,
+      rateSurroundings: 0,
+      rateArea: 0,
+      rateCost: 0,
+      selected: null,
+      ratingExcellent: require("../../assets/rating-excellent-large-off@2x.png"),
+      ratingGood: require("../../assets/rating-good-large-off@2x.png"),
+      ratingDislike: require("../../assets/rating-dislike-large-off@2x.png"),
+    };
+  },
+  methods: {
+    handleChange() {
+      const data = {
+        rateServe: this.rateServe,
+        rateSurroundings: this.rateSurroundings,
+        rateArea: this.rateArea,
+        rateCost: this.rateCost,
+      };
+      this.$emit("valuesChanged", data);
+    },
+    hover(option) {
+      if (option === "excellent") {
+        this.ratingExcellent = require("../../assets/rating-excellent-large-on@2x.png");
+      } else if (option === "good") {
+        this.ratingGood = require("../../assets/rating-good-large-on@2x.png");
+      } else if (option === "dislike") {
+        this.ratingDislike = require("../../assets/rating-dislike-large-on@2x.png");
+      }
+    },
+    unHover(option) {
+      if (option === "excellent" && this.selected !== "excellent") {
+        this.ratingExcellent = require("../../assets/rating-excellent-large-off@2x.png");
+      } else if (option === "good" && this.selected !== "good") {
+        this.ratingGood = require("../../assets/rating-good-large-off@2x.png");
+      } else if (option === "dislike" && this.selected !== "dislike") {
+        this.ratingDislike = require("../../assets/rating-dislike-large-off@2x.png");
+      }
+    },
+    selectReview(option) {
+      if (option === "good") {
+        this.selected = "good";
+        this.ratingGood = require("../../assets/rating-good-large-on@2x.png");
+        this.ratingExcellent = require("../../assets/rating-excellent-large-off@2x.png");
+        this.ratingDislike = require("../../assets/rating-dislike-large-off@2x.png");
+        this.$emit("reviewSelected", this.selected);
+      } else if (option === "excellent") {
+        this.selected = "excellent";
+        this.ratingGood = require("../../assets/rating-good-large-off@2x.png");
+        this.ratingExcellent = require("../../assets/rating-excellent-large-on@2x.png");
+        this.ratingDislike = require("../../assets/rating-dislike-large-off@2x.png");
+        this.$emit("reviewSelected", this.selected);
+      } else if (option === "dislike") {
+        this.selected = "dislike";
+        this.ratingGood = require("../../assets/rating-good-large-off@2x.png");
+        this.ratingExcellent = require("../../assets/rating-excellent-large-off@2x.png");
+        this.ratingDislike = require("../../assets/rating-dislike-large-on@2x.png");
+        this.$emit("reviewSelected", this.selected);
+      }
+    },
+  },
+};
+</script>
 
 <style scoped>
 .review h4 {
@@ -156,5 +241,6 @@
 
 .review img {
   width: 4rem;
+  cursor: pointer;
 }
 </style>

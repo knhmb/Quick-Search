@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 import actions from "./actions";
 import mutations from "./mutations";
@@ -7,8 +8,14 @@ import dashboardModule from "./modules/dashboard";
 import authModule from "./modules/auth";
 import profileModule from "./modules/profile";
 import searchModule from "./modules/search";
+import shopModule from "./modules/shop";
 
 const store = createStore({
+  plugins: [
+    createPersistedState({
+      storage: window.sessionStorage,
+    }),
+  ],
   state() {
     return {
       formTitle: "登入",
@@ -22,6 +29,7 @@ const store = createStore({
     auth: authModule,
     profile: profileModule,
     search: searchModule,
+    shop: shopModule,
   },
 });
 

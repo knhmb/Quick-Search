@@ -44,29 +44,76 @@
           <el-col style="text-align: end" :span="12">
             <p class="time">12:30 - 22:00</p>
           </el-col>
+          <!-- <template v-for="item in singleItem.openingHours" :key="item"> -->
           <el-col :span="12">
             <p class="time-text">星期一至日</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
-            <p class="time">12:30 - 22:00</p>
+            <p class="time">
+              {{ formatDate(singleItem.openingHours[0][0]) }} -
+              {{ formatDate(singleItem.openingHours[0][1]) }}
+            </p>
+            <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>
+          <!-- </template> -->
+          <!-- <el-col :span="12">
+              <p class="time-text">星期一至日</p>
+            </el-col>
+            <el-col style="text-align: end" :span="12">
+              {{ formatDate(item[0]) }} - {{ formatDate(item[1]) }}
+              <p class="time">12:30 - 22:00</p>
+            </el-col> -->
           <el-col :span="12">
             <p class="time-text">公眾假期</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
-            <p class="time">12:30 - 22:00</p>
+            <p class="time">
+              {{ formatDate(singleItem.openingHours[1][0]) }} -
+              {{ formatDate(singleItem.openingHours[1][1]) }}
+            </p>
+            <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>
           <el-col :span="12">
             <p class="time-text">公眾假期前夕</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
-            <p class="time">12:30 - 22:00</p>
+            <p class="time">
+              {{ formatDate(singleItem.openingHours[2][0]) }} -
+              {{ formatDate(singleItem.openingHours[2][1]) }}
+            </p>
+            <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>
+          <!-- </template> -->
         </el-row>
       </div>
     </base-card>
   </div>
 </template>
+
+<script>
+import moment from "moment";
+
+export default {
+  computed: {
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
+  },
+  methods: {
+    formatDate(data) {
+      const formattedDate = moment(data)
+        .format("MMMM Do YYYY, h:mm:ss")
+        .split(",")
+        .pop();
+      const lastIndexOfChar = formattedDate.lastIndexOf(":");
+      const time =
+        formattedDate.slice(0, lastIndexOfChar) +
+        formattedDate.slice(lastIndexOfChar + 3);
+      return time;
+    },
+  },
+};
+</script>
 
 <style scoped>
 .left-section {

@@ -24,6 +24,7 @@
           </el-col>
           <el-col style="text-align: end" :sm="12" :md="7">
             <img
+              @click="$router.push('/comment')"
               class="shop-profile-icon"
               src="../../assets/shop-profile-comment@2x.png"
               alt=""
@@ -138,6 +139,7 @@ export default {
   background-color: #985f35;
   border-radius: 100%;
   padding: 0.2rem;
+  cursor: pointer;
 }
 
 .top-section img.shop-profile-icon:not(:last-of-type) {

@@ -14,13 +14,13 @@
       </el-row>
     </base-card>
     <el-row :gutter="15">
-      <el-col v-for="item in 21" :key="item" :sm="12" :md="8">
-        <div class="card">
+      <el-col v-for="item in searchItems" :key="item" :sm="12" :md="8">
+        <div class="card" @click="selectShop(item.slug)">
           <img src="../../assets/shop-sample01@2x.jpg" alt="" />
           <div class="content">
-            <h5>店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱</h5>
+            <h5>{{ item.name }}</h5>
             <p>
-              活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱...
+              {{ item.description }}
             </p>
           </div>
         </div>
@@ -37,6 +37,52 @@
     </el-row>
   </div>
 </template>
+
+<script>
+import { ElNotification } from "element-plus";
+export default {
+  computed: {
+    searchItems() {
+      return this.$store.getters["search/searchItems"];
+    },
+  },
+  methods: {
+    selectShop(slug) {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store
+            .dispatch("search/searchSingleShop", { slug: slug })
+            .then(() => {
+              this.$router.push("/shopping-cart");
+            });
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store
+                .dispatch("search/searchSingleShop", { slug: slug })
+                .then(() => {
+                  this.$router.push("/shopping-cart");
+                });
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: "Token Expired! Please login again",
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+            });
+        });
+    },
+  },
+  created() {
+    console.log(this.searchItems);
+  },
+};
+</script>
 
 <style scoped>
 .right-section .el-row {
@@ -76,6 +122,7 @@
   background-color: #fff;
   border-radius: 8px;
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .right-section .card img {
