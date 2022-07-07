@@ -6,7 +6,7 @@
           <base-card>
             <div class="avatar-content">
               <img src="../assets/avatar-sample02@2x.jpg" alt="" />
-              <p>mvanhouten</p>
+              <p>{{ currentUserDetails.name }}</p>
             </div>
             <ul>
               <router-link
@@ -161,6 +161,11 @@ export default {
           this.notificationImg = require("../assets/profile-notification-on@2x.png");
         }
       },
+    },
+  },
+  computed: {
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
     },
   },
   methods: {

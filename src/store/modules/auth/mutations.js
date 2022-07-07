@@ -10,4 +10,7 @@ export default {
   SET_USER_FORGOT_PASSWORD_DETAILS(state, payload) {
     state.userForgotPasswordDetails = payload;
   },
+  UPDATE_USER(state, payload) {
+    state.currentUserDetails.username = payload.username;
+  },
 };

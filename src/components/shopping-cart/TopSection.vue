@@ -6,14 +6,14 @@
           <el-breadcrumb-item class="first">主頁</el-breadcrumb-item>
           <el-breadcrumb-item class="first">個人護理</el-breadcrumb-item>
           <el-breadcrumb-item class="first">髮型店</el-breadcrumb-item>
-          <el-breadcrumb-item>Shop Name Shop Name Shop Name</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ singleItem.name }}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row :gutter="15">
           <el-col :sm="12" :md="4">
             <img class="product-img" src="../../assets/avatar.png" alt="" />
           </el-col>
           <el-col :sm="24" :md="13">
-            <h5>Shop Name Shop Name Shop Name</h5>
+            <h5>{{ singleItem.name }}</h5>
             <el-rate show-score disabled model-value="4" />
             <img
               class="arrow-down"
@@ -83,6 +83,11 @@ export default {
     return {
       ArrowRight,
     };
+  },
+  computed: {
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
   },
 };
 </script>

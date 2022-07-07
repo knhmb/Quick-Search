@@ -163,16 +163,41 @@ export default {
     isUserLoggedIn() {
       return this.$store.getters["auth/isLoggedIn"];
     },
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
   },
   methods: {
     postDateTime() {
       const data = {
-        shop: "test",
-        date: `${moment(this.date).format("YYYY-MM-DD")}T${this.isActive}:00Z`,
+        account: this.singleItem.account[0],
+        shop: this.singleItem.name,
+        schedule: `${moment(this.date).format("YYYY-MM-DD")}T${
+          this.isActive
+        }:00Z`,
       };
       console.log(data);
       if (this.isUserLoggedIn) {
-        this.$store.dispatch("shop/postSchedule", data);
+        this.$store
+          .dispatch("auth/checkAccessToken")
+          .then(() => {
+            this.$store.dispatch("shop/book", data);
+          })
+          .catch(() => {
+            this.$store
+              .dispatch("auth/checkRefreshToken")
+              .then(() => {
+                this.$store.dispatch("shop/book", data);
+              })
+              .catch(() => {
+                ElNotification({
+                  title: "Error",
+                  message: "Token Expired, Please login again!",
+                  type: "error",
+                });
+                this.$store.dispatch("auth/logout");
+              });
+          });
       } else {
         ElNotification({
           title: "Error",
@@ -181,6 +206,29 @@ export default {
         });
       }
     },
+  },
+  created() {
+    console.log(this.singleItem);
+    this.$store
+      .dispatch("auth/checkAccessToken")
+      .then(() => {
+        this.$store.dispatch("shop/getSchedule", this.singleItem.id);
+      })
+      .catch(() => {
+        this.$store
+          .dispatch("auth/checkRefreshToken")
+          .then(() => {
+            this.$store.dispatch("shop/getSchedule", this.singleItem.id);
+          })
+          .catch(() => {
+            ElNotification({
+              title: "Error",
+              message: "Token expired. Please login in again!",
+              type: "error",
+            });
+            this.$store.dispatch("auth/logout");
+          });
+      });
   },
 };
 </script>

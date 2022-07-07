@@ -36,8 +36,14 @@ export default {
       currentOption: "first",
     };
   },
+  computed: {
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
+  },
   created() {
-    this.$store.dispatch("profile/getBookings");
+    console.log(this.currentUserDetails);
+    this.$store.dispatch("profile/getBookings", this.currentUserDetails.id);
   },
 };
 </script>

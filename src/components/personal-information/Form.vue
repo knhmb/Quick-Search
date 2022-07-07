@@ -58,6 +58,7 @@
 
 <script>
 import { Calendar } from "@element-plus/icons-vue";
+import { ElNotification } from "element-plus";
 
 export default {
   data() {
@@ -95,7 +96,54 @@ export default {
             id: this.currentUserDetails.id,
             username: this.ruleForm.username,
           };
-          this.$store.dispatch("profile/updateUser", data);
+          this.$store
+            .dispatch("auth/checkAccessToken")
+            .then(() => {
+              this.$store.dispatch("profile/updateUser", data).then(() => {
+                ElNotification({
+                  title: "Success",
+                  message: "Data has been updated!",
+                  type: "success",
+                });
+                this.$store.dispatch(
+                  "profile/getUser",
+                  this.currentUserDetails.id
+                );
+              });
+            })
+            .catch(() => {
+              this.$store
+                .dispatch("auth/checkRefreshToken")
+                .then(() => {
+                  this.$store.dispatch("profile/updateUser", data).then(() => {
+                    ElNotification({
+                      title: "Success",
+                      message: "Data has been updated!",
+                      type: "success",
+                    });
+                    this.$store.dispatch(
+                      "profile/getUser",
+                      this.currentUserDetails.id
+                    );
+                  });
+                })
+                .catch(() => {
+                  ElNotification({
+                    title: "Error",
+                    message: "Token Expired. Please login again",
+                    type: "error",
+                  });
+                  this.$store.dispatch("auth/logout");
+                });
+            });
+          // this.$store.dispatch("profile/updateUser", data).then(() => {
+          //   ElNotification({
+          //     title: 'Success',
+          //     message: 'Data has been updated!',
+          //     type: 'success'
+          //   })
+          //   this.$store.dispatch('profile/getUser', this.currentUserDetails.id)
+          // })
         }
       });
     },
