@@ -22,7 +22,7 @@ const router = createRouter({
     { path: "/", redirect: "/home" },
     { path: "/basic-search", component: BasicSearch },
     { path: "/advanced-search", component: AdvancedSearch },
-    { path: "/shopping-cart", component: ShoppingCart },
+    { path: "/shop", component: ShoppingCart },
     {
       path: "/comment",
       component: Comment,

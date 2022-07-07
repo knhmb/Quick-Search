@@ -10,7 +10,8 @@
         <div class="form-section">
           <label>選擇人數</label>
           <v-date-picker
-            v-model="date"
+            v-model="range"
+            is-range
             locale="zh"
             :columns="$screens({ default: 1, lg: 1 })"
           />
@@ -156,8 +157,53 @@ export default {
   data() {
     return {
       date: new Date(),
+      range: {
+        start: new Date(2020, 0, 1),
+        end: new Date(2020, 0, 5),
+      },
       isActive: "14:00",
     };
+  },
+  watch: {
+    range: {
+      deep: true,
+      handler() {
+        console.log(new Date(this.range.start).toISOString());
+        const startDate = moment(this.range.start).format("YYYY-MM-DD");
+        const endDate = moment(this.range.end).format("YYYY-MM-DD");
+        const time = this.isActive;
+        const startDateTime = `${startDate} ${time}`;
+        const endDateTime = `${endDate} ${time}`;
+        const data = {
+          param: this.$route.query.q,
+          start: new Date(startDateTime).toISOString(),
+          end: new Date(endDateTime).toISOString(),
+        };
+        console.log(data);
+        // console.log(new Date(startDateTime).toISOString());
+        // console.log(new Date(endDateTime).toISOString());
+        this.$store
+          .dispatch("auth/checkAccessToken")
+          .then(() => {
+            this.$store.dispatch("shop/getSchedule", data);
+          })
+          .catch(() => {
+            this.$store
+              .dispatch("auth/checkRefreshToken")
+              .then(() => {
+                this.$store.dispatch("shop/getSchedule", data);
+              })
+              .catch(() => {
+                ElNotification({
+                  title: "Error",
+                  message: "Token expired. Please login in again!",
+                  type: "error",
+                });
+                this.$store.dispatch("auth/logout");
+              });
+          });
+      },
+    },
   },
   computed: {
     isUserLoggedIn() {
@@ -168,26 +214,41 @@ export default {
     },
   },
   methods: {
+    dateChanged(day) {
+      console.log(day);
+    },
     postDateTime() {
       const data = {
         account: this.singleItem.account[0],
         shop: this.singleItem.name,
-        schedule: `${moment(this.date).format("YYYY-MM-DD")}T${
-          this.isActive
-        }:00Z`,
+        schedule: `test`,
       };
       console.log(data);
       if (this.isUserLoggedIn) {
         this.$store
           .dispatch("auth/checkAccessToken")
           .then(() => {
-            this.$store.dispatch("shop/book", data);
+            this.$store.dispatch("shop/book", data).then(() => {
+              ElNotification({
+                title: "Success",
+                message: "Shop has been booked",
+                type: "success",
+              });
+              this.$router.replace("/");
+            });
           })
           .catch(() => {
             this.$store
               .dispatch("auth/checkRefreshToken")
               .then(() => {
-                this.$store.dispatch("shop/book", data);
+                this.$store.dispatch("shop/book", data).then(() => {
+                  ElNotification({
+                    title: "Success",
+                    message: "Shop has been booked",
+                    type: "success",
+                  });
+                  this.$router.replace("/");
+                });
               })
               .catch(() => {
                 ElNotification({
@@ -209,26 +270,6 @@ export default {
   },
   created() {
     console.log(this.singleItem);
-    this.$store
-      .dispatch("auth/checkAccessToken")
-      .then(() => {
-        this.$store.dispatch("shop/getSchedule", this.singleItem.id);
-      })
-      .catch(() => {
-        this.$store
-          .dispatch("auth/checkRefreshToken")
-          .then(() => {
-            this.$store.dispatch("shop/getSchedule", this.singleItem.id);
-          })
-          .catch(() => {
-            ElNotification({
-              title: "Error",
-              message: "Token expired. Please login in again!",
-              type: "error",
-            });
-            this.$store.dispatch("auth/logout");
-          });
-      });
   },
 };
 </script>

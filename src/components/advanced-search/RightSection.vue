@@ -54,7 +54,7 @@ export default {
           this.$store
             .dispatch("search/searchSingleShop", { slug: slug })
             .then(() => {
-              this.$router.push("/shopping-cart");
+              this.$router.push({ path: "/shop", query: { q: slug } });
             });
         })
         .catch(() => {
@@ -64,7 +64,7 @@ export default {
               this.$store
                 .dispatch("search/searchSingleShop", { slug: slug })
                 .then(() => {
-                  this.$router.push("/shopping-cart");
+                  this.$router.push({ path: "/shop", query: { q: slug } });
                 });
             })
             .catch(() => {

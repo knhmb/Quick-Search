@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { ElNotification } from "element-plus";
+// import { ElNotification } from "element-plus";
 
 import FirstTab from "../components/coupon/FirstTab.vue";
 import SecondTab from "../components/coupon/SecondTab.vue";
@@ -44,26 +44,26 @@ export default {
     },
   },
   created() {
-    this.$store
-      .dispatch("auth/checkAccessToken")
-      .then(() => {
-        this.$store.dispatch("profile/getComments");
-      })
-      .catch(() => {
-        this.$store
-          .dispatch("auth/checkRefreshToken")
-          .then(() => {
-            this.$store.dispatch("profile/getComments");
-          })
-          .catch(() => {
-            ElNotification({
-              title: "Error",
-              message: "Token Expired. Please login again",
-              type: "error",
-            });
-            this.$store.dispatch("auth/logout");
-          });
-      });
+    //   this.$store
+    //     .dispatch("auth/checkAccessToken")
+    //     .then(() => {
+    //       this.$store.dispatch("profile/getComments");
+    //     })
+    //     .catch(() => {
+    //       this.$store
+    //         .dispatch("auth/checkRefreshToken")
+    //         .then(() => {
+    //           this.$store.dispatch("profile/getComments");
+    //         })
+    //         .catch(() => {
+    //           ElNotification({
+    //             title: "Error",
+    //             message: "Token Expired. Please login again",
+    //             type: "error",
+    //           });
+    //           this.$store.dispatch("auth/logout");
+    //         });
+    //     });
   },
 };
 </script>
