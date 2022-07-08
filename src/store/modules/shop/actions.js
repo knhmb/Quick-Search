@@ -47,6 +47,17 @@ export default {
     });
     console.log(response);
   },
+  async getComments(context) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get(`/api/v1/accounts/comments`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_COMMENTS", response.data.items);
+  },
   // async getShopPlans() {
   //   const userToken = sessionStorage.getItem("accessToken");
 

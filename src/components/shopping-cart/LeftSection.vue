@@ -112,6 +112,9 @@ export default {
       return time;
     },
   },
+  created() {
+    console.log(this.singleItem);
+  },
 };
 </script>
 

@@ -158,8 +158,8 @@ export default {
     return {
       date: new Date(),
       range: {
-        start: new Date(2020, 0, 1),
-        end: new Date(2020, 0, 5),
+        start: "",
+        end: "",
       },
       isActive: "14:00",
     };

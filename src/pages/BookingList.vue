@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
 import Card from "../components/booking-list/Card.vue";
 import SecondTab from "../components/booking-list/SecondTab.vue";
 
@@ -43,7 +44,26 @@ export default {
   },
   created() {
     console.log(this.currentUserDetails);
-    this.$store.dispatch("profile/getBookings", this.currentUserDetails.id);
+    this.$store
+      .dispatch("auth/checkAccessToken")
+      .then(() => {
+        this.$store.dispatch("profile/getBookings");
+      })
+      .catch(() => {
+        this.$store
+          .dispatch("auth/checkRefreshToken")
+          .then(() => {
+            this.$store.dispatch("profile/getBookings");
+          })
+          .catch(() => {
+            ElNotification({
+              title: "Error",
+              message: "Token expired. Please login again!",
+              type: "error",
+            });
+            this.$store.dispatch("auth/logout");
+          });
+      });
   },
 };
 </script>

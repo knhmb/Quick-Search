@@ -44,26 +44,7 @@ export default {
     },
   },
   created() {
-    //   this.$store
-    //     .dispatch("auth/checkAccessToken")
-    //     .then(() => {
-    //       this.$store.dispatch("profile/getComments");
-    //     })
-    //     .catch(() => {
-    //       this.$store
-    //         .dispatch("auth/checkRefreshToken")
-    //         .then(() => {
-    //           this.$store.dispatch("profile/getComments");
-    //         })
-    //         .catch(() => {
-    //           ElNotification({
-    //             title: "Error",
-    //             message: "Token Expired. Please login again",
-    //             type: "error",
-    //           });
-    //           this.$store.dispatch("auth/logout");
-    //         });
-    //     });
+   
   },
 };
 </script>

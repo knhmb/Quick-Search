@@ -1,8 +1,8 @@
 <template>
   <div class="booking-list-card">
     <el-row>
-      <el-col v-for="item in 9" :key="item">
-        <div class="card">
+      <el-col v-for="item in bookings" :key="item.id">
+        <div @click="openDialog(item.id)" class="card">
           <el-row :gutter="15">
             <el-col :sm="24" :md="8">
               <img src="../../assets/shop-sample01@2x.jpg" alt="" />
@@ -12,19 +12,24 @@
                 <small> 已確認 </small>
               </div>
               <p>
-                活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱
+                {{ item.shop }}
               </p>
+              <!-- <p>
+                活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱
+              </p> -->
               <div class="info-box">
                 <p class="faded">預約人數</p>
                 <p>2人</p>
               </div>
               <div class="info-box">
                 <p class="faded">預約日期</p>
-                <p>2022-10-10</p>
+                <p>{{ filterDate(item.schedule) }}</p>
+                <!-- <p>2022-10-10</p> -->
               </div>
               <div class="info-box">
                 <p class="faded">預約時間</p>
-                <p>上午11:30</p>
+                <p>上午{{ filterTime(item.schedule) }}</p>
+                <!-- <p>上午11:30</p> -->
               </div>
             </el-col>
           </el-row>
@@ -43,8 +48,75 @@
       :total="80"
       pager-count="8"
     />
+    <Dialog
+      :dialog-visible="dialogVisible"
+      @closedDialog="dialogVisible = $event"
+    />
   </div>
 </template>
+
+<script>
+import { ElNotification } from "element-plus";
+import moment from "moment";
+import Dialog from "./Dialog.vue";
+
+export default {
+  components: {
+    Dialog,
+  },
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
+  computed: {
+    bookings() {
+      return this.$store.getters["profile/bookings"];
+    },
+  },
+  methods: {
+    filterDate(date) {
+      const newDate = new Date(date);
+      const finalDate = moment(newDate).format("YYYY-MM-DD");
+      return finalDate;
+    },
+    filterTime(time) {
+      const newTime = new Date(time);
+      const finalTime = moment(newTime).format("LT");
+      return finalTime;
+    },
+    openDialog(id) {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store.dispatch("profile/getSingleBooking", id).then(() => {
+            this.dialogVisible = true;
+          });
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store.dispatch("profile/getSingleBooking", id).then(() => {
+                this.dialogVisible = true;
+              });
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: "Token expired. Please login again!",
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+            });
+        });
+    },
+  },
+  created() {
+    console.log(this.bookings);
+  },
+};
+</script>
 
 <style scoped>
 .booking-list-card {
@@ -58,6 +130,7 @@
   padding: 1rem 0.5rem;
   position: relative;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .booking-list-card img.arrow-right {
@@ -110,7 +183,8 @@
   border-radius: 4px;
   display: inline-block;
   padding: 0.5rem;
-  width: 6rem;
+  width: 6.23rem;
+  /* width: 6rem; */
   margin-bottom: 1rem;
 }
 
