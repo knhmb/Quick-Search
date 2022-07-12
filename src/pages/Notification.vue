@@ -77,6 +77,35 @@
   </section>
 </template>
 
+<!-- <script>
+import { ElNotification } from "element-plus";
+
+export default {
+  created() {
+    this.$store
+      .dispatch("auth/checkAccessToken")
+      .then(() => {
+        this.$store.dispatch("profile/getComments");
+      })
+      .catch(() => {
+        this.$store
+          .dispatch("auth/checkRefreshToken")
+          .then(() => {
+            this.$store.dispatch("profile/getComments");
+          })
+          .catch(() => {
+            ElNotification({
+              title: "Error",
+              message: "Token expired. Please login again!",
+              type: "error",
+            });
+            this.$store.dispatch("auth/logout");
+          });
+      });
+  },
+};
+</script> -->
+
 <style scoped>
 .notification .el-col {
   margin-bottom: 1rem;

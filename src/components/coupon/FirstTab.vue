@@ -1,7 +1,8 @@
 <template>
   <div class="first-tab">
     <el-row :gutter="10">
-      <el-col v-for="item in 12" :key="item" :sm="12" :md="8">
+      <!-- <el-col v-for="item in 12" :key="item" :sm="12" :md="8"> -->
+      <el-col v-for="promotion in promotions" :key="promotion" :sm="12" :md="8">
         <div class="card">
           <div class="header">
             <h5>折扣優惠</h5>
@@ -28,6 +29,16 @@
     />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    promotions() {
+      return this.$store.getters["profile/promotions"];
+    },
+  },
+};
+</script>
 
 
 <style scoped>

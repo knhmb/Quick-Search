@@ -71,6 +71,7 @@ export default {
       this.review = option;
     },
   },
+
   // computed: {
   //   isLoggedIn() {
   //     return this.$store.getters['auth/isLoggedIn']

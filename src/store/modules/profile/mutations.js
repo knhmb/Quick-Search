@@ -10,4 +10,7 @@ export default {
   SET_SINGLE_BOOKING(state, payload) {
     state.singleBooking = payload;
   },
+  SET_PROMOTIONS(state, payload) {
+    state.promotions = payload;
+  },
 };

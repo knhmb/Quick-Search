@@ -49,4 +49,25 @@ export default {
     console.log(response);
     context.commit("SET_SINGLE_BOOKING", response.data.item);
   },
+  async getPromotions(context) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get("/api/v1/shops/promotions", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_PROMOTIONS", response.data.items);
+  },
+  async getComments() {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get("/api/v1/accounts/comments", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+  },
 };

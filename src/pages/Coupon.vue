@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
 // import { ElNotification } from "element-plus";
 
 import FirstTab from "../components/coupon/FirstTab.vue";
@@ -44,7 +45,26 @@ export default {
     },
   },
   created() {
-   
+    this.$store
+      .dispatch("auth/checkAccessToken")
+      .then(() => {
+        this.$store.dispatch("profile/getPromotions");
+      })
+      .catch(() => {
+        this.$store
+          .dispatch("auth/checkRefreshToken")
+          .then(() => {
+            this.$store.dispatch("profile/getPromotions");
+          })
+          .catch(() => {
+            ElNotification({
+              title: "Error",
+              message: "Token expired. Please login again!",
+              type: "error",
+            });
+            this.$store.dispatch("auth/logout");
+          });
+      });
   },
 };
 </script>

@@ -5,4 +5,7 @@ export default {
   singleBooking(state) {
     return state.singleBooking;
   },
+  promotions(state) {
+    return state.promotions;
+  },
 };
