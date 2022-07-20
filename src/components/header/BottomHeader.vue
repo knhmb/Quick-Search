@@ -3,7 +3,7 @@
     <base-container>
       <el-menu
         unique-opened
-        menu-trigger="click"
+        menu-trigger="hover"
         class="el-menu-demo"
         mode="horizontal"
         :ellipsis="false"

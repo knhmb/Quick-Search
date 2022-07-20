@@ -12,9 +12,13 @@
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>Action 1</el-dropdown-item>
-              <el-dropdown-item>Action 2</el-dropdown-item>
-              <el-dropdown-item>Action 3</el-dropdown-item>
+              <el-dropdown-item
+                v-for="language in languages"
+                :key="language.id"
+                >{{ language.name }}</el-dropdown-item
+              >
+              <!-- <el-dropdown-item>Action 2</el-dropdown-item>
+              <el-dropdown-item>Action 3</el-dropdown-item> -->
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -30,7 +34,9 @@
             src="../../assets/header-member-login@2x.png"
             alt=""
           />
-          <span v-if="!isLoggedIn" @click="openDialog">會員登入/註冊</span>
+          <span v-if="!isLoggedIn" @click="openDialog"
+            >會員登入/<span @click.stop="openRegisterDialog">註冊</span>
+          </span>
           <div class="user-logged-in">
             <img
               @click="isUserDropdown = !isUserDropdown"
@@ -120,15 +126,27 @@ export default {
     isLoggedIn() {
       return this.$store.getters["auth/isLoggedIn"];
     },
+    languages() {
+      return this.$store.getters["dashboard/languages"];
+    },
   },
   methods: {
     openDialog() {
+      this.$store.commit("changeFormTitle", "登入");
+
       this.dialogVisible = true;
       this.isCollapse = false;
       document.querySelector("body").style.overflowY = "hidden";
 
       // this.$refs.mySidenav.style.width = "0";
       // this.$refs.mySidenav.style.display = "none";
+    },
+    openRegisterDialog() {
+      this.$store.commit("changeFormTitle", "新會員註冊");
+      this.dialogVisible = true;
+      this.isCollapse = false;
+      document.querySelector("body").style.overflowY = "hidden";
+      console.log("register");
     },
     openSideNav() {
       this.isCollapse = !this.isCollapse;
