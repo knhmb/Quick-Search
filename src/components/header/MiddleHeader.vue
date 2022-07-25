@@ -5,9 +5,14 @@
         <el-col :sm="24" :md="4">
           <img
             @click="$router.push('/')"
-            src="../../assets/brand-logo@2x.png"
+            src="../../assets/logo-dark.png"
             alt=""
           />
+          <!-- <img
+            @click="$router.push('/')"
+            src="../../assets/brand-logo@2x.png"
+            alt=""
+          /> -->
         </el-col>
         <el-col :sm="24" :md="16">
           <el-input
@@ -74,7 +79,7 @@ export default {
 }
 
 .middle-header img {
-  width: 100%;
+  width: 11rem;
   cursor: pointer;
 }
 
@@ -122,6 +127,11 @@ export default {
 @media screen and (max-width: 991px) {
   .middle-header .el-row .el-input .el-input__wrapper {
     margin: 1.5rem 0;
+  }
+
+  .middle-header img {
+    margin: 0 auto;
+    display: block;
   }
 }
 </style>

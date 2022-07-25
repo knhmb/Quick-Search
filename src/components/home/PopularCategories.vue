@@ -1,7 +1,7 @@
 <template>
   <div class="popular-categories">
     <h4>熱門類別</h4>
-    <el-row :gutter="10">
+    <el-row :gutter="20">
       <el-col :sm="6" :md="4">
         <img src="../../assets/main-category01@2x.jpg" alt="" />
         <p>個人護理</p>
@@ -76,8 +76,10 @@
 }
 
 .popular-categories img {
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
+  width: 8rem;
+  height: 8rem;
   object-fit: cover;
   border-radius: 8px;
 }

@@ -13,7 +13,7 @@
         <img src="../../assets/adv-sample03@2x.jpg" alt="" />
       </el-col>
       <el-col class="middle-col" :sm="24" :md="15">
-        <el-row :gutter="10">
+        <el-row :gutter="20">
           <el-col v-for="img in imgs" :key="img" :sm="12" :md="8">
             <div class="card">
               <img :src="img.src" alt="" />
@@ -115,7 +115,7 @@ export default {
   background: #ffffff;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.04);
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .home-main-content .card .content {
