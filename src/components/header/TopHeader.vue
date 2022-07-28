@@ -5,7 +5,7 @@
         <img src="../../assets/header-language.svg" alt="" />
         <el-dropdown>
           <span class="el-dropdown-link">
-            繁體中文
+            {{ $i18n.locale === "en-us" ? "English" : "繁體中文" }}
             <el-icon class="el-icon--right">
               <arrow-down />
             </el-icon>
@@ -13,6 +13,7 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
+                @click="setLocale(language)"
                 v-for="language in languages"
                 :key="language.id"
                 >{{ language.name }}</el-dropdown-item
@@ -26,7 +27,7 @@
       <div class="right-section">
         <div class="vendor-login hidden-xs-only">
           <img src="../../assets/header-vendor-login@2x.png" alt="" />
-          <span>商戶專區</span>
+          <span>{{ $t("merchant_zone") }}</span>
         </div>
         <div class="member-login hidden-xs-only">
           <img
@@ -35,7 +36,9 @@
             alt=""
           />
           <span v-if="!isLoggedIn" @click="openDialog"
-            >會員登入/<span @click.stop="openRegisterDialog">註冊</span>
+            >{{ $t("member_login") }}/<span @click.stop="openRegisterDialog">{{
+              $t("register")
+            }}</span>
           </span>
           <div class="user-logged-in">
             <img
@@ -131,6 +134,9 @@ export default {
     },
   },
   methods: {
+    setLocale(lang) {
+      this.$i18n.locale = lang.slug;
+    },
     openDialog() {
       this.$store.commit("changeFormTitle", "登入");
 

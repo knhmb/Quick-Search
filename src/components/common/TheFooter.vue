@@ -16,26 +16,26 @@
           />
         </el-col>
         <el-col :sm="24" :md="5">
-          <p>認識Quick Search</p>
+          <p>{{ $t("meet_quick_search") }}</p>
           <ul>
-            <li>關於Quick Search</li>
-            <li>聯絡我們</li>
-            <li>常見問題</li>
+            <li>{{ $t("about_quick_search") }}</li>
+            <li>{{ $t("contact_us") }}</li>
+            <li>{{ $t("common_problem") }}</li>
           </ul>
         </el-col>
         <el-col :sm="24" :md="5">
-          <p>加入我們</p>
+          <p>{{ $t("join_us") }}</p>
           <ul>
-            <li>商戶合作</li>
-            <li>商戶註冊</li>
-            <li>商戶登入</li>
+            <li>{{ $t("merchant_cooperation") }}</li>
+            <li>{{ $t("merchant_registration") }}</li>
+            <li>{{ $t("merchant_login") }}</li>
           </ul>
         </el-col>
         <el-col :sm="24" :md="5">
-          <p>網站條款</p>
+          <p>{{ $t("site_terms") }}</p>
           <ul>
-            <li>使用條款</li>
-            <li>私隱條例</li>
+            <li>{{ $t("terms_of_use") }}</li>
+            <li>{{ $t("privacy_policy") }}</li>
           </ul>
         </el-col>
       </el-row>

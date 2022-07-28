@@ -10,7 +10,7 @@
         hide-required-asterisk
       >
         <el-row>
-          <el-col>
+          <!-- <el-col>
             <el-form-item label="現有密碼" prop="oldPassword">
               <el-input
                 type="password"
@@ -18,7 +18,7 @@
                 v-model="ruleForm.oldPassword"
               ></el-input>
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col>
             <el-form-item label="新密碼" prop="newPassword">
               <el-input
@@ -77,18 +77,18 @@ export default {
 
     return {
       ruleForm: {
-        oldPassword: "",
+        // oldPassword: "",
         newPassword: "",
         confirmNewPassword: "",
       },
       rules: {
-        oldPassword: [
-          {
-            required: true,
-            message: "Old password is required!",
-            trigger: "blur",
-          },
-        ],
+        // oldPassword: [
+        //   {
+        //     required: true,
+        //     message: "Old password is required!",
+        //     trigger: "blur",
+        //   },
+        // ],
         newPassword: [
           {
             validator: validatePass,

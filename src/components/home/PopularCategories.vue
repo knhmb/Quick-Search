@@ -1,6 +1,6 @@
 <template>
   <div class="popular-categories">
-    <h4>熱門類別</h4>
+    <h4>{{ $t("popular_categories") }}</h4>
     <el-row :gutter="20">
       <el-col :sm="6" :md="4">
         <img src="../../assets/main-category01@2x.jpg" alt="" />

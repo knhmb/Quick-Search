@@ -17,7 +17,7 @@
         <el-col :sm="24" :md="16">
           <el-input
             v-model="search"
-            placeholder="搜尋店舖名稱、產品、類型"
+            :placeholder="$t('search_store_placeholder')"
             clearable
           >
             <template #suffix>
@@ -30,7 +30,7 @@
         <el-col :sm="24" :md="4">
           <el-button
             ><img src="../../assets/header-advanced-search@2x.png" alt="" />
-            進階搜尋</el-button
+            {{ $t("advanced_search_button") }}</el-button
           >
         </el-col>
       </el-row>

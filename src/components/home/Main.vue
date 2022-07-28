@@ -1,7 +1,7 @@
 <template>
   <div class="home-main-content">
     <base-container>
-      <h4>精選活動</h4>
+      <h4>{{ $t("featured_events") }}</h4>
     </base-container>
     <el-row justify="space-between">
       <el-col :sm="12" :md="4">
