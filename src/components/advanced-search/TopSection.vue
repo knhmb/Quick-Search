@@ -2,10 +2,10 @@
   <div class="top-section">
     <base-container>
       <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item class="first">主頁</el-breadcrumb-item>
-        <el-breadcrumb-item>個人護理</el-breadcrumb-item>
+        <el-breadcrumb-item class="first">{{ $t("home") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("personal_care") }}</el-breadcrumb-item>
       </el-breadcrumb>
-      <h5>個人護理</h5>
+      <h5>{{ $t("personal_care") }}</h5>
       <carousel :breakpoints="breakpoints" :items-to-show="1.5">
         <slide v-for="slide in options" :key="slide">
           <div
@@ -13,7 +13,7 @@
             :class="{ 'is-active': currentOption === slide }"
             class="pill"
           >
-            {{ slide }}
+            {{ $t(slide) }}
           </div>
         </slide>
 
@@ -48,20 +48,20 @@ export default {
         },
         // 1024 and up
         1024: {
-          itemsToShow: 6,
-          snapAlign: "end",
+          itemsToShow: 5.7,
+          snapAlign: "start",
         },
       },
       options: [
-        "全部",
-        "美甲",
-        "美睫",
-        "按摩店",
-        "蒸身",
-        "綉眉",
-        "全部",
-        "美甲",
-        "美睫",
+        "all",
+        "manicure",
+        "eyelashes",
+        "massage_parlor",
+        "steam",
+        "embroidered_eyebrows",
+        // "全部",
+        // "美甲",
+        // "美睫",
       ],
     };
   },

@@ -2,33 +2,33 @@
   <div class="box-card">
     <div class="first-tab">
       <div class="content">
-        <h5>預約服務</h5>
+        <h5>{{ $t("appointment_service") }}</h5>
         <div class="form-section">
-          <label>選擇人數</label>
+          <label>{{ $t("number_of_people") }}</label>
           <el-select placeholder="2位"></el-select>
         </div>
         <div class="form-section">
-          <label>選擇人數</label>
+          <label>{{ $t("select_date") }}</label>
           <v-date-picker
             v-model="range"
             is-range
-            locale="zh"
+            :locale="$i18n.locale"
             :columns="$screens({ default: 1, lg: 1 })"
           />
           <div class="time-picker">
             <base-card>
-              <span>可選日子</span>
+              <span>{{ $t("optional_days") }}</span>
               <div class="box">15</div>
-              <span>已選日子</span>
+              <span>{{ $t("selected_day") }}</span>
               <div class="box active">15</div>
-              <span>預約已滿</span>
+              <span>{{ $t("appointment_full") }}</span>
               <div class="box">15</div>
             </base-card>
           </div>
         </div>
         <div class="form-section">
-          <label>選擇時間</label>
-          <p class="am">上午時段</p>
+          <label>{{ $t("selection_period") }}</label>
+          <p class="am">{{ $t("morning_session") }}</p>
           <el-row :gutter="15">
             <el-col :sm="12" :md="6">
               <div
@@ -67,7 +67,7 @@
               </div>
             </el-col>
           </el-row>
-          <p class="am">上午時段</p>
+          <p class="am">{{ $t("afternoon_session") }}</p>
           <el-row :gutter="15">
             <el-col :sm="12" :md="6">
               <div
@@ -143,7 +143,9 @@
             </el-col>
           </el-row>
         </div>
-        <el-button @click="postDateTime">前往預約</el-button>
+        <el-button @click="postDateTime">{{
+          $t("make_an_appointment_button")
+        }}</el-button>
       </div>
     </div>
   </div>

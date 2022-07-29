@@ -3,11 +3,11 @@
     <base-card>
       <div class="content">
         <div class="single-content">
-          <p class="title">篩選條件</p>
+          <p class="title">{{ $t("filter") }}</p>
           <img src="../../assets/arrowhead-down@2x.png" alt="" />
         </div>
         <div class="single-content">
-          <p>地區</p>
+          <p>{{ $t("area") }}</p>
           <img src="../../assets/chevron-up-black@2x.png" alt="" />
         </div>
         <div class="single-content checkboxes">
@@ -32,14 +32,14 @@
         <div class="single-content checkboxes unhide-img">
           <el-row>
             <el-col :span="12">
-              <p>價格範圍</p>
+              <p>{{ $t("price_range") }}</p>
             </el-col>
             <el-col :span="12">
               <img src="../../assets/chevron-up-black@2x.png" alt="" />
             </el-col>
             <el-col :span="24">
               <div class="slider-content">
-                <p>任何</p>
+                <p>{{ $t("any") }}</p>
                 <el-slider
                   @change="handleChange"
                   range
@@ -52,7 +52,7 @@
         <div class="single-content checkboxes unhide-img">
           <el-row>
             <el-col :span="12">
-              <p>優惠</p>
+              <p>{{ $t("discount") }}</p>
             </el-col>
             <el-col :span="12">
               <img src="../../assets/chevron-up-black@2x.png" alt="" />
@@ -74,7 +74,7 @@
         <div class="single-content checkboxes unhide-img">
           <el-row>
             <el-col :span="12">
-              <p>付款方式</p>
+              <p>{{ $t("payment_method") }}</p>
             </el-col>
             <el-col :span="12">
               <img src="../../assets/chevron-up-black@2x.png" alt="" />

@@ -3,11 +3,11 @@
     <base-card>
       <el-row>
         <el-col :sm="24" :md="12">
-          <p>找到 <span>924</span> 個搜尋結果</p>
+          <p>{{ $t("turn_up") }} <span>924</span> {{ $t("search_results") }}</p>
         </el-col>
         <el-col class="input-select" :sm="24" :md="12">
-          <span>排序方式 :</span>
-          <el-select placeholder="綜合數多至少">
+          <span>{{ $t("sort_by") }} :</span>
+          <el-select :placeholder="$t('sort_by_placeholder')">
             <el-option />
           </el-select>
         </el-col>

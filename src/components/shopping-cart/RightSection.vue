@@ -2,13 +2,13 @@
   <div class="right-section">
     <!-- <div class="box-card"> -->
     <el-tabs v-model="activeName" class="demo-tabs">
-      <el-tab-pane label="預約" name="first">
+      <el-tab-pane :label="$t('reserve')" name="first">
         <first-tab></first-tab>
       </el-tab-pane>
-      <el-tab-pane label="評價" name="second">
+      <el-tab-pane :label="$t('evaluation')" name="second">
         <second-tab></second-tab>
       </el-tab-pane>
-      <el-tab-pane label="相片" name="third">
+      <el-tab-pane :label="$t('photo')" name="third">
         <third-tab></third-tab>
       </el-tab-pane>
     </el-tabs>

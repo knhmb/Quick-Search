@@ -3,11 +3,11 @@
     <template v-for="category in categories" :key="category">
       <el-row :gutter="10">
         <el-col :sm="24" :md="12">
-          <h5>{{ category }}</h5>
+          <h5>{{ $t(category) }}</h5>
           <div class="box">924</div>
         </el-col>
         <el-col :sm="24" :md="12">
-          <p>更多</p>
+          <p>{{ $t("more") }}</p>
           <img src="../../assets/more@2x.png" alt="" />
         </el-col>
         <el-col :sm="12" :md="6">
@@ -72,13 +72,13 @@ export default {
   data() {
     return {
       categories: [
-        "個人護理",
-        "藥妝",
-        "化妝",
-        "保健食品",
-        "興趣",
-        "醫療",
-        "媽媽",
+        "personal_care",
+        "cosmeceutical",
+        "make_up",
+        "healthy_food",
+        "interest",
+        "medical",
+        "mother",
       ],
     };
   },

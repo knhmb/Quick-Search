@@ -3,9 +3,15 @@
     <div class="main-section">
       <base-container>
         <el-breadcrumb :separator-icon="ArrowRight">
-          <el-breadcrumb-item class="first">主頁</el-breadcrumb-item>
-          <el-breadcrumb-item class="first">個人護理</el-breadcrumb-item>
-          <el-breadcrumb-item class="first">髮型店</el-breadcrumb-item>
+          <el-breadcrumb-item class="first">{{
+            $t("home")
+          }}</el-breadcrumb-item>
+          <el-breadcrumb-item class="first">{{
+            $t("personal_care")
+          }}</el-breadcrumb-item>
+          <el-breadcrumb-item class="first">{{
+            $t("hair_salon")
+          }}</el-breadcrumb-item>
           <el-breadcrumb-item>{{ singleItem.name }}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row :gutter="15">
@@ -20,7 +26,7 @@
               src="../../assets/arrowhead-down@2x.png"
               alt=""
             />
-            <p>旺角 ． $120-320 ． 髮型店</p>
+            <p>{{ $t("mong_kok") }} ． $120-320 ． {{ $t("hair_salon") }}</p>
           </el-col>
           <el-col style="text-align: end" :sm="12" :md="7">
             <img

@@ -2,21 +2,21 @@
   <div class="left-section">
     <base-card>
       <div class="single-text">
-        <p class="title">店舖簡介</p>
+        <p class="title">{{ $t("store_introduction") }}</p>
         <p>
           店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介
         </p>
       </div>
       <div class="single-text">
-        <p class="title">電話號碼</p>
+        <p class="title">{{ $t("phone_number") }}</p>
         <p>9876-5432</p>
       </div>
       <div class="single-text">
-        <p class="title">電郵地址</p>
+        <p class="title">{{ $t("email_address") }}</p>
         <p>shopname@shop.com</p>
       </div>
       <div class="single-text">
-        <p class="title">店舖地址</p>
+        <p class="title">{{ $t("shop_address") }}</p>
         <el-row :gutter="10">
           <el-col :span="16">
             <h6>旺角</h6>
@@ -30,23 +30,23 @@
       <div class="single-text">
         <el-row :gutter="10">
           <el-col :span="12">
-            <p class="title">營業時間</p>
+            <p class="title">{{ $t("business_hours") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
             <div class="button-dot">
               <div class="dot"></div>
-              <p>營業中</p>
+              <p>{{ $t("in_operation") }}</p>
             </div>
           </el-col>
           <el-col :span="12">
-            <p class="time-text">今日營業</p>
+            <p class="time-text">{{ $t("open_today") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">12:30 - 22:00</p>
           </el-col>
           <!-- <template v-for="item in singleItem.openingHours" :key="item"> -->
           <el-col :span="12">
-            <p class="time-text">星期一至日</p>
+            <p class="time-text">{{ $t("monday_to_sunday") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">
@@ -64,7 +64,7 @@
               <p class="time">12:30 - 22:00</p>
             </el-col> -->
           <el-col :span="12">
-            <p class="time-text">公眾假期</p>
+            <p class="time-text">{{ $t("public_holiday") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">
@@ -74,7 +74,7 @@
             <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>
           <el-col :span="12">
-            <p class="time-text">公眾假期前夕</p>
+            <p class="time-text">{{ $t("eve_of_public_holiday") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">
@@ -97,6 +97,20 @@ export default {
   computed: {
     singleItem() {
       return this.$store.getters["search/singleItem"];
+    },
+  },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        if (this.$i18n.locale === "en-us") {
+          const el = document.querySelector(".button-dot");
+          el.style.width = "5.3rem";
+        } else {
+          const el = document.querySelector(".button-dot");
+          el.style.width = "4rem";
+        }
+      },
     },
   },
   methods: {
