@@ -1,37 +1,37 @@
 <template>
   <div class="review">
     <base-card>
-      <h4>滿意度評分</h4>
+      <h4>{{ $t("satisfaction_score") }}</h4>
       <el-row>
         <el-col :span="8">
-          <p>細項評分</p>
+          <p>{{ $t("item_scoring") }}</p>
         </el-col>
         <el-col :span="16">
           <div class="faded">
-            <p class="grey">最低分</p>
-            <p class="grey">最高分</p>
+            <p class="grey">{{ $t("lowest_score") }}</p>
+            <p class="grey">{{ $t("highest_score") }}</p>
           </div>
         </el-col>
         <el-col :span="8">
-          <p>服務</p>
+          <p>{{ $t("serve") }}</p>
         </el-col>
         <el-col :span="16">
           <el-rate @change="handleChange" v-model="rateServe"></el-rate>
         </el-col>
         <el-col :span="8">
-          <p>環境</p>
+          <p>{{ $t("surroundings") }}</p>
         </el-col>
         <el-col :span="16">
           <el-rate @change="handleChange" v-model="rateSurroundings"></el-rate>
         </el-col>
         <el-col :span="8">
-          <p>地區</p>
+          <p>{{ $t("area") }}</p>
         </el-col>
         <el-col :span="16">
           <el-rate @change="handleChange" v-model="rateArea"></el-rate>
         </el-col>
         <el-col :span="8">
-          <p>性價比</p>
+          <p>{{ $t("cost_effective") }}</p>
         </el-col>
         <el-col :span="16">
           <el-rate @change="handleChange" v-model="rateCost"></el-rate>
@@ -39,7 +39,7 @@
       </el-row>
       <el-row>
         <el-col>
-          <h5>整體評分</h5>
+          <h5>{{ $t("overall_rating") }}</h5>
         </el-col>
         <el-col :span="8">
           <div class="review-content">
@@ -50,7 +50,7 @@
               :src="ratingExcellent"
               alt=""
             />
-            <p class="review-comment">喜歡</p>
+            <p class="review-comment">{{ $t("like") }}</p>
           </div>
         </el-col>
         <el-col :span="8">
@@ -62,7 +62,7 @@
               :src="ratingGood"
               alt=""
             />
-            <p class="review-comment">喜歡</p>
+            <p class="review-comment">{{ $t("ok") }}</p>
           </div>
         </el-col>
         <el-col :span="8">
@@ -74,7 +74,7 @@
               :src="ratingDislike"
               alt=""
             />
-            <p class="review-comment">喜歡</p>
+            <p class="review-comment">{{ $t("do_not_like") }}</p>
           </div>
         </el-col>
       </el-row>

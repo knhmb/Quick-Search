@@ -4,14 +4,18 @@
       <el-row>
         <el-col :sm="24" :md="24" :lg="17">
           <p>
-            按下「提交評價」，你確認遵守
-            <span>〈商品說明條例〉</span
-            >並同意<span>使用條款</span>及<span>私隱條例</span>。
+            {{ $t("agreement_note") }}
+            <span>{{ $t("trade") }}</span> {{ $t("and_agree") }}
+            <span>{{ $t("terms_of_use") }}</span> {{ $t("and") }}
+            <span>{{ $t("privacy_policy") }}</span
+            >{{ $i18n.locale === "en-us" ? "." : "。" }}
           </p>
         </el-col>
         <el-col style="text-align: end" :sm="24" :md="24" :lg="7">
-          <el-button class="cancel">取消</el-button>
-          <el-button class="submit" @click="addReview">發表評價</el-button>
+          <el-button class="cancel">{{ $t("cancel_button") }}</el-button>
+          <el-button class="submit" @click="addReview">{{
+            $t("leave_review_button")
+          }}</el-button>
         </el-col>
       </el-row>
     </base-card>

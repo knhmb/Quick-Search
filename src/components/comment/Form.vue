@@ -1,20 +1,20 @@
 <template>
   <div class="form">
     <base-card>
-      <h5>填寫評價</h5>
+      <h5>{{ $t("fill_review") }}</h5>
       <el-row>
         <el-col :sm="12" :md="5">
-          <label>評價標題</label>
+          <label>{{ $t("review_title") }}</label>
         </el-col>
         <el-col :sm="24" :md="19">
           <el-input
             @input="handleChange"
             v-model="title"
-            placeholder="請輸入標題"
+            :placeholder="$t('review_title_placeholder')"
           ></el-input>
         </el-col>
         <el-col :sm="12" :md="5">
-          <label>評價內容</label>
+          <label>{{ $t("comment_content") }}</label>
         </el-col>
         <el-col :sm="24" :md="19">
           <el-input
@@ -22,11 +22,11 @@
             v-model="description"
             type="textarea"
             rows="12"
-            placeholder="請輸入內容"
+            :placeholder="$t('comment_content_placeholder')"
           ></el-input>
         </el-col>
         <el-col :sm="12" :md="5">
-          <label>上傳相片</label>
+          <label>{{ $t("upload_photo") }}</label>
         </el-col>
         <el-col :sm="24" :md="19">
           <el-upload action="#" list-type="picture-card" :auto-upload="false">

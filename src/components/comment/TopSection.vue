@@ -2,7 +2,7 @@
   <div class="top-section">
     <base-container>
       <base-card>
-        <h4>店鋪資訊</h4>
+        <h4>{{ $t("store_information") }}</h4>
         <el-row :gutter="15">
           <el-col :sm="12" :md="5">
             <img src="../../assets/avatar.png" alt="" />
@@ -10,15 +10,15 @@
           <el-col :sm="24" :md="19">
             <h5>Shop Name Shop Name Shop Name</h5>
             <div class="info">
-              <p>電話號碼</p>
+              <p>{{ $t("phone_number") }}</p>
               <span>9876-5432</span>
             </div>
             <div class="info">
-              <p>電郵地址</p>
+              <p>{{ $t("email_address") }}</p>
               <span>shopname@shop.com</span>
             </div>
             <div class="info">
-              <p>店鋪地址</p>
+              <p>{{ $t("shop_address") }}</p>
               <span>旺角</span>
               <span>店舖地址店舖地址店舖地址店舖地址店舖地址店舖地址</span>
             </div>
