@@ -6,7 +6,7 @@
           <el-form-item prop="username">
             <el-input
               v-model="ruleForm.username"
-              placeholder="帳號名稱"
+              :placeholder="$t('account_name')"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -14,13 +14,16 @@
           <el-form-item prop="email">
             <el-input
               v-model="ruleForm.email"
-              placeholder="電郵地址"
+              :placeholder="$t('email_address')"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col>
           <el-form-item prop="name">
-            <el-input v-model="ruleForm.name" placeholder="真實姓名"></el-input>
+            <el-input
+              v-model="ruleForm.name"
+              :placeholder="$t('actual_name')"
+            ></el-input>
           </el-form-item>
         </el-col>
         <el-col>
@@ -28,7 +31,7 @@
             <el-input
               type="password"
               show-password
-              placeholder="密碼"
+              :placeholder="$t('password')"
               v-model="ruleForm.password"
             ></el-input>
           </el-form-item>
@@ -38,18 +41,20 @@
             <el-input
               type="password"
               show-password
-              placeholder="再次輸入密碼"
+              :placeholder="$t('confirm_new_password')"
               v-model="ruleForm.confirmPassword"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col>
-          <el-button @click="signup">註冊</el-button>
+          <el-button @click="signup">{{ $t("register") }}</el-button>
         </el-col>
         <el-col>
           <p class="policy">
-            註冊即代表您承認並同意本公司所有 <span>私隱政策</span> 及
-            <span>條款和細則</span>
+            {{ $t("privacy_policy_note") }}
+            <span>{{ $t("privacy_policy") }}</span>
+            {{ $t("and") }}
+            <span>{{ $t("terms_of_use") }}</span>
           </p>
         </el-col>
       </el-row>

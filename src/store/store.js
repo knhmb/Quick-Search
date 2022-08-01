@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import i18n from "../i18n";
 
 import actions from "./actions";
 import mutations from "./mutations";
@@ -18,7 +19,8 @@ const store = createStore({
   ],
   state() {
     return {
-      formTitle: "登入",
+      formTitle: i18n.global.t("login"),
+      // formTitle: "登入",
     };
   },
   getters,

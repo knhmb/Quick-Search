@@ -41,6 +41,9 @@ export default {
     currentUserDetails() {
       return this.$store.getters["auth/currentUserDetails"];
     },
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
   },
   methods: {
     addReview() {
@@ -53,10 +56,11 @@ export default {
         return;
       }
       const data = {
-        account: this.currentUserDetails.username,
-        shop: "test",
-        content: "The test",
+        account: this.currentUserDetails.id,
+        shop: this.singleItem.slug,
+        content: this.description,
       };
+      console.log(data);
       this.$store.dispatch("shop/postReview", data).then(() => {
         ElNotification({
           title: "success",
@@ -65,14 +69,14 @@ export default {
         });
         this.$router.replace("/");
       });
-      //   console.log(this.title, this.description);
-      //   console.log(
-      //     this.rateServe,
-      //     this.rateSurroundings,
-      //     this.rateArea,
-      //     this.rateCost
-      //   );
-      //   console.log(this.review);
+      console.log(this.title, this.description);
+      console.log(
+        this.rateServe,
+        this.rateSurroundings,
+        this.rateArea,
+        this.rateCost
+      );
+      console.log(this.review);
     },
   },
 };

@@ -1,5 +1,4 @@
 const zh = {
-  login: "China",
   merchant_zone: "商戶專區",
   member_login: "會員登入",
   register: "註冊",
@@ -120,6 +119,17 @@ const zh = {
   view_offers: "查看優惠",
   remove_favorite_button: "移除收藏",
   put_away: "收起",
+  login: "登入",
+  login_with_third_party: "以第三方帳號登入",
+  login_with_account: "或使用帳號登入",
+  password: "密碼",
+  remember_me: "記住我",
+  forgot_password: "忘記密碼?",
+  no_account: "還沒有帳號？現在註冊！",
+  new_member_registration: "新會員註冊",
+  sign_up_with_email_or_third_party: "以電郵地址或第三方帳號註冊",
+  already_have_an_account: "已有 Quick Search 帳號？",
+  privacy_policy_note: "註冊即代表您承認並同意本公司所有",
 };
 
 export default zh;

@@ -25,11 +25,12 @@
         </el-col>
         <el-col :sm="12" :md="8">
           <el-form-item :label="$t('date_of_birth')">
-            <el-input
+            <el-date-picker
+              type="date"
               v-model="ruleForm.dob"
               :placeholder="$t('date_of_birth_placeholder')"
               :suffix-icon="Calendar"
-            ></el-input>
+            ></el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :sm="12" :md="8">
@@ -45,7 +46,10 @@
             <el-select
               :placeholder="$t('gender_placeholder')"
               v-model="ruleForm.gender"
-            ></el-select>
+            >
+              <el-option value="male" label="Male"></el-option>
+              <el-option value="female" label="Female"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col>
@@ -95,7 +99,11 @@ export default {
           const data = {
             id: this.currentUserDetails.id,
             username: this.ruleForm.username,
+            birth: this.ruleForm.dob ? this.ruleForm.dob.toISOString() : "",
+            gender: this.ruleForm.gender,
+            phoneno: this.ruleForm.phoneNumber,
           };
+          console.log(data);
           this.$store
             .dispatch("auth/checkAccessToken")
             .then(() => {
@@ -136,14 +144,6 @@ export default {
                   this.$store.dispatch("auth/logout");
                 });
             });
-          // this.$store.dispatch("profile/updateUser", data).then(() => {
-          //   ElNotification({
-          //     title: 'Success',
-          //     message: 'Data has been updated!',
-          //     type: 'success'
-          //   })
-          //   this.$store.dispatch('profile/getUser', this.currentUserDetails.id)
-          // })
         }
       });
     },

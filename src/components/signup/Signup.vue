@@ -2,7 +2,7 @@
   <section class="register">
     <div v-if="!isEmail">
       <div class="register-content">
-        <p>以電郵地址或第三方帳號註冊</p>
+        <p>{{ $t("sign_up_with_email_or_third_party") }}</p>
         <el-row justify="space-evenly">
           <el-col :span="2">
             <img
@@ -28,8 +28,9 @@
     </div>
     <Form @dialogClosed="$emit('dialogClosed', false)" v-else></Form>
     <div class="have-account">
-      <p>已有 <span>Quick Search</span> 帳號？</p>
-      <el-button @click="login">登入</el-button>
+      <!-- <p>已有 <span>Quick Search</span> 帳號？</p> -->
+      <p>{{ $t("already_have_an_account") }}</p>
+      <el-button @click="login">{{ $t("login") }}</el-button>
     </div>
   </section>
 </template>

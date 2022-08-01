@@ -6,7 +6,7 @@
           <el-form-item prop="username">
             <el-input
               v-model="ruleForm.username"
-              placeholder="帳號名稱"
+              :placeholder="$t('account_name')"
             ></el-input>
           </el-form-item>
         </el-col>
@@ -16,24 +16,26 @@
               v-model="ruleForm.password"
               type="password"
               show-password
-              placeholder="密碼"
+              :placeholder="$t('password')"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-checkbox label="記住我"></el-checkbox>
+          <el-checkbox :label="$t('remember_me')"></el-checkbox>
         </el-col>
         <el-col class="forgot-password-section" :span="12">
-          <p @click="forgotPassword" class="forgot-password">忘記密碼?</p>
+          <p @click="forgotPassword" class="forgot-password">
+            {{ $t("forgot_password") }}
+          </p>
         </el-col>
         <el-col>
-          <el-button @click="login">登入</el-button>
+          <el-button @click="login">{{ $t("login") }}</el-button>
         </el-col>
       </el-row>
     </el-form>
     <div class="have-account">
-      <p>還沒有帳號？現在註冊！</p>
-      <el-button @click="register">註冊</el-button>
+      <p>{{ $t("no_account") }}</p>
+      <el-button @click="register">{{ $t("register") }}</el-button>
     </div>
   </div>
 </template>

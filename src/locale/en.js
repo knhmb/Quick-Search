@@ -120,6 +120,18 @@ const en = {
   view_offers: "View Offers",
   remove_favorite_button: "Remove favorite",
   put_away: "Put away",
+  login_with_third_party: "Sign in with third party account",
+  login_with_account: "Or sign in with an account",
+  password: "Password",
+  remember_me: "Remember me",
+  forgot_password: "Forgot password ?",
+  no_account: "No account yet? Register now!",
+  new_member_registration: "New member regsitration",
+  sign_up_with_email_or_third_party:
+    "Sign up with an email address or third-party account",
+  already_have_an_account: "Already have a Quick Search account?",
+  privacy_policy_note:
+    "By registering, you acknowledge and agree to all of our company's",
 };
 
 export default en;

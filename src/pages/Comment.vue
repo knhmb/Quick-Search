@@ -55,6 +55,11 @@ export default {
       review: "",
     };
   },
+  computed: {
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
+  },
   methods: {
     setValues({ title, description }) {
       this.title = title;
@@ -71,12 +76,9 @@ export default {
       this.review = option;
     },
   },
-
-  // computed: {
-  //   isLoggedIn() {
-  //     return this.$store.getters['auth/isLoggedIn']
-  //   }
-  // },
+  created() {
+    console.log(this.singleItem);
+  },
 };
 </script>
 

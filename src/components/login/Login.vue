@@ -1,7 +1,7 @@
 <template>
   <section class="login">
     <div class="login-content">
-      <p>以第三方帳號登入</p>
+      <p>{{ $t("login_with_third_party") }}</p>
       <el-row justify="space-evenly">
         <el-col :span="2">
           <img src="../../assets/signup-facebook@2x.png" alt="" />
@@ -16,7 +16,9 @@
           <img src="../../assets/signup-wechat@2x.png" alt="" />
         </el-col>
       </el-row>
-      <el-divider content-position="center">或使用帳號登入</el-divider>
+      <el-divider content-position="center">{{
+        $t("login_with_account")
+      }}</el-divider>
     </div>
     <Form @closedDialog="$emit('closedDialog', false)" />
   </section>

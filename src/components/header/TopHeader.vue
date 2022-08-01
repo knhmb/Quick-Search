@@ -83,11 +83,11 @@
     >
       <Login
         @closedDialog="dialogVisible = $event"
-        v-if="formTitle === '登入'"
+        v-if="formTitle === $t('login')"
       />
       <Signup
         @dialogClosed="dialogVisible = $event"
-        v-if="formTitle === `新會員註冊`"
+        v-if="formTitle === $t('new_member_registration')"
       />
       <forgot-password-form
         v-if="formTitle === '忘記密碼'"
@@ -138,7 +138,8 @@ export default {
       this.$i18n.locale = lang.slug;
     },
     openDialog() {
-      this.$store.commit("changeFormTitle", "登入");
+      this.$store.commit("changeFormTitle", this.$t("login"));
+      // this.$store.commit("changeFormTitle", "登入");
 
       this.dialogVisible = true;
       this.isCollapse = false;
@@ -148,7 +149,8 @@ export default {
       // this.$refs.mySidenav.style.display = "none";
     },
     openRegisterDialog() {
-      this.$store.commit("changeFormTitle", "新會員註冊");
+      this.$store.commit("changeFormTitle", this.$t("new_member_registration"));
+      // this.$store.commit("changeFormTitle", "新會員註冊");
       this.dialogVisible = true;
       this.isCollapse = false;
       document.querySelector("body").style.overflowY = "hidden";
@@ -163,7 +165,8 @@ export default {
       document.querySelector("body").style.overflowY = "visible";
     },
     resetFormTitle() {
-      this.$store.commit("changeFormTitle", "登入");
+      this.$store.commit("changeFormTitle", this.$t("login"));
+      // this.$store.commit("changeFormTitle", "登入");
       document.querySelector("body").style.overflowY = "visible";
     },
     logout() {

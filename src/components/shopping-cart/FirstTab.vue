@@ -10,11 +10,16 @@
         <div class="form-section">
           <label>{{ $t("select_date") }}</label>
           <v-date-picker
+            v-model="date"
+            :locale="$i18n.locale"
+            :columns="$screens({ default: 1, lg: 1 })"
+          />
+          <!-- <v-date-picker
             v-model="range"
             is-range
             :locale="$i18n.locale"
             :columns="$screens({ default: 1, lg: 1 })"
-          />
+          /> -->
           <div class="time-picker">
             <base-card>
               <span>{{ $t("optional_days") }}</span>
@@ -220,10 +225,12 @@ export default {
       console.log(day);
     },
     postDateTime() {
+      const date = moment(this.date).format("YYYY-MM-DD");
+      const dated = `${date} ${this.isActive}`;
       const data = {
         account: this.singleItem.account[0],
         shop: this.singleItem.name,
-        schedule: `test`,
+        schedule: new Date(dated).toISOString(),
       };
       console.log(data);
       if (this.isUserLoggedIn) {

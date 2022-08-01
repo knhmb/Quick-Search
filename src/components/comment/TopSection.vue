@@ -8,7 +8,7 @@
             <img src="../../assets/avatar.png" alt="" />
           </el-col>
           <el-col :sm="24" :md="19">
-            <h5>Shop Name Shop Name Shop Name</h5>
+            <h5>{{ this.singleItem.name }}</h5>
             <div class="info">
               <p>{{ $t("phone_number") }}</p>
               <span>9876-5432</span>
@@ -28,6 +28,16 @@
     </base-container>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
+  },
+};
+</script>
 
 <style scoped>
 .top-section h4 {
