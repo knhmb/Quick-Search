@@ -1,7 +1,7 @@
 <template>
   <section class="personal-information">
     <base-card>
-      <h4>帳號設定</h4>
+      <h4>{{ $t("account_settings") }}</h4>
       <Form />
     </base-card>
   </section>

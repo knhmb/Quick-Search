@@ -4,9 +4,9 @@
       <el-col v-for="item in 12" :key="item" :sm="12" :md="8">
         <div class="card">
           <div class="header">
-            <h5>折扣優惠</h5>
+            <h5>{{ $t("discount") }}</h5>
             <div class="box">
-              <p>已使用</p>
+              <p>{{ $t("used") }}</p>
             </div>
           </div>
           <p class="name">店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱</p>
@@ -14,7 +14,7 @@
             活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱...
           </p>
           <div class="btn-content">
-            <el-button>查看優惠</el-button>
+            <el-button>{{ $t("view_offers") }}</el-button>
           </div>
         </div>
       </el-col>

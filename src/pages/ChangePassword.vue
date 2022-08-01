@@ -1,7 +1,7 @@
 <template>
   <section class="change-password">
     <base-card>
-      <h4>密碼管理</h4>
+      <h4>{{ $t("password_management") }}</h4>
       <el-form
         :rules="rules"
         :model="ruleForm"
@@ -20,25 +20,30 @@
             </el-form-item>
           </el-col> -->
           <el-col>
-            <el-form-item label="新密碼" prop="newPassword">
+            <el-form-item :label="$t('new_password')" prop="newPassword">
               <el-input
                 type="password"
-                placeholder="新密碼"
+                :placeholder="$t('new_password')"
                 v-model="ruleForm.newPassword"
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col>
-            <el-form-item label="確認新密碼" prop="confirmNewPassword">
+            <el-form-item
+              :label="$t('confirm_new_password')"
+              prop="confirmNewPassword"
+            >
               <el-input
                 type="password"
-                placeholder="確認新密碼"
+                :placeholder="$t('confirm_new_password')"
                 v-model="ruleForm.confirmNewPassword"
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col>
-            <el-button @click="changePassword">更改</el-button>
+            <el-button @click="changePassword">{{
+              $t("change_button")
+            }}</el-button>
           </el-col>
         </el-row>
       </el-form>

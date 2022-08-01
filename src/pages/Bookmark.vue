@@ -1,7 +1,7 @@
 <template>
   <section class="bookmark">
     <base-card>
-      <h4>我的收藏</h4>
+      <h4>{{ $t("my_collection") }}</h4>
       <el-row :gutter="15">
         <el-col v-for="item in 12" :key="item" :sm="12" :md="8">
           <div class="card">
@@ -15,7 +15,7 @@
               </p>
               <div class="bookmark-action">
                 <img src="../assets/shop-profile-bookmark-on@2x.png" alt="" />
-                <p>移除收藏</p>
+                <p>{{ $t("remove_favorite_button") }}</p>
               </div>
             </div>
           </div>

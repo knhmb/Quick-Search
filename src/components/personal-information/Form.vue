@@ -9,47 +9,47 @@
     >
       <el-row :gutter="20">
         <el-col>
-          <el-form-item label="帳號名稱" prop="username">
+          <el-form-item :label="$t('account_name')" prop="username">
             <el-input v-model="ruleForm.username"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="電郵地址">
+          <el-form-item :label="$t('email_address')">
             <el-input v-model="ruleForm.email" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="真實姓名">
+          <el-form-item :label="$t('actual_name')">
             <el-input v-model="ruleForm.actualName" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :sm="12" :md="8">
-          <el-form-item label="出生日期">
+          <el-form-item :label="$t('date_of_birth')">
             <el-input
               v-model="ruleForm.dob"
-              placeholder="選擇出生日期"
+              :placeholder="$t('date_of_birth_placeholder')"
               :suffix-icon="Calendar"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :sm="12" :md="8">
-          <el-form-item label="電話號碼">
+          <el-form-item :label="$t('phone_number')">
             <el-input
               v-model="ruleForm.phoneNumber"
-              placeholder="輸入電話號碼"
+              :placeholder="$t('phone_number_placeholder')"
             ></el-input>
           </el-form-item>
         </el-col>
         <el-col :sm="12" :md="8">
-          <el-form-item label="性別">
+          <el-form-item :label="$t('gender')">
             <el-select
-              placeholder="選擇性別"
+              :placeholder="$t('gender_placeholder')"
               v-model="ruleForm.gender"
             ></el-select>
           </el-form-item>
         </el-col>
         <el-col>
-          <el-button @click="edit">儲存</el-button>
+          <el-button @click="edit">{{ $t("store_button") }}</el-button>
         </el-col>
       </el-row>
     </el-form>

@@ -22,7 +22,7 @@
                   @mouseover="hover('account')"
                   @click="navigate"
                 >
-                  <img :src="accountImg" alt="" /> 帳號設定
+                  <img :src="accountImg" alt="" /> {{ $t("account_settings") }}
                 </li>
               </router-link>
               <router-link
@@ -38,7 +38,8 @@
                   @mouseover="hover('password')"
                   @click="navigate"
                 >
-                  <img :src="passwordImg" alt="" /> 密碼管理
+                  <img :src="passwordImg" alt="" />
+                  {{ $t("password_management") }}
                 </li>
               </router-link>
               <router-link :to="{ name: 'booking-list' }" v-slot="{ navigate }">
@@ -50,7 +51,7 @@
                   @mouseover="hover('booking')"
                   @click="navigate"
                 >
-                  <img :src="bookingImg" alt="" /> 預約列表
+                  <img :src="bookingImg" alt="" /> {{ $t("appointment_list") }}
                 </li>
               </router-link>
               <router-link :to="{ name: 'coupon' }" v-slot="{ navigate }">
@@ -62,7 +63,7 @@
                   @mouseover="hover('coupon')"
                   @click="navigate"
                 >
-                  <img :src="couponImg" alt="" /> 優惠列表
+                  <img :src="couponImg" alt="" /> {{ $t("offer_list") }}
                 </li>
               </router-link>
               <router-link :to="{ name: 'bookmark' }" v-slot="{ navigate }">
@@ -74,7 +75,7 @@
                   @mouseover="hover('bookmark')"
                   @click="navigate"
                 >
-                  <img :src="bookmarkImg" alt="" /> 我的收藏
+                  <img :src="bookmarkImg" alt="" /> {{ $t("my_collection") }}
                 </li>
               </router-link>
               <router-link :to="{ name: 'notification' }" v-slot="{ navigate }">
@@ -86,7 +87,8 @@
                   @mouseover="hover('notification')"
                   @click="navigate"
                 >
-                  <img :src="notificationImg" alt="" /> 訊息管理
+                  <img :src="notificationImg" alt="" />
+                  {{ $t("message_management") }}
                 </li>
               </router-link>
             </ul>

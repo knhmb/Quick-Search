@@ -9,21 +9,21 @@
             </el-col>
             <el-col :sm="24" :md="16">
               <div class="box">
-                <small> 已完成 </small>
+                <small> {{ $t("completed") }} </small>
               </div>
               <p>
                 活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱
               </p>
               <div class="info-box">
-                <p class="faded">預約人數</p>
+                <p class="faded">{{ $t("number_of_reservations") }}</p>
                 <p>2人</p>
               </div>
               <div class="info-box">
-                <p class="faded">預約日期</p>
+                <p class="faded">{{ $t("appointment_date") }}</p>
                 <p>2022-10-10</p>
               </div>
               <div class="info-box">
-                <p class="faded">預約時間</p>
+                <p class="faded">{{ $t("appointment") }}</p>
                 <p>上午11:30</p>
               </div>
             </el-col>

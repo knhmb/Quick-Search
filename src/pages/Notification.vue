@@ -1,7 +1,7 @@
 <template>
   <section class="notification">
     <base-card>
-      <h4>訊息管理</h4>
+      <h4>{{ $t("message_management") }}</h4>
       <el-row>
         <el-col>
           <div class="card">
@@ -32,7 +32,7 @@
                   </div>
                 </el-col>
                 <el-col style="display: flex" :span="3">
-                  <p class="brown">收起</p>
+                  <p class="brown">{{ $t("put_away") }}</p>
                 </el-col>
               </el-row>
             </div>
@@ -59,7 +59,7 @@
                   </div>
                 </el-col>
                 <el-col style="display: flex" :span="3">
-                  <p class="brown">收起</p>
+                  <p class="brown">{{ $t("put_away") }}</p>
                 </el-col>
               </el-row>
             </div>
@@ -119,6 +119,7 @@ export default {
   line-height: 32px;
   font-feature-settings: "liga" off;
   color: #393939;
+  margin-bottom: 1rem;
 }
 
 .notification .card {

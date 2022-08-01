@@ -1,19 +1,19 @@
 <template>
   <section class="coupon">
     <base-card>
-      <h4>預約列表</h4>
+      <h4>{{ $t("offer_list") }}</h4>
       <div class="component-switch">
         <p
           @click="currentOption = 'first'"
           :class="{ 'is-active': currentOption === 'first' }"
         >
-          已確認
+          {{ $t("completed") }}
         </p>
         <p
           @click="currentOption = 'second'"
           :class="{ 'is-active': currentOption === 'second' }"
         >
-          已完成
+          {{ $t("confirmed") }}
         </p>
       </div>
       <first-tab v-if="currentOption === 'first'"></first-tab>
