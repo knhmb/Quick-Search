@@ -92,7 +92,7 @@ export default {
           this.$store.dispatch("auth/resetPassword", data).then(() => {
             ElNotification({
               title: "Success",
-              message: this.$t('password_changed'),
+              message: this.$t("password_changed"),
               type: "success",
             });
             this.$emit("closedDialog", false);
@@ -125,7 +125,7 @@ export default {
     #7a4117;
   border-radius: 8px;
 
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

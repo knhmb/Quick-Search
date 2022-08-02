@@ -27,7 +27,7 @@
 
 <style scoped>
 .bookmark h4 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -65,7 +65,7 @@
 }
 
 .bookmark p.name {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -76,7 +76,7 @@
 }
 
 .bookmark p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -97,7 +97,7 @@
 }
 
 .bookmark .bookmark-action p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

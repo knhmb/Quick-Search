@@ -156,7 +156,7 @@ export default {
 }
 
 .left-section p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -166,7 +166,7 @@ export default {
 }
 
 .left-section h6 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -196,7 +196,7 @@ export default {
 }
 
 .left-section .button-dot p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;

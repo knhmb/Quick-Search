@@ -175,7 +175,7 @@ export default {
 
 <style scoped>
 .change-password h4 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -194,7 +194,7 @@ export default {
 }
 
 .change-password :deep(.el-form-item .el-form-item__label) {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -207,7 +207,7 @@ export default {
   background: #985f35;
   border-radius: 8px;
 
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

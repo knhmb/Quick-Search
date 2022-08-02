@@ -105,7 +105,7 @@ export default {
 }
 
 .basic-search-card .el-row .el-col:nth-of-type(2) p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -116,7 +116,7 @@ export default {
 }
 
 .basic-search-card h5 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -132,7 +132,7 @@ export default {
   border: 1px solid #985f35;
   padding: 0.1rem 0.5rem;
 
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -161,7 +161,7 @@ export default {
 }
 
 .basic-search-card .card .content p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-feature-settings: "liga" off;
 }

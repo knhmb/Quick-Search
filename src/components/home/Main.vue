@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      dialogVisible: true,
+      dialogVisible: false,
       imgs: [
         {
           src: require("../../assets/featured-sample01@2x.jpg"),
@@ -109,7 +109,7 @@ export default {
 }
 
 .home-main-content h4 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 28px;
@@ -131,7 +131,7 @@ export default {
 }
 
 .home-main-content .card .content p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;

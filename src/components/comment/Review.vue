@@ -151,7 +151,7 @@ export default {
 
 <style scoped>
 .review h4 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -171,7 +171,7 @@ export default {
 }
 
 .review p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -214,7 +214,7 @@ export default {
 }
 
 .review h5 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -230,7 +230,7 @@ export default {
 }
 
 .review p.review-comment {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

@@ -244,7 +244,7 @@ export default {
 .top-header .el-dropdown-link,
 .top-header .right-section span {
   cursor: pointer;
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -330,7 +330,7 @@ export default {
 }
 
 .dialog :deep(.el-dialog__title) {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 28px;

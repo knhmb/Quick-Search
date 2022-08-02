@@ -67,7 +67,7 @@ export default {
 }
 
 .first-tab h5 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -90,7 +90,7 @@ export default {
 }
 
 .first-tab .box p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -100,7 +100,7 @@ export default {
 }
 
 .first-tab p.name {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -113,7 +113,7 @@ export default {
 }
 
 .first-tab p.fade {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -129,7 +129,7 @@ export default {
 }
 
 .first-tab .el-button {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

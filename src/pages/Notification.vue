@@ -112,7 +112,7 @@ export default {
 }
 
 .notification h4 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -149,7 +149,7 @@ export default {
 }
 
 .notification .card p.name {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -161,7 +161,7 @@ export default {
 }
 
 .notification .card p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -181,7 +181,7 @@ export default {
 
 .notification .main .paragraphs p,
 .notification .main p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

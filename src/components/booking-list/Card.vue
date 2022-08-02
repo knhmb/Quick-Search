@@ -157,7 +157,7 @@ export default {
 }
 
 .booking-list-card small {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -167,7 +167,7 @@ export default {
 }
 
 .booking-list-card p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -193,7 +193,7 @@ export default {
 }
 
 .booking-list-card .info-box p.faded {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -204,7 +204,7 @@ export default {
 }
 
 .booking-list-card .info-box p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

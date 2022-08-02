@@ -184,7 +184,7 @@ export default {
 
 .el-menu--horizontal.custom-menu p {
   padding: 0 10px;
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

@@ -343,7 +343,7 @@ export default {
 }
 
 .advanced-search-dialog :deep(.el-dialog .el-dialog__title) {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 28px;
@@ -365,7 +365,7 @@ export default {
 }
 
 .advanced-search-dialog .body .body-header p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -428,7 +428,7 @@ export default {
 }
 
 .advanced-search-dialog .body p.area {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -468,7 +468,7 @@ export default {
 }
 
 .advanced-search-dialog .body .single-filter p.any {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -503,7 +503,7 @@ export default {
 }
 
 .advanced-search-dialog .body :deep(.el-checkbox .el-checkbox__label) {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -516,7 +516,7 @@ export default {
   background: #985f35;
   border-color: #985f35;
   border-radius: 8px;
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

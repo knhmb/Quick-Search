@@ -70,7 +70,7 @@ export default {
 }
 
 .event-detail :deep(.el-dialog .body .inner-box p.title) {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -81,7 +81,7 @@ export default {
 }
 
 .event-detail :deep(.el-dialog .body .inner-box p.description) {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -97,7 +97,7 @@ export default {
 .event-detail .el-button.confirm {
   background: #985f35;
   border-radius: 8px;
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -110,7 +110,7 @@ export default {
 }
 
 .event-detail .el-button {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;

@@ -127,7 +127,7 @@ export default {
 .login-form :deep(.el-checkbox__label),
 .login-form .forgot-password-section p,
 .login-form .have-account p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -162,7 +162,7 @@ export default {
     ),
     #7a4117;
   border-radius: 8px;
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -186,7 +186,7 @@ export default {
 }
 
 .login-form .have-account .el-button {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

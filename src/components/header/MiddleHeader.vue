@@ -28,7 +28,7 @@
           </el-input>
         </el-col>
         <el-col :sm="24" :md="4">
-          <el-button @click="dialogVisible = true"
+          <el-button class="middle-header-button" @click="dialogVisible = true"
             ><img src="../../assets/header-advanced-search@2x.png" alt="" />
             {{ $t("advanced_search_button") }}</el-button
           >
@@ -56,6 +56,20 @@ export default {
       search: "",
       dialogVisible: false,
     };
+  },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        const button = document.querySelector(".middle-header-button");
+
+        if (this.$i18n.locale === "en-us") {
+          button.style.width = "12rem";
+        } else {
+          button.style.width = "9rem";
+        }
+      },
+    },
   },
   methods: {
     searchItem() {
@@ -115,7 +129,7 @@ export default {
   border-color: #985f35;
   border-radius: 40px;
   /* padding: 1.2rem; */
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -124,6 +138,7 @@ export default {
 
   color: #ffffff;
   position: relative;
+  /* width: 12rem; */
 }
 
 .middle-header .el-row .el-button img {
