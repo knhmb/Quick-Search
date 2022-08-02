@@ -17,6 +17,7 @@ export default {
   created() {
     this.$store.dispatch("dashboard/getCategories");
     this.$store.dispatch("dashboard/getLanguages");
+    this.$store.dispatch("dashboard/getContent");
   },
 };
 </script>

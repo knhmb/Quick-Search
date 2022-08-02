@@ -15,7 +15,7 @@
       <el-col class="middle-col" :sm="24" :md="15">
         <el-row :gutter="20">
           <el-col v-for="img in imgs" :key="img" :sm="12" :md="8">
-            <div class="card">
+            <div @click="dialogVisible = true" class="card">
               <img :src="img.src" alt="" />
               <div class="content">
                 <p>
@@ -36,18 +36,25 @@
         <img src="../../assets/adv-sample03@2x.jpg" alt="" />
       </el-col>
     </el-row>
+    <event-detail
+      :dialog-visible="dialogVisible"
+      @closedDialog="dialogVisible = $event"
+    ></event-detail>
   </div>
 </template>
 
 <script>
 import PopularCategories from "./PopularCategories.vue";
+import EventDetail from "./EventDetail.vue";
 
 export default {
   components: {
     PopularCategories,
+    EventDetail,
   },
   data() {
     return {
+      dialogVisible: true,
       imgs: [
         {
           src: require("../../assets/featured-sample01@2x.jpg"),
@@ -116,6 +123,7 @@ export default {
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.04);
   border-radius: 8px;
   margin-bottom: 1.5rem;
+  cursor: pointer;
 }
 
 .home-main-content .card .content {

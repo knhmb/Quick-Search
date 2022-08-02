@@ -10,4 +10,8 @@ export default {
     console.log(response);
     context.commit("SET_LANGUAGES", response.data.items);
   },
+  async getContent() {
+    const response = await axios.get("/api/v1/cms/contents");
+    console.log(response);
+  },
 };

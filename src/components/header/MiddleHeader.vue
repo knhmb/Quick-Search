@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       search: "",
-      dialogVisible: true,
+      dialogVisible: false,
     };
   },
   methods: {
