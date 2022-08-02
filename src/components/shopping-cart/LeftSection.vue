@@ -4,7 +4,7 @@
       <div class="single-text">
         <p class="title">{{ $t("store_introduction") }}</p>
         <p>
-          店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介店舖簡介
+          {{ this.singleItem.description }}
         </p>
       </div>
       <div class="single-text">

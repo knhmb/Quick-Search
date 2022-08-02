@@ -28,26 +28,33 @@
           </el-input>
         </el-col>
         <el-col :sm="24" :md="4">
-          <el-button
+          <el-button @click="dialogVisible = true"
             ><img src="../../assets/header-advanced-search@2x.png" alt="" />
             {{ $t("advanced_search_button") }}</el-button
           >
         </el-col>
       </el-row>
     </base-container>
+    <advanced-search-dialog
+      :dialog-visible="dialogVisible"
+      @closeDialog="dialogVisible = $event"
+    ></advanced-search-dialog>
   </div>
 </template>
 
 <script>
 import { Search } from "@element-plus/icons-vue";
+import AdvancedSearchDialog from "./AdvancedSearchDialog.vue";
 
 export default {
   components: {
     Search,
+    AdvancedSearchDialog,
   },
   data() {
     return {
       search: "",
+      dialogVisible: true,
     };
   },
   methods: {

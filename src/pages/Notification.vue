@@ -77,7 +77,7 @@
   </section>
 </template>
 
-<!-- <script>
+<script>
 import { ElNotification } from "element-plus";
 
 export default {
@@ -96,7 +96,7 @@ export default {
           .catch(() => {
             ElNotification({
               title: "Error",
-              message: "Token expired. Please login again!",
+              message: this.$t("token_expired"),
               type: "error",
             });
             this.$store.dispatch("auth/logout");
@@ -104,7 +104,7 @@ export default {
       });
   },
 };
-</script> -->
+</script>
 
 <style scoped>
 .notification .el-col {
