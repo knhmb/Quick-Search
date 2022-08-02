@@ -49,8 +49,8 @@
               alt=""
             />
             <div v-if="isUserDropdown" class="user-dropdown">
-              <p @click="navigate('/member-profile')">Profile</p>
-              <p @click="logout">Log out</p>
+              <p @click="navigate('/member-profile')">{{ $t("profile") }}</p>
+              <p @click="logout">{{ $t("log_out") }}</p>
             </div>
           </div>
         </div>
@@ -67,11 +67,13 @@
       <div @click="closeSideNav" class="close"></div>
       <div class="vendor-login">
         <img src="../../assets/header-vendor-login@2x.png" alt="" />
-        <span>商戶專區</span>
+        <span>{{ $t("merchant_zone") }}</span>
       </div>
       <div class="member-login">
         <img src="../../assets/header-member-login@2x.png" alt="" />
-        <span @click="openDialog">會員登入/註冊</span>
+        <span @click="openDialog"
+          >{{ $t("member_login") }}/{{ $t("register") }}</span
+        >
       </div>
     </div>
   </teleport>
@@ -90,11 +92,11 @@
         v-if="formTitle === $t('new_member_registration')"
       />
       <forgot-password-form
-        v-if="formTitle === '忘記密碼'"
+        v-if="formTitle === $t('forgot_password_text')"
       ></forgot-password-form>
       <reset-password-form
         @closedDialog="dialogVisible = $event"
-        v-if="formTitle === '重設密碼'"
+        v-if="formTitle === $t('reset_password_button')"
       ></reset-password-form>
     </el-dialog>
   </div>

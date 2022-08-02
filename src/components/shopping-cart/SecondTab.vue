@@ -100,7 +100,7 @@ export default {
           .catch(() => {
             ElNotification({
               title: "Error",
-              message: "Token Expired. Please login again",
+              message: this.$t("token_expired"),
               type: "error",
             });
             this.$store.dispatch("auth/logout");

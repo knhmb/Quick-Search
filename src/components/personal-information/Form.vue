@@ -80,7 +80,7 @@ export default {
         username: [
           {
             required: true,
-            message: "Username is required!",
+            message: this.$t("username_required"),
             trigger: "blur",
           },
         ],
@@ -110,7 +110,7 @@ export default {
               this.$store.dispatch("profile/updateUser", data).then(() => {
                 ElNotification({
                   title: "Success",
-                  message: "Data has been updated!",
+                  message: this.$t("data_updated"),
                   type: "success",
                 });
                 this.$store.dispatch(
@@ -126,7 +126,7 @@ export default {
                   this.$store.dispatch("profile/updateUser", data).then(() => {
                     ElNotification({
                       title: "Success",
-                      message: "Data has been updated!",
+                      message: this.$t("data_updated"),
                       type: "success",
                     });
                     this.$store.dispatch(
@@ -138,7 +138,7 @@ export default {
                 .catch(() => {
                   ElNotification({
                     title: "Error",
-                    message: "Token Expired. Please login again",
+                    message: this.$t("token_expired"),
                     type: "error",
                   });
                   this.$store.dispatch("auth/logout");

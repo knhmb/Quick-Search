@@ -203,7 +203,7 @@ export default {
               .catch(() => {
                 ElNotification({
                   title: "Error",
-                  message: "Token expired. Please login in again!",
+                  message: this.$t("token_expired"),
                   type: "error",
                 });
                 this.$store.dispatch("auth/logout");
@@ -240,7 +240,7 @@ export default {
             this.$store.dispatch("shop/book", data).then(() => {
               ElNotification({
                 title: "Success",
-                message: "Shop has been booked",
+                message: this.$t("shop_booked"),
                 type: "success",
               });
               this.$router.replace("/");
@@ -253,7 +253,7 @@ export default {
                 this.$store.dispatch("shop/book", data).then(() => {
                   ElNotification({
                     title: "Success",
-                    message: "Shop has been booked",
+                    message: this.$t("shop_booked"),
                     type: "success",
                   });
                   this.$router.replace("/");
@@ -262,7 +262,7 @@ export default {
               .catch(() => {
                 ElNotification({
                   title: "Error",
-                  message: "Token Expired, Please login again!",
+                  message: this.$t("token_expired"),
                   type: "error",
                 });
                 this.$store.dispatch("auth/logout");
@@ -271,7 +271,7 @@ export default {
       } else {
         ElNotification({
           title: "Error",
-          message: "Please login first!",
+          message: this.$t("login_first"),
           type: "error",
         });
       }

@@ -49,7 +49,8 @@ export default {
   },
   methods: {
     login() {
-      this.$store.commit("changeFormTitle", "登入");
+      this.$store.commit("changeFormTitle", this.$t("login"));
+      // this.$store.commit("changeFormTitle", "登入");
     },
   },
 };

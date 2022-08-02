@@ -1,16 +1,24 @@
 <template>
   <div class="forgot-password">
     <!-- <h5>忘記密碼</h5> -->
-    <p>輸入你的帳號名稱及電郵地址來重設密碼。</p>
+    <p>{{ $t("enter_account_email_and_name") }}</p>
     <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules">
       <el-form-item prop="username">
-        <el-input v-model="ruleForm.username" placeholder="帳號名稱"></el-input>
+        <el-input
+          v-model="ruleForm.username"
+          :placeholder="$t('account_name')"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="email">
-        <el-input v-model="ruleForm.email" placeholder="電郵地址"></el-input>
+        <el-input
+          v-model="ruleForm.email"
+          :placeholder="$t('email_address')"
+        ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="forgotPassword">重設密碼</el-button>
+        <el-button @click="forgotPassword">{{
+          $t("reset_password_button")
+        }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -29,14 +37,14 @@ export default {
         username: [
           {
             required: true,
-            message: "Username is required!",
+            message: this.$t("username_required"),
             trigger: "blur",
           },
         ],
         email: [
           {
             required: true,
-            message: "Email is required!",
+            message: this.$t("email_required"),
             trigger: "blur",
           },
           {
@@ -58,7 +66,11 @@ export default {
           this.$store
             .dispatch("auth/forgotPassword", data)
             .then(() => {
-              this.$store.commit("changeFormTitle", "重設密碼");
+              this.$store.commit(
+                "changeFormTitle",
+                this.$t("reset_password_button")
+              );
+              // this.$store.commit("changeFormTitle", "重設密碼");
               this.$refs.ruleFormRef.resetFields();
             })
             .catch((err) => {

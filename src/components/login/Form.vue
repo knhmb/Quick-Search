@@ -53,14 +53,14 @@ export default {
         username: [
           {
             required: true,
-            message: "Username is required!",
+            message: this.$t("username_required"),
             trigger: "blur",
           },
         ],
         password: [
           {
             required: true,
-            message: "Password is required!",
+            message: this.$t("password_required"),
             trigger: "blur",
           },
         ],
@@ -69,10 +69,12 @@ export default {
   },
   methods: {
     register() {
-      this.$store.commit("changeFormTitle", "新會員註冊");
+      this.$store.commit("changeFormTitle", this.$t("new_member_registration"));
+      // this.$store.commit("changeFormTitle", "新會員註冊");
     },
     forgotPassword() {
-      this.$store.commit("changeFormTitle", "忘記密碼");
+      this.$store.commit("changeFormTitle", this.$t("forgot_password_text"));
+      // this.$store.commit("changeFormTitle", "忘記密碼");
     },
     login() {
       this.$refs.ruleFormRef.validate((valid) => {
@@ -91,7 +93,7 @@ export default {
             .catch((err) => {
               ElNotification({
                 title: "Error",
-                message: err.response.data.message,
+                message: this.$t(err.response.data.message),
                 type: "error",
               });
             });

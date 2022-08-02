@@ -58,7 +58,7 @@ export default {
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please input the password"));
+        callback(new Error(this.$t("enter_password")));
       } else {
         if (this.ruleForm.confirmNewPassword !== "") {
           if (!this.$refs.ruleFormRef) return;
@@ -72,9 +72,9 @@ export default {
     };
     const validateConfirmPass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please input the password again"));
+        callback(new Error(this.$t("enter_password_again")));
       } else if (value !== this.ruleForm.newPassword) {
-        callback(new Error("Two inputs don't match!"));
+        callback(new Error(this.$t("password_does_not_match")));
       } else {
         callback();
       }
@@ -130,7 +130,7 @@ export default {
               this.$store.dispatch("profile/updateUser", data).then(() => {
                 ElNotification({
                   title: "Success",
-                  message: "Password has been updated!",
+                  message: this.$t("password_updated"),
                   type: "success",
                 });
                 this.$store.dispatch(
@@ -147,7 +147,7 @@ export default {
                   this.$store.dispatch("profile/updateUser", data).then(() => {
                     ElNotification({
                       title: "Success",
-                      message: "Password has been updated!",
+                      message: this.$t("password_updated"),
                       type: "success",
                     });
                     this.$store.dispatch(
@@ -160,7 +160,7 @@ export default {
                 .catch(() => {
                   ElNotification({
                     title: "Error",
-                    message: "Token Expired. Please login again",
+                    message: this.$t("token_expired"),
                     type: "error",
                   });
                   this.$store.dispatch("auth/logout");

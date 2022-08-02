@@ -73,7 +73,7 @@ export default {
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please input the password"));
+        callback(new Error(this.$t("enter_password")));
       } else {
         if (this.ruleForm.confirmPassword !== "") {
           if (!this.$refs.ruleFormRef) return;
@@ -84,9 +84,9 @@ export default {
     };
     const validateConfirmPass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please input the password again"));
+        callback(new Error(this.$t("enter_password_again")));
       } else if (value !== this.ruleForm.password) {
-        callback(new Error("Two inputs don't match!"));
+        callback(new Error(this.$t("password_does_not_match")));
       } else {
         callback();
       }
@@ -104,14 +104,14 @@ export default {
         username: [
           {
             required: true,
-            message: "Username is required!",
+            message: this.$t("username_required"),
             trigger: "blur",
           },
         ],
         email: [
           {
             required: true,
-            message: "Email is required!",
+            message: this.$t("email_required"),
             trigger: "blur",
             type: "email",
           },
@@ -119,7 +119,7 @@ export default {
         name: [
           {
             required: true,
-            message: "Name is required!",
+            message: this.$t("name_required"),
             trigger: "blur",
           },
         ],
@@ -153,7 +153,7 @@ export default {
           this.$store.dispatch("auth/register", data).then(() => {
             ElNotification({
               title: "Success",
-              message: "Regsitered successfully!",
+              message: this.$t("registered_successfully"),
               type: "success",
             });
             this.$refs.ruleFormRef.resetFields();

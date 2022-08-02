@@ -5,18 +5,20 @@
         <el-input
           type="password"
           v-model="ruleForm.password"
-          placeholder="密碼"
+          :placeholder="$t('password')"
         ></el-input>
       </el-form-item>
       <el-form-item prop="confirmPassword">
         <el-input
           type="password"
           v-model="ruleForm.confirmPassword"
-          placeholder="確認密碼"
+          :placeholder="$t('confirm_new_password')"
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="resetPassword">重設密碼</el-button>
+        <el-button @click="resetPassword">{{
+          $t("reset_password_button")
+        }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -28,7 +30,7 @@ export default {
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please input the password"));
+        callback(new Error(this.$t("enter_pasword")));
       } else {
         if (this.ruleForm.confirmPassword !== "") {
           if (!this.$refs.ruleFormRef) return;
@@ -39,9 +41,9 @@ export default {
     };
     const validateConfirmPass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please input the password again"));
+        callback(new Error(this.$t("enter_password_again")));
       } else if (value !== this.ruleForm.password) {
-        callback(new Error("Two inputs don't match!"));
+        callback(new Error(this.$t("password_does_not_match")));
       } else {
         callback();
       }
@@ -90,7 +92,7 @@ export default {
           this.$store.dispatch("auth/resetPassword", data).then(() => {
             ElNotification({
               title: "Success",
-              message: "Password Changed!",
+              message: this.$t('password_changed'),
               type: "success",
             });
             this.$emit("closedDialog", false);

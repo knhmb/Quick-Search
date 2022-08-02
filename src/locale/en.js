@@ -126,12 +126,34 @@ const en = {
   remember_me: "Remember me",
   forgot_password: "Forgot password ?",
   no_account: "No account yet? Register now!",
-  new_member_registration: "New member regsitration",
+  new_member_registration: "New Member Regsitration",
   sign_up_with_email_or_third_party:
     "Sign up with an email address or third-party account",
   already_have_an_account: "Already have a Quick Search account?",
   privacy_policy_note:
     "By registering, you acknowledge and agree to all of our company's",
+  forgot_password_text: "Forgot Password",
+  enter_account_email_and_name:
+    "Enter your account name and email address to reset your password.",
+  reset_password_button: "Reset Password",
+  enter_password: "Please input the password",
+  enter_password_again: "Please input the password again",
+  password_does_not_match: "Passwords don't match!",
+  password_changed: "Password Changed!",
+  username_required: "Username is required!",
+  email_required: "Email is required!",
+  profile: "Profile",
+  log_out: "Log out",
+  "error.account.invalid-password": "Invalid Password!",
+  password_required: "Password is required!",
+  name_required: "Name is required!",
+  registered_successfully: "Regsitered successfully!",
+  data_updated: "Data has been updated!",
+  token_expired: "Token Expired. Please login again!",
+  login_first: "Please login first!",
+  shop_booked: "Shop has been booked!",
+  review_added: "Review has been added!",
+  password_updated: "Password has been updated!",
 };
 
 export default en;

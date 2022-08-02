@@ -50,7 +50,7 @@ export default {
       if (!this.isLoggedIn) {
         ElNotification({
           title: "Error",
-          message: "Please login first!",
+          message: this.$t("login_first"),
           type: "error",
         });
         return;
@@ -64,7 +64,7 @@ export default {
       this.$store.dispatch("shop/postReview", data).then(() => {
         ElNotification({
           title: "success",
-          message: "Review has been added!",
+          message: this.$t("review_added"),
           type: "success",
         });
         this.$router.replace("/");
