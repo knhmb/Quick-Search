@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { ElNotification } from "element-plus";
+// import { ElNotification } from "element-plus";
 export default {
   computed: {
     searchItems() {
@@ -49,33 +49,38 @@ export default {
   methods: {
     selectShop(slug) {
       this.$store
-        .dispatch("auth/checkAccessToken")
+        .dispatch("search/searchSingleShop", { slug: slug })
         .then(() => {
-          this.$store
-            .dispatch("search/searchSingleShop", { slug: slug })
-            .then(() => {
-              this.$router.push({ path: "/shop", query: { q: slug } });
-            });
-        })
-        .catch(() => {
-          this.$store
-            .dispatch("auth/checkRefreshToken")
-            .then(() => {
-              this.$store
-                .dispatch("search/searchSingleShop", { slug: slug })
-                .then(() => {
-                  this.$router.push({ path: "/shop", query: { q: slug } });
-                });
-            })
-            .catch(() => {
-              ElNotification({
-                title: "Error",
-                message: this.$t("token_expired"),
-                type: "error",
-              });
-              this.$store.dispatch("auth/logout");
-            });
+          this.$router.push({ path: "/shop", query: { q: slug } });
         });
+      // this.$store
+      //   .dispatch("auth/checkAccessToken")
+      //   .then(() => {
+      //     this.$store
+      //       .dispatch("search/searchSingleShop", { slug: slug })
+      //       .then(() => {
+      //         this.$router.push({ path: "/shop", query: { q: slug } });
+      //       });
+      //   })
+      //   .catch(() => {
+      //     this.$store
+      //       .dispatch("auth/checkRefreshToken")
+      //       .then(() => {
+      //         this.$store
+      //           .dispatch("search/searchSingleShop", { slug: slug })
+      //           .then(() => {
+      //             this.$router.push({ path: "/shop", query: { q: slug } });
+      //           });
+      //       })
+      //       .catch(() => {
+      //         ElNotification({
+      //           title: "Error",
+      //           message: this.$t("token_expired"),
+      //           type: "error",
+      //         });
+      //         this.$store.dispatch("auth/logout");
+      //       });
+      //   });
     },
   },
   created() {

@@ -1,11 +1,15 @@
 <template>
   <div class="right-section">
     <!-- <div class="box-card"> -->
-    <el-tabs v-model="activeName" class="demo-tabs">
+    <el-tabs @tab-click="openSecondTab" v-model="activeName" class="demo-tabs">
       <el-tab-pane :label="$t('reserve')" name="first">
         <first-tab></first-tab>
       </el-tab-pane>
-      <el-tab-pane :label="$t('evaluation')" name="second">
+      <el-tab-pane
+        @click="openSecondTab"
+        :label="$t('evaluation')"
+        name="second"
+      >
         <second-tab></second-tab>
       </el-tab-pane>
       <el-tab-pane :label="$t('photo')" name="third">
@@ -20,6 +24,7 @@
 import FirstTab from "./FirstTab.vue";
 import SecondTab from "./SecondTab.vue";
 import ThirdTab from "./ThirdTab.vue";
+import { ElNotification } from "element-plus";
 
 export default {
   components: {
@@ -31,6 +36,32 @@ export default {
     return {
       activeName: "first",
     };
+  },
+  methods: {
+    openSecondTab(val) {
+      if (val.paneName === "second") {
+        this.$store
+          .dispatch("auth/checkAccessToken")
+          .then(() => {
+            this.$store.dispatch("shop/getComments");
+          })
+          .catch(() => {
+            this.$store
+              .dispatch("auth/checkRefreshToken")
+              .then(() => {
+                this.$store.dispatch("shop/getComments");
+              })
+              .catch(() => {
+                ElNotification({
+                  title: "Error",
+                  message: this.$t("token_expired"),
+                  type: "error",
+                });
+                this.$store.dispatch("auth/logout");
+              });
+          });
+      }
+    },
   },
 };
 </script>

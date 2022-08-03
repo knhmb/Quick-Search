@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { ElNotification } from "element-plus";
+// import { ElNotification } from "element-plus";
 
 export default {
   computed: {
@@ -85,28 +85,28 @@ export default {
       return this.$store.getters["shop/comments"];
     },
   },
-  created() {
-    this.$store
-      .dispatch("auth/checkAccessToken")
-      .then(() => {
-        this.$store.dispatch("shop/getComments");
-      })
-      .catch(() => {
-        this.$store
-          .dispatch("auth/checkRefreshToken")
-          .then(() => {
-            this.$store.dispatch("shop/getComments");
-          })
-          .catch(() => {
-            ElNotification({
-              title: "Error",
-              message: this.$t("token_expired"),
-              type: "error",
-            });
-            this.$store.dispatch("auth/logout");
-          });
-      });
-  },
+  // created() {
+  //   this.$store
+  //     .dispatch("auth/checkAccessToken")
+  //     .then(() => {
+  //       this.$store.dispatch("shop/getComments");
+  //     })
+  //     .catch(() => {
+  //       this.$store
+  //         .dispatch("auth/checkRefreshToken")
+  //         .then(() => {
+  //           this.$store.dispatch("shop/getComments");
+  //         })
+  //         .catch(() => {
+  //           ElNotification({
+  //             title: "Error",
+  //             message: this.$t("token_expired"),
+  //             type: "error",
+  //           });
+  //           this.$store.dispatch("auth/logout");
+  //         });
+  //     });
+  // },
 };
 </script>
 
