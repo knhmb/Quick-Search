@@ -120,6 +120,7 @@
 
 <script>
 export default {
+  props: ["sorting"],
   data() {
     return {
       arr: [],
@@ -278,6 +279,11 @@ export default {
       ],
     };
   },
+  watch: {
+    sorting() {
+      this.handlePayment();
+    },
+  },
   methods: {
     handleChange(data, checked, indeterminate) {
       console.log(data);
@@ -307,6 +313,7 @@ export default {
           this.filter.discountCheckbox.length > 0
             ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
             : "",
+        sort: this.sorting ? this.sorting : "",
       };
       console.log(filter);
 
@@ -332,6 +339,7 @@ export default {
           this.filter.paymentCheckbox.length > 0
             ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
             : "",
+        sort: this.sorting ? this.sorting : "",
       };
       console.log(filter);
       this.$store.dispatch("search/filterSearch", filter);

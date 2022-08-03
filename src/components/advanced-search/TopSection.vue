@@ -9,8 +9,8 @@
       <carousel :breakpoints="breakpoints" :items-to-show="1.5">
         <slide v-for="slide in options" :key="slide">
           <div
-            @click="setOption(slide)"
-            :class="{ 'is-active': currentOption === slide }"
+            @click="setOption($t(slide))"
+            :class="{ 'is-active': currentOption === $t(slide) }"
             class="pill"
           >
             {{ $t(slide) }}
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       ArrowRight,
-      currentOption: "全部",
+      currentOption: "",
       breakpoints: {
         // 700px and up
         700: {
@@ -68,6 +68,7 @@ export default {
   methods: {
     setOption(option) {
       this.currentOption = option;
+      this.$emit("sort", option);
     },
   },
 };
