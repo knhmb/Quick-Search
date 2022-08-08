@@ -527,4 +527,47 @@ export default {
   display: flex;
   padding: 1.4rem;
 }
+
+@media screen and (max-width: 991px) {
+  .advanced-search-dialog .el-button {
+    padding: 0 1rem;
+  }
+
+  .advanced-search-dialog :deep(.el-dialog) {
+    width: 100%;
+  }
+
+  .advanced-search-dialog :deep(.el-dialog .el-dialog__header),
+  .advanced-search-dialog :deep(.el-dialog .el-headerbtn),
+  .advanced-search-dialog :deep(.el-dialog .el-dialog__body),
+  .advanced-search-dialog :deep(.el-dialog .el-dialog__footer) {
+    /* padding: 0; */
+    padding: 1.5rem 2rem;
+  }
+
+  .advanced-search-dialog .body .areas {
+    flex-direction: column;
+  }
+
+  .advanced-search-dialog .body .areas .single-area {
+    margin-bottom: 0.5rem;
+  }
+
+  .advanced-search-dialog .body .other-filters {
+    flex-direction: column;
+  }
+
+  .advanced-search-dialog .body .other-filters .single-filter.middle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .advanced-search-dialog .body .el-slider {
+    width: 100%;
+  }
+
+  .advanced-search-dialog .body p.area {
+    margin-bottom: 0;
+  }
+}
 </style>

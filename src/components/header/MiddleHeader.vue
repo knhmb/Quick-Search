@@ -155,5 +155,11 @@ export default {
     margin: 0 auto;
     display: block;
   }
+  .middle-header .el-row .el-button {
+    padding: 0 1rem;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+  }
 }
 </style>
