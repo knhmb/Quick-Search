@@ -220,4 +220,10 @@ export default {
   display: flex;
   margin: 1rem 0 1rem auto;
 }
+
+@media screen and (max-width: 991px) {
+  .change-password .el-button {
+    padding: 0;
+  }
+}
 </style>

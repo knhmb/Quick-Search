@@ -135,4 +135,10 @@ export default {
   width: 100%;
   padding: 1.4rem;
 }
+
+@media screen and (max-width: 991px) {
+  .reset-password .el-button {
+    padding: 0;
+  }
+}
 </style>

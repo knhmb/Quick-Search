@@ -77,8 +77,13 @@
       <div class="member-login">
         <img src="../../assets/header-member-login@2x.png" alt="" />
         <span @click="openDialog"
-          >{{ $t("member_login") }}/{{ $t("register") }}</span
+          >{{ $t("member_login") }}/<span @click.stop="openRegisterDialog">{{
+            $t("register")
+          }}</span></span
         >
+        <!-- <span @click="openDialog"
+          >{{ $t("member_login") }}/{{ $t("register") }}</span
+        > -->
       </div>
     </div>
   </teleport>

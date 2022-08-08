@@ -223,6 +223,12 @@ export default {
   margin: 1rem 0;
 }
 
+@media screen and (max-width: 991px) {
+  .register-form .el-button {
+    padding: 0;
+  }
+}
+
 /* .register-form .have-account {
   display: flex;
   justify-content: space-between;

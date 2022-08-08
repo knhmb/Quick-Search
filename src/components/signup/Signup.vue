@@ -98,4 +98,10 @@ export default {
   width: 20%;
   padding: 1.2rem;
 }
+
+@media screen and (max-width: 991px) {
+  .register .have-account .el-button {
+    padding: 0;
+  }
+}
 </style>

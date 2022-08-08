@@ -198,4 +198,11 @@ export default {
   width: 20%;
   padding: 1.2rem;
 }
+
+@media screen and (max-width: 991px) {
+  .login-form .el-button,
+  .login-form .have-account .el-button {
+    padding: 0;
+  }
+}
 </style>
