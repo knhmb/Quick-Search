@@ -29,13 +29,14 @@
           <img src="../../assets/header-vendor-login@2x.png" alt="" />
           <span>{{ $t("merchant_zone") }}</span>
         </div>
-        <div class="member-login hidden-xs-only">
+        <div class="member-login">
           <img
             v-if="!isLoggedIn"
             src="../../assets/header-member-login@2x.png"
             alt=""
+            class="hidden-xs-only"
           />
-          <span v-if="!isLoggedIn" @click="openDialog"
+          <span class="hidden-xs-only" v-if="!isLoggedIn" @click="openDialog"
             >{{ $t("member_login") }}/<span @click.stop="openRegisterDialog">{{
               $t("register")
             }}</span>
@@ -54,7 +55,11 @@
             </div>
           </div>
         </div>
-        <div @click="openSideNav" class="hamburger-icon hidden-sm-and-up">
+        <div
+          v-if="!isLoggedIn"
+          @click="openSideNav"
+          class="hamburger-icon hidden-sm-and-up"
+        >
           <div class="hamburger"></div>
           <div class="hamburger"></div>
           <div class="hamburger"></div>
@@ -226,6 +231,7 @@ export default {
   bottom: -4.8rem;
   left: 0;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
 }
 
 .top-header .user-logged-in .user-dropdown p {
@@ -366,6 +372,14 @@ export default {
 @media screen and (max-width: 520px) {
   .dialog :deep(.el-dialog) {
     width: 20rem;
+  }
+
+  .top-header .user-logged-in .user-dropdown {
+    padding: 1rem;
+    width: 10rem;
+    z-index: 1;
+    bottom: -5.4rem;
+    left: -5.7rem;
   }
 }
 </style>

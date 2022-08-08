@@ -50,10 +50,12 @@ export default {
 
 .slider .el-carousel__arrow.el-carousel__arrow--left {
   left: 1rem;
+  z-index: 1;
 }
 
 .slider .el-carousel__arrow.el-carousel__arrow--right {
   right: -1rem;
+  z-index: 1;
 }
 
 .slider img {
@@ -68,6 +70,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .slider .el-carousel .el-carousel__button {
