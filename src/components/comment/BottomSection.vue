@@ -131,5 +131,8 @@ export default {
   .bottom-section .el-button {
     margin-top: 1rem;
   }
+  .bottom-section .el-button {
+    padding: 0;
+  }
 }
 </style>

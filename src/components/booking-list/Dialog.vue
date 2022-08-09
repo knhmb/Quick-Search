@@ -166,4 +166,10 @@ export default {
   width: 100%;
   padding: 1.3rem;
 }
+
+@media screen and (max-width: 991px) {
+  .booking-list-dialog :deep(.el-dialog .el-button) {
+    padding: 0;
+  }
+}
 </style>
