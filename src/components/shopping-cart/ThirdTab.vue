@@ -17,6 +17,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    this.$store.dispatch("shop/getPhotos");
+  },
+};
+</script>
+
 <style scoped>
 .right-section .box-card {
   box-shadow: inset 0px -1px 0px #e0e0e0;

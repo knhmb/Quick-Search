@@ -20,6 +20,7 @@ const store = createStore({
   state() {
     return {
       formTitle: i18n.global.t("login"),
+      authDialog: "",
       // formTitle: "登入",
     };
   },

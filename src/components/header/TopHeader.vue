@@ -134,6 +134,15 @@ export default {
       isUserDropdown: false,
     };
   },
+  watch: {
+    authDialog() {
+      if (this.authDialog === "login") {
+        this.openDialog();
+      } else if (this.authDialog === "register") {
+        this.openRegisterDialog();
+      }
+    },
+  },
   computed: {
     formTitle() {
       return this.$store.getters.formTitle;
@@ -143,6 +152,9 @@ export default {
     },
     languages() {
       return this.$store.getters["dashboard/languages"];
+    },
+    authDialog() {
+      return this.$store.getters.authDialog;
     },
   },
   methods: {
@@ -177,6 +189,8 @@ export default {
       document.querySelector("body").style.overflowY = "visible";
     },
     resetFormTitle() {
+      this.$store.commit("OPEN_DIALOG", "");
+
       this.$store.commit("changeFormTitle", this.$t("login"));
       // this.$store.commit("changeFormTitle", "登入");
       document.querySelector("body").style.overflowY = "visible";

@@ -1,4 +1,5 @@
 import axios from "axios";
+// import i18n from "../../../i18n";
 
 export default {
   async getCategories() {
@@ -12,6 +13,22 @@ export default {
   },
   async getContent() {
     const response = await axios.get("/api/v1/cms/contents");
+    console.log(response);
+  },
+  async getPromotions() {
+    const response = await axios.get("/api/v1/shops/promotions");
+    console.log(response);
+  },
+  async getFiltersGroup() {
+    const response = await axios.get("/api/v1/shops/filters/groups");
+    console.log(response);
+  },
+  async getFiltersItem() {
+    const response = await axios.get("/api/v1/shops/filters/items");
+    console.log(response);
+  },
+  async getSchedules() {
+    const response = await axios.get("/api/v1/shops/schedules");
     console.log(response);
   },
 };

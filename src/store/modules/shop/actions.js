@@ -68,4 +68,8 @@ export default {
   //   });
   //   console.log(response);
   // },
+  async getPhotos() {
+    const response = await axios.get("/api/v1/shops");
+    console.log(response);
+  },
 };

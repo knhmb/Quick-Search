@@ -195,12 +195,14 @@ export default {
 
 .top-section .reviews {
   background-color: #fff;
-  padding-left: 11%;
+  /* padding-left: 11%; */
+  padding-left: 27.4%;
   /* padding-left: 9.4rem; */
 }
 
 .top-section .reviews .container {
   display: flex;
+  padding: 1rem 0;
 }
 
 .top-section .reviews .container .rating {
@@ -215,7 +217,7 @@ export default {
 
 @media screen and (max-width: 991px) {
   .top-section .reviews {
-    padding-left: 0;
+    padding-left: 2rem;
     margin-top: 4rem;
   }
 }

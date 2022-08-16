@@ -24,10 +24,17 @@
         <span class="dialog-footer">
           <el-button @click="$emit('closedDialog', false)">關閉</el-button>
           <el-button
+            v-if="!isLoggedIn"
             class="confirm"
             type="primary"
             @click="$emit('closedDialog', false)"
-            >登入/註冊</el-button
+            ><span @click.stop="openLogin">登入</span>/<span
+              @click.stop="openRegister"
+              >註冊</span
+            ></el-button
+          >
+          <el-button v-else class="confirm" type="primary" @click="book"
+            >立即預約</el-button
           >
         </span>
       </template>
@@ -38,6 +45,23 @@
 <script>
 export default {
   props: ["dialogVisible"],
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["auth/isLoggedIn"];
+    },
+  },
+  methods: {
+    openLogin() {
+      this.$store.commit("OPEN_DIALOG", "login");
+    },
+    openRegister() {
+      this.$store.commit("OPEN_DIALOG", "register");
+    },
+    book() {
+      this.$router.push("/shop");
+      this.$emit("closedDialog", false);
+    },
+  },
 };
 </script>
 
