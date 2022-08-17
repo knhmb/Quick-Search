@@ -16,7 +16,8 @@
         </el-breadcrumb>
         <el-row :gutter="15">
           <el-col :sm="12" :md="4">
-            <img class="product-img" src="../../assets/avatar.png" alt="" />
+            <!-- <img class="product-img" src="../../assets/avatar.png" alt="" /> -->
+            <img class="product-img" :src="singleItem.image" alt="" />
           </el-col>
           <el-col :sm="24" :md="13">
             <h5>{{ singleItem.name }}</h5>

@@ -3,7 +3,8 @@
     <div class="box-card">
       <el-row :gutter="15">
         <el-col v-for="item in 18" :key="item" :span="8">
-          <img src="../../assets/avatar.png" alt="" />
+          <!-- <img :src="../../assets/avatar.png" alt="" /> -->
+          <img @click="dialogVisible = true" :src="singleItem.image" alt="" />
         </el-col>
       </el-row>
     </div>
@@ -15,10 +16,29 @@
       pager-count="8"
     />
   </div>
+  <image-dialog
+    @closeDialog="dialogVisible = $event"
+    :dialog-visible="dialogVisible"
+  ></image-dialog>
 </template>
 
 <script>
+import ImageDialog from "./ImageDialog.vue";
+
 export default {
+  components: {
+    ImageDialog,
+  },
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
+  computed: {
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
+  },
   created() {
     this.$store.dispatch("shop/getPhotos");
   },
@@ -39,6 +59,7 @@ export default {
 
 .third-tab img {
   width: 100%;
+  cursor: pointer;
 }
 
 .third-tab .el-pagination {

@@ -12,7 +12,7 @@
           <div
             @click="setFilter(item.name)"
             :class="{ 'is-active': currentFilter === item.name }"
-            v-for="item in searchItems"
+            v-for="item in filtersGroup"
             :key="item"
             class="box"
           >
@@ -273,6 +273,14 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    filtersGroup() {
+      return this.$store.getters["dashboard/filtersGroup"];
+    },
+    filtersItem() {
+      return this.$store.getters["dashboard/filtersItem"];
+    },
   },
   methods: {
     setFilter(item) {

@@ -4,16 +4,16 @@
       <div class="single-text">
         <p class="title">{{ $t("store_introduction") }}</p>
         <p>
-          {{ this.singleItem.description }}
+          {{ singleItem.description }}
         </p>
       </div>
       <div class="single-text">
         <p class="title">{{ $t("phone_number") }}</p>
-        <p>9876-5432</p>
+        <p>{{ this.singleItem.phoneno }}</p>
       </div>
       <div class="single-text">
         <p class="title">{{ $t("email_address") }}</p>
-        <p>shopname@shop.com</p>
+        <p>{{ singleItem.email }}</p>
       </div>
       <div class="single-text">
         <p class="title">{{ $t("shop_address") }}</p>

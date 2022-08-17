@@ -19,13 +19,24 @@ export default {
     const response = await axios.get("/api/v1/shops/promotions");
     console.log(response);
   },
-  async getFiltersGroup() {
-    const response = await axios.get("/api/v1/shops/filters/groups");
+  async getFiltersGroup(context) {
+    // const response = await axios.get("/api/v1/shops/filters/groups", {
+    //   params: {
+    //     filter: `parent:{"$eq":""}`,
+    //   },
+    // });
+    const response = await axios.get("/api/v1/shops/categories", {
+      params: {
+        filter: `parent:{"$eq":""}`,
+      },
+    });
     console.log(response);
+    context.commit("SET_FILTERS_GROUP", response.data.items);
   },
-  async getFiltersItem() {
+  async getFiltersItem(context) {
     const response = await axios.get("/api/v1/shops/filters/items");
     console.log(response);
+    context.commit("SET_FILTERS_ITEM", response.data.items);
   },
   async getSchedules() {
     const response = await axios.get("/api/v1/shops/schedules");
