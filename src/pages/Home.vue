@@ -16,6 +16,8 @@ export default {
   },
   created() {
     this.$store.commit("OPEN_DIALOG", "");
+    this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+    this.$store.commit("dashboard/RESET_DYNAMIC_FILTER_GROUP");
 
     this.$store.dispatch("dashboard/getCategories");
     this.$store.dispatch("dashboard/getLanguages");
@@ -24,6 +26,7 @@ export default {
     this.$store.dispatch("dashboard/getFiltersGroup");
     this.$store.dispatch("dashboard/getFiltersItem");
     this.$store.dispatch("dashboard/getSchedules");
+    this.$store.dispatch("dashboard/getSubCategory");
   },
 };
 </script>

@@ -10,13 +10,103 @@
         <div class="body-header">
           <p>主分類</p>
           <div
-            @click="setFilter(item.name)"
+            @click="setFilter(item)"
             :class="{ 'is-active': currentFilter === item.name }"
             v-for="item in filtersGroup"
             :key="item"
             class="box"
           >
             {{ item.name }}
+          </div>
+        </div>
+        <div class="body-header">
+          <p>子分類</p>
+          <div
+            @click="changeFilter(item)"
+            :class="{ 'is-active': currentFilter === item.name }"
+            v-for="item in categories"
+            :key="item"
+            class="box"
+          >
+            {{ item.name }}
+          </div>
+          <div class="grey-section" v-if="dynamicFilterGroup.length > 0">
+            <h5>紋身 篩選條件</h5>
+            <el-row class="alignment">
+              <el-col
+                :span="6"
+                v-for="group in dynamicFilterGroup"
+                :key="group.id"
+              >
+                <!-- {{ group }} -->
+
+                <p>{{ group.name }}</p>
+                <!-- {{ dynamicFilters }} -->
+                <template v-for="item in dynamicFilters" :key="item">
+                  <!-- {{ item }} -->
+                  <!-- {{ group.slug === item.group }} -->
+                  <el-checkbox-group
+                    v-for="single in item"
+                    :key="single"
+                    v-model="checkList[`${single.group}`]"
+                  >
+                    <el-checkbox
+                      v-if="single.group === group.slug"
+                      :label="single.name"
+                      >{{ single.name }}</el-checkbox
+                    >
+                  </el-checkbox-group>
+                </template>
+                <!-- <el-checkbox-group v-model="checkList">
+                  <el-checkbox
+                    v-for="filter in dynamicFilters"
+                    :key="filter"
+                    :label="filter"
+                  />
+                </el-checkbox-group> -->
+              </el-col>
+              <!-- <el-col :span="6">
+                <p>風格</p>
+                <el-checkbox-group v-model="checkList">
+                  <el-checkbox label="文青" />
+                  <el-checkbox label="小清新" />
+                  <el-checkbox label="日系" />
+                  <el-checkbox label="美式" />
+                  <el-checkbox label="真實主義" />
+                  <el-checkbox label="水墨刺身(中日混合)" />
+                </el-checkbox-group>
+              </el-col>
+              <el-col :span="6">
+                <p>紋身師</p>
+                <el-checkbox-group v-model="checkList">
+                  <el-checkbox label="男" />
+                  <el-checkbox label="女" />
+                </el-checkbox-group>
+              </el-col>
+              <el-col :span="6">
+                <p>收費模式</p>
+                <el-checkbox-group v-model="checkList">
+                  <el-checkbox label="以每小時收費" />
+                  <el-checkbox label="以圖案大小收費" />
+                </el-checkbox-group>
+              </el-col>
+              <el-col :span="6">
+                <p>資歷</p>
+                <el-checkbox-group v-model="checkList">
+                  <el-checkbox label="學徙" />
+                  <el-checkbox label="資深" />
+                </el-checkbox-group>
+              </el-col> -->
+            </el-row>
+            <!-- <p>風格</p>
+            <el-checkbox-group v-model="checkList">
+              <el-checkbox label="文青" />
+              <el-checkbox label="小清新" />
+              <el-checkbox label="日系" />
+              <el-checkbox label="美式" />
+              <el-checkbox label="真實主義" />
+              <el-checkbox label="水墨刺身(中日混合)" />
+            </el-checkbox-group> -->
           </div>
         </div>
         <div class="body-header">
@@ -128,9 +218,7 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="$emit('closeDialog', false)"
-            >顯示 0 項搜尋結果</el-button
-          >
+          <el-button @click="searchFilter">顯示 0 項搜尋結果</el-button>
         </span>
       </template>
     </el-dialog>
@@ -142,6 +230,7 @@ export default {
   props: ["dialogVisible"],
   data() {
     return {
+      checkList: {},
       currentFilter: "",
       priceRange: [0, 100],
       paymentMethod: [],
@@ -281,10 +370,56 @@ export default {
     filtersItem() {
       return this.$store.getters["dashboard/filtersItem"];
     },
+    categories() {
+      return this.$store.getters["dashboard/categories"];
+    },
+    dynamicFilterGroup() {
+      return this.$store.getters["dashboard/dynamicFilterGroup"];
+    },
+    dynamicFilters() {
+      return this.$store.getters["dashboard/dynamicFilters"];
+    },
   },
   methods: {
     setFilter(item) {
-      this.currentFilter = item;
+      this.currentFilter = item.name;
+      console.log(item);
+    },
+    searchFilter() {
+      console.log(this.checkList);
+      // Object.keys(this.checkList).forEach((key) => {
+      //   this.checkList[key] = this.checkList[key]
+      //     .toString()
+      //     .replaceAll(",", "|");
+      // });
+      var result = Object.keys(this.checkList).map((key) => [
+        `${key}:${this.checkList[key].toString().replaceAll(",", "|")}`,
+      ]);
+      // var result = Object.keys(this.checkList).map((key) => [
+      //   key,
+      //   this.checkList[key].toString().replaceAll(",", "|"),
+      // ]);
+      const data = this.checkList;
+      this.checkList = {};
+      console.log(this.checkList);
+      console.log(data);
+      console.log(result);
+      const finalData = result.toString();
+      console.log(result.toString());
+
+      this.$store.dispatch("search/advancedFilter", finalData).then(() => {
+        this.$emit("closeDialog", false);
+        this.$router.push({
+          path: "/advanced-search",
+          query: { q: finalData },
+        });
+      });
+    },
+    changeFilter(item) {
+      this.currentFilter = item.name;
+      console.log(item);
+      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
     },
     handleCheckAllChange(val) {
       this.checkedCities = val ? this.cities : [];
@@ -534,6 +669,43 @@ export default {
   margin: 0 auto;
   display: flex;
   padding: 1.4rem;
+}
+
+.advanced-search-dialog .grey-section {
+  background: #f5f4f0;
+  border-radius: 16px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.advanced-search-dialog .grey-section h5 {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  font-feature-settings: "liga" off;
+  color: #393939;
+  margin-bottom: 1rem;
+}
+
+.advanced-search-dialog .body .body-header .grey-section p {
+  font-family: "PingFang HK";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #6f6f6f;
+  padding-left: 0;
+}
+
+.advanced-search-dialog .grey-section p:before {
+  display: none;
+}
+
+.advanced-search-dialog .grey-section .el-row.alignment {
+  align-items: flex-start;
 }
 
 @media screen and (max-width: 991px) {

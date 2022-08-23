@@ -38,6 +38,17 @@ export default {
     console.log(response);
     context.commit("SET_SINGLE_ITEM", response.data.item);
   },
+  async advancedFilter(context, payload) {
+    console.log(payload);
+
+    const response = await axios.get(`/api/v1/shops`, {
+      params: {
+        filter: `${payload ? payload : undefined}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_SINGLE_ITEM", response.data.item);
+  },
   //   async filterSearch(_, payload) {
   //     console.log(payload.area);
   //     const response = await axios.get(

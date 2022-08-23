@@ -8,4 +8,19 @@ export default {
   filtersItem(state) {
     return state.filtersItem;
   },
+  footerContent(state) {
+    return state.footerContent;
+  },
+  promotions(state) {
+    return state.promotions;
+  },
+  categories(state) {
+    return state.categories;
+  },
+  dynamicFilterGroup(state) {
+    return state.dynamicFilterGroup;
+  },
+  dynamicFilters(state) {
+    return state.dynamicFilters;
+  },
 };

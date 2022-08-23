@@ -11,13 +11,15 @@ export default {
     console.log(response);
     context.commit("SET_LANGUAGES", response.data.items);
   },
-  async getContent() {
+  async getContent(context) {
     const response = await axios.get("/api/v1/cms/contents");
     console.log(response);
+    context.commit("SET_FOOTER_CONTENT", response.data.items);
   },
-  async getPromotions() {
+  async getPromotions(context) {
     const response = await axios.get("/api/v1/shops/promotions");
     console.log(response);
+    context.commit("SET_PROMOTIONS", response.data.items);
   },
   async getFiltersGroup(context) {
     // const response = await axios.get("/api/v1/shops/filters/groups", {
@@ -41,5 +43,40 @@ export default {
   async getSchedules() {
     const response = await axios.get("/api/v1/shops/schedules");
     console.log(response);
+  },
+  async promotionDetail(_, payload) {
+    const response = await axios.get(`/api/v1/shops/promotions/${payload}`);
+    console.log(response);
+  },
+  async getSubCategory(context) {
+    const response = await axios.get("/api/v1/shops/categories");
+    console.log(response);
+    context.commit("SET_CATEGORIES", response.data.items);
+  },
+  async getDynamicFilterGroup(context, payload) {
+    const response = await axios.get("/api/v1/shops/filters/groups", {
+      params: {
+        filter: `category:${payload}`,
+      },
+    });
+    console.log(response);
+    if (response.data.items.length > 0) {
+      response.data.items.forEach((item) => {
+        context.dispatch("getDynamicFilters", item);
+      });
+    }
+    // response.data.items.forEach((item) => {
+    //   context.dispatch("getDynamicFilters", item);
+    // });
+    context.commit("SET_DYNAMIC_FILTER_GROUP", response.data.items);
+  },
+  async getDynamicFilters(context, payload) {
+    const response = await axios.get("/api/v1/shops/filters/items", {
+      params: {
+        filter: `group:${payload.slug}`,
+      },
+    });
+    // console.log(response);
+    context.commit("SET_DYNAMIC_FILTERS", response.data.items);
   },
 };

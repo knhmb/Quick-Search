@@ -18,15 +18,41 @@
         <el-col :sm="24" :md="5">
           <p>{{ $t("meet_quick_search") }}</p>
           <ul>
-            <li>{{ $t("about_quick_search") }}</li>
+            <template v-for="item in footerContent" :key="item">
+              <li v-if="item.slug === 'cms-page-about-us'">
+                {{ item.title }}
+              </li>
+              <li v-if="item.slug === 'cms-page-contact-us'">
+                {{ item.title }}
+              </li>
+              <li v-if="item.slug === 'cms-page-faqs'">
+                {{ item.title }}
+              </li>
+            </template>
+            <!-- <li>{{ $t("about_quick_search") }}</li>
             <li>{{ $t("contact_us") }}</li>
-            <li>{{ $t("common_problem") }}</li>
+            <li>{{ $t("common_problem") }}</li> -->
           </ul>
         </el-col>
         <el-col :sm="24" :md="5">
-          <p>{{ $t("join_us") }}</p>
+          <template v-for="item in footerContent" :key="item">
+            <p v-if="item.slug === 'cms-page-join-us'">
+              {{ item.title }}
+            </p>
+          </template>
+          <!-- <p>{{ $t("join_us") }}</p> -->
           <ul>
-            <li>{{ $t("merchant_cooperation") }}</li>
+            <template v-for="item in footerContent" :key="item">
+              <li v-if="item.slug === 'cms-page-merchant-cooperation'">
+                {{ item.title }}
+              </li>
+            </template>
+
+            <!-- <li v-if="item.slug === 'cms-page-merchant-cooperation'">
+                {{ $t("merchant_registration") }}
+              </li> -->
+            <!-- <li>{{ $t("merchant_login") }}</li> -->
+            <!-- <li>{{ $t("merchant_cooperation") }}</li> -->
             <li>{{ $t("merchant_registration") }}</li>
             <li>{{ $t("merchant_login") }}</li>
           </ul>
@@ -34,8 +60,16 @@
         <el-col :sm="24" :md="5">
           <p>{{ $t("site_terms") }}</p>
           <ul>
-            <li>{{ $t("terms_of_use") }}</li>
-            <li>{{ $t("privacy_policy") }}</li>
+            <template v-for="item in footerContent" :key="item">
+              <li v-if="item.slug === 'cms-page-terms-of-use'">
+                {{ item.title }}
+              </li>
+              <li v-if="item.slug === 'cms-page-privacy-policy'">
+                {{ item.title }}
+              </li>
+              <!-- <li>{{ $t("terms_of_use") }}</li>
+            <li>{{ $t("privacy_policy") }}</li> -->
+            </template>
           </ul>
         </el-col>
       </el-row>
@@ -47,6 +81,16 @@
     </base-container>
   </footer>
 </template>
+
+<script>
+export default {
+  computed: {
+    footerContent() {
+      return this.$store.getters["dashboard/footerContent"];
+    },
+  },
+};
+</script>
 
 <style scoped>
 .footer {

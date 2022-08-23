@@ -9,6 +9,11 @@ export default {
       languages: [],
       filtersGroup: [],
       filtersItem: [],
+      footerContent: [],
+      promotions: [],
+      categories: [],
+      dynamicFilterGroup: [],
+      dynamicFilters: [],
     };
   },
   getters,

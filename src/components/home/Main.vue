@@ -14,13 +14,16 @@
       </el-col>
       <el-col class="middle-col" :sm="24" :md="15">
         <el-row :gutter="20">
-          <el-col v-for="img in imgs" :key="img" :sm="12" :md="8">
-            <div @click="dialogVisible = true" class="card">
-              <img :src="img.src" alt="" />
+          <el-col v-for="item in promotions" :key="item" :sm="12" :md="8">
+            <div @click="getItemDetail(item.slug)" class="card">
+              <img :src="item.thumbnail" alt="" />
               <div class="content">
                 <p>
-                  活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱...
+                  {{ item.description }}
                 </p>
+                <!-- <p>
+                  活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱...
+                </p> -->
               </div>
             </div>
           </el-col>
@@ -94,6 +97,16 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    promotions() {
+      return this.$store.getters["dashboard/promotions"];
+    },
+  },
+  methods: {
+    getItemDetail(slug) {
+      this.$store.dispatch("dashboard/promotionDetail", slug);
+    },
   },
 };
 </script>
