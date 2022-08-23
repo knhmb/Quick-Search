@@ -105,7 +105,7 @@ export default {
       handler() {
         if (this.$i18n.locale === "en-us") {
           const el = document.querySelector(".button-dot");
-          el.style.width = "5.3rem";
+          el.style.width = "6.5rem";
         } else {
           const el = document.querySelector(".button-dot");
           el.style.width = "4rem";

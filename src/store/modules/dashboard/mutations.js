@@ -35,4 +35,7 @@ export default {
   RESET_DYNAMIC_FILTER_GROUP(state) {
     state.dynamicFilterGroup = [];
   },
+  SET_SCHEDULES(state, payload) {
+    state.schedules = payload;
+  },
 };

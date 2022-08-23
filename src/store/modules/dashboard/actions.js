@@ -40,9 +40,10 @@ export default {
     console.log(response);
     context.commit("SET_FILTERS_ITEM", response.data.items);
   },
-  async getSchedules() {
+  async getSchedules(context) {
     const response = await axios.get("/api/v1/shops/schedules");
     console.log(response);
+    context.commit("SET_SCHEDULES", response.data.items);
   },
   async promotionDetail(_, payload) {
     const response = await axios.get(`/api/v1/shops/promotions/${payload}`);

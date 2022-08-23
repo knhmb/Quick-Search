@@ -23,4 +23,7 @@ export default {
   dynamicFilters(state) {
     return state.dynamicFilters;
   },
+  schedules(state) {
+    return state.schedules;
+  },
 };

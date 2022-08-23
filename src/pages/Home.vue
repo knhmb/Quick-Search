@@ -25,7 +25,6 @@ export default {
     this.$store.dispatch("dashboard/getPromotions");
     this.$store.dispatch("dashboard/getFiltersGroup");
     this.$store.dispatch("dashboard/getFiltersItem");
-    this.$store.dispatch("dashboard/getSchedules");
     this.$store.dispatch("dashboard/getSubCategory");
   },
 };

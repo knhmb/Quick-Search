@@ -35,7 +35,27 @@
           <label>{{ $t("selection_period") }}</label>
           <p class="am">{{ $t("morning_session") }}</p>
           <el-row :gutter="15">
-            <el-col :sm="12" :md="6">
+            <template v-for="time in schedules" :key="time">
+              <el-col
+                v-for="slot in time.timeslot"
+                :key="slot"
+                :sm="12"
+                :md="6"
+              >
+                <!-- {{ time }} -->
+                <div
+                  v-if="checkDate(slot.begin).includes('am')"
+                  class="time-box"
+                  @click="isActive = slot.begin"
+                  :class="{ 'is-active': isActive === slot.begin }"
+                >
+                  {{ filterDate(slot.begin) }}
+                </div>
+                <!-- {{ slot }} -->
+              </el-col>
+            </template>
+
+            <!-- <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '9:00'"
@@ -70,11 +90,30 @@
               >
                 12:00
               </div>
-            </el-col>
+            </el-col> -->
           </el-row>
           <p class="am">{{ $t("afternoon_session") }}</p>
           <el-row :gutter="15">
-            <el-col :sm="12" :md="6">
+            <template v-for="time in schedules" :key="time">
+              <el-col
+                v-for="slot in time.timeslot"
+                :key="slot"
+                :sm="12"
+                :md="6"
+              >
+                <!-- {{ time }} -->
+                <div
+                  v-if="checkDate(slot.begin).includes('pm')"
+                  class="time-box"
+                  @click="isActive = slot.begin"
+                  :class="{ 'is-active': isActive === slot.begin }"
+                >
+                  {{ filterDate(slot.begin) }}
+                </div>
+                <!-- {{ slot }} -->
+              </el-col>
+            </template>
+            <!-- <el-col :sm="12" :md="6">
               <div
                 class="time-box"
                 @click="isActive = '13:00'"
@@ -145,7 +184,7 @@
               >
                 20:00
               </div>
-            </el-col>
+            </el-col> -->
           </el-row>
         </div>
         <el-button @click="postDateTime">{{
@@ -219,10 +258,19 @@ export default {
     singleItem() {
       return this.$store.getters["search/singleItem"];
     },
+    schedules() {
+      return this.$store.getters["dashboard/schedules"];
+    },
   },
   methods: {
     dateChanged(day) {
       console.log(day);
+    },
+    filterDate(date) {
+      return moment(new Date(date)).format("h:mm");
+    },
+    checkDate(date) {
+      return moment(new Date(date)).format("h:mm a");
     },
     postDateTime() {
       const date = moment(this.date).format("YYYY-MM-DD");
@@ -279,6 +327,7 @@ export default {
   },
   created() {
     console.log(this.singleItem);
+    this.$store.dispatch("dashboard/getSchedules");
   },
 };
 </script>
