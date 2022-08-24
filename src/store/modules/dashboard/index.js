@@ -15,6 +15,7 @@ export default {
       dynamicFilterGroup: [],
       dynamicFilters: [],
       schedules: [],
+      promotionDetail: [],
     };
   },
   getters,

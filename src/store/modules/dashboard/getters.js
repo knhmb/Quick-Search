@@ -26,4 +26,7 @@ export default {
   schedules(state) {
     return state.schedules;
   },
+  promotionDetail(state) {
+    return state.promotionDetail;
+  },
 };

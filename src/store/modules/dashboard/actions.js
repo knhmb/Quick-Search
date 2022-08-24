@@ -21,7 +21,7 @@ export default {
     console.log(response);
     context.commit("SET_PROMOTIONS", response.data.items);
   },
-  async getFiltersGroup(context) {
+  async getFiltersGroup(context, payload) {
     // const response = await axios.get("/api/v1/shops/filters/groups", {
     //   params: {
     //     filter: `parent:{"$eq":""}`,
@@ -29,7 +29,7 @@ export default {
     // });
     const response = await axios.get("/api/v1/shops/categories", {
       params: {
-        filter: `parent:{"$eq":""}`,
+        filter: `parent:{"$eq":${payload}}`,
       },
     });
     console.log(response);
@@ -45,9 +45,10 @@ export default {
     console.log(response);
     context.commit("SET_SCHEDULES", response.data.items);
   },
-  async promotionDetail(_, payload) {
+  async promotionDetail(context, payload) {
     const response = await axios.get(`/api/v1/shops/promotions/${payload}`);
     console.log(response);
+    context.commit("SET_PROMOTION_DETAIL", response.data.item);
   },
   async getSubCategory(context) {
     const response = await axios.get("/api/v1/shops/categories");

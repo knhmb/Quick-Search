@@ -12,16 +12,25 @@
           <div
             @click="setFilter(item)"
             :class="{ 'is-active': currentFilter === item.name }"
-            v-for="item in filtersGroup"
+            v-for="item in categories"
             :key="item"
             class="box"
           >
             {{ item.name }}
           </div>
+          <!-- <div
+            @click="setFilter(item)"
+            :class="{ 'is-active': currentFilter === item.name }"
+            v-for="item in filtersGroup"
+            :key="item"
+            class="box"
+          >
+            {{ item.name }}
+          </div> -->
         </div>
         <div class="body-header">
           <p>子分類</p>
-          <div
+          <!-- <div
             @click="changeFilter(item)"
             :class="{ 'is-active': currentFilter === item.name }"
             v-for="item in categories"
@@ -38,13 +47,9 @@
                 v-for="group in dynamicFilterGroup"
                 :key="group.id"
               >
-                <!-- {{ group }} -->
 
                 <p>{{ group.name }}</p>
-                <!-- {{ dynamicFilters }} -->
                 <template v-for="item in dynamicFilters" :key="item">
-                  <!-- {{ item }} -->
-                  <!-- {{ group.slug === item.group }} -->
                   <el-checkbox-group
                     v-for="single in item"
                     :key="single"
@@ -57,57 +62,9 @@
                     >
                   </el-checkbox-group>
                 </template>
-                <!-- <el-checkbox-group v-model="checkList">
-                  <el-checkbox
-                    v-for="filter in dynamicFilters"
-                    :key="filter"
-                    :label="filter"
-                  />
-                </el-checkbox-group> -->
               </el-col>
-              <!-- <el-col :span="6">
-                <p>風格</p>
-                <el-checkbox-group v-model="checkList">
-                  <el-checkbox label="文青" />
-                  <el-checkbox label="小清新" />
-                  <el-checkbox label="日系" />
-                  <el-checkbox label="美式" />
-                  <el-checkbox label="真實主義" />
-                  <el-checkbox label="水墨刺身(中日混合)" />
-                </el-checkbox-group>
-              </el-col>
-              <el-col :span="6">
-                <p>紋身師</p>
-                <el-checkbox-group v-model="checkList">
-                  <el-checkbox label="男" />
-                  <el-checkbox label="女" />
-                </el-checkbox-group>
-              </el-col>
-              <el-col :span="6">
-                <p>收費模式</p>
-                <el-checkbox-group v-model="checkList">
-                  <el-checkbox label="以每小時收費" />
-                  <el-checkbox label="以圖案大小收費" />
-                </el-checkbox-group>
-              </el-col>
-              <el-col :span="6">
-                <p>資歷</p>
-                <el-checkbox-group v-model="checkList">
-                  <el-checkbox label="學徙" />
-                  <el-checkbox label="資深" />
-                </el-checkbox-group>
-              </el-col> -->
             </el-row>
-            <!-- <p>風格</p>
-            <el-checkbox-group v-model="checkList">
-              <el-checkbox label="文青" />
-              <el-checkbox label="小清新" />
-              <el-checkbox label="日系" />
-              <el-checkbox label="美式" />
-              <el-checkbox label="真實主義" />
-              <el-checkbox label="水墨刺身(中日混合)" />
-            </el-checkbox-group> -->
-          </div>
+          </div> -->
         </div>
         <div class="body-header">
           <p>篩選條件</p>
@@ -194,8 +151,16 @@
           <div class="other-filters">
             <div class="single-filter">
               <p class="area">優惠</p>
-              <el-checkbox label="有優惠" value="有優惠"></el-checkbox>
-              <el-checkbox label="無優惠" value="無優惠"></el-checkbox>
+              <el-checkbox
+                v-model="discount"
+                label="有優惠"
+                value="有優惠"
+              ></el-checkbox>
+              <el-checkbox
+                v-model="discount"
+                label="無優惠"
+                value="無優惠"
+              ></el-checkbox>
             </div>
             <div class="single-filter middle">
               <p class="area">價格範圍</p>
@@ -231,6 +196,7 @@ export default {
   data() {
     return {
       checkList: {},
+      discount: [],
       currentFilter: "",
       priceRange: [0, 100],
       paymentMethod: [],
@@ -383,7 +349,7 @@ export default {
   methods: {
     setFilter(item) {
       this.currentFilter = item.name;
-      console.log(item);
+      this.$store.dispatch("dashboard/getFiltersGroup", item.parent);
     },
     searchFilter() {
       console.log(this.checkList);
@@ -392,7 +358,7 @@ export default {
       //     .toString()
       //     .replaceAll(",", "|");
       // });
-      var result = Object.keys(this.checkList).map((key) => [
+      let result = Object.keys(this.checkList).map((key) => [
         `${key}:${this.checkList[key].toString().replaceAll(",", "|")}`,
       ]);
       // var result = Object.keys(this.checkList).map((key) => [
@@ -401,19 +367,73 @@ export default {
       // ]);
       const data = this.checkList;
       this.checkList = {};
-      console.log(this.checkList);
+      // console.log(this.checkList);
       console.log(data);
-      console.log(result);
+      // console.log(result);
       const finalData = result.toString();
-      console.log(result.toString());
+      console.log(finalData);
+      // console.log(this.discount);
+      // console.log(this.priceRange);
+      // console.log(this.checkedCities);
+      // console.log(this.checkedKowloonAreas);
+      // console.log(this.checkedNewTerritories);
+      // console.log(this.checkedIslandDistrict);
 
-      this.$store.dispatch("search/advancedFilter", finalData).then(() => {
+      const discountData =
+        this.discount.length > 0
+          ? this.discount.toString().replaceAll(",", "|")
+          : "";
+
+      const areas = [];
+
+      this.checkedCities.forEach((city) => {
+        areas.push(city);
+      });
+      this.checkedKowloonAreas.forEach((city) => {
+        areas.push(city);
+      });
+      this.checkedNewTerritories.forEach((city) => {
+        areas.push(city);
+      });
+      this.checkedIslandDistrict.forEach((city) => {
+        areas.push(city);
+      });
+
+      const dataObject = {
+        dynamicFilter: finalData,
+        discount: discountData,
+        area: areas.length > 0 ? areas.toString().replaceAll(",", "|") : "",
+        price: this.priceRange,
+        paymentMethod:
+          this.paymentMethod.length > 0
+            ? this.paymentMethod.toString().replaceAll(",", "|")
+            : "",
+      };
+      // console.log(dataObject);
+
+      // const query = `${dataObject.dynamicFilter},${
+      //   dataObject.discount ? `discount:${dataObject.discount},` : ""
+      // }${dataObject.area ? `area:${dataObject.area},` : ""}price:${
+      //   dataObject.price
+      // },${
+      //   dataObject.paymentMethod ? `payment:${dataObject.paymentMethod}` : ""
+      // }`;
+      // console.log(query);
+
+      this.$store.dispatch("search/advancedFilter", dataObject).then(() => {
         this.$emit("closeDialog", false);
         this.$router.push({
           path: "/advanced-search",
-          query: { q: finalData },
+          query: { filter: finalData },
         });
       });
+      // this.$store.dispatch("search/advancedFilter", finalData).then(() => {
+      //   this.$emit("closeDialog", false);
+      //   this.$router.push({
+      //     path: "/advanced-search",
+      //     query: { filter: finalData },
+      //   });
+      // });
     },
     changeFilter(item) {
       this.currentFilter = item.name;

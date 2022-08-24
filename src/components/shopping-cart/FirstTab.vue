@@ -273,12 +273,15 @@ export default {
       return moment(new Date(date)).format("h:mm a");
     },
     postDateTime() {
-      const date = moment(this.date).format("YYYY-MM-DD");
-      const dated = `${date} ${this.isActive}`;
+      // const date = moment(this.date).format("YYYY-MM-DD");
+      // const dated = `${date} ${this.isActive}`;
+      const dated = `${this.isActive}`;
+      console.log(dated);
       const data = {
         account: this.singleItem.account[0],
         shop: this.singleItem.name,
-        schedule: new Date(dated).toISOString(),
+        schedule: dated,
+        // schedule: new Date(dated).toISOString(),
       };
       console.log(data);
       if (this.isUserLoggedIn) {

@@ -54,6 +54,10 @@ export default {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
+      params: {
+        page: 1,
+        pageSize: 15,
+      },
     });
     console.log(response);
     context.commit("SET_COMMENTS", response.data.items);

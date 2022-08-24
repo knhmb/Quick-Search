@@ -10,8 +10,49 @@
         @select="handleSelect"
       >
         <Carousel :breakpoints="breakpoints">
+          <Slide v-for="(slide, index) in categories" :key="slide">
+            <el-sub-menu popper-class="custom-menu" :index="`${index}`">
+              <template #title>{{ slide.name }}</template>
+              <div class="header">
+                <p>{{ slide.name }}</p>
+                <img src="../../assets/chevron-right-black@2x.png" alt="" />
+              </div>
+              <el-row>
+                <el-col :span="12">
+                  <el-menu-item
+                    @click="searchCategory(child.slug)"
+                    v-for="(child, i) in slide.resources.children"
+                    :key="child"
+                    :index="`${i} + '-1'`"
+                    >{{ child.name }}</el-menu-item
+                  >
+                  <!-- <el-menu-item :index="`${index} + '-1'`">美甲</el-menu-item>
+                  <el-menu-item :index="`${index} + '-2'`">美睫</el-menu-item>
+                  <el-menu-item :index="`${index} + '-3'`">按摩店</el-menu-item>
+                  <el-menu-item :index="`${index} + '-4'`">蒸身</el-menu-item>
+                  <el-menu-item :index="`${index} + '-5'`">綉眉</el-menu-item>
+                  <el-menu-item :index="`${index} + '-6'`"
+                    >頭髮護理</el-menu-item
+                  >
+                  <el-menu-item :index="`${index} + '-7'`">剪頭髮</el-menu-item>
+                  <el-menu-item :index="`${index} + '-8'`">眼</el-menu-item> -->
+                </el-col>
+                <!-- <el-col :span="12">
+                  <el-menu-item :index="index + '-9'">紋身</el-menu-item>
+                  <el-menu-item :index="index + '-10'">美白牙齒</el-menu-item>
+                  <el-menu-item :index="index + '-11'">美容護理</el-menu-item>
+                </el-col> -->
+              </el-row>
+            </el-sub-menu>
+          </Slide>
+
+          <template #addons>
+            <Navigation />
+            <Pagination />
+          </template>
+        </Carousel>
+        <!-- <Carousel :breakpoints="breakpoints">
           <Slide v-for="(slide, index) in options" :key="slide">
-            <!-- <div class="carousel__item">{{ slide }}</div> -->
             <el-sub-menu popper-class="custom-menu" :index="index">
               <template #title>{{ slide }}</template>
               <div class="header">
@@ -42,47 +83,7 @@
             <Navigation />
             <Pagination />
           </template>
-        </Carousel>
-        <!-- <el-sub-menu popper-class="custom-menu" index="1">
-          <template #title>個人護理</template>
-          <div class="header">
-            <p>個人護理</p>
-            <img src="../../assets/chevron-right-black@2x.png" alt="" />
-          </div>
-          <el-row>
-            <el-col :span="12">
-              <el-menu-item index="1-1">美甲</el-menu-item>
-              <el-menu-item index="1-2">美睫</el-menu-item>
-              <el-menu-item index="1-3">按摩店</el-menu-item>
-              <el-menu-item index="1-4">蒸身</el-menu-item>
-              <el-menu-item index="1-5">綉眉</el-menu-item>
-              <el-menu-item index="1-6">頭髮護理</el-menu-item>
-              <el-menu-item index="1-7">剪頭髮</el-menu-item>
-              <el-menu-item index="1-8">眼</el-menu-item>
-            </el-col>
-            <el-col :span="12">
-              <el-menu-item index="1-9">紋身</el-menu-item>
-              <el-menu-item index="1-10">美白牙齒</el-menu-item>
-              <el-menu-item index="1-11">美容護理</el-menu-item>
-            </el-col>
-          </el-row>
-        </el-sub-menu>
-
-        <el-menu-item index="2">寵物</el-menu-item>
-        <el-menu-item index="3">手工藝</el-menu-item>
-        <el-menu-item index="5">藥妝</el-menu-item>
-        <el-menu-item index="6">攝影</el-menu-item>
-        <el-menu-item index="7">化妝</el-menu-item>
-        <el-menu-item index="8">保健食品</el-menu-item>
-        <el-menu-item index="9">興趣</el-menu-item>
-        <el-menu-item index="10">烘焙</el-menu-item>
-        <el-menu-item index="11">醫療</el-menu-item>
-        <el-menu-item index="12">媽媽</el-menu-item>
-        <el-menu-item index="13">母嬰</el-menu-item>
-        <el-menu-item index="14">精品</el-menu-item>
-        <el-menu-item index="15">玩具</el-menu-item>
-        <el-menu-item index="16">車項目</el-menu-item>
-        <el-menu-item index="17">工程裝飾</el-menu-item> -->
+        </Carousel> -->
       </el-menu>
     </base-container>
   </div>
@@ -131,11 +132,30 @@ export default {
         },
         // 1024 and up
         1024: {
-          itemsToShow: 14,
+          itemsToShow: 9,
           snapAlign: "end",
         },
       },
     };
+  },
+  computed: {
+    categories() {
+      return this.$store.getters["dashboard/categories"];
+    },
+  },
+  methods: {
+    searchCategory(category) {
+      const data = {
+        search: category,
+      };
+
+      this.$store.dispatch("search/searchItem", data).then(() => {
+        this.$router.push({
+          path: "/advanced-search",
+          query: { q: category },
+        });
+      });
+    },
   },
 };
 </script>
@@ -214,6 +234,10 @@ export default {
 
 .el-menu--horizontal.custom-menu img {
   width: 1.3rem;
+}
+
+.el-menu-item {
+  width: fit-content;
 }
 
 @media screen and (max-width: 991px) {

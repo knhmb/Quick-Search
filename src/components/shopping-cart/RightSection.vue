@@ -24,7 +24,7 @@
 import FirstTab from "./FirstTab.vue";
 import SecondTab from "./SecondTab.vue";
 import ThirdTab from "./ThirdTab.vue";
-import { ElNotification } from "element-plus";
+// import { ElNotification } from "element-plus";
 
 export default {
   components: {
@@ -40,26 +40,28 @@ export default {
   methods: {
     openSecondTab(val) {
       if (val.paneName === "second") {
-        this.$store
-          .dispatch("auth/checkAccessToken")
-          .then(() => {
-            this.$store.dispatch("shop/getComments");
-          })
-          .catch(() => {
-            this.$store
-              .dispatch("auth/checkRefreshToken")
-              .then(() => {
-                this.$store.dispatch("shop/getComments");
-              })
-              .catch(() => {
-                ElNotification({
-                  title: "Error",
-                  message: this.$t("token_expired"),
-                  type: "error",
-                });
-                this.$store.dispatch("auth/logout");
-              });
-          });
+        this.$store.dispatch("shop/getComments");
+
+        // this.$store
+        //   .dispatch("auth/checkAccessToken")
+        //   .then(() => {
+        //     this.$store.dispatch("shop/getComments");
+        //   })
+        //   .catch(() => {
+        //     this.$store
+        //       .dispatch("auth/checkRefreshToken")
+        //       .then(() => {
+        //         this.$store.dispatch("shop/getComments");
+        //       })
+        //       .catch(() => {
+        //         ElNotification({
+        //           title: "Error",
+        //           message: this.$t("token_expired"),
+        //           type: "error",
+        //         });
+        //         this.$store.dispatch("auth/logout");
+        //       });
+        //   });
       }
     },
   },

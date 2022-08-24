@@ -30,7 +30,7 @@
 
         <el-row class="img-row" justify="space-between">
           <el-col v-for="item in 7" :key="item" :span="3">
-            <img class="prod-img" src="../../assets/avatar.png" alt="" />
+            <img class="prod-img" :src="singleItem.image" alt="" />
           </el-col>
         </el-row>
       </div>
@@ -65,7 +65,7 @@
     small
     background
     layout="prev, pager, next"
-    :total="80"
+    :total="comments.length + 0"
     pager-count="8"
   />
 </template>

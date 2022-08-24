@@ -105,7 +105,9 @@ export default {
   },
   methods: {
     getItemDetail(slug) {
-      this.$store.dispatch("dashboard/promotionDetail", slug);
+      this.$store.dispatch("dashboard/promotionDetail", slug).then(() => {
+        this.dialogVisible = true;
+      });
     },
   },
 };

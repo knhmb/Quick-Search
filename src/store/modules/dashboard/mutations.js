@@ -38,4 +38,7 @@ export default {
   SET_SCHEDULES(state, payload) {
     state.schedules = payload;
   },
+  SET_PROMOTION_DETAIL(state, payload) {
+    state.promotionDetail = payload;
+  },
 };

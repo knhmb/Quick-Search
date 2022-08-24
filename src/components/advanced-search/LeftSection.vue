@@ -142,31 +142,31 @@ export default {
           children: [
             {
               id: 2,
-              label: "青衣站",
+              label: "堅尼地城站",
             },
             {
               id: 3,
-              label: "欣澳站",
+              label: "香港大學站",
               disabled: false,
             },
             {
               id: 4,
-              label: "迪士尼站",
+              label: "西營盤站",
               disabled: false,
             },
             {
               id: 5,
-              label: "東涌站",
+              label: "上環站",
               disabled: false,
             },
             {
               id: 6,
-              label: "機場站",
+              label: "中環站",
               disabled: false,
             },
             {
               id: 7,
-              label: "博覽館站",
+              label: "金鐘站",
               disabled: false,
             },
           ],
@@ -177,31 +177,31 @@ export default {
           children: [
             {
               id: 2,
-              label: "青衣站",
+              label: "藍田站",
             },
             {
               id: 3,
-              label: "欣澳站",
+              label: "觀塘站",
               disabled: false,
             },
             {
               id: 4,
-              label: "迪士尼站",
+              label: "牛頭角站",
               disabled: false,
             },
             {
               id: 5,
-              label: "東涌站",
+              label: "九龍灣站",
               disabled: false,
             },
             {
               id: 6,
-              label: "機場站",
+              label: "彩虹站",
               disabled: false,
             },
             {
               id: 7,
-              label: "博覽館站",
+              label: "鑽石山站",
               disabled: false,
             },
           ],
@@ -212,31 +212,31 @@ export default {
           children: [
             {
               id: 2,
-              label: "青衣站",
+              label: "荃灣站",
             },
             {
               id: 3,
-              label: "欣澳站",
+              label: "大窩口站",
               disabled: false,
             },
             {
               id: 4,
-              label: "迪士尼站",
+              label: "葵興站",
               disabled: false,
             },
             {
               id: 5,
-              label: "東涌站",
+              label: "葵芳站",
               disabled: false,
             },
             {
               id: 6,
-              label: "機場站",
+              label: "康城站",
               disabled: false,
             },
             {
               id: 7,
-              label: "博覽館站",
+              label: "寶琳站",
               disabled: false,
             },
           ],
@@ -306,14 +306,31 @@ export default {
       console.log(filterArr);
 
       const filter = {
-        query: this.$route.query.q ? this.$route.query.q : "",
         area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
+        query: this.$route.query ? this.$route.query : "",
+        // query: this.$route.query.q
+        //   ? this.$route.query.q
+        //   : this.$route.query.filter
+        //   ? this.$route.query.filter
+        //   : "",
         price: this.filter.sliderValue ? this.filter.sliderValue : "",
         discount:
           this.filter.discountCheckbox.length > 0
             ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
             : "",
+        // payment:
+        //   this.filter.paymentCheckbox.length > 0
+        //     ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
+        //     : "",
         sort: this.sorting ? this.sorting : "",
+        // query: this.$route.query.q ? this.$route.query.q : "",
+        // area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
+        // price: this.filter.sliderValue ? this.filter.sliderValue : "",
+        // discount:
+        //   this.filter.discountCheckbox.length > 0
+        //     ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
+        //     : "",
+        // sort: this.sorting ? this.sorting : "",
       };
       console.log(filter);
 
@@ -329,7 +346,12 @@ export default {
 
       const filter = {
         area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
-        query: this.$route.query.q ? this.$route.query.q : "",
+        query: this.$route.query ? this.$route.query : "",
+        // query: this.$route.query.q
+        //   ? this.$route.query.q
+        //   : this.$route.query.filter
+        //   ? this.$route.query.filter
+        //   : "",
         price: this.filter.sliderValue ? this.filter.sliderValue : "",
         discount:
           this.filter.discountCheckbox.length > 0

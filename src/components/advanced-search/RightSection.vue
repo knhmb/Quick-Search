@@ -20,7 +20,7 @@
     <el-row :gutter="15">
       <el-col v-for="item in searchItems" :key="item" :sm="12" :md="8">
         <div class="card" @click="selectShop(item.slug)">
-          <img src="../../assets/shop-sample01@2x.jpg" alt="" />
+          <img :src="item.image" alt="" />
           <div class="content">
             <h5>{{ item.name }}</h5>
             <p>
@@ -34,8 +34,8 @@
           small
           background
           layout="prev, pager, next"
-          :total="80"
-          pager-count="8"
+          :total="searchItems.length + 0"
+          :pager-count="8"
         />
       </el-col>
     </el-row>

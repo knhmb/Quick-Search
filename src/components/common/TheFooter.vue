@@ -19,7 +19,10 @@
           <p>{{ $t("meet_quick_search") }}</p>
           <ul>
             <template v-for="item in footerContent" :key="item">
-              <li v-if="item.slug === 'cms-page-about-us'">
+              <li
+                @click="$router.push('/about-us')"
+                v-if="item.slug === 'cms-page-about-us'"
+              >
                 {{ item.title }}
               </li>
               <li v-if="item.slug === 'cms-page-contact-us'">
@@ -147,6 +150,7 @@ export default {
   font-weight: 400;
   color: #985f35;
   margin-bottom: 0.2rem;
+  cursor: pointer;
 }
 
 .footer p.copyright {

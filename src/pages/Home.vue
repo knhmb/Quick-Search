@@ -23,7 +23,7 @@ export default {
     this.$store.dispatch("dashboard/getLanguages");
     this.$store.dispatch("dashboard/getContent");
     this.$store.dispatch("dashboard/getPromotions");
-    this.$store.dispatch("dashboard/getFiltersGroup");
+    // this.$store.dispatch("dashboard/getFiltersGroup");
     this.$store.dispatch("dashboard/getFiltersItem");
     this.$store.dispatch("dashboard/getSubCategory");
   },

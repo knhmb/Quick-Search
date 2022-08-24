@@ -13,6 +13,7 @@ import BookingList from "./pages/BookingList";
 import Coupon from "./pages/Coupon";
 import Bookmark from "./pages/Bookmark";
 import Notification from "./pages/Notification";
+import AboutUs from "./pages/AboutUs";
 // import { ElNotification } from "element-plus";
 
 const router = createRouter({
@@ -23,6 +24,7 @@ const router = createRouter({
     { path: "/basic-search", component: BasicSearch },
     { path: "/advanced-search", component: AdvancedSearch },
     { path: "/shop", component: ShoppingCart },
+    { path: "/about-us", component: AboutUs },
     {
       path: "/comment",
       component: Comment,
