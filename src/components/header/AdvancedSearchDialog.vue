@@ -402,31 +402,19 @@ export default {
     },
     searchFilter() {
       console.log(this.checkList);
-      // Object.keys(this.checkList).forEach((key) => {
-      //   this.checkList[key] = this.checkList[key]
-      //     .toString()
-      //     .replaceAll(",", "|");
-      // });
-      let result = Object.keys(this.checkList).map((key) => [
-        `${key}:${this.checkList[key].toString().replaceAll(",", "|")}`,
-      ]);
-      // var result = Object.keys(this.checkList).map((key) => [
-      //   key,
-      //   this.checkList[key].toString().replaceAll(",", "|"),
+      const arr = [];
+      for (const item in this.checkList) {
+        console.log(`${item}:{"$in":[${this.checkList[item]}]}`);
+        arr.push(`${item}:{"$in":[${this.checkList[item]}]}`);
+      }
+      console.log(arr);
+      console.log(arr.toString());
+      // let result = Object.keys(this.checkList).map((key) => [
+      //   `${key}:${this.checkList[key].toString().replaceAll(",", "|")}`,
       // ]);
-      const data = this.checkList;
-      this.checkList = {};
-      // console.log(this.checkList);
-      console.log(data);
-      // console.log(result);
-      const finalData = result.toString();
-      console.log(finalData);
-      // console.log(this.discount);
-      // console.log(this.priceRange);
-      // console.log(this.checkedCities);
-      // console.log(this.checkedKowloonAreas);
-      // console.log(this.checkedNewTerritories);
-      // console.log(this.checkedIslandDistrict);
+      // this.checkList = {};
+      // const finalData = result.toString();
+      // console.log(finalData);
 
       const discountData =
         this.discount.length > 0
@@ -449,34 +437,29 @@ export default {
       });
 
       const dataObject = {
-        dynamicFilter: finalData,
+        dynamicFilter: arr.toString(),
+        dynamicFilter1: arr,
+        // dynamicFilter: finalData,
         discount: discountData,
-        area: areas.length > 0 ? areas.toString().replaceAll(",", "|") : "",
+        area: areas.length > 0 ? `{"$in":[${areas}]}` : "",
+        // area: areas.length > 0 ? areas.toString().replaceAll(",", "|") : "",
         price: this.priceRange,
         paymentMethod:
           this.paymentMethod.length > 0
             ? this.paymentMethod.toString().replaceAll(",", "|")
             : "",
       };
-      // console.log(dataObject);
 
-      // const query = `${dataObject.dynamicFilter},${
-      //   dataObject.discount ? `discount:${dataObject.discount},` : ""
-      // }${dataObject.area ? `area:${dataObject.area},` : ""}price:${
-      //   dataObject.price
-      // },${
-      //   dataObject.paymentMethod ? `payment:${dataObject.paymentMethod}` : ""
-      // }`;
-      // console.log(query);
+      console.log(dataObject);
 
       this.$store.dispatch("search/advancedFilter", dataObject).then(() => {
         this.$emit("closeDialog", false);
         this.$router.push({
           path: "/advanced-search",
-          query: { filter: finalData },
+          query: { filter: arr.toString() },
         });
       });
-      // this.$store.dispatch("search/advancedFilter", finalData).then(() => {
+      // this.$store.dispatch("search/advancedFilter", dataObject).then(() => {
       //   this.$emit("closeDialog", false);
       //   this.$router.push({
       //     path: "/advanced-search",

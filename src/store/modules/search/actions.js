@@ -126,7 +126,7 @@ export default {
       params: {
         filter:
           `${payload.dynamicFilter ? `${payload.dynamicFilter},` : ""}${
-            payload.areas ? `area:${payload.areas},` : ""
+            payload.area ? `area:${payload.area},` : ""
           }${
             payload.price
               ? `price:${payload.price[0]}-${payload.price[1]},`
