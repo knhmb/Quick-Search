@@ -61,7 +61,7 @@ export default {
         pageSize: 10,
         filter: payload.query.filter
           ? payload.query.filter + "," + param
-          : param || undefined,
+          : param,
         sort: payload.sort ? payload.sort : undefined,
         // `${payload.query.filter ? `${payload.query.filter}` : ""}${
         //   payload.area ? `area:${payload.area},` : ""

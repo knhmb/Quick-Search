@@ -113,6 +113,27 @@
             </el-col>
           </el-row>
         </div>
+        <el-row class="alignment">
+          <el-col
+            :span="24"
+            v-for="group in dynamicFilterGroup"
+            :key="group.id"
+          >
+            <p>{{ group.name }}</p>
+            <template v-for="item in dynamicFilters" :key="item">
+              <el-checkbox-group
+                @change="checkboxChanged"
+                v-model="checkList[`${item.group}`]"
+              >
+                <el-checkbox
+                  v-if="item.group === group.slug"
+                  :label="item.name"
+                  >{{ item.name }}</el-checkbox
+                >
+              </el-checkbox-group>
+            </template>
+          </el-col>
+        </el-row>
       </div>
     </base-card>
   </div>
@@ -124,6 +145,7 @@ export default {
   data() {
     return {
       arr: [],
+      checkList: {},
       filter: {
         arr: [],
         discountCheckbox: [],
@@ -284,7 +306,18 @@ export default {
       this.handlePayment();
     },
   },
+  computed: {
+    dynamicFilterGroup() {
+      return this.$store.getters["dashboard/dynamicFilterGroup"];
+    },
+    dynamicFilters() {
+      return this.$store.getters["dashboard/dynamicFilters"];
+    },
+  },
   methods: {
+    checkboxChanged() {
+      console.log(this.checkList);
+    },
     handleChange(data, checked, indeterminate) {
       console.log(data);
       console.log(checked);
@@ -293,44 +326,47 @@ export default {
       if (checked) {
         this.filter.arr.push({
           id: data.id,
-          label: data.label,
+          label: `${data.label}`,
         });
       } else if (!checked) {
         this.filter.arr = this.filter.arr.filter((item) => item.id !== data.id);
       }
       const filterArr = [];
+      const filterDiscount = [];
+      const filterPayment = [];
 
       this.filter.arr.forEach((item) => {
-        filterArr.push(item.label);
+        filterArr.push(`"${item.label}"`);
       });
-      console.log(filterArr);
+      this.filter.discountCheckbox.forEach((item) => {
+        console.log(item);
+        filterDiscount.push(`"${item.label}"`);
+      });
+      this.filter.paymentCheckbox.forEach((item) => {
+        console.log(item);
+        filterPayment.push(`"${item.label}"`);
+      });
+      const discountData =
+        filterDiscount.length > 0 ? `{"$in":[${filterDiscount}]}` : "";
+      const paymentData =
+        filterPayment.length > 0 ? `{"$in":[${filterPayment}]}` : "";
 
       const filter = {
-        area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
-        query: this.$route.query ? this.$route.query : "",
-        // query: this.$route.query.q
-        //   ? this.$route.query.q
-        //   : this.$route.query.filter
-        //   ? this.$route.query.filter
-        //   : "",
-        price: this.filter.sliderValue ? this.filter.sliderValue : "",
-        discount:
-          this.filter.discountCheckbox.length > 0
-            ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
-            : "",
-        payment:
-          this.filter.paymentCheckbox.length > 0
-            ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
-            : "",
-        sort: this.sorting ? this.sorting : "",
-        // query: this.$route.query.q ? this.$route.query.q : "",
         // area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
-        // price: this.filter.sliderValue ? this.filter.sliderValue : "",
+        area: filterArr.length > 0 ? `{"$in":[${filterArr}]}` : "",
+        query: this.$route.query ? this.$route.query : "",
+        price: this.filter.sliderValue ? this.filter.sliderValue : "",
+        discount: discountData,
         // discount:
         //   this.filter.discountCheckbox.length > 0
         //     ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
         //     : "",
-        // sort: this.sorting ? this.sorting : "",
+        payment: paymentData,
+        // payment:
+        //   this.filter.paymentCheckbox.length > 0
+        //     ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
+        //     : "",
+        sort: this.sorting ? this.sorting : "",
       };
       console.log(filter);
 
@@ -338,14 +374,34 @@ export default {
     },
     handleDiscount() {
       const filterArr = [];
+      const filterDiscount = [];
+      const filterPayment = [];
 
       this.filter.arr.forEach((item) => {
-        filterArr.push(item.label);
+        filterArr.push(`"${item.label}"`);
       });
-      console.log(filterArr);
+      this.filter.discountCheckbox.forEach((item) => {
+        console.log(item);
+        filterDiscount.push(`"${item.label}"`);
+      });
+      this.filter.paymentCheckbox.forEach((item) => {
+        console.log(item);
+        filterPayment.push(`"${item.label}"`);
+      });
+      const discountData =
+        filterDiscount.length > 0 ? `{"$in":[${filterDiscount}]}` : "";
+      const paymentData =
+        filterPayment.length > 0 ? `{"$in":[${filterPayment}]}` : "";
+      console.log(this.filter);
+      // const discountData =
+      //   this.filter.discountCheckbox.length > 0
+      //     ? `{"$in":[${this.filter.discountCheckbox}]}`
+      //     : "";
 
       const filter = {
-        area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
+        area: filterArr.length > 0 ? `{"$in":[${filterArr}]}` : "",
+
+        // area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
         query: this.$route.query ? this.$route.query : "",
         // query: this.$route.query.q
         //   ? this.$route.query.q
@@ -353,14 +409,16 @@ export default {
         //   ? this.$route.query.filter
         //   : "",
         price: this.filter.sliderValue ? this.filter.sliderValue : "",
-        discount:
-          this.filter.discountCheckbox.length > 0
-            ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
-            : "",
-        payment:
-          this.filter.paymentCheckbox.length > 0
-            ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
-            : "",
+        discount: discountData,
+        // discount:
+        //   this.filter.discountCheckbox.length > 0
+        //     ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
+        //     : "",
+        payment: paymentData,
+        // payment:
+        //   this.filter.paymentCheckbox.length > 0
+        //     ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
+        //     : "",
         sort: this.sorting ? this.sorting : "",
       };
       console.log(filter);

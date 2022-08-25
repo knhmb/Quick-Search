@@ -52,7 +52,7 @@
                   <el-checkbox-group v-model="checkList[`${item.group}`]">
                     <el-checkbox
                       v-if="item.group === group.slug"
-                      :label="item.name"
+                      :label="item.slug"
                       >{{ item.name }}</el-checkbox
                     >
                   </el-checkbox-group>
@@ -405,7 +405,7 @@ export default {
       const arr = [];
       for (const item in this.checkList) {
         console.log(`${item}:{"$in":[${this.checkList[item]}]}`);
-        arr.push(`${item}:{"$in":[${this.checkList[item]}]}`);
+        arr.push(`${item}:{"$in":["${this.checkList[item]}"]}`);
       }
       console.log(arr);
       console.log(arr.toString());
@@ -416,10 +416,12 @@ export default {
       // const finalData = result.toString();
       // console.log(finalData);
 
+      // const discountData =
+      //   this.discount.length > 0
+      //     ? this.discount.toString().replaceAll(",", "|")
+      //     : "";
       const discountData =
-        this.discount.length > 0
-          ? this.discount.toString().replaceAll(",", "|")
-          : "";
+        this.discount.length > 0 ? `{"$in":["${this.discount}"]}` : "";
 
       const areas = [];
 
@@ -441,13 +443,17 @@ export default {
         dynamicFilter1: arr,
         // dynamicFilter: finalData,
         discount: discountData,
-        area: areas.length > 0 ? `{"$in":[${areas}]}` : "",
+        area: areas.length > 0 ? `{"$in":["${areas}"]}` : "",
         // area: areas.length > 0 ? areas.toString().replaceAll(",", "|") : "",
         price: this.priceRange,
         paymentMethod:
           this.paymentMethod.length > 0
-            ? this.paymentMethod.toString().replaceAll(",", "|")
+            ? `{"$in":["${this.paymentMethod}"]}`
             : "",
+        // paymentMethod:
+        //   this.paymentMethod.length > 0
+        //     ? this.paymentMethod.toString().replaceAll(",", "|")
+        //     : "",
       };
 
       console.log(dataObject);
