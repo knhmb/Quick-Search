@@ -19,7 +19,7 @@
               <img :src="item.thumbnail" alt="" />
               <div class="content">
                 <p>
-                  {{ item.description }}
+                  {{ item.name }}
                 </p>
                 <!-- <p>
                   活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱...

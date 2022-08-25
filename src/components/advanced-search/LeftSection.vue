@@ -318,10 +318,10 @@ export default {
           this.filter.discountCheckbox.length > 0
             ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
             : "",
-        // payment:
-        //   this.filter.paymentCheckbox.length > 0
-        //     ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
-        //     : "",
+        payment:
+          this.filter.paymentCheckbox.length > 0
+            ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
+            : "",
         sort: this.sorting ? this.sorting : "",
         // query: this.$route.query.q ? this.$route.query.q : "",
         // area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",

@@ -10,7 +10,7 @@
         <div class="body-header">
           <p>主分類</p>
           <div
-            @click="setFilter(item)"
+            @click="changeFilter(item)"
             :class="{ 'is-active': currentFilter === item.name }"
             v-for="item in categories"
             :key="item"
@@ -30,6 +30,49 @@
         </div>
         <div class="body-header">
           <p>子分類</p>
+          <div
+            @click="getFilterItems(item)"
+            :class="{ 'is-active': currentFilter2 === item.name }"
+            v-for="item in dynamicFilterGroup"
+            :key="item"
+            class="box"
+          >
+            {{ item.name }}
+          </div>
+          <div class="grey-section" v-if="dynamicFilters.length > 0">
+            <h5>紋身 篩選條件</h5>
+            <el-row class="alignment">
+              <el-col
+                :span="6"
+                v-for="group in dynamicFilterGroup"
+                :key="group.id"
+              >
+                <p>{{ group.name }}</p>
+                <template v-for="item in dynamicFilters" :key="item">
+                  <el-checkbox-group v-model="checkList[`${item.group}`]">
+                    <el-checkbox
+                      v-if="item.group === group.slug"
+                      :label="item.name"
+                      >{{ item.name }}</el-checkbox
+                    >
+                  </el-checkbox-group>
+                </template>
+                <!-- <template v-for="item in dynamicFilters" :key="item">
+                  <el-checkbox-group
+                    v-for="single in item"
+                    :key="single"
+                    v-model="checkList[`${single.group}`]"
+                  >
+                    <el-checkbox
+                      v-if="single.group === group.slug"
+                      :label="single.name"
+                      >{{ single.name }}</el-checkbox
+                    >
+                  </el-checkbox-group>
+                </template> -->
+              </el-col>
+            </el-row>
+          </div>
           <!-- <div
             @click="changeFilter(item)"
             :class="{ 'is-active': currentFilter === item.name }"
@@ -198,6 +241,7 @@ export default {
       checkList: {},
       discount: [],
       currentFilter: "",
+      currentFilter2: "",
       priceRange: [0, 100],
       paymentMethod: [],
       checkAll: false,
@@ -350,6 +394,11 @@ export default {
     setFilter(item) {
       this.currentFilter = item.name;
       this.$store.dispatch("dashboard/getFiltersGroup", item.parent);
+    },
+    getFilterItems(item) {
+      console.log(item);
+      this.currentFilter2 = item.name;
+      this.$store.dispatch("dashboard/getDynamicFilters", item);
     },
     searchFilter() {
       console.log(this.checkList);

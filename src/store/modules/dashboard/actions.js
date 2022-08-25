@@ -29,7 +29,7 @@ export default {
     // });
     const response = await axios.get("/api/v1/shops/categories", {
       params: {
-        filter: `parent:{"$eq":${payload}}`,
+        filter: `parent:{"$eq": '${payload}'}`,
       },
     });
     console.log(response);
@@ -62,14 +62,11 @@ export default {
       },
     });
     console.log(response);
-    if (response.data.items.length > 0) {
-      response.data.items.forEach((item) => {
-        context.dispatch("getDynamicFilters", item);
-      });
-    }
-    // response.data.items.forEach((item) => {
-    //   context.dispatch("getDynamicFilters", item);
-    // });
+    // if (response.data.items.length > 0) {
+    //   response.data.items.forEach((item) => {
+    //     context.dispatch("getDynamicFilters", item);
+    //   });
+    // }
     context.commit("SET_DYNAMIC_FILTER_GROUP", response.data.items);
   },
   async getDynamicFilters(context, payload) {

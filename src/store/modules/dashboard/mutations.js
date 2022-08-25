@@ -22,10 +22,42 @@ export default {
   },
   SET_DYNAMIC_FILTERS(state, payload) {
     const arr = [];
-    arr.push(payload);
-    arr.forEach((item) => {
-      state.dynamicFilters.push(item);
+    // let uniqueAddresses = [];
+    // const index = state.dynamicFilters.findIndex(object => object.id === value2.id);
+    payload.forEach((item) => {
+      arr.push(item);
     });
+    console.log(arr);
+
+    arr.forEach((item) => {
+      const index = state.dynamicFilters.findIndex(
+        (object) => object.id === item.id
+      );
+      console.log(index);
+      if (index === -1) {
+        state.dynamicFilters.push(item);
+      }
+    });
+    // state.dynamicFilters = [...arr];
+    // arr.push(payload);
+    // arr.forEach((item) => {
+    //   console.log(item);
+    //   state.dynamicFilters.push(item);
+    // });
+
+    // uniqueAddresses = Array.from(
+    //   new Set(state.dynamicFilters.map((a) => a.id))
+    // ).map((id) => {
+    //   return state.dynamicFilters.find((a) => a.id === id);
+    // });
+
+    // console.log(uniqueAddresses);
+
+    // const found = uniqueAddresses.some((r) => state.dynamicFilters.includes(r));
+    // console.log(found);
+
+    // state.dynamicFilters = result;
+
     // state.dynamicFilters.push(payload);
     console.log(state.dynamicFilters);
   },

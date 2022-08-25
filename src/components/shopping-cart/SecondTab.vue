@@ -9,7 +9,8 @@
           <el-col :span="21">
             <h5>{{ comment.shop }}</h5>
             <!-- <h5>訊息標題訊息標題訊息標題訊息標題訊息標題</h5> -->
-            <p>{{ comment.account }} ． 2022-10-10</p>
+            <p>{{ comment.account }} ． {{ formatDate(comment.createdAt) }}</p>
+            <!-- <p>{{ comment.account }} ． 2022-10-10</p> -->
             <!-- <p>username username ． 2022-10-10</p> -->
           </el-col>
           <el-col :span="20">
@@ -71,6 +72,7 @@
 </template>
 
 <script>
+import moment from "moment";
 // import { ElNotification } from "element-plus";
 
 export default {
@@ -83,6 +85,11 @@ export default {
     },
     comments() {
       return this.$store.getters["shop/comments"];
+    },
+  },
+  methods: {
+    formatDate(date) {
+      return moment(new Date(date)).format("YYYY-MM-DD");
     },
   },
   // created() {

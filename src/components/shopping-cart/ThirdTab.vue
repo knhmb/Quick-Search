@@ -12,7 +12,7 @@
       small
       background
       layout="prev, pager, next"
-      :total="singleItem.length"
+      :total="singleItem.length + 0"
       pager-count="8"
     />
   </div>

@@ -17,29 +17,61 @@ export default {
   },
   async filterSearch(context, payload) {
     console.log(payload);
+    let param = "";
+
+    // if (payload.area && payload.price && payload.discount && payload.payment) {
+    //   param = `area:${payload.area},price:${payload.price[0]}-${payload.price[1]},discount:${payload.discount},payment:${payload.payment}`;
+    // } else if (payload.area && payload.price && payload.discount) {
+    //   param = `area:${payload.area},price:${payload.price[0]}-${payload.price[1]},discount:${payload.discount}`;
+    // } else if (payload.area && payload.payment && payload.discount) {
+    //   param = `area:${payload.area},payment:${payload.payment},discount:${payload.discount}`;
+    // } else if (payload.area && payload.payment) {
+    //   param = `area:${payload.area},payment:${payload.payment}`;
+    // } else if (payload.area && payload.discount) {
+    //   param = `area:${payload.area},discount:${payload.discount}`;
+    // } else if (payload.area && payload.price) {
+    //   param = `area:${payload.area},price:${payload.price[0]}-${payload.price[1]}`;
+    // } else if (payload.payment && payload.price) {
+    //   param = `payment:${payload.payment},price:${payload.price[0]}-${payload.price[1]}`;
+    // } else if (payload.discount && payload.price) {
+    //   param = `discount:${payload.discount},price:${payload.price[0]}-${payload.price[1]}`;
+    // } else if (payload.discount && payload.payment) {
+    //   param = `discount:${payload.discount},payment:${payload.payment}`;
+    // } else if (payload.discount) {
+    //   param = `discount:${payload.discount}`;
+    // } else if (payload.payment) {
+    //   param = `payment:${payload.payment}`;
+    // } else if (payload.area) {
+    //   param = `area:${payload.area}`;
+    // } else if (payload.price) {
+    //   param = `price:${payload.price[0]}-${payload.price[1]}`;
+    // }
+
+    param =
+      `${payload.area ? `area:${payload.area},` : ""}${
+        payload.price ? `price:${payload.price[0]}-${payload.price[1]},` : ""
+      }${payload.discount ? `discount:${payload.discount},` : ""}${
+        payload.payment ? `payment:${payload.payment}` : ""
+      }` || undefined;
+
     const response = await axios.get(`/api/v1/shops`, {
       params: {
-        search: payload.query.q ? payload.query : undefined,
-        filter:
-          //   `${payload.query.filter ? `${payload.query.filter},` : ""}${
-          //     payload.area ? `area:${payload.area},` : ""
-          //   }${
-          //     payload.price
-          //       ? `price:${payload.price[0]}-${payload.price[1]},`
-          //       : ""
-          //   }${payload.discount ? `discount:${payload.discount},` : ""}${
-          //     payload.payment ? `payment:${payload.payment},` : ""
-          //   }` || undefined,
-          // sort: `${payload.sort ? `sort:${payload.sort},` : ""}`,
-          `${payload.query.filter ? `${payload.query.filter}` : ""}${
-            payload.area ? `,area:${payload.area}` : ""
-          }${
-            payload.price
-              ? `,price:${payload.price[0]}-${payload.price[1]}`
-              : ""
-          }${payload.discount ? `,discount:${payload.discount}` : ""}${
-            payload.payment ? `,payment:${payload.payment}` : ""
-          }${payload.sort ? `&sort:${payload.sort}` : ""}` || undefined,
+        search: payload.query.q ? payload.query.q : undefined,
+        page: 1,
+        pageSize: 10,
+        filter: payload.query.filter
+          ? payload.query.filter + "," + param
+          : param || undefined,
+        sort: payload.sort ? payload.sort : undefined,
+        // `${payload.query.filter ? `${payload.query.filter}` : ""}${
+        //   payload.area ? `area:${payload.area},` : ""
+        // }${
+        //   payload.price
+        //     ? `price:${payload.price[0]}-${payload.price[1]},`
+        //     : ""
+        // }${payload.discount ? `discount:${payload.discount},` : ""}${
+        //   payload.payment ? `payment:${payload.payment}` : ""
+        // }${payload.sort ? `&sort:${payload.sort}` : ""}` || undefined,
       },
     });
     // const response = await axios.get(`/api/v1/shops`, {
