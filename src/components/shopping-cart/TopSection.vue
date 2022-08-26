@@ -196,8 +196,7 @@ export default {
 
 .top-section .reviews {
   background-color: #fff;
-  /* padding-left: 11%; */
-  padding-left: 27.4%;
+  padding-left: 28%;
   /* padding-left: 9.4rem; */
 }
 

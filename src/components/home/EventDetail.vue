@@ -75,6 +75,7 @@ export default {
 <style scoped>
 .event-detail :deep(.el-dialog) {
   border-radius: 16px;
+  width: 35%;
 }
 
 .event-detail :deep(.el-dialog .el-dialog__header),
@@ -88,6 +89,8 @@ export default {
 
 .event-detail :deep(.el-dialog img) {
   width: 100%;
+  border-radius: 16px 16px 0 0;
+  max-height: 24rem;
 }
 
 .event-detail :deep(.el-dialog .body) {
