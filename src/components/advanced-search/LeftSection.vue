@@ -122,14 +122,23 @@
             <p>{{ group.name }}</p>
             <template v-for="item in dynamicFilters" :key="item">
               <el-checkbox-group
-                @change="checkboxChanged"
+                @change="handleDiscount(item.slug)"
                 v-model="checkList[`${item.group}`]"
               >
+                <!-- <template v-for="i in storeCompareArr" :key="i"> -->
+                <!-- <template v-for="k in i" :key="k"> -->
                 <el-checkbox
                   v-if="item.group === group.slug"
-                  :label="item.name"
+                  :label="`&quot;${item.slug}&quot;`"
                   >{{ item.name }}</el-checkbox
                 >
+                <!-- </template> -->
+                <!-- </template> -->
+                <!-- <el-checkbox
+                  v-if="item.group === group.slug"
+                  :label="`&quot;${item.slug}&quot;`"
+                  >{{ item.name }}</el-checkbox
+                > -->
               </el-checkbox-group>
             </template>
           </el-col>
@@ -145,7 +154,7 @@ export default {
   data() {
     return {
       arr: [],
-      checkList: {},
+      // checkList: {},
       filter: {
         arr: [],
         discountCheckbox: [],
@@ -305,6 +314,9 @@ export default {
     sorting() {
       this.handlePayment();
     },
+    // checkList() {
+    //   console.log(this.checkList);
+    // },
   },
   computed: {
     dynamicFilterGroup() {
@@ -313,15 +325,37 @@ export default {
     dynamicFilters() {
       return this.$store.getters["dashboard/dynamicFilters"];
     },
+    storeCompareArr() {
+      return this.$store.getters["search/compareArr"];
+    },
+    checkList: {
+      get() {
+        return this.$store.getters["search/checkList"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_CHECKLIST", value);
+      },
+    },
   },
   methods: {
-    checkboxChanged() {
-      console.log(this.checkList);
-    },
     handleChange(data, checked, indeterminate) {
       console.log(data);
       console.log(checked);
       console.log(indeterminate);
+      let arr = [];
+      for (const item in this.checkList) {
+        arr.push(`${item}:{"$in":[${this.checkList[item]}]}`);
+        // if (!arr.includes(this.checkList[item])) {
+        //   arr = [];
+        // }
+      }
+      // console.log("HERERERERERER");
+      // console.log(arr);
+      // if (arr.includes(this.$route.query.filters)) {
+      //   console.log(this.$route);
+      // } else {
+      //   console.log("LOSER");
+      // }
 
       if (checked) {
         this.filter.arr.push({
@@ -340,11 +374,11 @@ export default {
       });
       this.filter.discountCheckbox.forEach((item) => {
         console.log(item);
-        filterDiscount.push(`"${item.label}"`);
+        filterDiscount.push(`"${item}"`);
       });
       this.filter.paymentCheckbox.forEach((item) => {
         console.log(item);
-        filterPayment.push(`"${item.label}"`);
+        filterPayment.push(`"${item}"`);
       });
       const discountData =
         filterDiscount.length > 0 ? `{"$in":[${filterDiscount}]}` : "";
@@ -367,67 +401,94 @@ export default {
         //     ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
         //     : "",
         sort: this.sorting ? this.sorting : "",
+        dynamic: arr.length > 0 ? arr.toString() : "",
       };
       console.log(filter);
 
       this.$store.dispatch("search/filterSearch", filter);
     },
-    handleDiscount() {
+    handleDiscount(item) {
+      console.log(item);
+      console.log(this.checkList);
       const filterArr = [];
       const filterDiscount = [];
       const filterPayment = [];
+      let arr = [];
+      // const compareArr = [];
+      for (const item in this.checkList) {
+        console.log(this.checkList[item]);
+        arr.push(`${item}:{"$in":[${this.checkList[item]}]}`);
+        // if (!arr.includes(this.checkList[item])) {
+        //   arr = [];
+        // }
+        // compareArr.push({ item: this.checkList[item] });
+        // if (this.storeCompareArr[0].includes(this.checkList[item])) {
+        //   console.log("YESSSSS");
+        //   console.log(this.checkList[item]);
+        // }
+      }
+      // console.log(this.storeCompareArr);
+      // console.log(this.storeCompareArr[0]);
+      // console.log("HERERERERERER");
+      // console.log(arr);
+      // console.log(this.$route.query.filter);
+      // console.log(compareArr);
+      // console.log(arr.toString());
+      // if (compareArr[0].item.includes(this.$route.query.filters)) {
+      //   console.log("YYEESSS");
+      // } else {
+      //   console.log("LOSER");
+      // }
 
       this.filter.arr.forEach((item) => {
         filterArr.push(`"${item.label}"`);
       });
       this.filter.discountCheckbox.forEach((item) => {
-        console.log(item);
-        filterDiscount.push(`"${item.label}"`);
+        filterDiscount.push(`"${item}"`);
       });
       this.filter.paymentCheckbox.forEach((item) => {
-        console.log(item);
-        filterPayment.push(`"${item.label}"`);
+        filterPayment.push(`"${item}"`);
       });
       const discountData =
         filterDiscount.length > 0 ? `{"$in":[${filterDiscount}]}` : "";
       const paymentData =
         filterPayment.length > 0 ? `{"$in":[${filterPayment}]}` : "";
-      console.log(this.filter);
-      // const discountData =
-      //   this.filter.discountCheckbox.length > 0
-      //     ? `{"$in":[${this.filter.discountCheckbox}]}`
-      //     : "";
+      // const hhh = arr.reduce((a, v) => ({ ...a, [v.split(":")[0]]: v }), {});
+      // console.log(hhh);
+      // this.$router.push({
+      //   path: "/advanced-search",
+      //   query: { filter: arr.toString() },
+      // });
 
       const filter = {
         area: filterArr.length > 0 ? `{"$in":[${filterArr}]}` : "",
 
-        // area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
-        query: this.$route.query ? this.$route.query : "",
-        // query: this.$route.query.q
-        //   ? this.$route.query.q
-        //   : this.$route.query.filter
-        //   ? this.$route.query.filter
-        //   : "",
+        // query: this.$route.query ? this.$route.query : "",
+        query: arr.length > 0 ? arr.toString() : "",
         price: this.filter.sliderValue ? this.filter.sliderValue : "",
         discount: discountData,
-        // discount:
-        //   this.filter.discountCheckbox.length > 0
-        //     ? this.filter.discountCheckbox.toString().replaceAll(",", "|")
-        //     : "",
         payment: paymentData,
-        // payment:
-        //   this.filter.paymentCheckbox.length > 0
-        //     ? this.filter.paymentCheckbox.toString().replaceAll(",", "|")
-        //     : "",
         sort: this.sorting ? this.sorting : "",
+        dynamic: arr.length > 0 ? arr.toString() : "",
       };
       console.log(filter);
+      // console.log(this.$route.query);
       this.$store.dispatch("search/filterSearch", filter);
     },
     handlePayment() {
       this.handleDiscount();
     },
   },
+  // mounted() {
+  //   this.dynamicFilters.forEach((item) => {
+  //     if (this.$route.query.filter.includes(item.slug)) {
+  //       console.log(item.slug);
+  //       console.log(item);
+  //       this.checkList[`${item.group}`] = this.checkList.push(item.slug);
+  //     }
+  //     console.log(this.checkList);
+  //   });
+  // },
 };
 </script>
 

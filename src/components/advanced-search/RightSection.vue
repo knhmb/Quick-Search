@@ -11,8 +11,23 @@
         </el-col>
         <el-col class="input-select" :sm="24" :md="12">
           <span>{{ $t("sort_by") }} :</span>
-          <el-select :placeholder="$t('sort_by_placeholder')">
-            <el-option />
+          <el-select v-model="sort" :placeholder="$t('sort_by_placeholder')">
+            <el-option
+              :label="$t('comprehensive_number')"
+              :value="$t('comprehensive_number')"
+            />
+            <el-option
+              :label="$t('most_comment')"
+              :value="$t('most_comment')"
+            />
+            <el-option
+              :label="$t('newest_to_oldest')"
+              :value="$t('newest_to_oldest')"
+            />
+            <el-option
+              :label="$t('oldest_to_newest')"
+              :value="$t('oldest_to_newest')"
+            />
           </el-select>
         </el-col>
       </el-row>
@@ -45,12 +60,27 @@
 <script>
 // import { ElNotification } from "element-plus";
 export default {
+  data() {
+    return {
+      sort: "",
+    };
+  },
+  watch: {
+    sort() {
+      this.$emit("sort", this.sort);
+    },
+  },
   computed: {
     searchItems() {
       return this.$store.getters["search/searchItems"];
     },
   },
   methods: {
+    setOption(option) {
+      // this.currentOption = option;
+      console.log(option);
+      // this.$emit("sort", option);
+    },
     selectShop(slug) {
       this.$store
         .dispatch("search/searchSingleShop", { slug: slug })

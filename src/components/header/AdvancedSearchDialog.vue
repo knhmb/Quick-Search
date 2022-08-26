@@ -52,7 +52,7 @@
                   <el-checkbox-group v-model="checkList[`${item.group}`]">
                     <el-checkbox
                       v-if="item.group === group.slug"
-                      :label="item.slug"
+                      :label="`&quot;${item.slug}&quot;`"
                       >{{ item.name }}</el-checkbox
                     >
                   </el-checkbox-group>
@@ -194,16 +194,12 @@
           <div class="other-filters">
             <div class="single-filter">
               <p class="area">優惠</p>
-              <el-checkbox
-                v-model="discount"
-                label="有優惠"
-                value="有優惠"
-              ></el-checkbox>
-              <el-checkbox
-                v-model="discount"
-                label="無優惠"
-                value="無優惠"
-              ></el-checkbox>
+              <el-checkbox v-model="discount" label='"有優惠"'
+                >有優惠</el-checkbox
+              >
+              <el-checkbox v-model="discount" label='"無優惠"'
+                >無優惠</el-checkbox
+              >
             </div>
             <div class="single-filter middle">
               <p class="area">價格範圍</p>
@@ -213,12 +209,12 @@
             <div class="single-filter">
               <p class="area">付款方式</p>
               <el-checkbox-group v-model="paymentMethod">
-                <el-checkbox label="現金" />
-                <el-checkbox label="八達通" />
-                <el-checkbox label="信用卡" />
-                <el-checkbox label="微信" />
-                <el-checkbox label="支付寶" />
-                <el-checkbox label="轉數快" />
+                <el-checkbox label='"現金"'>現金</el-checkbox>
+                <el-checkbox label='"八達通"'>八達通</el-checkbox>
+                <el-checkbox label='"信用卡"'>信用卡</el-checkbox>
+                <el-checkbox label='"微信"'>微信</el-checkbox>
+                <el-checkbox label='"支付寶"'>支付寶</el-checkbox>
+                <el-checkbox label='"轉數快"'>轉數快</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>
@@ -238,7 +234,7 @@ export default {
   props: ["dialogVisible"],
   data() {
     return {
-      checkList: {},
+      // checkList: {},
       discount: [],
       currentFilter: "",
       currentFilter2: "",
@@ -389,6 +385,14 @@ export default {
     dynamicFilters() {
       return this.$store.getters["dashboard/dynamicFilters"];
     },
+    checkList: {
+      get() {
+        return this.$store.getters["search/checkList"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_CHECKLIST", value);
+      },
+    },
   },
   methods: {
     setFilter(item) {
@@ -403,10 +407,13 @@ export default {
     searchFilter() {
       console.log(this.checkList);
       const arr = [];
+      const compareArr = [];
       for (const item in this.checkList) {
         console.log(`${item}:{"$in":[${this.checkList[item]}]}`);
-        arr.push(`${item}:{"$in":["${this.checkList[item]}"]}`);
+        arr.push(`${item}:{"$in":[${this.checkList[item]}]}`);
+        compareArr.push(this.checkList[item]);
       }
+      this.$store.commit("search/SET_COMPARE_ARR", compareArr);
       console.log(arr);
       console.log(arr.toString());
       // let result = Object.keys(this.checkList).map((key) => [
@@ -420,8 +427,9 @@ export default {
       //   this.discount.length > 0
       //     ? this.discount.toString().replaceAll(",", "|")
       //     : "";
+
       const discountData =
-        this.discount.length > 0 ? `{"$in":["${this.discount}"]}` : "";
+        this.discount.length > 0 ? `{"$in":[${this.discount}]}` : "";
 
       const areas = [];
 
@@ -448,7 +456,7 @@ export default {
         price: this.priceRange,
         paymentMethod:
           this.paymentMethod.length > 0
-            ? `{"$in":["${this.paymentMethod}"]}`
+            ? `{"$in":[${this.paymentMethod}]}`
             : "",
         // paymentMethod:
         //   this.paymentMethod.length > 0

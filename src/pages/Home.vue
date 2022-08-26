@@ -26,6 +26,7 @@ export default {
     // this.$store.dispatch("dashboard/getFiltersGroup");
     this.$store.dispatch("dashboard/getFiltersItem");
     this.$store.dispatch("dashboard/getSubCategory");
+    this.$store.commit("search/UPDATE_CHECKLIST", {});
   },
 };
 </script>

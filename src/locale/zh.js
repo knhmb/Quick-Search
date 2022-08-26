@@ -151,6 +151,10 @@ const zh = {
   shop_booked: "店鋪已預定！",
   review_added: "評論已添加！",
   password_updated: "密碼已更新！",
+  comprehensive_number: "綜合數多至少)",
+  most_comment: "留言最多",
+  newest_to_oldest: "新到舊",
+  oldest_to_newest: "舊到新",
 };
 
 export default zh;

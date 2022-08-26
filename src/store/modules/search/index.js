@@ -8,6 +8,8 @@ export default {
     return {
       searchItems: [],
       singleItem: [],
+      compareArr: [],
+      checkList: {},
     };
   },
   getters,

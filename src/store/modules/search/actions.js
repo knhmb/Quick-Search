@@ -47,22 +47,33 @@ export default {
     //   param = `price:${payload.price[0]}-${payload.price[1]}`;
     // }
 
-    param =
-      `${payload.area ? `area:${payload.area},` : ""}${
-        payload.price ? `price:${payload.price[0]}-${payload.price[1]},` : ""
-      }${payload.discount ? `discount:${payload.discount},` : ""}${
-        payload.payment ? `payment:${payload.payment}` : ""
-      }` || undefined;
+    param = `${payload.area ? `area:${payload.area},` : ""}${
+      payload.price ? `price:${payload.price[0]}-${payload.price[1]},` : ""
+    }${payload.discount ? `discount:${payload.discount},` : ""}${
+      payload.payment ? `payment:${payload.payment}` : ""
+    }`;
 
     const response = await axios.get(`/api/v1/shops`, {
       params: {
         search: payload.query.q ? payload.query.q : undefined,
         page: 1,
         pageSize: 10,
-        filter: payload.query.filter
-          ? payload.query.filter + "," + param
-          : param,
+        filter: payload.query ? payload.query + "," + param : param,
+        // filter: payload.dynamic
+        //   ? payload.dynamic + "," + param
+        //   : payload.query.filter
+        //   ? payload.query.filter + "," + param
+        //   : param,
         sort: payload.sort ? payload.sort : undefined,
+        // filter: payload.query.filter
+        //   ? payload.query.filter + "," + param
+        //   : param,
+        // // filter: payload.dynamic
+        // //   ? payload.dynamic + "," + param
+        // //   : payload.query.filter
+        // //   ? payload.query.filter + "," + param
+        // //   : param,
+        // sort: payload.sort ? payload.sort : undefined,
         // `${payload.query.filter ? `${payload.query.filter}` : ""}${
         //   payload.area ? `area:${payload.area},` : ""
         // }${

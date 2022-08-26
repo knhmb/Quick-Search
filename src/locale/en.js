@@ -154,6 +154,10 @@ const en = {
   shop_booked: "Shop has been booked!",
   review_added: "Review has been added!",
   password_updated: "Password has been updated!",
+  comprehensive_number: "Comprehensive Numbers more to less",
+  most_comment: "Most Comment",
+  newest_to_oldest: "Newest to Oldest",
+  oldest_to_newest: "Oldest to Newest",
 };
 
 export default en;

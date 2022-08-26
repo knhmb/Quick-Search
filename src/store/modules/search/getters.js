@@ -5,4 +5,10 @@ export default {
   singleItem(state) {
     return state.singleItem;
   },
+  compareArr(state) {
+    return state.compareArr;
+  },
+  checkList(state) {
+    return state.checkList;
+  },
 };
