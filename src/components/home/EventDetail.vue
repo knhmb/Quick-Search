@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
 export default {
   props: ["dialogVisible"],
   computed: {
@@ -63,6 +64,13 @@ export default {
           this.$router.push({
             path: "/shop",
             query: { q: this.promotionDetail.slug },
+          });
+        })
+        .catch((err) => {
+          ElNotification({
+            title: "Error",
+            message: err.response.data.message,
+            type: "error",
           });
         });
       // this.$router.push("/shop");

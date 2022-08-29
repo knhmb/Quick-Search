@@ -70,4 +70,14 @@ export default {
     });
     console.log(response);
   },
+  async getAccountPromotions() {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get("/api/v1/accounts/promotions", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+  },
 };

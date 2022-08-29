@@ -14,9 +14,25 @@ import Coupon from "./pages/Coupon";
 import Bookmark from "./pages/Bookmark";
 import Notification from "./pages/Notification";
 import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import Faq from "./pages/Faq";
+import MerchantCooperation from "./pages/MerchantCooperation";
+import TermsOfUse from "./pages/TermsOfUse";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 // import { ElNotification } from "element-plus";
 
 const router = createRouter({
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      // return savedPosition;
+      return {
+        savedPosition,
+        behavior: "smooth",
+      };
+    } else {
+      return { top: 0, behavior: "smooth" };
+    }
+  },
   history: createWebHistory(),
   routes: [
     { path: "/home", component: Home },
@@ -25,6 +41,11 @@ const router = createRouter({
     { path: "/advanced-search", component: AdvancedSearch },
     { path: "/shop", component: ShoppingCart },
     { path: "/about-us", component: AboutUs },
+    { path: "/contact-us", component: ContactUs },
+    { path: "/faq", component: Faq },
+    { path: "/merchant-cooperation", component: MerchantCooperation },
+    { path: "/terms-of-use", component: TermsOfUse },
+    { path: "/privacy-policy", component: PrivacyPolicy },
     {
       path: "/comment",
       component: Comment,

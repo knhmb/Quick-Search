@@ -121,6 +121,8 @@ export default {
 .home-main-content img {
   width: 100%;
   margin-bottom: 0.3rem;
+  height: 12rem;
+  object-fit: cover;
 }
 
 .home-main-content h4 {

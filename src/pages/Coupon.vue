@@ -48,13 +48,15 @@ export default {
     this.$store
       .dispatch("auth/checkAccessToken")
       .then(() => {
-        this.$store.dispatch("profile/getPromotions");
+        // this.$store.dispatch("profile/getPromotions");
+        this.$store.dispatch("profile/getAccountPromotions");
       })
       .catch(() => {
         this.$store
           .dispatch("auth/checkRefreshToken")
           .then(() => {
-            this.$store.dispatch("profile/getPromotions");
+            // this.$store.dispatch("profile/getPromotions");
+            this.$store.dispatch("profile/getAccountPromotions");
           })
           .catch(() => {
             ElNotification({

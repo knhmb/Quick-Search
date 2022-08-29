@@ -25,10 +25,16 @@
               >
                 {{ item.title }}
               </li>
-              <li v-if="item.slug === 'cms-page-contact-us'">
+              <li
+                @click="$router.push('/contact-us')"
+                v-if="item.slug === 'cms-page-contact-us'"
+              >
                 {{ item.title }}
               </li>
-              <li v-if="item.slug === 'cms-page-faqs'">
+              <li
+                @click="$router.push('/faq')"
+                v-if="item.slug === 'cms-page-faqs'"
+              >
                 {{ item.title }}
               </li>
             </template>
@@ -46,7 +52,10 @@
           <!-- <p>{{ $t("join_us") }}</p> -->
           <ul>
             <template v-for="item in footerContent" :key="item">
-              <li v-if="item.slug === 'cms-page-merchant-cooperation'">
+              <li
+                @click="$router.push('/merchant-cooperation')"
+                v-if="item.slug === 'cms-page-merchant-cooperation'"
+              >
                 {{ item.title }}
               </li>
             </template>
@@ -64,10 +73,16 @@
           <p>{{ $t("site_terms") }}</p>
           <ul>
             <template v-for="item in footerContent" :key="item">
-              <li v-if="item.slug === 'cms-page-terms-of-use'">
+              <li
+                @click="$router.push('/terms-of-use')"
+                v-if="item.slug === 'cms-page-terms-of-use'"
+              >
                 {{ item.title }}
               </li>
-              <li v-if="item.slug === 'cms-page-privacy-policy'">
+              <li
+                @click="$router.push('/privacy-policy')"
+                v-if="item.slug === 'cms-page-privacy-policy'"
+              >
                 {{ item.title }}
               </li>
               <!-- <li>{{ $t("terms_of_use") }}</li>

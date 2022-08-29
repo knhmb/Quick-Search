@@ -58,7 +58,9 @@ export default {
         search: payload.query.q ? payload.query.q : undefined,
         page: 1,
         pageSize: 10,
-        filter: payload.query ? payload.query + "," + param : param,
+        filter: payload.query.filter
+          ? payload.query.filter + "," + param
+          : param,
         // filter: payload.dynamic
         //   ? payload.dynamic + "," + param
         //   : payload.query.filter
