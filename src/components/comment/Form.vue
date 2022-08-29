@@ -29,7 +29,15 @@
           <label>{{ $t("upload_photo") }}</label>
         </el-col>
         <el-col :sm="24" :md="19">
-          <el-upload action="#" list-type="picture-card" :auto-upload="false">
+          <el-upload
+            ref="uploadDocument"
+            v-model:file-list="fileList"
+            :on-remove="handleRemove"
+            :on-change="handleSuccess"
+            action="#"
+            list-type="picture-card"
+            :auto-upload="false"
+          >
             <el-icon><Plus /></el-icon>
 
             <template #file="{ file }">
@@ -40,21 +48,20 @@
                   alt=""
                 />
                 <span class="el-upload-list__item-actions">
-                  <span
+                  <!-- <span
                     class="el-upload-list__item-preview"
                     @click="handlePictureCardPreview(file)"
                   >
                     <el-icon><zoom-in /></el-icon>
-                  </span>
-                  <span
+                  </span> -->
+                  <!-- <span
                     v-if="!disabled"
                     class="el-upload-list__item-delete"
                     @click="handleDownload(file)"
                   >
                     <el-icon><Download /></el-icon>
-                  </span>
+                  </span> -->
                   <span
-                    v-if="!disabled"
                     class="el-upload-list__item-delete"
                     @click="handleRemove(file)"
                   >
@@ -71,19 +78,21 @@
 </template>
 
 <script>
-import { Delete, Download, Plus, ZoomIn } from "@element-plus/icons-vue";
+import { Delete, Plus } from "@element-plus/icons-vue";
 
 export default {
   components: {
     Delete,
-    Download,
+    // Download,
     Plus,
-    ZoomIn,
+    // ZoomIn,
   },
   data() {
     return {
       title: "",
       description: "",
+      fileDocument: [],
+      fileList: [],
     };
   },
   methods: {
@@ -91,7 +100,35 @@ export default {
       this.$emit("valuesChanged", {
         title: this.title,
         description: this.description,
+        images: this.fileDocument,
       });
+    },
+    handleSuccess(file) {
+      const arr = [];
+      arr.push(file);
+
+      arr.forEach((item) => {
+        this.fileDocument.push({
+          id: item.uid,
+          image: item.url,
+        });
+      });
+      // this.fileDocument.push({
+      //   id: file.uid,
+      //   image: file.url,
+      // });
+      this.handleChange();
+      console.log(this.fileDocument);
+    },
+    handleRemove(file) {
+      console.log(file);
+      console.log(this.fileList);
+      this.fileDocument = this.fileDocument.filter(
+        (item) => item.id !== file.uid
+      );
+      this.fileList = this.fileList.filter((item) => item.uid !== file.uid);
+      console.log(this.fileDocument);
+      this.handleChange();
     },
   },
 };

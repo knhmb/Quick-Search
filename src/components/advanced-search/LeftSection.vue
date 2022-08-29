@@ -119,7 +119,9 @@
             v-for="group in dynamicFilterGroup"
             :key="group.id"
           >
-            <p>{{ group.name }}</p>
+            <p v-if="dynamicFilters.some((e) => e.group === group.slug)">
+              {{ group.name }}
+            </p>
             <template v-for="item in dynamicFilters" :key="item">
               <el-checkbox-group
                 @change="handleDiscount(item.slug)"
@@ -388,7 +390,9 @@ export default {
       const filter = {
         // area: filterArr ? filterArr.toString().replaceAll(",", "|") : "",
         area: filterArr.length > 0 ? `{"$in":[${filterArr}]}` : "",
-        query: this.$route.query ? this.$route.query : "",
+        // query: this.$route.query ? this.$route.query : "",
+        query: arr.length > 0 ? arr.toString() : "",
+
         price: this.filter.sliderValue ? this.filter.sliderValue : "",
         discount: discountData,
         // discount:

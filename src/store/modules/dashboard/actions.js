@@ -75,7 +75,7 @@ export default {
         filter: `group:${payload.slug}`,
       },
     });
-    // console.log(response);
+    console.log(response);
     context.commit("SET_DYNAMIC_FILTERS", response.data.items);
   },
 };

@@ -33,6 +33,7 @@ export default {
     "rateArea",
     "rateCost",
     "review",
+    "documents",
   ],
   computed: {
     isLoggedIn() {
@@ -59,24 +60,57 @@ export default {
         account: this.currentUserDetails.id,
         shop: this.singleItem.slug,
         content: this.description,
+        title: this.title,
+        service: this.rateServe,
+        environment: this.rateSurroundings,
+        location: this.rateArea,
+        price: this.rateCost,
+        images: this.documents,
+        overall: this.review,
       };
       console.log(data);
-      this.$store.dispatch("shop/postReview", data).then(() => {
-        ElNotification({
-          title: "success",
-          message: this.$t("review_added"),
-          type: "success",
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store.dispatch("shop/postReview", data).then(() => {
+            ElNotification({
+              title: "success",
+              message: this.$t("review_added"),
+              type: "success",
+            });
+            this.$router.replace("/");
+          });
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store.dispatch("shop/postReview", data).then(() => {
+                ElNotification({
+                  title: "success",
+                  message: this.$t("review_added"),
+                  type: "success",
+                });
+                this.$router.replace("/");
+              });
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: this.$t(err.response.data.message),
+                type: "error",
+              });
+            });
         });
-        this.$router.replace("/");
-      });
-      console.log(this.title, this.description);
-      console.log(
-        this.rateServe,
-        this.rateSurroundings,
-        this.rateArea,
-        this.rateCost
-      );
-      console.log(this.review);
+
+      // console.log(this.title, this.description);
+      // console.log(
+      //   this.rateServe,
+      //   this.rateSurroundings,
+      //   this.rateArea,
+      //   this.rateCost
+      // );
+      // console.log(this.review);
     },
   },
 };

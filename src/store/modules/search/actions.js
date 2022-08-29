@@ -1,4 +1,5 @@
 import axios from "axios";
+import route from "../../../route";
 
 export default {
   async searchItem(context, payload) {
@@ -46,8 +47,16 @@ export default {
     // } else if (payload.price) {
     //   param = `price:${payload.price[0]}-${payload.price[1]}`;
     // }
+    console.log(payload.query);
+    console.log(route.currentRoute._rawValue.query.filter);
 
-    param = `${payload.area ? `area:${payload.area},` : ""}${
+    param = `${
+      !route.currentRoute._rawValue.query.filter
+        ? payload.query
+          ? payload.query + ","
+          : ""
+        : ""
+    }${payload.area ? `area:${payload.area},` : ""}${
       payload.price ? `price:${payload.price[0]}-${payload.price[1]},` : ""
     }${payload.discount ? `discount:${payload.discount},` : ""}${
       payload.payment ? `payment:${payload.payment}` : ""
@@ -58,8 +67,8 @@ export default {
         search: payload.query.q ? payload.query.q : undefined,
         page: 1,
         pageSize: 10,
-        filter: payload.query.filter
-          ? payload.query.filter + "," + param
+        filter: route.currentRoute._rawValue.query.filter
+          ? payload.query + "," + param
           : param,
         // filter: payload.dynamic
         //   ? payload.dynamic + "," + param

@@ -116,29 +116,32 @@ export default {
       }
     },
     unHover(option) {
-      if (option === "excellent" && this.selected !== "excellent") {
+      if (option === "excellent" && this.selected !== 5) {
         this.ratingExcellent = require("../../assets/rating-excellent-large-off@2x.png");
-      } else if (option === "good" && this.selected !== "good") {
+      } else if (option === "good" && this.selected !== 3) {
         this.ratingGood = require("../../assets/rating-good-large-off@2x.png");
-      } else if (option === "dislike" && this.selected !== "dislike") {
+      } else if (option === "dislike" && this.selected !== 1) {
         this.ratingDislike = require("../../assets/rating-dislike-large-off@2x.png");
       }
     },
     selectReview(option) {
       if (option === "good") {
-        this.selected = "good";
+        // this.selected = "good";
+        this.selected = 3;
         this.ratingGood = require("../../assets/rating-good-large-on@2x.png");
         this.ratingExcellent = require("../../assets/rating-excellent-large-off@2x.png");
         this.ratingDislike = require("../../assets/rating-dislike-large-off@2x.png");
         this.$emit("reviewSelected", this.selected);
       } else if (option === "excellent") {
-        this.selected = "excellent";
+        // this.selected = "excellent";
+        this.selected = 5;
         this.ratingGood = require("../../assets/rating-good-large-off@2x.png");
         this.ratingExcellent = require("../../assets/rating-excellent-large-on@2x.png");
         this.ratingDislike = require("../../assets/rating-dislike-large-off@2x.png");
         this.$emit("reviewSelected", this.selected);
       } else if (option === "dislike") {
-        this.selected = "dislike";
+        // this.selected = "dislike";
+        this.selected = 1;
         this.ratingGood = require("../../assets/rating-good-large-off@2x.png");
         this.ratingExcellent = require("../../assets/rating-excellent-large-off@2x.png");
         this.ratingDislike = require("../../assets/rating-dislike-large-on@2x.png");

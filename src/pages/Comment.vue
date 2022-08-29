@@ -21,6 +21,7 @@
             :rate-area="rateArea"
             :rate-cost="rateCost"
             :review="review"
+            :documents="documents"
           ></bottom-section>
         </el-col>
       </el-row>
@@ -53,6 +54,7 @@ export default {
       rateArea: 0,
       rateCost: 0,
       review: "",
+      documents: [],
     };
   },
   computed: {
@@ -61,10 +63,11 @@ export default {
     },
   },
   methods: {
-    setValues({ title, description }) {
+    setValues({ title, description, images }) {
       this.title = title;
       this.description = description;
-      console.log(this.title, this.description);
+      this.documents = images;
+      console.log(this.title, this.description, this.documents);
     },
     setReviewValues(data) {
       this.rateServe = data.rateServe;

@@ -164,4 +164,15 @@ export default {
   border-radius: 8px;
   width: 8rem;
 }
+
+@media screen and (max-width: 991px) {
+  .event-detail :deep(.el-dialog) {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .event-detail :deep(.el-dialog) {
+    width: 90%;
+  }
+}
 </style>

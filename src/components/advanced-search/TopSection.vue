@@ -4,10 +4,24 @@
       <el-breadcrumb :separator-icon="ArrowRight">
         <el-breadcrumb-item class="first">{{ $t("home") }}</el-breadcrumb-item>
         <el-breadcrumb-item>{{ $t("personal_care") }}</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="currentOption">{{
+          currentOption
+        }}</el-breadcrumb-item>
       </el-breadcrumb>
-      <h5>{{ $t("personal_care") }}</h5>
+      <h5>
+        {{ $t("personal_care") }} {{ currentOption ? currentOption : "" }}
+      </h5>
       <carousel :breakpoints="breakpoints" :items-to-show="1.5">
-        <slide v-for="slide in options" :key="slide">
+        <slide v-for="item in dynamicFilterGroup" :key="item">
+          <div
+            @click="setOption(item)"
+            :class="{ 'is-active': currentOption === item.name }"
+            class="pill"
+          >
+            {{ item.name }}
+          </div>
+        </slide>
+        <!-- <slide v-for="slide in options" :key="slide">
           <div
             @click="setOption($t(slide))"
             :class="{ 'is-active': currentOption === $t(slide) }"
@@ -15,7 +29,7 @@
           >
             {{ $t(slide) }}
           </div>
-        </slide>
+        </slide> -->
 
         <template #addons>
           <navigation />
@@ -65,10 +79,16 @@ export default {
       ],
     };
   },
+  computed: {
+    dynamicFilterGroup() {
+      return this.$store.getters["dashboard/dynamicFilterGroup"];
+    },
+  },
   methods: {
     setOption(option) {
-      this.currentOption = option;
-      this.$emit("sort", option);
+      this.currentOption = option.name;
+      // this.$emit("sort", option);
+      this.$store.dispatch("dashboard/getDynamicFilters", option);
     },
   },
 };
