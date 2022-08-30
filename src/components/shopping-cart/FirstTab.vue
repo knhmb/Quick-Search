@@ -250,6 +250,12 @@ export default {
           });
       },
     },
+    $i18n: {
+      deep: true,
+      handler() {
+        this.$store.dispatch("dashboard/getSchedules");
+      },
+    },
   },
   computed: {
     isUserLoggedIn() {

@@ -81,27 +81,40 @@
 import { ElNotification } from "element-plus";
 
 export default {
-  created() {
-    this.$store
-      .dispatch("auth/checkAccessToken")
-      .then(() => {
-        this.$store.dispatch("profile/getComments");
-      })
-      .catch(() => {
-        this.$store
-          .dispatch("auth/checkRefreshToken")
-          .then(() => {
-            this.$store.dispatch("profile/getComments");
-          })
-          .catch(() => {
-            ElNotification({
-              title: "Error",
-              message: this.$t("token_expired"),
-              type: "error",
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.getComments();
+      },
+    },
+  },
+  methods: {
+    getComments() {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store.dispatch("profile/getComments");
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store.dispatch("profile/getComments");
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: this.$t("token_expired"),
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
             });
-            this.$store.dispatch("auth/logout");
-          });
-      });
+        });
+    },
+  },
+  created() {
+    this.getComments();
   },
 };
 </script>

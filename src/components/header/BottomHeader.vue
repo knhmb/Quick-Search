@@ -148,6 +148,9 @@ export default {
       const data = {
         search: category,
       };
+      console.log(data);
+      console.log(category);
+      this.$store.dispatch("dashboard/getDynamicFilterGroup", category);
 
       this.$store.dispatch("search/searchItem", data).then(() => {
         this.$router.push({

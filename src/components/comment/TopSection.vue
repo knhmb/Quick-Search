@@ -5,17 +5,17 @@
         <h4>{{ $t("store_information") }}</h4>
         <el-row :gutter="15">
           <el-col :sm="12" :md="5">
-            <img src="../../assets/avatar.png" alt="" />
+            <img :src="singleItem.image" alt="" />
           </el-col>
           <el-col :sm="24" :md="19">
             <h5>{{ this.singleItem.name }}</h5>
             <div class="info">
               <p>{{ $t("phone_number") }}</p>
-              <span>9876-5432</span>
+              <span>{{ singleItem.phoneno }}</span>
             </div>
             <div class="info">
               <p>{{ $t("email_address") }}</p>
-              <span>shopname@shop.com</span>
+              <span>{{ singleItem.email }}</span>
             </div>
             <div class="info">
               <p>{{ $t("shop_address") }}</p>
