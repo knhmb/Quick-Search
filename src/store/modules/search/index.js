@@ -10,6 +10,7 @@ export default {
       singleItem: [],
       compareArr: [],
       checkList: {},
+      searchValue: "",
     };
   },
   getters,

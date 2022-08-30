@@ -5,7 +5,7 @@
         <img src="../../assets/header-language.svg" alt="" />
         <el-dropdown>
           <span class="el-dropdown-link">
-            {{ $i18n.locale === "en-us" ? "English" : "繁體中文" }}
+            {{ $i18n.locale === "en-US" ? "English" : "繁體中文" }}
             <el-icon class="el-icon--right">
               <arrow-down />
             </el-icon>
@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     setLocale(lang) {
-      this.$i18n.locale = lang.slug;
+      this.$i18n.locale = lang.code;
     },
     openDialog() {
       this.$store.commit("changeFormTitle", this.$t("login"));

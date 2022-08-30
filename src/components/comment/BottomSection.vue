@@ -56,6 +56,12 @@ export default {
         });
         return;
       }
+      // this.documents.forEach((object) => {
+      //   delete object["id"];
+      // });
+      const finalArr = this.documents.map((obj) => {
+        return obj.image;
+      });
       const data = {
         account: this.currentUserDetails.id,
         shop: this.singleItem.slug,
@@ -65,7 +71,8 @@ export default {
         environment: this.rateSurroundings,
         location: this.rateArea,
         price: this.rateCost,
-        images: this.documents,
+        // images: this.documents,
+        images: finalArr,
         overall: this.review,
       };
       console.log(data);

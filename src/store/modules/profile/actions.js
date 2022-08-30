@@ -1,4 +1,5 @@
 import axios from "axios";
+import i18n from "../../../i18n";
 
 export default {
   async getBookings(context) {
@@ -7,6 +8,7 @@ export default {
     const response = await axios.get(`/api/v1/accounts/bookings`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -21,6 +23,7 @@ export default {
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
+          "accept-language": i18n.global.locale,
         },
       }
     );
@@ -33,6 +36,7 @@ export default {
     const response = await axios.get(`/api/v1/accounts/${payload}`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -44,6 +48,7 @@ export default {
     const response = await axios.get(`/api/v1/accounts/bookings/${id}`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -55,6 +60,7 @@ export default {
     const response = await axios.get("/api/v1/shops/promotions", {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -66,6 +72,7 @@ export default {
     const response = await axios.get("/api/v1/accounts/comments", {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -76,6 +83,7 @@ export default {
     const response = await axios.get("/api/v1/accounts/promotions", {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);

@@ -63,7 +63,7 @@ export default {
       handler() {
         const button = document.querySelector(".middle-header-button");
 
-        if (this.$i18n.locale === "en-us") {
+        if (this.$i18n.locale === "en-US") {
           button.style.width = "12rem";
         } else {
           button.style.width = "9rem";
@@ -79,11 +79,19 @@ export default {
 
       this.$store.dispatch("search/searchItem", data).then(() => {
         this.$router.push({
-          path: "/advanced-search",
+          path: "/basic-search",
           query: { q: this.search },
         });
+        this.$store.commit("search/SET_SEARCH_VALUE", this.search);
         this.search = "";
       });
+      // this.$store.dispatch("search/searchItem", data).then(() => {
+      //   this.$router.push({
+      //     path: "/advanced-search",
+      //     query: { q: this.search },
+      //   });
+      //   this.search = "";
+      // });
     },
   },
 };

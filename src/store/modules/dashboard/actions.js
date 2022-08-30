@@ -1,9 +1,13 @@
 import axios from "axios";
-// import i18n from "../../../i18n";
+import i18n from "../../../i18n";
 
 export default {
   async getCategories() {
-    const response = await axios.get("/api/v1/cms/categories/");
+    const response = await axios.get("/api/v1/cms/categories/", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
     console.log(response);
   },
   async getLanguages(context) {
@@ -12,12 +16,20 @@ export default {
     context.commit("SET_LANGUAGES", response.data.items);
   },
   async getContent(context) {
-    const response = await axios.get("/api/v1/cms/contents");
+    const response = await axios.get("/api/v1/cms/contents", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
     console.log(response);
     context.commit("SET_FOOTER_CONTENT", response.data.items);
   },
   async getPromotions(context) {
-    const response = await axios.get("/api/v1/shops/promotions");
+    const response = await axios.get("/api/v1/shops/promotions", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
     console.log(response);
     context.commit("SET_PROMOTIONS", response.data.items);
   },
@@ -36,27 +48,46 @@ export default {
     context.commit("SET_FILTERS_GROUP", response.data.items);
   },
   async getFiltersItem(context) {
-    const response = await axios.get("/api/v1/shops/filters/items");
+    const response = await axios.get("/api/v1/shops/filters/items", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
     console.log(response);
     context.commit("SET_FILTERS_ITEM", response.data.items);
   },
   async getSchedules(context) {
-    const response = await axios.get("/api/v1/shops/schedules");
+    const response = await axios.get("/api/v1/shops/schedules", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
     console.log(response);
     context.commit("SET_SCHEDULES", response.data.items);
   },
   async promotionDetail(context, payload) {
-    const response = await axios.get(`/api/v1/shops/promotions/${payload}`);
+    const response = await axios.get(`/api/v1/shops/promotions/${payload}`, {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
     console.log(response);
     context.commit("SET_PROMOTION_DETAIL", response.data.item);
   },
   async getSubCategory(context) {
-    const response = await axios.get("/api/v1/shops/categories");
+    const response = await axios.get("/api/v1/shops/categories", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
     console.log(response);
     context.commit("SET_CATEGORIES", response.data.items);
   },
   async getDynamicFilterGroup(context, payload) {
     const response = await axios.get("/api/v1/shops/filters/groups", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
       params: {
         filter: `category:${payload}`,
       },
@@ -71,6 +102,9 @@ export default {
   },
   async getDynamicFilters(context, payload) {
     const response = await axios.get("/api/v1/shops/filters/items", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
       params: {
         filter: `group:${payload.slug}`,
       },

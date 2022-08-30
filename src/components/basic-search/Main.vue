@@ -2,13 +2,16 @@
   <div class="basic-search-main">
     <base-container>
       <h4>{{ $t("browse_by_category") }}</h4>
-      <p>{{ $t("personal_care") }} <span>(924)</span></p>
+      <p v-for="item in searchItems" :key="item">
+        {{ item.resources.category.name }} <span>({{ item.count }})</span>
+      </p>
+      <!-- <p>{{ $t("personal_care") }} <span>(924)</span></p>
       <p>{{ $t("cosmeceutical") }} <span>(924)</span></p>
       <p>{{ $t("make_up") }} <span>(924)</span></p>
       <p>{{ $t("healthy_food") }} <span>(924)</span></p>
       <p>{{ $t("interest") }} <span>(924)</span></p>
       <p>{{ $t("medical") }} <span>(924)</span></p>
-      <p>{{ $t("mother") }} <span>(924)</span></p>
+      <p>{{ $t("mother") }} <span>(924)</span></p> -->
       <Card />
     </base-container>
   </div>
@@ -20,6 +23,11 @@ import Card from "./Card.vue";
 export default {
   components: {
     Card,
+  },
+  computed: {
+    searchItems() {
+      return this.$store.getters["search/searchItems"];
+    },
   },
 };
 </script>

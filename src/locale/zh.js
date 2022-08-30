@@ -17,7 +17,7 @@ const zh = {
   site_terms: "網站條款",
   terms_of_use: "使用條款",
   privacy_policy: "私隱條例",
-  search_result_text: "以下是與 “美白服務” 相關的搜尋結果",
+  search_result_text: "以下是與 “{value}” 相關的搜尋結果",
   browse_by_category: "按類別瀏覽",
   personal_care: "個人護理",
   cosmeceutical: "藥妝",

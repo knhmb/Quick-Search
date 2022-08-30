@@ -31,8 +31,8 @@
         </el-row>
 
         <el-row class="img-row" justify="space-between">
-          <el-col v-for="item in 7" :key="item" :span="3">
-            <img class="prod-img" :src="singleItem.image" alt="" />
+          <el-col v-for="item in comment.images" :key="item" :span="3">
+            <img class="prod-img" :src="item" alt="" />
           </el-col>
         </el-row>
       </div>

@@ -1,6 +1,29 @@
 <template>
   <div class="basic-search-card">
-    <template v-for="category in categories" :key="category">
+    <template v-for="item in searchItems" :key="item">
+      <el-row :gutter="10">
+        <el-col :sm="24" :md="12">
+          <h5>{{ item.resources.category.name }}</h5>
+          <div class="box">{{ item.count }}</div>
+        </el-col>
+        <el-col :sm="24" :md="12">
+          <p>{{ $t("more") }}</p>
+          <img src="../../assets/more@2x.png" alt="" />
+        </el-col>
+        <el-col v-for="subItem in item.items" :key="subItem" :sm="12" :md="6">
+          <div class="card" @click="selectShop(subItem.slug)">
+            <img :src="subItem.image" alt="" />
+            <div class="content">
+              <p class="title">
+                {{ subItem.name }}
+              </p>
+              <p class="description">{{ subItem.description }}</p>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </template>
+    <!-- <template v-for="category in categories" :key="category">
       <el-row :gutter="10">
         <el-col :sm="24" :md="12">
           <h5>{{ $t(category) }}</h5>
@@ -63,7 +86,7 @@
           </div>
         </el-col>
       </el-row>
-    </template>
+    </template> -->
   </div>
 </template>
 
@@ -82,6 +105,20 @@ export default {
       ],
     };
   },
+  computed: {
+    searchItems() {
+      return this.$store.getters["search/searchItems"];
+    },
+  },
+  methods: {
+    selectShop(slug) {
+      this.$store
+        .dispatch("search/searchSingleShop", { slug: slug })
+        .then(() => {
+          this.$router.push({ path: "/shop", query: { q: slug } });
+        });
+    },
+  },
 };
 </script>
 
@@ -92,6 +129,7 @@ export default {
 
 .basic-search-card {
   margin-top: 4rem;
+  cursor: pointer;
 }
 
 .basic-search-card .el-row .el-col:first-of-type,

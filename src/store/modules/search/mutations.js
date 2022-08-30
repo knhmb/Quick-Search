@@ -13,4 +13,8 @@ export default {
     state.checkList = payload;
     console.log(state.checkList);
   },
+  SET_SEARCH_VALUE(state, payload) {
+    state.searchValue = payload;
+    console.log(state.searchValue);
+  },
 };

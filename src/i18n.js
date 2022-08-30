@@ -3,13 +3,13 @@ import en from "./locale/en";
 import zh from "./locale/zh";
 
 const messages = {
-  "en-us": en,
-  "zh-hant-hk": zh,
+  "en-US": en,
+  "zh-Hant-HK": zh,
 };
 
 const i18n = createI18n({
-  locale: "zh-hant-hk",
-  fallbackLocale: "en-us",
+  locale: "zh-Hant-HK",
+  fallbackLocale: "en-US",
   messages,
 });
 export default i18n;

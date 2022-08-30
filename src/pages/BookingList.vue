@@ -37,33 +37,46 @@ export default {
       currentOption: "first",
     };
   },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.getBookingList();
+      },
+    },
+  },
   computed: {
     currentUserDetails() {
       return this.$store.getters["auth/currentUserDetails"];
     },
   },
+  methods: {
+    getBookingList() {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store.dispatch("profile/getBookings");
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store.dispatch("profile/getBookings");
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: this.$t("token_expired"),
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+            });
+        });
+    },
+  },
   created() {
     console.log(this.currentUserDetails);
-    this.$store
-      .dispatch("auth/checkAccessToken")
-      .then(() => {
-        this.$store.dispatch("profile/getBookings");
-      })
-      .catch(() => {
-        this.$store
-          .dispatch("auth/checkRefreshToken")
-          .then(() => {
-            this.$store.dispatch("profile/getBookings");
-          })
-          .catch(() => {
-            ElNotification({
-              title: "Error",
-              message: this.$t("token_expired"),
-              type: "error",
-            });
-            this.$store.dispatch("auth/logout");
-          });
-      });
+    this.getBookingList();
   },
 };
 </script>

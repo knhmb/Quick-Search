@@ -11,4 +11,7 @@ export default {
   checkList(state) {
     return state.checkList;
   },
+  searchValue(state) {
+    return state.searchValue;
+  },
 };

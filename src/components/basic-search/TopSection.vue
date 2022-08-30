@@ -1,11 +1,21 @@
 <template>
   <div class="top-section">
     <base-container>
-      <h3>{{ $t("search_result_text") }}</h3>
+      <h3>{{ $t("search_result_text", { value: searchValue }) }}</h3>
       <!-- <h3>以下是與 <span>“美白服務”</span> 相關的搜尋結果</h3> -->
     </base-container>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    searchValue() {
+      return this.$store.getters["search/searchValue"];
+    },
+  },
+};
+</script>
 
 
 <style scoped>

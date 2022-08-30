@@ -1,18 +1,26 @@
 import axios from "axios";
 import route from "../../../route";
+import i18n from "../../../i18n";
 
 export default {
   async searchItem(context, payload) {
-    const response = await axios.get(`/api/v1/shops`, {
+    // const response = await axios.get(`/api/v1/shops`, {
+    //   params: {
+    //     page: 1,
+    //     pageSize: 15,
+    //     search: payload.search ? payload.search : undefined,
+    //   },
+    // });
+    const response = await axios.get(`/api/v1/shops/search`, {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
       params: {
         page: 1,
         pageSize: 15,
         search: payload.search ? payload.search : undefined,
       },
     });
-    // const response = await axios.get(
-    //   `/api/v1/shops${payload.search ? `?search=${payload.search}` : ""}`
-    // );
     console.log(response);
     context.commit("SET_SEARCH_ITEMS", response.data.items);
   },
@@ -63,6 +71,9 @@ export default {
     }`;
 
     const response = await axios.get(`/api/v1/shops`, {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
       params: {
         search: payload.query.q ? payload.query.q : undefined,
         page: 1,
@@ -131,6 +142,7 @@ export default {
     const response = await axios.get(`/api/v1/shops/${payload.slug}`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -145,6 +157,9 @@ export default {
     //   },
     // });
     const response = await axios.get(`/api/v1/shops`, {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
       params: {
         filter:
           `${payload.dynamicFilter ? `${payload.dynamicFilter},` : ""}${

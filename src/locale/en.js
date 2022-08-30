@@ -18,7 +18,7 @@ const en = {
   site_terms: "Site Terms",
   terms_of_use: "Terms of Use",
   privacy_policy: "Privacy Policy",
-  search_result_text: "Here are the search results for 'whitening services'",
+  search_result_text: "Here are the search results for '{value}'",
   browse_by_category: "Browse By Category",
   personal_care: "Personal Care",
   cosmeceutical: "Cosmeceutical",

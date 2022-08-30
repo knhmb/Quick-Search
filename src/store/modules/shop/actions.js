@@ -1,4 +1,5 @@
 import axios from "axios";
+import i18n from "../../../i18n";
 
 export default {
   async postSchedule(_, payload) {
@@ -7,6 +8,7 @@ export default {
     const response = await axios.post("/api/v1/shops/schedules", payload, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -17,6 +19,7 @@ export default {
     const response = await axios.post("/api/v1/accounts/comments/", payload, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -27,6 +30,7 @@ export default {
     const response = await axios.get(`/api/v1/shops/schedules`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
       params: {
         filter: `shop:${payload.param},date:${{
@@ -43,6 +47,7 @@ export default {
     const response = await axios.post("/api/v1/accounts/bookings/", payload, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
     });
     console.log(response);
@@ -53,6 +58,7 @@ export default {
     const response = await axios.get(`/api/v1/accounts/comments`, {
       headers: {
         Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
       },
       params: {
         page: 1,
@@ -74,6 +80,7 @@ export default {
   // },
   async getPhotos() {
     const response = await axios.get("/api/v1/shops");
+    console.log("HERERERERERERERERERE");
     console.log(response);
   },
 };
