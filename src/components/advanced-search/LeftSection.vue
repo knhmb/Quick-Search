@@ -11,7 +11,6 @@
           <img src="../../assets/chevron-up-black@2x.png" alt="" />
         </div>
         <div class="single-content checkboxes">
-          <!-- <el-checkbox>港島區</el-checkbox> -->
           <el-tree
             @check-change="handleChange"
             accordion
@@ -22,9 +21,7 @@
             <template #default="{ node }">
               <span class="custom-tree-node">
                 <span>{{ node.label }}</span>
-                <!-- <span> -->
                 <img src="../../assets/chevron-down-black@2x.png" alt="" />
-                <!-- </span> -->
               </span>
             </template>
           </el-tree>
@@ -127,20 +124,11 @@
                 @change="handleDiscount(item.slug)"
                 v-model="checkList[`${item.group}`]"
               >
-                <!-- <template v-for="i in storeCompareArr" :key="i"> -->
-                <!-- <template v-for="k in i" :key="k"> -->
                 <el-checkbox
                   v-if="item.group === group.slug"
                   :label="`&quot;${item.slug}&quot;`"
                   >{{ item.name }}</el-checkbox
                 >
-                <!-- </template> -->
-                <!-- </template> -->
-                <!-- <el-checkbox
-                  v-if="item.group === group.slug"
-                  :label="`&quot;${item.slug}&quot;`"
-                  >{{ item.name }}</el-checkbox
-                > -->
               </el-checkbox-group>
             </template>
           </el-col>

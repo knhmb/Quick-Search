@@ -1,6 +1,5 @@
 <template>
   <div class="right-section">
-    <!-- <div class="box-card"> -->
     <el-tabs @tab-click="openSecondTab" v-model="activeName" class="demo-tabs">
       <el-tab-pane :label="$t('reserve')" name="first">
         <first-tab></first-tab>
@@ -16,7 +15,6 @@
         <third-tab></third-tab>
       </el-tab-pane>
     </el-tabs>
-    <!-- </div> -->
   </div>
 </template>
 

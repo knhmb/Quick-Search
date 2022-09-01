@@ -18,15 +18,6 @@
           >
             {{ item.name }}
           </div>
-          <!-- <div
-            @click="setFilter(item)"
-            :class="{ 'is-active': currentFilter === item.name }"
-            v-for="item in filtersGroup"
-            :key="item"
-            class="box"
-          >
-            {{ item.name }}
-          </div> -->
         </div>
         <div class="body-header">
           <p>子分類</p>
@@ -57,57 +48,9 @@
                     >
                   </el-checkbox-group>
                 </template>
-                <!-- <template v-for="item in dynamicFilters" :key="item">
-                  <el-checkbox-group
-                    v-for="single in item"
-                    :key="single"
-                    v-model="checkList[`${single.group}`]"
-                  >
-                    <el-checkbox
-                      v-if="single.group === group.slug"
-                      :label="single.name"
-                      >{{ single.name }}</el-checkbox
-                    >
-                  </el-checkbox-group>
-                </template> -->
               </el-col>
             </el-row>
           </div>
-          <!-- <div
-            @click="changeFilter(item)"
-            :class="{ 'is-active': currentFilter === item.name }"
-            v-for="item in categories"
-            :key="item"
-            class="box"
-          >
-            {{ item.name }}
-          </div>
-          <div class="grey-section" v-if="dynamicFilterGroup.length > 0">
-            <h5>紋身 篩選條件</h5>
-            <el-row class="alignment">
-              <el-col
-                :span="6"
-                v-for="group in dynamicFilterGroup"
-                :key="group.id"
-              >
-
-                <p>{{ group.name }}</p>
-                <template v-for="item in dynamicFilters" :key="item">
-                  <el-checkbox-group
-                    v-for="single in item"
-                    :key="single"
-                    v-model="checkList[`${single.group}`]"
-                  >
-                    <el-checkbox
-                      v-if="single.group === group.slug"
-                      :label="single.name"
-                      >{{ single.name }}</el-checkbox
-                    >
-                  </el-checkbox-group>
-                </template>
-              </el-col>
-            </el-row>
-          </div> -->
         </div>
         <div class="body-header">
           <p>篩選條件</p>
@@ -540,6 +483,11 @@ export default {
 </script>
 
 <style scoped>
+.advanced-search-dialog :deep(.el-dialog) {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
 .advanced-search-dialog :deep(.el-dialog .el-dialog__header),
 .advanced-search-dialog :deep(.el-dialog .el-headerbtn),
 .advanced-search-dialog :deep(.el-dialog .el-dialog__body),

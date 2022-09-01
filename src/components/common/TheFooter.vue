@@ -38,9 +38,6 @@
                 {{ item.title }}
               </li>
             </template>
-            <!-- <li>{{ $t("about_quick_search") }}</li>
-            <li>{{ $t("contact_us") }}</li>
-            <li>{{ $t("common_problem") }}</li> -->
           </ul>
         </el-col>
         <el-col :sm="24" :md="5">
@@ -49,7 +46,6 @@
               {{ item.title }}
             </p>
           </template>
-          <!-- <p>{{ $t("join_us") }}</p> -->
           <ul>
             <template v-for="item in footerContent" :key="item">
               <li
@@ -60,11 +56,6 @@
               </li>
             </template>
 
-            <!-- <li v-if="item.slug === 'cms-page-merchant-cooperation'">
-                {{ $t("merchant_registration") }}
-              </li> -->
-            <!-- <li>{{ $t("merchant_login") }}</li> -->
-            <!-- <li>{{ $t("merchant_cooperation") }}</li> -->
             <li>{{ $t("merchant_registration") }}</li>
             <li>{{ $t("merchant_login") }}</li>
           </ul>
@@ -85,8 +76,6 @@
               >
                 {{ item.title }}
               </li>
-              <!-- <li>{{ $t("terms_of_use") }}</li>
-            <li>{{ $t("privacy_policy") }}</li> -->
             </template>
           </ul>
         </el-col>

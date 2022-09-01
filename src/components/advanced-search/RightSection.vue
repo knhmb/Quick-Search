@@ -7,7 +7,6 @@
             {{ $t("turn_up") }} <span>{{ searchItems.length }}</span>
             {{ $t("search_results") }}
           </p>
-          <!-- <p>{{ $t("turn_up") }} <span>924</span> {{ $t("search_results") }}</p> -->
         </el-col>
         <el-col class="input-select" :sm="24" :md="12">
           <span>{{ $t("sort_by") }} :</span>

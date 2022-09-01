@@ -13,6 +13,19 @@ export default {
     TheHeader,
     TheFooter,
   },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.$store.dispatch("dashboard/getSubCategory");
+        this.$store.dispatch("dashboard/getCategories");
+        this.$store.dispatch("dashboard/getContent");
+        this.$store.dispatch("dashboard/getPromotions");
+        // this.$store.dispatch("dashboard/getFiltersGroup");
+        this.$store.dispatch("dashboard/getFiltersItem");
+      },
+    },
+  },
 };
 </script>
 

@@ -2,6 +2,7 @@
   <div class="bottom-header">
     <base-container>
       <el-menu
+        v-if="categories.length > 0"
         unique-opened
         menu-trigger="hover"
         class="el-menu-demo"
@@ -26,22 +27,7 @@
                     :index="`${i} + '-1'`"
                     >{{ child.name }}</el-menu-item
                   >
-                  <!-- <el-menu-item :index="`${index} + '-1'`">美甲</el-menu-item>
-                  <el-menu-item :index="`${index} + '-2'`">美睫</el-menu-item>
-                  <el-menu-item :index="`${index} + '-3'`">按摩店</el-menu-item>
-                  <el-menu-item :index="`${index} + '-4'`">蒸身</el-menu-item>
-                  <el-menu-item :index="`${index} + '-5'`">綉眉</el-menu-item>
-                  <el-menu-item :index="`${index} + '-6'`"
-                    >頭髮護理</el-menu-item
-                  >
-                  <el-menu-item :index="`${index} + '-7'`">剪頭髮</el-menu-item>
-                  <el-menu-item :index="`${index} + '-8'`">眼</el-menu-item> -->
                 </el-col>
-                <!-- <el-col :span="12">
-                  <el-menu-item :index="index + '-9'">紋身</el-menu-item>
-                  <el-menu-item :index="index + '-10'">美白牙齒</el-menu-item>
-                  <el-menu-item :index="index + '-11'">美容護理</el-menu-item>
-                </el-col> -->
               </el-row>
             </el-sub-menu>
           </Slide>
@@ -51,39 +37,6 @@
             <Pagination />
           </template>
         </Carousel>
-        <!-- <Carousel :breakpoints="breakpoints">
-          <Slide v-for="(slide, index) in options" :key="slide">
-            <el-sub-menu popper-class="custom-menu" :index="index">
-              <template #title>{{ slide }}</template>
-              <div class="header">
-                <p>{{ slide }}</p>
-                <img src="../../assets/chevron-right-black@2x.png" alt="" />
-              </div>
-              <el-row>
-                <el-col :span="12">
-                  <el-menu-item :index="index + '-1'">美甲</el-menu-item>
-                  <el-menu-item :index="index + '-2'">美睫</el-menu-item>
-                  <el-menu-item :index="index + '-3'">按摩店</el-menu-item>
-                  <el-menu-item :index="index + '-4'">蒸身</el-menu-item>
-                  <el-menu-item :index="index + '-5'">綉眉</el-menu-item>
-                  <el-menu-item :index="index + '-6'">頭髮護理</el-menu-item>
-                  <el-menu-item :index="index + '-7'">剪頭髮</el-menu-item>
-                  <el-menu-item :index="index + '-8'">眼</el-menu-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-menu-item :index="index + '-9'">紋身</el-menu-item>
-                  <el-menu-item :index="index + '-10'">美白牙齒</el-menu-item>
-                  <el-menu-item :index="index + '-11'">美容護理</el-menu-item>
-                </el-col>
-              </el-row>
-            </el-sub-menu>
-          </Slide>
-
-          <template #addons>
-            <Navigation />
-            <Pagination />
-          </template>
-        </Carousel> -->
       </el-menu>
     </base-container>
   </div>
