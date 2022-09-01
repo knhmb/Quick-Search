@@ -73,4 +73,18 @@ export default {
   SET_PROMOTION_DETAIL(state, payload) {
     state.promotionDetail = payload;
   },
+  SET_MAIN_CATEGORY_FILTER(state, payload) {
+    state.mainCategoryFilter = payload;
+  },
+  SET_DYNAMIC_MAIN_CATEGORY_FILTER(state, payload) {
+    const arr = [];
+    arr.push(payload);
+    arr.forEach((item) => {
+      state.dynamicMainCategoryFilter.push(item);
+    });
+    console.log(state.dynamicMainCategoryFilter);
+  },
+  RESET_DYNAMIC_MAIN_CATEGORY_FILTER(state) {
+    state.dynamicMainCategoryFilter = [];
+  },
 };

@@ -29,4 +29,10 @@ export default {
   promotionDetail(state) {
     return state.promotionDetail;
   },
+  mainCategoryFilter(state) {
+    return state.mainCategoryFilter;
+  },
+  dynamicMainCategoryFilter(state) {
+    return state.dynamicMainCategoryFilter;
+  },
 };

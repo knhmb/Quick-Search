@@ -24,7 +24,7 @@
                     @click="searchCategory(child.slug)"
                     v-for="(child, i) in slide.resources.children"
                     :key="child"
-                    :index="`${i} + '-1'`"
+                    :index="`${index} + ${i}`"
                     >{{ child.name }}</el-menu-item
                   >
                 </el-col>

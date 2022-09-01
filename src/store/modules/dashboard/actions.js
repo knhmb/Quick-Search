@@ -79,6 +79,9 @@ export default {
       headers: {
         "accept-language": i18n.global.locale,
       },
+      params: {
+        filter: `parent:{"$eq":""}`,
+      },
     });
     console.log(response);
     context.commit("SET_CATEGORIES", response.data.items);
@@ -99,6 +102,44 @@ export default {
     //   });
     // }
     context.commit("SET_DYNAMIC_FILTER_GROUP", response.data.items);
+  },
+  async getMainCategoryFilter(context, payload) {
+    const response = await axios.get("/api/v1/shops/filters/groups", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+      params: {
+        filter: `category:${payload}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_MAIN_CATEGORY_FILTER", response.data.items);
+    const data = response.data.items;
+    data.forEach((item) => {
+      context.dispatch(
+        "getDynamicMainCategoryFilters",
+        item.slug
+        // response.data.items[0].category
+      );
+    });
+    // context.dispatch(
+    //   "getDynamicMainCategoryFilters",
+    //   payload
+    //   // response.data.items[0].category
+    // );
+  },
+  async getDynamicMainCategoryFilters(context, payload) {
+    console.log(payload);
+    const response = await axios.get("/api/v1/shops/filters/items", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+      params: {
+        filter: `group:${payload}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_DYNAMIC_MAIN_CATEGORY_FILTER", response.data.items);
   },
   async getDynamicFilters(context, payload) {
     const response = await axios.get("/api/v1/shops/filters/items", {

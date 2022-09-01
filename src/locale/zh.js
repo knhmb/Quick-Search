@@ -155,6 +155,11 @@ const zh = {
   most_comment: "留言最多",
   newest_to_oldest: "新到舊",
   oldest_to_newest: "舊到新",
+  main_category: "主分類",
+  sub_category: "子分類",
+  filters: "紋身 篩選條件",
+  hongkong_island: "港島區",
+  kowloon: '九龍區'
 };
 
 export default zh;

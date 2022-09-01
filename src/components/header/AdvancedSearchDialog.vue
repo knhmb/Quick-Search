@@ -18,6 +18,37 @@
           >
             {{ item.name }}
           </div>
+          <div class="grey-section" v-if="dynamicMainCategoryFilter.length > 0">
+            <h5>紋身 篩選條件</h5>
+            <el-row class="alignment">
+              <!-- <template v-for="item in categories" :key="item"> -->
+              <el-col
+                :span="4"
+                v-for="group in mainCategoryFilter"
+                :key="group"
+              >
+                <p>{{ group.name }}</p>
+                <!-- <p>{{ item.category }}</p> -->
+                <template v-for="item in dynamicMainCategoryFilter" :key="item">
+                  <template v-for="subItem in item" :key="subItem">
+                    <el-checkbox-group v-model="checkList[`${subItem.group}`]">
+                      <el-checkbox
+                        v-if="group.slug === subItem.group"
+                        :label="`&quot;${subItem.slug}&quot;`"
+                        >{{ subItem.name }}</el-checkbox
+                      >
+                    </el-checkbox-group>
+                  </template>
+                  <!-- <el-checkbox-group v-model="mainCategory[`${item.group}`]">
+                    <el-checkbox :label="`&quot;${item.slug}&quot;`">{{
+                      item.name
+                    }}</el-checkbox>
+                  </el-checkbox-group> -->
+                </template>
+              </el-col>
+              <!-- </template> -->
+            </el-row>
+          </div>
         </div>
         <div class="body-header">
           <p>子分類</p>
@@ -178,6 +209,7 @@ export default {
   data() {
     return {
       // checkList: {},
+      mainCategory: {},
       discount: [],
       currentFilter: "",
       currentFilter2: "",
@@ -316,6 +348,12 @@ export default {
     filtersGroup() {
       return this.$store.getters["dashboard/filtersGroup"];
     },
+    dynamicMainCategoryFilter() {
+      return this.$store.getters["dashboard/dynamicMainCategoryFilter"];
+    },
+    mainCategoryFilter() {
+      return this.$store.getters["dashboard/mainCategoryFilter"];
+    },
     filtersItem() {
       return this.$store.getters["dashboard/filtersItem"];
     },
@@ -428,7 +466,9 @@ export default {
       this.currentFilter = item.name;
       console.log(item);
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
+      this.$store.dispatch("dashboard/getMainCategoryFilter", item.slug);
     },
     handleCheckAllChange(val) {
       this.checkedCities = val ? this.cities : [];

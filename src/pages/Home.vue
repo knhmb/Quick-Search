@@ -32,6 +32,7 @@ export default {
     this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
     this.$store.commit("dashboard/RESET_DYNAMIC_FILTER_GROUP");
     this.$store.commit("search/UPDATE_CHECKLIST", {});
+    this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
 
     this.$store.dispatch("dashboard/getCategories");
     this.$store.dispatch("dashboard/getLanguages");
