@@ -17,4 +17,41 @@ export default {
     state.searchValue = payload;
     console.log(state.searchValue);
   },
+  SET_SELECTED_MAIN_CATEGORY(state, payload) {
+    state.selectedMainCategory = payload;
+  },
+  RESET_SELECTED_MAIN_CATEGORY(state) {
+    state.selectedMainCategory = "";
+  },
+  UPDATE_DISCOUNT(state, payload) {
+    state.discount = payload;
+    // if (!state.discount.includes(payload)) {
+    //   state.discount.push(payload);
+    // }
+    // state.discount.filter((item) => console.log(item));
+    console.log(state.discount);
+  },
+  RESET_DISCOUNT(state) {
+    state.discount = [];
+  },
+  UPDATE_PAYMENT_METHOD(state, payload) {
+    state.paymentMethod = payload;
+  },
+  RESET_PAYMENT_METHOD(state) {
+    state.paymentMethod = [];
+  },
+  UPDATE_PRICE_RANGE(state, payload) {
+    state.priceRange = payload;
+    console.log(state.priceRange);
+  },
+  RESET_PRICE_RANGE(state) {
+    state.priceRange = [0, 100];
+  },
+  UPDATE_DATA(state, payload) {
+    state.data = payload;
+    console.log(state.data);
+  },
+  STORE_SELECTED_AREAS(state, payload) {
+    state.selectedAreas = payload;
+  },
 };

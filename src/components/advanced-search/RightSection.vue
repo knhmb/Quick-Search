@@ -4,7 +4,8 @@
       <el-row>
         <el-col :sm="24" :md="12">
           <p>
-            {{ $t("turn_up") }} <span>{{ searchItems.length }}</span>
+            {{ $t("turn_up") }}
+            <span>{{ searchItems.length > 0 ? searchItems.length : 0 }}</span>
             {{ $t("search_results") }}
           </p>
         </el-col>

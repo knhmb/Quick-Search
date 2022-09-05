@@ -87,7 +87,23 @@
           <p>篩選條件</p>
           <p class="area">地區</p>
           <div class="areas">
-            <div class="single-area">
+            <el-tree
+              @check-change="handleChange"
+              @check="dummy"
+              :data="data"
+              :props="defaultProps"
+              show-checkbox
+              default-expand-all
+              node-key="uniqueNode"
+            >
+              <template #default="{ node }">
+                <span class="custom-tree-node">
+                  <span>{{ node.label }}</span>
+                  <!-- <img src="../../assets/chevron-down-black@2x.png" alt="" /> -->
+                </span>
+              </template>
+            </el-tree>
+            <!-- <div class="single-area">
               <el-checkbox
                 v-model="checkAll"
                 class="checkbox-header"
@@ -163,17 +179,21 @@
                   >{{ city }}</el-checkbox
                 >
               </el-checkbox-group>
-            </div>
+            </div> -->
           </div>
           <div class="other-filters">
             <div class="single-filter">
               <p class="area">優惠</p>
-              <el-checkbox v-model="discount" label='"有優惠"'
+              <el-checkbox-group v-model="discount">
+                <el-checkbox label="有優惠">有優惠</el-checkbox>
+                <el-checkbox label="無優惠">無優惠</el-checkbox>
+              </el-checkbox-group>
+              <!-- <el-checkbox v-model="discount" label="有優惠"
                 >有優惠</el-checkbox
               >
-              <el-checkbox v-model="discount" label='"無優惠"'
+              <el-checkbox v-model="discount" label="無優惠"
                 >無優惠</el-checkbox
-              >
+              > -->
             </div>
             <div class="single-filter middle">
               <p class="area">價格範圍</p>
@@ -183,12 +203,12 @@
             <div class="single-filter">
               <p class="area">付款方式</p>
               <el-checkbox-group v-model="paymentMethod">
-                <el-checkbox label='"現金"'>現金</el-checkbox>
-                <el-checkbox label='"八達通"'>八達通</el-checkbox>
-                <el-checkbox label='"信用卡"'>信用卡</el-checkbox>
-                <el-checkbox label='"微信"'>微信</el-checkbox>
-                <el-checkbox label='"支付寶"'>支付寶</el-checkbox>
-                <el-checkbox label='"轉數快"'>轉數快</el-checkbox>
+                <el-checkbox label="現金">現金</el-checkbox>
+                <el-checkbox label="八達通">八達通</el-checkbox>
+                <el-checkbox label="信用卡">信用卡</el-checkbox>
+                <el-checkbox label="微信">微信</el-checkbox>
+                <el-checkbox label="支付寶">支付寶</el-checkbox>
+                <el-checkbox label="轉數快">轉數快</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>
@@ -208,13 +228,23 @@ export default {
   props: ["dialogVisible"],
   data() {
     return {
+      filter: {
+        arr: [],
+      },
+      filterArray: [],
+      // defaultProps: {
+      //   children: "children",
+      //   label: "label",
+      //   disabled: "disabled",
+      // },
       // checkList: {},
-      mainCategory: {},
-      discount: [],
+      // discount: [],
+      finalDiscount: [],
+      finalPayment: [],
       currentFilter: "",
       currentFilter2: "",
-      priceRange: [0, 100],
-      paymentMethod: [],
+      // priceRange: [0, 100],
+      // paymentMethod: [],
       checkAll: false,
       checkAllKowloon: false,
       checkAllNewTerritories: false,
@@ -342,11 +372,156 @@ export default {
           name: "影音項目",
         },
       ],
+      // data: [
+      //   {
+      //     id: 1,
+      //     label: "港島區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "堅尼地城站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "香港大學站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "西營盤站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "上環站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "中環站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "金鐘站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 2,
+      //     label: "九龍區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "藍田站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "觀塘站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "牛頭角站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "九龍灣站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "彩虹站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "鑽石山站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 3,
+      //     label: "新界區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "荃灣站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "大窩口站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "葵興站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "葵芳站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "康城站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "寶琳站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 4,
+      //     label: "離島區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "青衣站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "欣澳站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "迪士尼站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "東涌站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "機場站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "博覽館站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      // ],
     };
   },
   computed: {
     filtersGroup() {
       return this.$store.getters["dashboard/filtersGroup"];
+    },
+    defaultProps() {
+      return this.$store.getters["search/defaultProps"];
     },
     dynamicMainCategoryFilter() {
       return this.$store.getters["dashboard/dynamicMainCategoryFilter"];
@@ -374,11 +549,79 @@ export default {
         this.$store.commit("search/UPDATE_CHECKLIST", value);
       },
     },
+    discount: {
+      get() {
+        return this.$store.getters["search/discount"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_DISCOUNT", value);
+      },
+    },
+    paymentMethod: {
+      get() {
+        return this.$store.getters["search/paymentMethod"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_PAYMENT_METHOD", value);
+      },
+    },
+    priceRange: {
+      get() {
+        return this.$store.getters["search/priceRange"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_PRICE_RANGE", value);
+      },
+    },
+    data: {
+      get() {
+        return this.$store.getters["search/data"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_DATA", value);
+      },
+    },
   },
   methods: {
     setFilter(item) {
       this.currentFilter = item.name;
       this.$store.dispatch("dashboard/getFiltersGroup", item.parent);
+    },
+    dummy(one, selectedAreas) {
+      console.log(one);
+      console.log(selectedAreas);
+      this.$store.commit("search/STORE_SELECTED_AREAS", selectedAreas);
+    },
+    handleChange(data, checked) {
+      // console.log(checked);
+      console.log(data);
+      // this.$store.commit("search/STORE_REF", this.$refs.treeRef);
+      if (checked) {
+        this.filter.arr.push({
+          id: data.$treeNodeId,
+          label: `${data.label}`,
+        });
+        // console.log(this.filter.arr);
+        // if (!this.filter.arr.includes(`${data.label}`)) {
+        //   this.filter.arr.push(`${data.label}`);
+        // }
+      }
+      if (!checked) {
+        this.filter.arr = this.filter.arr.filter(
+          (item) => item.id !== data.$treeNodeId
+        );
+      }
+
+      let filterArr = [];
+
+      this.filter.arr.forEach((item) => {
+        // filterArr.push(`"${item}"`);
+        filterArr.push(`"${item.label}"`);
+      });
+
+      this.filterArray = filterArr;
+
+      // console.log(filterArr);
     },
     getFilterItems(item) {
       console.log(item);
@@ -408,9 +651,28 @@ export default {
       //   this.discount.length > 0
       //     ? this.discount.toString().replaceAll(",", "|")
       //     : "";
+      // const finalDiscount = []
+
+      this.paymentMethod.forEach((item) => {
+        if (!this.finalPayment.includes(item)) {
+          this.finalPayment.push(`"${item}"`);
+        }
+      });
+
+      const paymentData =
+        this.finalPayment.length > 0 ? `{"$in":[${this.finalPayment}]}` : "";
+
+      this.discount.forEach((item) => {
+        if (!this.finalDiscount.includes(item)) {
+          this.finalDiscount.push(`"${item}"`);
+        }
+      });
+      console.log(this.finalDiscount);
 
       const discountData =
-        this.discount.length > 0 ? `{"$in":[${this.discount}]}` : "";
+        this.finalDiscount.length > 0 ? `{"$in":[${this.finalDiscount}]}` : "";
+      // const discountData =
+      //   this.discount.length > 0 ? `{"$in":[${this.discount}]}` : "";
 
       const areas = [];
 
@@ -426,19 +688,19 @@ export default {
       this.checkedIslandDistrict.forEach((city) => {
         areas.push(city);
       });
+      console.log(areas);
 
       const dataObject = {
         dynamicFilter: arr.toString(),
         dynamicFilter1: arr,
         // dynamicFilter: finalData,
         discount: discountData,
-        area: areas.length > 0 ? `{"$in":["${areas}"]}` : "",
+        area:
+          this.filterArray.length > 0 ? `{"$in":[${this.filterArray}]}` : "",
+        // area: areas.length > 0 ? `{"$in":["${areas}"]}` : "",
         // area: areas.length > 0 ? areas.toString().replaceAll(",", "|") : "",
         price: this.priceRange,
-        paymentMethod:
-          this.paymentMethod.length > 0
-            ? `{"$in":[${this.paymentMethod}]}`
-            : "",
+        paymentMethod: paymentData,
         // paymentMethod:
         //   this.paymentMethod.length > 0
         //     ? this.paymentMethod.toString().replaceAll(",", "|")
@@ -465,6 +727,7 @@ export default {
     changeFilter(item) {
       this.currentFilter = item.name;
       console.log(item);
+      this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", item.name);
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
@@ -640,8 +903,8 @@ export default {
 }
 
 .advanced-search-dialog .body .areas {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   margin-bottom: 2rem;
 }
 
@@ -760,6 +1023,15 @@ export default {
 
 .advanced-search-dialog .grey-section .el-row.alignment {
   align-items: flex-start;
+}
+
+.advanced-search-dialog .el-tree {
+  display: flex;
+  justify-content: space-between;
+}
+
+.advanced-search-dialog .el-tree :deep(.custom-tree-node) img {
+  width: 1.1rem;
 }
 
 @media screen and (max-width: 991px) {

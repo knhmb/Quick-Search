@@ -158,7 +158,8 @@ const en = {
   most_comment: "Most Comment",
   newest_to_oldest: "Newest to Oldest",
   oldest_to_newest: "Oldest to Newest",
-  main_category: "Main Category"
+  main_category: "Main Category",
+  sub_category: "Sub Category",
 };
 
 export default en;

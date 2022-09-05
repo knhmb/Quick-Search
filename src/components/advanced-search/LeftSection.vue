@@ -17,6 +17,8 @@
             :data="data"
             :props="defaultProps"
             show-checkbox
+            node-key="uniqueNode"
+            ref="treeRef"
           >
             <template #default="{ node }">
               <span class="custom-tree-node">
@@ -37,11 +39,7 @@
             <el-col :span="24">
               <div class="slider-content">
                 <p>{{ $t("any") }}</p>
-                <el-slider
-                  @change="handleChange"
-                  range
-                  v-model="filter.sliderValue"
-                />
+                <el-slider @change="handleChange" range v-model="priceRange" />
               </div>
             </el-col>
           </el-row>
@@ -57,12 +55,12 @@
             <el-col>
               <el-checkbox
                 @change="handleDiscount"
-                v-model="filter.discountCheckbox"
+                v-model="discount"
                 label="有優惠"
               ></el-checkbox>
               <el-checkbox
                 @change="handleDiscount"
-                v-model="filter.discountCheckbox"
+                v-model="discount"
                 label="無優惠"
               ></el-checkbox>
             </el-col>
@@ -79,38 +77,80 @@
             <el-col>
               <el-checkbox
                 @change="handlePayment"
-                v-model="filter.paymentCheckbox"
+                v-model="paymentMethod"
                 label="現金"
               ></el-checkbox>
               <el-checkbox
                 @change="handlePayment"
-                v-model="filter.paymentCheckbox"
+                v-model="paymentMethod"
                 label="八達通"
               ></el-checkbox>
               <el-checkbox
                 @change="handlePayment"
-                v-model="filter.paymentCheckbox"
+                v-model="paymentMethod"
                 label="信用卡"
               ></el-checkbox>
               <el-checkbox
                 @change="handlePayment"
-                v-model="filter.paymentCheckbox"
+                v-model="paymentMethod"
                 label="微信"
               ></el-checkbox>
               <el-checkbox
                 @change="handlePayment"
-                v-model="filter.paymentCheckbox"
+                v-model="paymentMethod"
                 label="支付寶"
               ></el-checkbox>
               <el-checkbox
                 @change="handlePayment"
-                v-model="filter.paymentCheckbox"
+                v-model="paymentMethod"
                 label="轉數快"
               ></el-checkbox>
             </el-col>
           </el-row>
         </div>
         <el-row class="alignment">
+          <h5>{{ $t("main_category") }}</h5>
+
+          <el-col
+            :span="24"
+            v-for="group in mainCategoryFilter"
+            :key="group.id"
+          >
+            <p>{{ group.name }}</p>
+            <template v-for="item in dynamicMainCategoryFilter" :key="item">
+              <template v-for="subItem in item" :key="subItem">
+                <el-checkbox-group
+                  @change="handleDiscount(subItem.slug)"
+                  v-model="checkList[`${subItem.group}`]"
+                >
+                  <el-checkbox
+                    v-if="group.slug === subItem.group"
+                    :label="`&quot;${subItem.slug}&quot;`"
+                    >{{ subItem.name }}</el-checkbox
+                  >
+                </el-checkbox-group>
+              </template>
+            </template>
+            <!-- <p v-if="dynamicFilters.some((e) => e.group === group.slug)">
+              {{ group.name }}
+            </p> -->
+            <!-- <template v-for="item in dynamicFilters" :key="item">
+              <el-checkbox-group
+                @change="handleDiscount(item.slug)"
+                v-model="checkList[`${item.group}`]"
+              >
+                <el-checkbox
+                  v-if="item.group === group.slug"
+                  :label="`&quot;${item.slug}&quot;`"
+                  >{{ item.name }}</el-checkbox
+                >
+              </el-checkbox-group>
+            </template> -->
+          </el-col>
+        </el-row>
+        <el-row class="alignment">
+          <h5>{{ $t("sub_category") }}</h5>
+
           <el-col
             :span="24"
             v-for="group in dynamicFilterGroup"
@@ -151,153 +191,153 @@ export default {
         paymentCheckbox: [],
         sliderValue: "",
       },
-      defaultProps: {
-        children: "children",
-        label: "label",
-        disabled: "disabled",
-      },
-      data: [
-        {
-          id: 1,
-          label: "港島區",
-          children: [
-            {
-              id: 2,
-              label: "堅尼地城站",
-            },
-            {
-              id: 3,
-              label: "香港大學站",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label: "西營盤站",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label: "上環站",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label: "中環站",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label: "金鐘站",
-              disabled: false,
-            },
-          ],
-        },
-        {
-          id: 2,
-          label: "九龍區",
-          children: [
-            {
-              id: 2,
-              label: "藍田站",
-            },
-            {
-              id: 3,
-              label: "觀塘站",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label: "牛頭角站",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label: "九龍灣站",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label: "彩虹站",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label: "鑽石山站",
-              disabled: false,
-            },
-          ],
-        },
-        {
-          id: 3,
-          label: "新界區",
-          children: [
-            {
-              id: 2,
-              label: "荃灣站",
-            },
-            {
-              id: 3,
-              label: "大窩口站",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label: "葵興站",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label: "葵芳站",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label: "康城站",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label: "寶琳站",
-              disabled: false,
-            },
-          ],
-        },
-        {
-          id: 4,
-          label: "離島區",
-          children: [
-            {
-              id: 2,
-              label: "青衣站",
-            },
-            {
-              id: 3,
-              label: "欣澳站",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label: "迪士尼站",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label: "東涌站",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label: "機場站",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label: "博覽館站",
-              disabled: false,
-            },
-          ],
-        },
-      ],
+      // defaultProps: {
+      //   children: "children",
+      //   label: "label",
+      //   disabled: "disabled",
+      // },
+      // data: [
+      //   {
+      //     id: 1,
+      //     label: "港島區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "堅尼地城站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "香港大學站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "西營盤站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "上環站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "中環站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "金鐘站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 2,
+      //     label: "九龍區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "藍田站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "觀塘站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "牛頭角站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "九龍灣站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "彩虹站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "鑽石山站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 3,
+      //     label: "新界區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "荃灣站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "大窩口站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "葵興站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "葵芳站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "康城站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "寶琳站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     id: 4,
+      //     label: "離島區",
+      //     children: [
+      //       {
+      //         id: 2,
+      //         label: "青衣站",
+      //       },
+      //       {
+      //         id: 3,
+      //         label: "欣澳站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 4,
+      //         label: "迪士尼站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 5,
+      //         label: "東涌站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 6,
+      //         label: "機場站",
+      //         disabled: false,
+      //       },
+      //       {
+      //         id: 7,
+      //         label: "博覽館站",
+      //         disabled: false,
+      //       },
+      //     ],
+      //   },
+      // ],
     };
   },
   watch: {
@@ -312,11 +352,26 @@ export default {
     dynamicFilterGroup() {
       return this.$store.getters["dashboard/dynamicFilterGroup"];
     },
+    defaultProps() {
+      return this.$store.getters["search/defaultProps"];
+    },
+    data() {
+      return this.$store.getters["search/data"];
+    },
     dynamicFilters() {
       return this.$store.getters["dashboard/dynamicFilters"];
     },
     storeCompareArr() {
       return this.$store.getters["search/compareArr"];
+    },
+    mainCategoryFilter() {
+      return this.$store.getters["dashboard/mainCategoryFilter"];
+    },
+    dynamicMainCategoryFilter() {
+      return this.$store.getters["dashboard/dynamicMainCategoryFilter"];
+    },
+    selectedAreas() {
+      return this.$store.getters["search/selectedAreas"];
     },
     checkList: {
       get() {
@@ -324,6 +379,30 @@ export default {
       },
       set(value) {
         this.$store.commit("search/UPDATE_CHECKLIST", value);
+      },
+    },
+    discount: {
+      get() {
+        return this.$store.getters["search/discount"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_DISCOUNT", value);
+      },
+    },
+    paymentMethod: {
+      get() {
+        return this.$store.getters["search/paymentMethod"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_PAYMENT_METHOD", value);
+      },
+    },
+    priceRange: {
+      get() {
+        return this.$store.getters["search/priceRange"];
+      },
+      set(value) {
+        this.$store.commit("search/UPDATE_PRICE_RANGE", value);
       },
     },
   },
@@ -362,14 +441,21 @@ export default {
       this.filter.arr.forEach((item) => {
         filterArr.push(`"${item.label}"`);
       });
-      this.filter.discountCheckbox.forEach((item) => {
-        console.log(item);
+      // this.filter.discountCheckbox.forEach((item) => {
+      //   console.log(item);
+      //   filterDiscount.push(`"${item}"`);
+      // });
+      this.discount.forEach((item) => {
         filterDiscount.push(`"${item}"`);
       });
-      this.filter.paymentCheckbox.forEach((item) => {
+      this.paymentMethod.forEach((item) => {
         console.log(item);
         filterPayment.push(`"${item}"`);
       });
+      // this.filter.paymentCheckbox.forEach((item) => {
+      //   console.log(item);
+      //   filterPayment.push(`"${item}"`);
+      // });
       const discountData =
         filterDiscount.length > 0 ? `{"$in":[${filterDiscount}]}` : "";
       const paymentData =
@@ -381,7 +467,8 @@ export default {
         // query: this.$route.query ? this.$route.query : "",
         query: arr.length > 0 ? arr.toString() : "",
 
-        price: this.filter.sliderValue ? this.filter.sliderValue : "",
+        price: this.priceRange,
+        // price: this.filter.sliderValue ? this.filter.sliderValue : "",
         discount: discountData,
         // discount:
         //   this.filter.discountCheckbox.length > 0
@@ -435,12 +522,16 @@ export default {
       this.filter.arr.forEach((item) => {
         filterArr.push(`"${item.label}"`);
       });
-      this.filter.discountCheckbox.forEach((item) => {
+      this.discount.forEach((item) => {
         filterDiscount.push(`"${item}"`);
       });
-      this.filter.paymentCheckbox.forEach((item) => {
+      this.paymentMethod.forEach((item) => {
+        console.log(item);
         filterPayment.push(`"${item}"`);
       });
+      // this.filter.paymentCheckbox.forEach((item) => {
+      //   filterPayment.push(`"${item}"`);
+      // });
       const discountData =
         filterDiscount.length > 0 ? `{"$in":[${filterDiscount}]}` : "";
       const paymentData =
@@ -457,7 +548,8 @@ export default {
 
         // query: this.$route.query ? this.$route.query : "",
         query: arr.length > 0 ? arr.toString() : "",
-        price: this.filter.sliderValue ? this.filter.sliderValue : "",
+        price: this.priceRange,
+        // price: this.filter.sliderValue ? this.filter.sliderValue : "",
         discount: discountData,
         payment: paymentData,
         sort: this.sorting ? this.sorting : "",
@@ -471,16 +563,16 @@ export default {
       this.handleDiscount();
     },
   },
-  // mounted() {
-  //   this.dynamicFilters.forEach((item) => {
-  //     if (this.$route.query.filter.includes(item.slug)) {
-  //       console.log(item.slug);
-  //       console.log(item);
-  //       this.checkList[`${item.group}`] = this.checkList.push(item.slug);
-  //     }
-  //     console.log(this.checkList);
-  //   });
-  // },
+  mounted() {
+    // this.$refs.treeRef.load((one, two) => {
+    //   console.log(one);
+    //   console.log(two);
+    // });
+    console.log(this.selectedAreas);
+    // this.$refs.treeRef.getHalfCheckedNodes();
+    this.$refs.treeRef.setCheckedNodes(this.selectedAreas.checkedNodes);
+    // this.$refs.treeRef.setCheckedKeys(this.selectedAreas.checkedNodes);
+  },
 };
 </script>
 
@@ -576,6 +668,15 @@ export default {
 .left-section .single-content img {
   width: 1.5rem;
   display: none;
+}
+
+.left-section .el-row.alignment {
+  margin-bottom: 1rem;
+}
+
+.left-section .el-row.alignment h5 {
+  margin-bottom: 0.5rem;
+  font-size: 16px;
 }
 
 /* .left-section :deep(.is-penultimate img) {

@@ -9,8 +9,11 @@
         }}</el-breadcrumb-item>
       </el-breadcrumb>
       <h5>
-        {{ $t("personal_care") }} {{ currentOption ? currentOption : "" }}
+        {{ selectedMainCategory }} {{ currentOption ? currentOption : "" }}
       </h5>
+      <!-- <h5>
+        {{ $t("personal_care") }} {{ currentOption ? currentOption : "" }}
+      </h5> -->
       <carousel :breakpoints="breakpoints" :items-to-show="1.5">
         <slide v-for="item in dynamicFilterGroup" :key="item">
           <div
@@ -82,6 +85,9 @@ export default {
   computed: {
     dynamicFilterGroup() {
       return this.$store.getters["dashboard/dynamicFilterGroup"];
+    },
+    selectedMainCategory() {
+      return this.$store.getters["search/selectedMainCategory"];
     },
   },
   methods: {

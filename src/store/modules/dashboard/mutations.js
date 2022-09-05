@@ -87,4 +87,7 @@ export default {
   RESET_DYNAMIC_MAIN_CATEGORY_FILTER(state) {
     state.dynamicMainCategoryFilter = [];
   },
+  RESET_MAIN_CATEGORY_FILTER(state) {
+    state.mainCategoryFilter = [];
+  },
 };

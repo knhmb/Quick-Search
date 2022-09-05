@@ -33,6 +33,11 @@ export default {
     this.$store.commit("dashboard/RESET_DYNAMIC_FILTER_GROUP");
     this.$store.commit("search/UPDATE_CHECKLIST", {});
     this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+    this.$store.commit("dashboard/RESET_MAIN_CATEGORY_FILTER");
+    this.$store.commit("search/RESET_SELECTED_MAIN_CATEGORY");
+    this.$store.commit("search/RESET_DISCOUNT");
+    this.$store.commit("search/RESET_PAYMENT_METHOD");
+    this.$store.commit("search/RESET_PRICE_RANGE");
 
     this.$store.dispatch("dashboard/getCategories");
     this.$store.dispatch("dashboard/getLanguages");
