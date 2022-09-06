@@ -3,7 +3,8 @@
     <base-container>
       <el-breadcrumb :separator-icon="ArrowRight">
         <el-breadcrumb-item class="first">{{ $t("home") }}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $t("personal_care") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ selectedMainCategory }}</el-breadcrumb-item>
+        <!-- <el-breadcrumb-item>{{ $t("personal_care") }}</el-breadcrumb-item> -->
         <el-breadcrumb-item v-if="currentOption">{{
           currentOption
         }}</el-breadcrumb-item>

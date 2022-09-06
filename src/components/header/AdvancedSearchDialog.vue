@@ -3,12 +3,12 @@
     <el-dialog
       @close="$emit('closeDialog', false)"
       :model-value="dialogVisible"
-      title="進階搜尋"
+      :title="$t('advanced_search')"
       width="100%"
     >
       <div class="body">
         <div class="body-header">
-          <p>主分類</p>
+          <p>{{ $t("main_category") }}</p>
           <div
             @click="changeFilter(item)"
             :class="{ 'is-active': currentFilter === item.name }"
@@ -19,7 +19,7 @@
             {{ item.name }}
           </div>
           <div class="grey-section" v-if="dynamicMainCategoryFilter.length > 0">
-            <h5>紋身 篩選條件</h5>
+            <h5>{{ $t("filters") }}</h5>
             <el-row class="alignment">
               <!-- <template v-for="item in categories" :key="item"> -->
               <el-col
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="body-header">
-          <p>子分類</p>
+          <p>{{ $t("sub_category") }}</p>
           <div
             @click="getFilterItems(item)"
             :class="{ 'is-active': currentFilter2 === item.name }"
@@ -62,7 +62,7 @@
             {{ item.name }}
           </div>
           <div class="grey-section" v-if="dynamicFilters.length > 0">
-            <h5>紋身 篩選條件</h5>
+            <h5>{{ $t("filters") }}</h5>
             <el-row class="alignment">
               <el-col
                 :span="6"
@@ -84,8 +84,8 @@
           </div>
         </div>
         <div class="body-header">
-          <p>篩選條件</p>
-          <p class="area">地區</p>
+          <p>{{ $t("filter") }}</p>
+          <p class="area">{{ $t("area") }}</p>
           <div class="areas">
             <el-tree
               @check-change="handleChange"
@@ -183,10 +183,14 @@
           </div>
           <div class="other-filters">
             <div class="single-filter">
-              <p class="area">優惠</p>
+              <p class="area">{{ $t("discount") }}</p>
               <el-checkbox-group v-model="discount">
-                <el-checkbox label="有優惠">有優惠</el-checkbox>
-                <el-checkbox label="無優惠">無優惠</el-checkbox>
+                <el-checkbox label="有優惠">{{
+                  $t("there_are_discounts")
+                }}</el-checkbox>
+                <el-checkbox label="無優惠">{{
+                  $t("no_discount")
+                }}</el-checkbox>
               </el-checkbox-group>
               <!-- <el-checkbox v-model="discount" label="有優惠"
                 >有優惠</el-checkbox
@@ -196,19 +200,21 @@
               > -->
             </div>
             <div class="single-filter middle">
-              <p class="area">價格範圍</p>
-              <p class="any">任何</p>
+              <p class="area">{{ $t("price_range") }}</p>
+              <p class="any">{{ $t("any") }}</p>
               <el-slider v-model="priceRange" range :max="100" />
             </div>
             <div class="single-filter">
-              <p class="area">付款方式</p>
+              <p class="area">{{ $t("payment_method") }}</p>
               <el-checkbox-group v-model="paymentMethod">
-                <el-checkbox label="現金">現金</el-checkbox>
-                <el-checkbox label="八達通">八達通</el-checkbox>
-                <el-checkbox label="信用卡">信用卡</el-checkbox>
-                <el-checkbox label="微信">微信</el-checkbox>
-                <el-checkbox label="支付寶">支付寶</el-checkbox>
-                <el-checkbox label="轉數快">轉數快</el-checkbox>
+                <el-checkbox label="現金">{{ $t("cash") }}</el-checkbox>
+                <el-checkbox label="八達通">{{ $t("octupus") }}</el-checkbox>
+                <el-checkbox label="信用卡">{{
+                  $t("credit_card")
+                }}</el-checkbox>
+                <el-checkbox label="微信">{{ $t("we_chat") }}</el-checkbox>
+                <el-checkbox label="支付寶">{{ $t("ali_pay") }}</el-checkbox>
+                <el-checkbox label="轉數快">{{ $t("fast_speed") }}</el-checkbox>
               </el-checkbox-group>
             </div>
           </div>
@@ -216,7 +222,9 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="searchFilter">顯示 0 項搜尋結果</el-button>
+          <el-button @click="searchFilter">{{
+            $t("showing_search_results")
+          }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -232,11 +240,11 @@ export default {
         arr: [],
       },
       filterArray: [],
-      // defaultProps: {
-      //   children: "children",
-      //   label: "label",
-      //   disabled: "disabled",
-      // },
+      defaultProps: {
+        children: "children",
+        label: "label",
+        disabled: "disabled",
+      },
       // checkList: {},
       // discount: [],
       finalDiscount: [],
@@ -372,157 +380,460 @@ export default {
           name: "影音項目",
         },
       ],
-      // data: [
-      //   {
-      //     id: 1,
-      //     label: "港島區",
-      //     children: [
-      //       {
-      //         id: 2,
-      //         label: "堅尼地城站",
-      //       },
-      //       {
-      //         id: 3,
-      //         label: "香港大學站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 4,
-      //         label: "西營盤站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 5,
-      //         label: "上環站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 6,
-      //         label: "中環站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 7,
-      //         label: "金鐘站",
-      //         disabled: false,
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 2,
-      //     label: "九龍區",
-      //     children: [
-      //       {
-      //         id: 2,
-      //         label: "藍田站",
-      //       },
-      //       {
-      //         id: 3,
-      //         label: "觀塘站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 4,
-      //         label: "牛頭角站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 5,
-      //         label: "九龍灣站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 6,
-      //         label: "彩虹站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 7,
-      //         label: "鑽石山站",
-      //         disabled: false,
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 3,
-      //     label: "新界區",
-      //     children: [
-      //       {
-      //         id: 2,
-      //         label: "荃灣站",
-      //       },
-      //       {
-      //         id: 3,
-      //         label: "大窩口站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 4,
-      //         label: "葵興站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 5,
-      //         label: "葵芳站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 6,
-      //         label: "康城站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 7,
-      //         label: "寶琳站",
-      //         disabled: false,
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 4,
-      //     label: "離島區",
-      //     children: [
-      //       {
-      //         id: 2,
-      //         label: "青衣站",
-      //       },
-      //       {
-      //         id: 3,
-      //         label: "欣澳站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 4,
-      //         label: "迪士尼站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 5,
-      //         label: "東涌站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 6,
-      //         label: "機場站",
-      //         disabled: false,
-      //       },
-      //       {
-      //         id: 7,
-      //         label: "博覽館站",
-      //         disabled: false,
-      //       },
-      //     ],
-      //   },
-      // ],
+      data: [
+        {
+          id: 1,
+          label:
+            this.$i18n.locale === "zh-Hant-HK" ? "港島區" : "Hong Kong Island",
+          children: [
+            {
+              id: 2,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "堅尼地城站"
+                  : "Kenny Town Station",
+            },
+            {
+              id: 3,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "香港大學站"
+                  : "Hong Kong University Station",
+              disabled: false,
+            },
+            {
+              id: 4,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "西營盤站"
+                  : "Sai Ying Pun Station",
+              disabled: false,
+            },
+            {
+              id: 5,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "上環站"
+                  : "Sheung Wan Station",
+              disabled: false,
+            },
+            {
+              id: 6,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "中環站"
+                  : "Central Station",
+              disabled: false,
+            },
+            {
+              id: 7,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "金鐘站"
+                  : "Admiralty Station",
+              disabled: false,
+            },
+          ],
+        },
+        {
+          id: 2,
+          label: this.$i18n.locale === "zh-Hant-HK" ? "九龍區" : "Kowloon",
+          children: [
+            {
+              id: 2,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "藍田站"
+                  : "Lam Tin Station",
+            },
+            {
+              id: 3,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "觀塘站"
+                  : "Kwun Tong Station",
+              disabled: false,
+            },
+            {
+              id: 4,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "牛頭角站"
+                  : "Ngau Tau Kok Station",
+              disabled: false,
+            },
+            {
+              id: 5,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "九龍灣站"
+                  : "Kowloon Bay Station",
+              disabled: false,
+            },
+            {
+              id: 6,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "彩虹站"
+                  : "Rainbow Station",
+              disabled: false,
+            },
+            {
+              id: 7,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "鑽石山站"
+                  : "Diamond Hill Station",
+              disabled: false,
+            },
+          ],
+        },
+        {
+          id: 3,
+          label:
+            this.$i18n.locale === "zh-Hant-HK" ? "新界區" : "New Territories",
+          children: [
+            {
+              id: 2,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "荃灣站"
+                  : "Tsuen Wan Station",
+            },
+            {
+              id: 3,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "大窩口站"
+                  : "Da Wo Hau Station",
+              disabled: false,
+            },
+            {
+              id: 4,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "葵興站"
+                  : "Kwai Hing Station",
+              disabled: false,
+            },
+            {
+              id: 5,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "葵芳站"
+                  : "Kwai Fong Station",
+              disabled: false,
+            },
+            {
+              id: 6,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "康城站"
+                  : "Cannes Station",
+              disabled: false,
+            },
+            {
+              id: 7,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "寶琳站"
+                  : "Pauline Station",
+              disabled: false,
+            },
+          ],
+        },
+        {
+          id: 4,
+          label:
+            this.$i18n.locale === "zh-Hant-HK" ? "離島區" : "Islands District",
+          children: [
+            {
+              id: 2,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "青衣站"
+                  : "Tsing Yi Station",
+            },
+            {
+              id: 3,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "欣澳站"
+                  : "Sunny Bay Station",
+              disabled: false,
+            },
+            {
+              id: 4,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "迪士尼站"
+                  : "Disney Station",
+              disabled: false,
+            },
+            {
+              id: 5,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "東涌站"
+                  : "Tung Chung Station",
+              disabled: false,
+            },
+            {
+              id: 6,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "機場站"
+                  : "airport station",
+              disabled: false,
+            },
+            {
+              id: 7,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "博覽館站"
+                  : "Expo Station",
+              disabled: false,
+            },
+          ],
+        },
+      ],
     };
+  },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.data = [
+          {
+            id: 1,
+            label:
+              this.$i18n.locale === "zh-Hant-HK"
+                ? "港島區"
+                : "Hong Kong Island",
+            children: [
+              {
+                id: 2,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "堅尼地城站"
+                    : "Kenny Town Station",
+              },
+              {
+                id: 3,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "香港大學站"
+                    : "Hong Kong University Station",
+                disabled: false,
+              },
+              {
+                id: 4,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "西營盤站"
+                    : "Sai Ying Pun Station",
+                disabled: false,
+              },
+              {
+                id: 5,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "上環站"
+                    : "Sheung Wan Station",
+                disabled: false,
+              },
+              {
+                id: 6,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "中環站"
+                    : "Central Station",
+                disabled: false,
+              },
+              {
+                id: 7,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "金鐘站"
+                    : "Admiralty Station",
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: 2,
+            label: this.$i18n.locale === "zh-Hant-HK" ? "九龍區" : "Kowloon",
+            children: [
+              {
+                id: 2,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "藍田站"
+                    : "Lam Tin Station",
+              },
+              {
+                id: 3,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "觀塘站"
+                    : "Kwun Tong Station",
+                disabled: false,
+              },
+              {
+                id: 4,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "牛頭角站"
+                    : "Ngau Tau Kok Station",
+                disabled: false,
+              },
+              {
+                id: 5,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "九龍灣站"
+                    : "Kowloon Bay Station",
+                disabled: false,
+              },
+              {
+                id: 6,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "彩虹站"
+                    : "Rainbow Station",
+                disabled: false,
+              },
+              {
+                id: 7,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "鑽石山站"
+                    : "Diamond Hill Station",
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: 3,
+            label:
+              this.$i18n.locale === "zh-Hant-HK" ? "新界區" : "New Territories",
+            children: [
+              {
+                id: 2,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "荃灣站"
+                    : "Tsuen Wan Station",
+              },
+              {
+                id: 3,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "大窩口站"
+                    : "Da Wo Hau Station",
+                disabled: false,
+              },
+              {
+                id: 4,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "葵興站"
+                    : "Kwai Hing Station",
+                disabled: false,
+              },
+              {
+                id: 5,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "葵芳站"
+                    : "Kwai Fong Station",
+                disabled: false,
+              },
+              {
+                id: 6,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "康城站"
+                    : "Cannes Station",
+                disabled: false,
+              },
+              {
+                id: 7,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "寶琳站"
+                    : "Pauline Station",
+                disabled: false,
+              },
+            ],
+          },
+          {
+            id: 4,
+            label:
+              this.$i18n.locale === "zh-Hant-HK"
+                ? "離島區"
+                : "Islands District",
+            children: [
+              {
+                id: 2,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "青衣站"
+                    : "Tsing Yi Station",
+              },
+              {
+                id: 3,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "欣澳站"
+                    : "Sunny Bay Station",
+                disabled: false,
+              },
+              {
+                id: 4,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "迪士尼站"
+                    : "Disney Station",
+                disabled: false,
+              },
+              {
+                id: 5,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "東涌站"
+                    : "Tung Chung Station",
+                disabled: false,
+              },
+              {
+                id: 6,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "機場站"
+                    : "airport station",
+                disabled: false,
+              },
+              {
+                id: 7,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "博覽館站"
+                    : "Expo Station",
+                disabled: false,
+              },
+            ],
+          },
+        ];
+      },
+    },
   },
   computed: {
     filtersGroup() {
       return this.$store.getters["dashboard/filtersGroup"];
     },
-    defaultProps() {
-      return this.$store.getters["search/defaultProps"];
-    },
+    // defaultProps() {
+    //   return this.$store.getters["search/defaultProps"];
+    // },
     dynamicMainCategoryFilter() {
       return this.$store.getters["dashboard/dynamicMainCategoryFilter"];
     },
@@ -573,14 +884,14 @@ export default {
         this.$store.commit("search/UPDATE_PRICE_RANGE", value);
       },
     },
-    data: {
-      get() {
-        return this.$store.getters["search/data"];
-      },
-      set(value) {
-        this.$store.commit("search/UPDATE_DATA", value);
-      },
-    },
+    // data: {
+    //   get() {
+    //     return this.$store.getters["search/data"];
+    //   },
+    //   set(value) {
+    //     this.$store.commit("search/UPDATE_DATA", value);
+    //   },
+    // },
   },
   methods: {
     setFilter(item) {

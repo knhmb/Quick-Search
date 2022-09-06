@@ -159,7 +159,19 @@ const zh = {
   sub_category: "子分類",
   filters: "紋身 篩選條件",
   hongkong_island: "港島區",
-  kowloon: '九龍區'
+  kowloon: "九龍區",
+  there_are_discounts: "有優惠",
+  no_discount: "無優惠",
+  cash: "現金",
+  octupus: "八達通",
+  credit_card: "信用卡",
+  we_chat: "微信",
+  ali_pay: "支付寶",
+  fast_speed: "轉數快",
+  showing_search_results: "顯示 項搜尋結果",
+  kennedy_town_station: "堅尼地城站",
+  advanced_search: "進階搜尋",
+  // showing_search_results: '顯示 0 項搜尋結果'
 };
 
 export default zh;

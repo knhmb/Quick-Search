@@ -160,6 +160,20 @@ const en = {
   oldest_to_newest: "Oldest to Newest",
   main_category: "Main Category",
   sub_category: "Sub Category",
+  filters: "Filters",
+  hongkong_island: "Hong Kong Island",
+  kowloon: "Kowloon",
+  there_are_discounts: "Theere are discounts",
+  no_discount: "No discounts",
+  cash: "Cash",
+  octupus: "Octupus",
+  credit_card: "Credit Card",
+  we_chat: "WeChat",
+  ali_pay: "AliPay",
+  fast_speed: "Fast Speed",
+  showing_search_results: "Showing Search Results",
+  kennedy_town_station: "Kennedy Town Station",
+  advanced_search: "Advanced Search",
 };
 
 export default en;
