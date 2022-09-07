@@ -35,4 +35,7 @@ export default {
   dynamicMainCategoryFilter(state) {
     return state.dynamicMainCategoryFilter;
   },
+  popularCategories(state) {
+    return state.popularCategories;
+  },
 };

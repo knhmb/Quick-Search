@@ -18,6 +18,7 @@ export default {
       promotionDetail: [],
       mainCategoryFilter: [],
       dynamicMainCategoryFilter: [],
+      popularCategories: [],
     };
   },
   getters,

@@ -153,15 +153,16 @@ export default {
     console.log(response);
     context.commit("SET_DYNAMIC_FILTERS", response.data.items);
   },
-  // async getPopularGroups() {
-  //   const response = await axios.get("/api/v1/shops/categories", {
-  //     headers: {
-  //       "accept-language": i18n.global.locale,
-  //     },
-  //     params: {
-  //       filter: `parent:{"$eq":""}`,
-  //     },
-  //   });
-  //   console.log(response);
-  // }
+  async getPopularGroups(context) {
+    const response = await axios.get("/api/v1/shops/categories", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+      params: {
+        filter: `popular:true`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_POPULAR_CATEGORIES", response.data.items);
+  },
 };

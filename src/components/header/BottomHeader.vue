@@ -21,7 +21,7 @@
               <el-row>
                 <el-col :span="12">
                   <el-menu-item
-                    @click="searchCategory(child.slug)"
+                    @click="searchCategory(child)"
                     v-for="(child, i) in slide.resources.children"
                     :key="child"
                     :index="`${index} + ${i}`"
@@ -103,14 +103,26 @@ export default {
       };
       console.log(data);
       console.log(category);
-      this.$store.dispatch("dashboard/getDynamicFilterGroup", category);
-
-      this.$store.dispatch("search/searchItem", data).then(() => {
+      this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", category.name);
+      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+      this.$store.dispatch("dashboard/getDynamicFilterGroup", category.slug);
+      this.$store.dispatch("dashboard/getMainCategoryFilter", category.slug);
+      this.$store.dispatch("search/advancedFilter", category.slug).then(() => {
         this.$router.push({
           path: "/advanced-search",
-          query: { q: category },
+          query: { filter: `category:${category.slug}` },
         });
       });
+
+      // this.$store.dispatch("dashboard/getDynamicFilterGroup", category.slug);
+
+      // this.$store.dispatch("search/searchItem", data).then(() => {
+      //   this.$router.push({
+      //     path: "/advanced-search",
+      //     query: { q: category },
+      //   });
+      // });
     },
   },
 };

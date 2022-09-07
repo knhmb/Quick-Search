@@ -90,4 +90,7 @@ export default {
   RESET_MAIN_CATEGORY_FILTER(state) {
     state.mainCategoryFilter = [];
   },
+  SET_POPULAR_CATEGORIES(state, payload) {
+    state.popularCategories = payload;
+  },
 };

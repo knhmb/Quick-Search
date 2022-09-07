@@ -2,7 +2,19 @@
   <div class="popular-categories">
     <h4>{{ $t("popular_categories") }}</h4>
     <el-row :gutter="20">
-      <el-col :sm="6" :md="4">
+      <el-col
+        @click="selectCategory(item)"
+        v-for="item in popularCategories"
+        :key="item.id"
+        :sm="6"
+        :md="4"
+      >
+        <!-- <img :src="item.thumbnail" :alt="item.name" /> -->
+        <img src="../../assets/main-category01@2x.jpg" alt="" />
+
+        <p>{{ item.name }}</p>
+      </el-col>
+      <!-- <el-col :sm="6" :md="4">
         <img src="../../assets/main-category01@2x.jpg" alt="" />
         <p>個人護理</p>
       </el-col>
@@ -49,10 +61,39 @@
       <el-col :sm="6" :md="4">
         <img src="../../assets/main-category12@2x.jpg" alt="" />
         <p>科技電子</p>
-      </el-col>
+      </el-col> -->
     </el-row>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    popularCategories() {
+      return this.$store.getters["dashboard/popularCategories"];
+    },
+  },
+  methods: {
+    selectCategory(item) {
+      console.log(item);
+      this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", item.name);
+      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+      this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
+      this.$store.dispatch("dashboard/getMainCategoryFilter", item.slug);
+      this.$store.dispatch("search/advancedFilter", item.slug).then(() => {
+        this.$router.push({
+          path: "/advanced-search",
+          query: { filter: `category:${item.slug}` },
+        });
+      });
+    },
+  },
+  created() {
+    this.$store.dispatch("dashboard/getPopularGroups");
+  },
+};
+</script>
 
 <style scoped>
 .popular-categories {
@@ -73,6 +114,7 @@
 .popular-categories .el-col {
   position: relative;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .popular-categories img {
