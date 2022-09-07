@@ -878,8 +878,10 @@ export default {
     //   console.log(two);
     // });
     console.log(this.selectedAreas);
+    if (Object.keys(this.selectedAreas).length > 0) {
+      this.$refs.treeRef.setCheckedNodes(this.selectedAreas.checkedNodes);
+    }
     // this.$refs.treeRef.getHalfCheckedNodes();
-    this.$refs.treeRef.setCheckedNodes(this.selectedAreas.checkedNodes);
     // this.$refs.treeRef.setCheckedKeys(this.selectedAreas.checkedNodes);
   },
 };

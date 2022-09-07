@@ -38,4 +38,7 @@ export default {
   selectedAreas(state) {
     return state.selectedAreas;
   },
+  selectedSubCategory(state) {
+    return state.selectedSubCategory;
+  },
 };

@@ -17,6 +17,7 @@ export default {
       discount: [],
       paymentMethod: [],
       priceRange: [0, 100],
+      selectedSubCategory: "",
       defaultProps: {
         children: "children",
         label: "label",

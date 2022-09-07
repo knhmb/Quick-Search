@@ -81,6 +81,7 @@ export default {
       },
       params: {
         filter: `parent:{"$eq":""}`,
+        sort: "createdAt",
       },
     });
     console.log(response);
@@ -93,6 +94,7 @@ export default {
       },
       params: {
         filter: `category:${payload}`,
+        sort: "createdAt",
       },
     });
     console.log(response);
@@ -110,6 +112,7 @@ export default {
       },
       params: {
         filter: `category:${payload}`,
+        sort: "createdAt",
       },
     });
     console.log(response);
@@ -148,6 +151,7 @@ export default {
       },
       params: {
         filter: `group:${payload.slug}`,
+        sort: "createdAt",
       },
     });
     console.log(response);

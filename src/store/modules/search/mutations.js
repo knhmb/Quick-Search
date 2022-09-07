@@ -54,4 +54,10 @@ export default {
   STORE_SELECTED_AREAS(state, payload) {
     state.selectedAreas = payload;
   },
+  SET_SELECTED_SUB_CATEGORY(state, payload) {
+    state.selectedSubCategory = payload;
+  },
+  RESET_SELECTED_SUB_CATEGORY(state) {
+    state.selectedSubCategory = "";
+  },
 };

@@ -19,7 +19,7 @@
             {{ item.name }}
           </div>
           <div class="grey-section" v-if="dynamicMainCategoryFilter.length > 0">
-            <h5>{{ $t("filters") }}</h5>
+            <h5>{{ selectedMainCategory }} {{ $t("filter") }}</h5>
             <el-row class="alignment">
               <!-- <template v-for="item in categories" :key="item"> -->
               <el-col
@@ -62,7 +62,7 @@
             {{ item.name }}
           </div>
           <div class="grey-section" v-if="dynamicFilters.length > 0">
-            <h5>{{ $t("filters") }}</h5>
+            <h5>{{ selectedSubCategory }} {{ $t("filter") }}</h5>
             <el-row class="alignment">
               <el-col
                 :span="6"
@@ -837,6 +837,12 @@ export default {
     dynamicMainCategoryFilter() {
       return this.$store.getters["dashboard/dynamicMainCategoryFilter"];
     },
+    selectedMainCategory() {
+      return this.$store.getters["search/selectedMainCategory"];
+    },
+    selectedSubCategory() {
+      return this.$store.getters["search/selectedSubCategory"];
+    },
     mainCategoryFilter() {
       return this.$store.getters["dashboard/mainCategoryFilter"];
     },
@@ -937,6 +943,7 @@ export default {
     getFilterItems(item) {
       console.log(item);
       this.currentFilter2 = item.name;
+      this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", item.name);
       this.$store.dispatch("dashboard/getDynamicFilters", item);
     },
     searchFilter() {
@@ -1027,6 +1034,7 @@ export default {
           query: { filter: arr.toString() },
         });
       });
+      this.currentFilter = "";
       // this.$store.dispatch("search/advancedFilter", dataObject).then(() => {
       //   this.$emit("closeDialog", false);
       //   this.$router.push({
@@ -1097,8 +1105,12 @@ export default {
 </script>
 
 <style scoped>
+.advanced-search-dialog :deep(.el-overlay-dialog) {
+  top: -70px;
+}
+
 .advanced-search-dialog :deep(.el-dialog) {
-  max-height: 500px;
+  max-height: 630px;
   overflow-y: scroll;
 }
 
