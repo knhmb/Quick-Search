@@ -23,7 +23,8 @@
             <el-row class="alignment">
               <!-- <template v-for="item in categories" :key="item"> -->
               <el-col
-                :span="4"
+                :md="6"
+                :sm="24"
                 v-for="group in mainCategoryFilter"
                 :key="group"
               >
@@ -65,7 +66,8 @@
             <h5>{{ selectedSubCategory }} {{ $t("filter") }}</h5>
             <el-row class="alignment">
               <el-col
-                :span="6"
+                :md="6"
+                :sm="24"
                 v-for="group in dynamicFilterGroup"
                 :key="group.id"
               >
@@ -1346,6 +1348,7 @@ export default {
 
 .advanced-search-dialog .grey-section .el-row.alignment {
   align-items: flex-start;
+  gap: 1.5rem;
 }
 
 .advanced-search-dialog .el-tree {
@@ -1375,6 +1378,10 @@ export default {
   }
 
   .advanced-search-dialog .body .areas {
+    flex-direction: column;
+  }
+
+  .advanced-search-dialog .el-tree {
     flex-direction: column;
   }
 
