@@ -171,6 +171,7 @@ const zh = {
   showing_search_results: "顯示 項搜尋結果",
   kennedy_town_station: "堅尼地城站",
   advanced_search: "進階搜尋",
+  book_now: "立即預約",
   // showing_search_results: '顯示 0 項搜尋結果'
 };
 

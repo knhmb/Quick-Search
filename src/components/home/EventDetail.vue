@@ -22,14 +22,14 @@
             class="confirm"
             type="primary"
             @click="$emit('closedDialog', false)"
-            ><span @click.stop="openLogin">登入</span>/<span
-              @click.stop="openRegister"
-              >註冊</span
-            ></el-button
+            ><span @click.stop="openLogin">{{ $t("login") }}</span
+            >/<span @click.stop="openRegister">{{
+              $t("register")
+            }}</span></el-button
           >
-          <el-button v-else class="confirm" type="primary" @click="book"
-            >立即預約</el-button
-          >
+          <el-button v-else class="confirm" type="primary" @click="book">{{
+            $t("book_now")
+          }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -56,14 +56,21 @@ export default {
       this.$store.commit("OPEN_DIALOG", "register");
     },
     book() {
+      console.log(this.promotionDetail);
+      // const data = {
+      //   shop: this.promotionDetail.shop,
+      //   thumbnail: this.promotionDetail.thumbnail,
+      //   quantity: this.promotionDetail.quantity,
+      //   startedAt: this.promotionDetail.startedAt,
+      //   endedAt: this.promotionDetail.endedAt,
+      // };
       this.$store
-        .dispatch("search/searchSingleShop", {
-          slug: this.promotionDetail.slug,
-        })
+        .dispatch("search/promotion", this.promotionDetail.slug)
         .then(() => {
-          this.$router.push({
-            path: "/shop",
-            query: { q: this.promotionDetail.slug },
+          ElNotification({
+            title: "Success",
+            message: "Promotion Claimed",
+            type: "success",
           });
         })
         .catch((err) => {
@@ -73,6 +80,23 @@ export default {
             type: "error",
           });
         });
+      // this.$store
+      //   .dispatch("search/searchSingleShop", {
+      //     slug: this.promotionDetail.slug,
+      //   })
+      //   .then(() => {
+      //     this.$router.push({
+      //       path: "/shop",
+      //       query: { q: this.promotionDetail.slug },
+      //     });
+      //   })
+      //   .catch((err) => {
+      //     ElNotification({
+      //       title: "Error",
+      //       message: err.response.data.message,
+      //       type: "error",
+      //     });
+      //   });
       // this.$router.push("/shop");
       this.$emit("closedDialog", false);
     },

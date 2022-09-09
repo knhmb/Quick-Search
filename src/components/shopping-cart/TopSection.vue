@@ -67,7 +67,7 @@
             src="../../assets/rating-excellent@2x.png"
             alt=""
           />
-          <span>468</span>
+          <span>{{ singleItem.resources.count.overall5 }}</span>
         </div>
         <div class="rating">
           <img
@@ -75,7 +75,7 @@
             src="../../assets/rating-good@2x.png"
             alt=""
           />
-          <span>247</span>
+          <span>{{ singleItem.resources.count.overall3 }}</span>
         </div>
         <div class="rating">
           <img
@@ -83,7 +83,7 @@
             src="../../assets/rating-dislike@2x.png"
             alt=""
           />
-          <span>16</span>
+          <span>{{ singleItem.resources.count.overall1 }}</span>
         </div>
       </base-container>
     </div>

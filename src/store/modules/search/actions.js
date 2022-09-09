@@ -173,4 +173,20 @@ export default {
   //     );
   //     console.log(response);
   //   },
+  async promotion(_, payload) {
+    // const userToken = localStorage.getItem("accessToken");
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get(
+      `/api/v1/shops/promotions/${payload}/claim`,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "accept-language": i18n.global.locale,
+        },
+      }
+    );
+    console.log(response);
+    // context.commit("SET_SINGLE_ITEM", response.data);
+  },
 };

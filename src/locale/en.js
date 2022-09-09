@@ -174,6 +174,7 @@ const en = {
   showing_search_results: "Showing Search Results",
   kennedy_town_station: "Kennedy Town Station",
   advanced_search: "Advanced Search",
+  book_now: "Book now",
 };
 
 export default en;

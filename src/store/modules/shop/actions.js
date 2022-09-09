@@ -84,4 +84,8 @@ export default {
     console.log("HERERERERERERERERERE");
     console.log(response);
   },
+  async removeImage(_, payload) {
+    const response = await axios.delete(`/api/v1/system/uploads/${payload}`);
+    console.log(response);
+  },
 };

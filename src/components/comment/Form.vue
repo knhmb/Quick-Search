@@ -30,11 +30,26 @@
         </el-col>
         <el-col :sm="24" :md="19">
           <el-upload
+            v-model:file-list="fileList"
+            action="http://localhost:8080/api/v1/system/uploads"
+            list-type="picture-card"
+            :on-remove="handleRemove"
+            :on-success="handleSuccess1"
+            :on-progress="handlePending"
+            :on-error="handleError"
+            ref="uploadDocument"
+          >
+            <el-icon><Plus /></el-icon>
+          </el-upload>
+          <!-- <el-upload
             ref="uploadDocument"
             v-model:file-list="fileList"
             :on-remove="handleRemove"
             :on-change="handleSuccess"
-            action="#"
+            :on-success="handleSuccess1"
+            :on-progress="handlePending"
+            :on-error="handleError"
+            action="http://localhost:8080/api/v1/system/uploads"
             list-type="picture-card"
             :auto-upload="false"
           >
@@ -48,19 +63,6 @@
                   alt=""
                 />
                 <span class="el-upload-list__item-actions">
-                  <!-- <span
-                    class="el-upload-list__item-preview"
-                    @click="handlePictureCardPreview(file)"
-                  >
-                    <el-icon><zoom-in /></el-icon>
-                  </span> -->
-                  <!-- <span
-                    v-if="!disabled"
-                    class="el-upload-list__item-delete"
-                    @click="handleDownload(file)"
-                  >
-                    <el-icon><Download /></el-icon>
-                  </span> -->
                   <span
                     class="el-upload-list__item-delete"
                     @click="handleRemove(file)"
@@ -70,7 +72,7 @@
                 </span>
               </div>
             </template>
-          </el-upload>
+          </el-upload> -->
         </el-col>
       </el-row>
     </base-card>
@@ -78,11 +80,11 @@
 </template>
 
 <script>
-import { Delete, Plus } from "@element-plus/icons-vue";
+import { Plus } from "@element-plus/icons-vue";
 
 export default {
   components: {
-    Delete,
+    // Delete,
     // Download,
     Plus,
     // ZoomIn,
@@ -95,6 +97,14 @@ export default {
       fileList: [],
     };
   },
+  computed: {
+    windowProtocol() {
+      return window.location.protocol;
+    },
+    windowHostname() {
+      return window.location.hostname;
+    },
+  },
   methods: {
     handleChange() {
       this.$emit("valuesChanged", {
@@ -104,6 +114,7 @@ export default {
       });
     },
     handleSuccess(file) {
+      console.log(file);
       const arr = [];
       arr.push(file);
 
@@ -118,18 +129,53 @@ export default {
       //   image: file.url,
       // });
       this.handleChange();
+      // console.log(this.fileDocument);
+    },
+    handleSuccess1(uploadFile) {
+      console.log(uploadFile);
+      const arr = [];
+      arr.push(uploadFile.item);
+
+      arr.forEach((item) => {
+        this.fileDocument.push({
+          id: item.id,
+          image: item.name,
+        });
+      });
       console.log(this.fileDocument);
+    },
+    // handlePending(progress) {
+    //   console.log(progress);
+    // },
+    handleError(error) {
+      console.log(error);
     },
     handleRemove(file) {
       console.log(file);
-      console.log(this.fileList);
-      this.fileDocument = this.fileDocument.filter(
-        (item) => item.id !== file.uid
-      );
-      this.fileList = this.fileList.filter((item) => item.uid !== file.uid);
-      console.log(this.fileDocument);
-      this.handleChange();
+      this.$store
+        .dispatch("shop/removeImage", file.response.item.name)
+        .then(() => {
+          this.fileDocument = this.fileDocument.filter(
+            (item) => item.id !== file.response.item.id
+          );
+          this.fileList = this.fileList.filter(
+            (item) => item.id !== file.response.item.id
+          );
+          console.log(this.fileDocument);
+          this.handleChange();
+        });
+      // console.log(this.fileList);
+      // this.fileDocument = this.fileDocument.filter(
+      //   (item) => item.id !== file.uid
+      // );
+      // this.fileList = this.fileList.filter((item) => item.uid !== file.uid);
+      // console.log(this.fileDocument);
+      // this.handleChange();
     },
+  },
+  created() {
+    console.log(this.windowHostname);
+    console.log(this.windowProtocol);
   },
 };
 </script>

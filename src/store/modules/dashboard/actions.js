@@ -164,6 +164,7 @@ export default {
       },
       params: {
         filter: `popular:true`,
+        sort: "createdAt",
       },
     });
     console.log(response);

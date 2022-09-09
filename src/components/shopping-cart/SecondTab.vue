@@ -33,9 +33,13 @@
           </el-col>
         </el-row>
 
-        <el-row class="img-row" justify="space-between">
+        <el-row class="img-row">
           <el-col v-for="item in comment.images" :key="item" :span="3">
-            <img class="prod-img" :src="item" alt="" />
+            <img
+              class="prod-img"
+              :src="`/api/v1/system/uploads/${item}`"
+              alt=""
+            />
           </el-col>
         </el-row>
       </div>
@@ -90,6 +94,12 @@ export default {
     comments() {
       return this.$store.getters["shop/comments"];
     },
+    windowProtocol() {
+      return window.location.protocol;
+    },
+    windowHostname() {
+      return window.location.hostname;
+    },
   },
   methods: {
     formatDate(date) {
@@ -140,8 +150,16 @@ export default {
   border-radius: 100%;
 }
 
+.second-tab .el-row.img-row {
+  gap: 1rem;
+}
+
 .second-tab img.prod-img {
   border-radius: 8px;
+  width: 100%;
+  height: 5rem;
+  object-fit: cover;
+  /* height: 4rem; */
 }
 
 .second-tab h5 {

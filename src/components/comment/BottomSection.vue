@@ -64,7 +64,7 @@ export default {
       });
       const data = {
         account: this.currentUserDetails.id,
-        shop: this.singleItem.slug,
+        shop: this.singleItem.item.slug,
         content: this.description,
         title: this.title,
         service: this.rateServe,
