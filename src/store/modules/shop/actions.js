@@ -52,7 +52,7 @@ export default {
     });
     console.log(response);
   },
-  async getComments(context) {
+  async getComments(context, payload) {
     const userToken = sessionStorage.getItem("accessToken");
 
     const response = await axios.get(`/api/v1/accounts/comments`, {
@@ -61,6 +61,7 @@ export default {
         "accept-language": i18n.global.locale,
       },
       params: {
+        filter: `shop:${payload}`,
         page: 1,
         pageSize: 15,
       },

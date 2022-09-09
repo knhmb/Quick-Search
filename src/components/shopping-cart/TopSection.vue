@@ -6,28 +6,36 @@
           <el-breadcrumb-item class="first">{{
             $t("home")
           }}</el-breadcrumb-item>
+          <!-- <el-breadcrumb-item class="first">{{
+            singleItem.category
+          }}</el-breadcrumb-item> -->
           <el-breadcrumb-item class="first">{{
             $t("personal_care")
           }}</el-breadcrumb-item>
-          <el-breadcrumb-item class="first">{{
+          <el-breadcrumb-item class="first">{{ category }}</el-breadcrumb-item>
+          <!-- <el-breadcrumb-item class="first">{{
             $t("hair_salon")
-          }}</el-breadcrumb-item>
-          <el-breadcrumb-item>{{ singleItem.name }}</el-breadcrumb-item>
+          }}</el-breadcrumb-item> -->
+          <el-breadcrumb-item>{{ singleItem.item.name }}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row :gutter="15">
           <el-col :sm="12" :md="4">
             <!-- <img class="product-img" src="../../assets/avatar.png" alt="" /> -->
-            <img class="product-img" :src="singleItem.image" alt="" />
+            <img class="product-img" :src="singleItem.item.image" alt="" />
           </el-col>
           <el-col :sm="24" :md="13">
-            <h5>{{ singleItem.name }}</h5>
-            <el-rate show-score disabled model-value="4" />
+            <h5>{{ singleItem.item.name }}</h5>
+            <el-rate
+              show-score
+              disabled
+              :model-value="singleItem.resources.score.average"
+            />
             <img
               class="arrow-down"
               src="../../assets/arrowhead-down@2x.png"
               alt=""
             />
-            <p>{{ $t("mong_kok") }} ． $120-320 ． {{ $t("hair_salon") }}</p>
+            <p>{{ singleItem.item.district }} ． $120-320 ． {{ category }}</p>
           </el-col>
           <el-col style="text-align: end" :sm="12" :md="7">
             <img
@@ -95,6 +103,12 @@ export default {
     singleItem() {
       return this.$store.getters["search/singleItem"];
     },
+    category() {
+      return this.$store.getters.category;
+    },
+  },
+  created() {
+    console.log(this.singleItem);
   },
 };
 </script>

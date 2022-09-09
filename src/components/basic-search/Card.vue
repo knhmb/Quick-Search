@@ -11,7 +11,15 @@
           <img src="../../assets/more@2x.png" alt="" />
         </el-col>
         <el-col v-for="subItem in item.items" :key="subItem" :sm="12" :md="6">
-          <div class="card" @click="selectShop(subItem.slug)">
+          <div
+            class="card"
+            @click="
+              selectShop({
+                slug: subItem.slug,
+                category: item.resources.category.name,
+              })
+            "
+          >
             <img :src="subItem.image" alt="" />
             <div class="content">
               <p class="title">
@@ -111,7 +119,8 @@ export default {
     },
   },
   methods: {
-    selectShop(slug) {
+    selectShop({ slug, category }) {
+      this.$store.commit("SET_CATEGORY", category);
       this.$store
         .dispatch("search/searchSingleShop", { slug: slug })
         .then(() => {

@@ -35,10 +35,15 @@ export default {
       activeName: "first",
     };
   },
+  computed: {
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
+    },
+  },
   methods: {
     openSecondTab(val) {
       if (val.paneName === "second") {
-        this.$store.dispatch("shop/getComments");
+        this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
 
         // this.$store
         //   .dispatch("auth/checkAccessToken")

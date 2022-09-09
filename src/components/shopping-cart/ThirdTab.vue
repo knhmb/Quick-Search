@@ -2,17 +2,26 @@
   <div class="third-tab">
     <div class="box-card">
       <el-row :gutter="15">
-        <el-col v-for="item in 18" :key="item" :span="8">
-          <!-- <img :src="../../assets/avatar.png" alt="" /> -->
-          <img @click="dialogVisible = true" :src="singleItem.image" alt="" />
-        </el-col>
+        <template v-for="item in comments" :key="item">
+          <el-col v-for="image in item.images" :key="image" :span="8">
+            <!-- <img :src="../../assets/avatar.png" alt="" /> -->
+            <img @click="dialogVisible = true" :src="image" alt="" />
+          </el-col>
+        </template>
+        <!-- <el-col v-for="item in 18" :key="item" :span="8">
+          <img
+            @click="dialogVisible = true"
+            :src="singleItem.item.image"
+            alt=""
+          />
+        </el-col> -->
       </el-row>
     </div>
     <el-pagination
       small
       background
       layout="prev, pager, next"
-      :total="singleItem.length + 0"
+      :total="singleItem.item.length + 0"
       pager-count="8"
     />
   </div>
@@ -37,6 +46,9 @@ export default {
   computed: {
     singleItem() {
       return this.$store.getters["search/singleItem"];
+    },
+    comments() {
+      return this.$store.getters["shop/comments"];
     },
   },
   created() {

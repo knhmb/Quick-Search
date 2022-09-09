@@ -5,4 +5,7 @@ export default {
   authDialog(state) {
     return state.authDialog;
   },
+  category(state) {
+    return state.category;
+  },
 };

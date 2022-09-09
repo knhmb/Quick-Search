@@ -4,23 +4,23 @@
       <div class="single-text">
         <p class="title">{{ $t("store_introduction") }}</p>
         <p>
-          {{ singleItem.description }}
+          {{ singleItem.item.description }}
         </p>
       </div>
       <div class="single-text">
         <p class="title">{{ $t("phone_number") }}</p>
-        <p>{{ this.singleItem.phoneno }}</p>
+        <p>{{ singleItem.item.phoneno }}</p>
       </div>
       <div class="single-text">
         <p class="title">{{ $t("email_address") }}</p>
-        <p>{{ singleItem.email }}</p>
+        <p>{{ singleItem.item.email }}</p>
       </div>
       <div class="single-text">
         <p class="title">{{ $t("shop_address") }}</p>
         <el-row :gutter="10">
           <el-col :span="16">
-            <h6>旺角</h6>
-            <p>店舖地址店舖地址店舖地址店舖地址店舖地址店舖地址</p>
+            <h6>{{ singleItem.item.district }}</h6>
+            <p>{{ singleItem.item.address }}</p>
           </el-col>
           <el-col :span="8">
             <img src="../../assets/map@2x.jpg" alt="" />
@@ -38,20 +38,20 @@
               <p>{{ $t("in_operation") }}</p>
             </div>
           </el-col>
-          <el-col :span="12">
+          <!-- <el-col :span="12">
             <p class="time-text">{{ $t("open_today") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">12:30 - 22:00</p>
-          </el-col>
+          </el-col> -->
           <!-- <template v-for="item in singleItem.openingHours" :key="item"> -->
           <el-col :span="12">
             <p class="time-text">{{ $t("monday_to_sunday") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">
-              {{ formatDate(singleItem.openingHours[0][0]) }} -
-              {{ formatDate(singleItem.openingHours[0][1]) }}
+              {{ formatDate(singleItem.item.openingHours[0][0]) }} -
+              {{ formatDate(singleItem.item.openingHours[0][1]) }}
             </p>
             <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>
@@ -68,8 +68,8 @@
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">
-              {{ formatDate(singleItem.openingHours[1][0]) }} -
-              {{ formatDate(singleItem.openingHours[1][1]) }}
+              {{ formatDate(singleItem.item.openingHours[1][0]) }} -
+              {{ formatDate(singleItem.item.openingHours[1][1]) }}
             </p>
             <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>
@@ -78,8 +78,8 @@
           </el-col>
           <el-col style="text-align: end" :span="12">
             <p class="time">
-              {{ formatDate(singleItem.openingHours[2][0]) }} -
-              {{ formatDate(singleItem.openingHours[2][1]) }}
+              {{ formatDate(singleItem.item.openingHours[2][0]) }} -
+              {{ formatDate(singleItem.item.openingHours[2][1]) }}
             </p>
             <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>

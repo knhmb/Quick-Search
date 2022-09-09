@@ -4,13 +4,16 @@
       <div class="content" v-for="comment in comments" :key="comment.id">
         <el-row :gutter="10">
           <el-col :span="3">
-            <img :src="singleItem.image" alt="" />
+            <img :src="singleItem.item.image" alt="" />
             <!-- <img src="../../assets/avatar-sample01@2x.jpg" alt="" /> -->
           </el-col>
           <el-col :span="21">
-            <h5>{{ comment.shop }}</h5>
+            <h5>{{ comment.title }}</h5>
             <!-- <h5>訊息標題訊息標題訊息標題訊息標題訊息標題</h5> -->
-            <p>{{ comment.account }} ． {{ formatDate(comment.createdAt) }}</p>
+            <p>
+              {{ comment.resources.account.username }} ．
+              {{ formatDate(comment.createdAt) }}
+            </p>
             <!-- <p>{{ comment.account }} ． 2022-10-10</p> -->
             <!-- <p>username username ． 2022-10-10</p> -->
           </el-col>
