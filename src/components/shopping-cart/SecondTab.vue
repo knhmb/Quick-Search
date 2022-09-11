@@ -4,6 +4,7 @@
       <div class="content" v-for="comment in comments" :key="comment.id">
         <el-row :gutter="10">
           <el-col :span="3">
+            {{ comment }}
             <img :src="singleItem.item.image" alt="" />
             <!-- <img src="../../assets/avatar-sample01@2x.jpg" alt="" /> -->
           </el-col>
