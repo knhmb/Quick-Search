@@ -8,11 +8,14 @@
     >
       <el-row>
         <el-col :xs="24" :sm="15">
-          <img :src="singleItem.image" alt="" />
+          <img :src="`/api/v1/system/uploads/${image}`" alt="" />
+          <!-- <img :src="singleItem.item.image" alt="" /> -->
         </el-col>
         <el-col :xs="24" :sm="9">
-          <h5>{{ singleItem.name }}</h5>
-          <p>{{ singleItem.description }}</p>
+          <h5>{{ title }}</h5>
+          <!-- <h5>{{ singleItem.item.name }}</h5> -->
+          <p>{{ content }}</p>
+          <!-- <p>{{ singleItem.item.description }}</p> -->
         </el-col>
       </el-row>
       <!-- <template #footer>
@@ -29,7 +32,7 @@
 
 <script>
 export default {
-  props: ["dialogVisible"],
+  props: ["dialogVisible", "title", "content", "image"],
   computed: {
     singleItem() {
       return this.$store.getters["search/singleItem"];

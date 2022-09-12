@@ -47,6 +47,9 @@ export default {
     promotionDetail() {
       return this.$store.getters["dashboard/promotionDetail"];
     },
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
   },
   methods: {
     openLogin() {
@@ -57,28 +60,46 @@ export default {
     },
     book() {
       console.log(this.promotionDetail);
-      // const data = {
-      //   shop: this.promotionDetail.shop,
-      //   thumbnail: this.promotionDetail.thumbnail,
-      //   quantity: this.promotionDetail.quantity,
-      //   startedAt: this.promotionDetail.startedAt,
-      //   endedAt: this.promotionDetail.endedAt,
-      // };
+      const data = {
+        account: this.currentUserDetails.id,
+        // account: this.singleItem.item.account,
+        shop: this.promotionDetail.shop,
+        schedule: this.promotionDetail.startedAt,
+      };
+      console.log(data);
       this.$store
-        .dispatch("search/promotion", this.promotionDetail.slug)
+        .dispatch("auth/checkAccessToken")
         .then(() => {
-          ElNotification({
-            title: "Success",
-            message: "Promotion Claimed",
-            type: "success",
+          this.$store.dispatch("shop/book", data).then(() => {
+            ElNotification({
+              title: "Success",
+              message: this.$t("shop_booked"),
+              type: "success",
+            });
+            this.$router.replace("/");
           });
         })
-        .catch((err) => {
-          ElNotification({
-            title: "Error",
-            message: err.response.data.message,
-            type: "error",
-          });
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store.dispatch("shop/book", data).then(() => {
+                ElNotification({
+                  title: "Success",
+                  message: this.$t("shop_booked"),
+                  type: "success",
+                });
+                this.$router.replace("/");
+              });
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: this.$t("token_expired"),
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+            });
         });
       // this.$store
       //   .dispatch("search/searchSingleShop", {

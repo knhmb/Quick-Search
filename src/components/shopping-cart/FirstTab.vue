@@ -267,6 +267,9 @@ export default {
     schedules() {
       return this.$store.getters["dashboard/schedules"];
     },
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
   },
   methods: {
     dateChanged(day) {
@@ -284,11 +287,14 @@ export default {
       const dated = `${this.isActive}`;
       console.log(dated);
       const data = {
-        account: this.singleItem.account[0],
-        shop: this.singleItem.name,
+        account: this.currentUserDetails.id,
+        // account: this.singleItem.item.account,
+        shop: this.singleItem.item.name,
         schedule: dated,
         // schedule: new Date(dated).toISOString(),
       };
+      console.log(this.singleItem.item);
+      console.log(this.currentUserDetails);
       console.log(data);
       if (this.isUserLoggedIn) {
         this.$store

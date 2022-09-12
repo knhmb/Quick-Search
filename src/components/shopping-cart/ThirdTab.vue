@@ -5,7 +5,17 @@
         <template v-for="item in comments" :key="item">
           <el-col v-for="image in item.images" :key="image" :span="8">
             <!-- <img :src="../../assets/avatar.png" alt="" /> -->
-            <img @click="dialogVisible = true" :src="image" alt="" />
+            <img
+              @click="
+                imageDetail({
+                  title: item.title,
+                  content: item.content,
+                  image: image,
+                })
+              "
+              :src="`/api/v1/system/uploads/${image}`"
+              alt=""
+            />
           </el-col>
         </template>
         <!-- <el-col v-for="item in 18" :key="item" :span="8">
@@ -21,13 +31,16 @@
       small
       background
       layout="prev, pager, next"
-      :total="singleItem.item.length + 0"
+      :total="comments.length + 0"
       pager-count="8"
     />
   </div>
   <image-dialog
     @closeDialog="dialogVisible = $event"
     :dialog-visible="dialogVisible"
+    :title="title"
+    :content="content"
+    :image="image"
   ></image-dialog>
 </template>
 
@@ -41,6 +54,9 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      title: "",
+      content: "",
+      image: null,
     };
   },
   computed: {
@@ -49,6 +65,14 @@ export default {
     },
     comments() {
       return this.$store.getters["shop/comments"];
+    },
+  },
+  methods: {
+    imageDetail({ title, content, image }) {
+      this.title = title;
+      this.content = content;
+      this.image = image;
+      this.dialogVisible = true;
     },
   },
   created() {
@@ -71,6 +95,8 @@ export default {
 
 .third-tab img {
   width: 100%;
+  height: 12rem;
+  object-fit: cover;
   cursor: pointer;
 }
 
