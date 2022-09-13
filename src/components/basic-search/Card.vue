@@ -17,6 +17,7 @@
               selectShop({
                 slug: subItem.slug,
                 category: item.resources.category.name,
+                id: item.resources.category.slug,
               })
             "
           >
@@ -113,14 +114,31 @@ export default {
       ],
     };
   },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        console.log("language changed");
+        const data = {
+          search: this.searchValue,
+        };
+        this.$store.dispatch("search/searchItem", data);
+      },
+    },
+  },
   computed: {
     searchItems() {
       return this.$store.getters["search/searchItems"];
     },
+    searchValue() {
+      return this.$store.getters["search/searchValue"];
+    },
   },
   methods: {
-    selectShop({ slug, category }) {
+    selectShop({ slug, category, id }) {
       this.$store.commit("SET_CATEGORY", category);
+      this.$store.commit("SET_CATEGORY_ID", id);
+      this.$store.commit("SET_SELECTED_SHOP_SLUG", slug);
       this.$store
         .dispatch("search/searchSingleShop", { slug: slug })
         .then(() => {

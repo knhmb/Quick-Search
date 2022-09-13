@@ -22,6 +22,8 @@ const store = createStore({
       formTitle: i18n.global.t("login"),
       authDialog: "",
       category: "",
+      selectedShopSlug: "",
+      categoryId: null,
       // formTitle: "登入",
     };
   },

@@ -265,13 +265,46 @@ export default {
     $i18n: {
       deep: true,
       handler() {
-        this.$store.dispatch("dashboard/getSchedules");
+        // this.$store.dispatch("dashboard/getSchedules");
+        this.$store.dispatch("search/searchSingleShop", {
+          slug: this.selectedShopSlug,
+        });
+        const data = {
+          search: this.searchValue,
+        };
+        this.$store.dispatch("search/searchItem", data).then(() => {
+          console.log(this.searchItems);
+          console.log(this.categoryId);
+          this.searchItems.forEach((item) => {
+            console.log(item.resources.category);
+            const temp = item.resources.category.slug === this.categoryId;
+            if (temp) {
+              this.$store.commit("SET_CATEGORY", item.resources.category.name);
+            }
+            // const temp = item.items.find(
+            //   (searchItem) => searchItem.slug === this.categoryId
+            // );
+            console.log(temp);
+          });
+        });
       },
     },
   },
   computed: {
+    categoryId() {
+      return this.$store.getters.categoryId;
+    },
+    searchItems() {
+      return this.$store.getters["search/searchItems"];
+    },
+    searchValue() {
+      return this.$store.getters["search/searchValue"];
+    },
     dateFilter() {
       return moment(this.date).format("DD");
+    },
+    selectedShopSlug() {
+      return this.$store.getters.selectedShopSlug;
     },
     isUserLoggedIn() {
       return this.$store.getters["auth/isLoggedIn"];

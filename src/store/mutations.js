@@ -8,4 +8,10 @@ export default {
   SET_CATEGORY(state, payload) {
     state.category = payload;
   },
+  SET_SELECTED_SHOP_SLUG(state, payload) {
+    state.selectedShopSlug = payload;
+  },
+  SET_CATEGORY_ID(state, payload) {
+    state.categoryId = payload;
+  },
 };

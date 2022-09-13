@@ -10,7 +10,7 @@
       <el-row :gutter="20">
         <el-col>
           <el-form-item :label="$t('account_name')" prop="username">
-            <el-input v-model="ruleForm.username"></el-input>
+            <el-input disabled v-model="ruleForm.username"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -20,7 +20,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item :label="$t('actual_name')">
-            <el-input v-model="ruleForm.actualName" disabled></el-input>
+            <el-input v-model="ruleForm.actualName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :sm="12" :md="8">
@@ -102,6 +102,7 @@ export default {
             birth: this.ruleForm.dob ? this.ruleForm.dob.toISOString() : "",
             gender: this.ruleForm.gender,
             phoneno: this.ruleForm.phoneNumber,
+            name: this.ruleForm.actualName,
           };
           console.log(data);
           this.$store
