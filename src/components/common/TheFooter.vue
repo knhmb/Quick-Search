@@ -82,7 +82,9 @@
       </el-row>
       <el-row>
         <el-col>
-          <p class="copyright">© 2022 Quick Search. All Rights Reserved.</p>
+          <p class="copyright">
+            © 2022 Ten In One Company Limited. All Rights Reserved.
+          </p>
         </el-col>
       </el-row>
     </base-container>

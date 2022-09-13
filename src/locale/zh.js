@@ -172,6 +172,9 @@ const zh = {
   kennedy_town_station: "堅尼地城站",
   advanced_search: "進階搜尋",
   book_now: "立即預約",
+  number_of_indiviuals_placeholder: "2位",
+  "error.account.booking.missing-schedule": "請選擇一個會話",
+
   // showing_search_results: '顯示 0 項搜尋結果'
 };
 

@@ -56,10 +56,13 @@ export default {
     console.log(response);
     context.commit("SET_FILTERS_ITEM", response.data.items);
   },
-  async getSchedules(context) {
+  async getSchedules(context, payload) {
     const response = await axios.get("/api/v1/shops/schedules", {
       headers: {
         "accept-language": i18n.global.locale,
+      },
+      params: {
+        filter: `date:{"$gte":"${payload.firstDay}","$lte":"${payload.lastDay}"}`,
       },
     });
     console.log(response);
@@ -116,6 +119,7 @@ export default {
       },
     });
     console.log(response);
+    context.commit("SET_DYNAMIC_FILTER_GROUP", response.data.items);
     context.commit("SET_MAIN_CATEGORY_FILTER", response.data.items);
     const data = response.data.items;
     data.forEach((item) => {

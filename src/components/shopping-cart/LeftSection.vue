@@ -23,7 +23,11 @@
             <p>{{ singleItem.item.address }}</p>
           </el-col>
           <el-col :span="8">
-            <img src="../../assets/map@2x.jpg" alt="" />
+            <img
+              @click="dialogVisible = true"
+              src="../../assets/map@2x.jpg"
+              alt=""
+            />
           </el-col>
         </el-row>
       </div>
@@ -87,17 +91,31 @@
         </el-row>
       </div>
     </base-card>
+    <MapsDialog
+      :dialog-visible="dialogVisible"
+      @closeDialog="dialogVisible = $event"
+      v-if="dialogVisible"
+    />
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import MapsDialog from "./MapsDialog.vue";
 
 export default {
+  components: {
+    MapsDialog,
+  },
   computed: {
     singleItem() {
       return this.$store.getters["search/singleItem"];
     },
+  },
+  data() {
+    return {
+      dialogVisible: false,
+    };
   },
   watch: {
     $i18n: {
@@ -181,6 +199,7 @@ export default {
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .left-section .button-dot {

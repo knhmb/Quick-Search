@@ -175,6 +175,8 @@ const en = {
   kennedy_town_station: "Kennedy Town Station",
   advanced_search: "Advanced Search",
   book_now: "Book now",
+  number_of_indiviuals_placeholder: "2 person",
+  "error.account.booking.missing-schedule": "Please Select a Session!",
 };
 
 export default en;

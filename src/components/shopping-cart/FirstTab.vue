@@ -5,12 +5,19 @@
         <h5>{{ $t("appointment_service") }}</h5>
         <div class="form-section">
           <label>{{ $t("number_of_people") }}</label>
-          <el-select placeholder="2位"></el-select>
+          <el-select
+            :placeholder="$t('number_of_indiviuals_placeholder')"
+          ></el-select>
         </div>
         <div class="form-section">
           <label>{{ $t("select_date") }}</label>
+          {{ dateArray.length }}
           <v-date-picker
+            :disabled-dates="disabledDates"
+            :available-dates="dateArray"
             v-model="date"
+            @dayclick="handleSelected"
+            @update:to-page="handleNewMonth"
             :locale="$i18n.locale"
             :columns="$screens({ default: 1, lg: 1 })"
           />
@@ -25,6 +32,7 @@
               <span>{{ $t("optional_days") }}</span>
               <div class="box">15</div>
               <span>{{ $t("selected_day") }}</span>
+              <!-- <div class="box active">{{ dateFilter }}</div> -->
               <div class="box active">15</div>
               <span>{{ $t("appointment_full") }}</span>
               <div class="box">15</div>
@@ -202,12 +210,16 @@ import { ElNotification } from "element-plus";
 export default {
   data() {
     return {
-      date: new Date(),
+      disableFirst: "",
+      disableLast: "",
+      disabledDates: [],
+      date: "",
       range: {
         start: "",
         end: "",
       },
-      isActive: "14:00",
+      dateArray: [],
+      isActive: "",
     };
   },
   watch: {
@@ -258,6 +270,9 @@ export default {
     },
   },
   computed: {
+    dateFilter() {
+      return moment(this.date).format("DD");
+    },
     isUserLoggedIn() {
       return this.$store.getters["auth/isLoggedIn"];
     },
@@ -274,6 +289,52 @@ export default {
   methods: {
     dateChanged(day) {
       console.log(day);
+    },
+    handleSelected(day) {
+      console.log(day);
+    },
+    handleNewMonth(day) {
+      this.dateArray = [];
+      this.disableDates = [];
+      const currentMonth = moment(`${day.year}/${day.month}`).format();
+      console.log(currentMonth);
+      const final = new Date(currentMonth);
+      console.log(final);
+
+      // const now = new Date();
+      // console.log(now);
+      const firstDay = new Date(
+        final.getFullYear(),
+        final.getMonth(),
+        1
+      ).toISOString();
+      const lastDay = new Date(
+        final.getFullYear(),
+        final.getMonth() + 1,
+        0
+      ).toISOString();
+      this.disableFirst = new Date(firstDay);
+      this.disableLast = new Date(lastDay);
+      this.disabledDates.push({
+        start: this.disableFirst,
+        end: this.disableLast,
+      });
+      console.log(this.disableFirst);
+      console.log(this.disableLast);
+      // console.log(firstDay);
+      // console.log(lastDay);
+      this.$store
+        .dispatch("dashboard/getSchedules", { firstDay, lastDay })
+        .then(() => {
+          console.log(this.schedules);
+          this.schedules.forEach((item) => {
+            this.dateArray.push({
+              start: new Date(item.date),
+              end: new Date(item.date),
+            });
+            console.log(this.dateArray);
+          });
+        });
     },
     filterDate(date) {
       return moment(new Date(date)).format("h:mm");
@@ -293,56 +354,96 @@ export default {
         schedule: dated,
         // schedule: new Date(dated).toISOString(),
       };
-      console.log(this.singleItem.item);
-      console.log(this.currentUserDetails);
+      // console.log(this.singleItem.item);
+      // console.log(this.currentUserDetails);
       console.log(data);
-      if (this.isUserLoggedIn) {
-        this.$store
-          .dispatch("auth/checkAccessToken")
-          .then(() => {
-            this.$store.dispatch("shop/book", data).then(() => {
-              ElNotification({
-                title: "Success",
-                message: this.$t("shop_booked"),
-                type: "success",
-              });
-              this.$router.replace("/");
-            });
-          })
-          .catch(() => {
-            this.$store
-              .dispatch("auth/checkRefreshToken")
-              .then(() => {
-                this.$store.dispatch("shop/book", data).then(() => {
-                  ElNotification({
-                    title: "Success",
-                    message: this.$t("shop_booked"),
-                    type: "success",
-                  });
-                  this.$router.replace("/");
-                });
-              })
-              .catch(() => {
-                ElNotification({
-                  title: "Error",
-                  message: this.$t("token_expired"),
-                  type: "error",
-                });
-                this.$store.dispatch("auth/logout");
-              });
-          });
-      } else {
-        ElNotification({
-          title: "Error",
-          message: this.$t("login_first"),
-          type: "error",
-        });
-      }
+      // if (this.isUserLoggedIn) {
+      //   this.$store
+      //     .dispatch("auth/checkAccessToken")
+      //     .then(() => {
+      //       this.$store
+      //         .dispatch("shop/book", data)
+      //         .then(() => {
+      //           ElNotification({
+      //             title: "Success",
+      //             message: this.$t("shop_booked"),
+      //             type: "success",
+      //           });
+      //           this.$router.replace("/");
+      //         })
+      //         .catch((err) => {
+      //           ElNotification({
+      //             title: "Error",
+      //             message: this.$t(err.response.data.message),
+      //             type: "error",
+      //           });
+      //         });
+      //     })
+      //     .catch(() => {
+      //       this.$store
+      //         .dispatch("auth/checkRefreshToken")
+      //         .then(() => {
+      //           this.$store
+      //             .dispatch("shop/book", data)
+      //             .then(() => {
+      //               ElNotification({
+      //                 title: "Success",
+      //                 message: this.$t("shop_booked"),
+      //                 type: "success",
+      //               });
+      //               this.$router.replace("/");
+      //             })
+      //             .catch((err) => {
+      //               ElNotification({
+      //                 title: "Error",
+      //                 message: this.$t(err.response.data.message),
+      //                 type: "error",
+      //               });
+      //             });
+      //         })
+      //         .catch(() => {
+      //           ElNotification({
+      //             title: "Error",
+      //             message: this.$t("token_expired"),
+      //             type: "error",
+      //           });
+      //           this.$store.dispatch("auth/logout");
+      //         });
+      //     });
+      // } else {
+      //   ElNotification({
+      //     title: "Error",
+      //     message: this.$t("login_first"),
+      //     type: "error",
+      //   });
+      // }
     },
   },
   created() {
     console.log(this.singleItem);
-    this.$store.dispatch("dashboard/getSchedules");
+    const now = new Date();
+    const firstDay = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      1
+    ).toISOString();
+    const lastDay = new Date(
+      now.getFullYear(),
+      now.getMonth() + 1,
+      0
+    ).toISOString();
+    this.$store
+      .dispatch("dashboard/getSchedules", { firstDay, lastDay })
+      .then(() => {
+        // console.log(this.schedules);
+        this.schedules.forEach((item) => {
+          this.dateArray.push({
+            start: new Date(item.date),
+            end: new Date(item.date),
+          });
+          console.log(this.dateArray);
+        });
+      });
   },
 };
 </script>

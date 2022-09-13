@@ -4,7 +4,6 @@
       <el-row :gutter="15">
         <template v-for="item in comments" :key="item">
           <el-col v-for="image in item.images" :key="image" :span="8">
-            <!-- <img :src="../../assets/avatar.png" alt="" /> -->
             <img
               @click="
                 imageDetail({
