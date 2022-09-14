@@ -3,19 +3,19 @@
     <el-row :gutter="10">
       <!-- <el-col v-for="item in 12" :key="item" :sm="12" :md="8"> -->
       <el-col v-for="promotion in promotions" :key="promotion" :sm="12" :md="8">
-        <div class="card">
+        <div v-if="promotion.used" class="card">
           <div class="header">
-            <h5>折扣優惠</h5>
+            <h5>{{ $t("discount") }}</h5>
             <div class="box">
-              <p>可使用</p>
+              <p>{{ promotion.used ? $t("completed") : "" }}</p>
             </div>
           </div>
-          <p class="name">店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱</p>
+          <p class="name">{{ promotion.shop }}</p>
           <p class="fade">
-            活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱...llll
+            {{ promotion.promotion }}
           </p>
           <div class="btn-content">
-            <el-button>查看優惠</el-button>
+            <el-button>{{ $t("view_offers") }}</el-button>
           </div>
         </div>
       </el-col>
@@ -24,7 +24,7 @@
       small
       background
       layout="prev, pager, next"
-      :total="80"
+      :total="promotions.length + 0"
       pager-count="8"
     />
   </div>

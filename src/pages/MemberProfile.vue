@@ -5,7 +5,8 @@
         <el-col :sm="24" :lg="7">
           <base-card>
             <div class="avatar-content">
-              <img src="../assets/avatar-sample02@2x.jpg" alt="" />
+              <img :src="currentUserDetails.avatar" alt="" />
+              <!-- <img src="../assets/avatar-sample02@2x.jpg" alt="" /> -->
               <p>{{ currentUserDetails.name }}</p>
             </div>
             <ul>
@@ -245,6 +246,7 @@ export default {
 
 .member-profile .avatar-content img {
   width: 9rem;
+  height: 9rem;
   border-radius: 100%;
   /* background: rgba(0, 0, 0, 0.3); */
   padding: 0.1rem;

@@ -7,8 +7,8 @@
           <div class="box">{{ item.count }}</div>
         </el-col>
         <el-col :sm="24" :md="12">
-          <p>{{ $t("more") }}</p>
-          <img src="../../assets/more@2x.png" alt="" />
+          <!-- <p>{{ $t("more") }}</p>
+          <img src="../../assets/more@2x.png" alt="" /> -->
         </el-col>
         <el-col v-for="subItem in item.items" :key="subItem" :sm="12" :md="6">
           <div
@@ -26,7 +26,13 @@
               <p class="title">
                 {{ subItem.name }}
               </p>
-              <p class="description">{{ subItem.description }}</p>
+              <p class="description">
+                {{
+                  subItem.description.length > 45
+                    ? `${subItem.description.slice(0, 45)}...`
+                    : subItem.description
+                }}
+              </p>
             </div>
           </div>
         </el-col>
@@ -112,6 +118,8 @@ export default {
         "medical",
         "mother",
       ],
+      dummy:
+        "This is Hair Four This is Hair Four This is Hair Four This is Hair Four",
     };
   },
   watch: {

@@ -6,21 +6,23 @@
       width="30%"
       :before-close="handleClose"
     >
-      <img src="../../assets/shop-sample01@2x.jpg" alt="" />
+      <img :src="singleBooking.thumbnail" alt="" />
+      <!-- <img src="../../assets/shop-sample01@2x.jpg" alt="" /> -->
       <div class="content">
-        <div class="box">已確認</div>
+        <div class="box">{{ singleBooking.status }}</div>
+        <!-- <div class="box">已確認</div> -->
         <p>{{ singleBooking.shop }}</p>
         <div class="inner-card">
           <div class="single-card">
-            <label>預約人數</label>
+            <label>{{ $t("number_of_reservations") }}</label>
             <p>2人</p>
           </div>
           <div class="single-card">
-            <label>預約日期</label>
+            <label>{{ $t("appointment_date") }}</label>
             <p>{{ filterDate() }}</p>
           </div>
           <div class="single-card">
-            <label>預約時間</label>
+            <label>{{ $t("appointment") }}</label>
             <p>上午{{ filterTime() }}</p>
           </div>
         </div>

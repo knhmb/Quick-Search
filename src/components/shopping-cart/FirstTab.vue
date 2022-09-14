@@ -6,7 +6,15 @@
         <div class="form-section">
           <label>{{ $t("number_of_people") }}</label>
           <el-select
+            v-model="noOfPeople"
             :placeholder="$t('number_of_indiviuals_placeholder')"
+          >
+            <el-option
+              v-for="option in options"
+              :key="option"
+              :value="option"
+              :label="option"
+            ></el-option
           ></el-select>
         </div>
         <div class="form-section">
@@ -43,158 +51,45 @@
           <p class="am">{{ $t("morning_session") }}</p>
           <el-row :gutter="15">
             <template v-for="time in schedules" :key="time">
-              <el-col
-                v-for="slot in time.timeslot"
-                :key="slot"
-                :sm="12"
-                :md="6"
-              >
-                <!-- {{ time }} -->
-                <div
+              <template v-for="slot in time.timeslot" :key="slot">
+                <el-col
                   v-if="checkDate(slot.begin).includes('am')"
-                  class="time-box"
-                  @click="isActive = slot.begin"
-                  :class="{ 'is-active': isActive === slot.begin }"
+                  :sm="12"
+                  :md="6"
                 >
-                  {{ filterDate(slot.begin) }}
-                </div>
-                <!-- {{ slot }} -->
-              </el-col>
+                  <div
+                    class="time-box"
+                    @click="isActive = slot.begin"
+                    :class="{ 'is-active': isActive === slot.begin }"
+                  >
+                    {{ filterDate(slot.begin) }}
+                  </div>
+                </el-col>
+              </template>
             </template>
-
-            <!-- <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '9:00'"
-                :class="{ 'is-active': isActive === '9:00' }"
-              >
-                9:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '10:00'"
-                :class="{ 'is-active': isActive === '10:00' }"
-              >
-                10:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '11:00'"
-                :class="{ 'is-active': isActive === '11:00' }"
-              >
-                11:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '12:00'"
-                :class="{ 'is-active': isActive === '12:00' }"
-              >
-                12:00
-              </div>
-            </el-col> -->
           </el-row>
           <p class="am">{{ $t("afternoon_session") }}</p>
           <el-row :gutter="15">
             <template v-for="time in schedules" :key="time">
-              <el-col
-                v-for="slot in time.timeslot"
-                :key="slot"
-                :sm="12"
-                :md="6"
-              >
-                <!-- {{ time }} -->
-                <div
+              <template v-for="slot in time.timeslot" :key="slot">
+                <el-col
                   v-if="checkDate(slot.begin).includes('pm')"
-                  class="time-box"
-                  @click="isActive = slot.begin"
-                  :class="{ 'is-active': isActive === slot.begin }"
+                  :sm="12"
+                  :md="6"
                 >
-                  {{ filterDate(slot.begin) }}
-                </div>
-                <!-- {{ slot }} -->
-              </el-col>
+                  <div
+                    class="time-box"
+                    @click="isActive = slot.begin"
+                    :class="{ 'is-active': isActive === slot.begin }"
+                  >
+                    {{ filterDate(slot.begin) }}
+                  </div>
+                </el-col>
+              </template>
             </template>
-            <!-- <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '13:00'"
-                :class="{ 'is-active': isActive === '13:00' }"
-              >
-                13:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '14:00'"
-                :class="{ 'is-active': isActive === '14:00' }"
-              >
-                14:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '15:00'"
-                :class="{ 'is-active': isActive === '15:00' }"
-              >
-                15:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '16:00'"
-                :class="{ 'is-active': isActive === '16:00' }"
-              >
-                16:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '17:00'"
-                :class="{ 'is-active': isActive === '17:00' }"
-              >
-                17:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '18:00'"
-                :class="{ 'is-active': isActive === '18:00' }"
-              >
-                18:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '19:00'"
-                :class="{ 'is-active': isActive === '19:00' }"
-              >
-                19:00
-              </div>
-            </el-col>
-            <el-col :sm="12" :md="6">
-              <div
-                class="time-box"
-                @click="isActive = '20:00'"
-                :class="{ 'is-active': isActive === '20:00' }"
-              >
-                20:00
-              </div>
-            </el-col> -->
           </el-row>
         </div>
-        <el-button @click="postDateTime">{{
+        <el-button :disabled="isButtonDisabled" @click="postDateTime">{{
           $t("make_an_appointment_button")
         }}</el-button>
       </div>
@@ -209,6 +104,9 @@ import { ElNotification } from "element-plus";
 export default {
   data() {
     return {
+      options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      noOfPeople: "",
+      isButtonDisabled: false,
       disableFirst: "",
       disableLast: "",
       disabledDates: [],
@@ -324,6 +222,22 @@ export default {
     },
     handleSelected(day) {
       console.log(day);
+      console.log(new Date(day.id).toISOString());
+      const firstDay = new Date(day.id).toISOString();
+      const lastDay = new Date(day.id).toISOString();
+      this.$store.dispatch("dashboard/getSchedules", { firstDay, lastDay });
+      // this.$store
+      //   .dispatch("dashboard/getSchedules", { firstDay, lastDay })
+      //   .then(() => {
+      //     console.log(this.schedules);
+      //     this.schedules.forEach((item) => {
+      //       this.dateArray.push({
+      //         start: new Date(item.date),
+      //         end: new Date(item.date),
+      //       });
+      //       console.log(this.dateArray);
+      //     });
+      //   });
     },
     handleNewMonth(day) {
       this.dateArray = [];
@@ -366,6 +280,11 @@ export default {
             });
             console.log(this.dateArray);
           });
+          if (this.dateArray.length <= 0) {
+            this.isButtonDisabled = true;
+          } else {
+            this.isButtonDisabled = false;
+          }
         });
     },
     filterDate(date) {
@@ -389,66 +308,66 @@ export default {
       // console.log(this.singleItem.item);
       // console.log(this.currentUserDetails);
       console.log(data);
-      // if (this.isUserLoggedIn) {
-      //   this.$store
-      //     .dispatch("auth/checkAccessToken")
-      //     .then(() => {
-      //       this.$store
-      //         .dispatch("shop/book", data)
-      //         .then(() => {
-      //           ElNotification({
-      //             title: "Success",
-      //             message: this.$t("shop_booked"),
-      //             type: "success",
-      //           });
-      //           this.$router.replace("/");
-      //         })
-      //         .catch((err) => {
-      //           ElNotification({
-      //             title: "Error",
-      //             message: this.$t(err.response.data.message),
-      //             type: "error",
-      //           });
-      //         });
-      //     })
-      //     .catch(() => {
-      //       this.$store
-      //         .dispatch("auth/checkRefreshToken")
-      //         .then(() => {
-      //           this.$store
-      //             .dispatch("shop/book", data)
-      //             .then(() => {
-      //               ElNotification({
-      //                 title: "Success",
-      //                 message: this.$t("shop_booked"),
-      //                 type: "success",
-      //               });
-      //               this.$router.replace("/");
-      //             })
-      //             .catch((err) => {
-      //               ElNotification({
-      //                 title: "Error",
-      //                 message: this.$t(err.response.data.message),
-      //                 type: "error",
-      //               });
-      //             });
-      //         })
-      //         .catch(() => {
-      //           ElNotification({
-      //             title: "Error",
-      //             message: this.$t("token_expired"),
-      //             type: "error",
-      //           });
-      //           this.$store.dispatch("auth/logout");
-      //         });
-      //     });
-      // } else {
-      //   ElNotification({
-      //     title: "Error",
-      //     message: this.$t("login_first"),
-      //     type: "error",
-      //   });
-      // }
+      if (this.isUserLoggedIn) {
+        this.$store
+          .dispatch("auth/checkAccessToken")
+          .then(() => {
+            this.$store
+              .dispatch("shop/book", data)
+              .then(() => {
+                ElNotification({
+                  title: "Success",
+                  message: this.$t("shop_booked"),
+                  type: "success",
+                });
+                this.$router.replace("/");
+              })
+              .catch((err) => {
+                ElNotification({
+                  title: "Error",
+                  message: this.$t(err.response.data.message),
+                  type: "error",
+                });
+              });
+          })
+          .catch(() => {
+            this.$store
+              .dispatch("auth/checkRefreshToken")
+              .then(() => {
+                this.$store
+                  .dispatch("shop/book", data)
+                  .then(() => {
+                    ElNotification({
+                      title: "Success",
+                      message: this.$t("shop_booked"),
+                      type: "success",
+                    });
+                    this.$router.replace("/");
+                  })
+                  .catch((err) => {
+                    ElNotification({
+                      title: "Error",
+                      message: this.$t(err.response.data.message),
+                      type: "error",
+                    });
+                  });
+              })
+              .catch(() => {
+                ElNotification({
+                  title: "Error",
+                  message: this.$t("token_expired"),
+                  type: "error",
+                });
+                this.$store.dispatch("auth/logout");
+              });
+          });
+      } else {
+        ElNotification({
+          title: "Error",
+          message: this.$t("login_first"),
+          type: "error",
+        });
+      }
     },
   },
   created() {

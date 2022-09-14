@@ -103,7 +103,17 @@ export default {
             gender: this.ruleForm.gender,
             phoneno: this.ruleForm.phoneNumber,
             name: this.ruleForm.actualName,
+            email: this.ruleForm.email,
           };
+          Object.keys(data).forEach((key) => {
+            if (
+              data[key] === "" ||
+              data[key] === undefined ||
+              data[key] === null
+            ) {
+              delete data[key];
+            }
+          });
           console.log(data);
           this.$store
             .dispatch("auth/checkAccessToken")

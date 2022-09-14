@@ -68,6 +68,14 @@
 
 <script>
 export default {
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.$store.dispatch("dashboard/getPopularGroups");
+      },
+    },
+  },
   computed: {
     popularCategories() {
       return this.$store.getters["dashboard/popularCategories"];
@@ -111,9 +119,13 @@ export default {
   margin-bottom: 1rem;
 }
 
+/* .popular-categories .el-row {
+  gap: 0.5rem;
+} */
+
 .popular-categories .el-col {
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   cursor: pointer;
 }
 

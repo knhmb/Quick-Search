@@ -1,17 +1,18 @@
 <template>
   <div class="second-tab">
     <el-row :gutter="10">
-      <el-col v-for="item in 12" :key="item" :sm="12" :md="8">
+      <!-- <el-col v-for="item in 12" :key="item" :sm="12" :md="8"> -->
+      <el-col v-for="promotion in promotions" :key="promotion" :sm="12" :md="8">
         <div class="card">
           <div class="header">
             <h5>{{ $t("discount") }}</h5>
             <div class="box">
-              <p>{{ $t("used") }}</p>
+              <p>可使用</p>
             </div>
           </div>
-          <p class="name">店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱店鋪名稱</p>
+          <p class="name">{{ promotion.shop }}</p>
           <p class="fade">
-            活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱...
+            {{ promotion.promotion }}
           </p>
           <div class="btn-content">
             <el-button>{{ $t("view_offers") }}</el-button>
@@ -23,12 +24,22 @@
       small
       background
       layout="prev, pager, next"
-      :total="80"
+      :total="promotions.length + 0"
       pager-count="8"
     />
   </div>
 </template>
 
+
+<script>
+export default {
+  computed: {
+    promotions() {
+      return this.$store.getters["profile/promotions"];
+    },
+  },
+};
+</script>
 
 <style scoped>
 .second-tab {

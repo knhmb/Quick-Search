@@ -150,15 +150,24 @@ export default {
             password2: this.ruleForm.confirmPassword,
           };
           console.log(data);
-          this.$store.dispatch("auth/register", data).then(() => {
-            ElNotification({
-              title: "Success",
-              message: this.$t("registered_successfully"),
-              type: "success",
+          this.$store
+            .dispatch("auth/register", data)
+            .then(() => {
+              ElNotification({
+                title: "Success",
+                message: this.$t("registered_successfully"),
+                type: "success",
+              });
+              this.$refs.ruleFormRef.resetFields();
+              this.$emit("dialogClosed", false);
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: this.$t(err.response.data.message),
+                type: "error",
+              });
             });
-            this.$refs.ruleFormRef.resetFields();
-            this.$emit("dialogClosed", false);
-          });
         }
       });
     },

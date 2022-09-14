@@ -5,31 +5,30 @@
         <el-row :gutter="10">
           <el-col :span="3">
             <img :src="comment.resources.account.avatar" alt="" />
-            <!-- <img :src="singleItem.item.image" alt="" /> -->
           </el-col>
           <el-col :span="21">
             <h5>{{ comment.title }}</h5>
-            <!-- <h5>訊息標題訊息標題訊息標題訊息標題訊息標題</h5> -->
             <p>
               {{ comment.resources.account.username }} ．
               {{ formatDate(comment.createdAt) }}
             </p>
-            <!-- <p>{{ comment.account }} ． 2022-10-10</p> -->
-            <!-- <p>username username ． 2022-10-10</p> -->
           </el-col>
           <el-col :span="20">
-            <p class="description">
+            <p v-if="comment.readActivated" class="description">
               {{ comment.content }}
             </p>
-            <!-- <p class="description">
-              家好的寸青里冬冬，步菜助北像頁主雪午，說結抱具犬話羊幾東學麻同、會裝拉頭布玉不別嗎笑今，原申春麼怕聲什耍花蝸都刀筆七松麻葉高掃送！跳扒風右羊枝幼院叫視皮尺着家好的寸青里冬冬，步菜助北像頁主雪午，說結抱具犬話羊幾東學麻同、會裝拉頭布玉不別嗎笑今，原申春麼怕聲什耍花蝸都刀筆七松麻葉高掃送！跳扒風右羊枝幼院叫視皮尺着...家好的寸青里冬冬，步菜助北像頁主雪午，說結抱具犬話羊幾東學麻同、會裝拉頭布玉不別嗎笑今，原申春麼怕聲什耍花蝸都刀筆七松麻葉高掃送！跳扒風右羊枝幼院叫視皮尺着...
+            <p v-if="!comment.readActivated" class="description">
+              {{
+                comment.content.length > 170
+                  ? `${comment.content.slice(0, 170)}...`
+                  : comment.content
+              }}
             </p>
-            <p class="description">
-              家好的寸青里冬冬，步菜助北像頁主雪午，說結抱具犬話羊幾東學麻同、會裝拉頭布玉不別嗎笑今，原申春麼怕聲什耍花蝸都刀筆七松麻葉高掃送！跳扒風右羊枝幼院叫視皮尺着家好的寸青里冬冬，步菜助北像頁主雪午，說結抱具犬話羊幾東學麻同、會裝拉頭布玉不別嗎笑今，原申春麼怕聲什耍花蝸都刀筆七松麻葉高掃送！跳扒風右羊枝幼院叫視皮尺着...家好的寸青里冬冬，步菜助北像頁主雪午，說結抱具犬話羊幾東學麻同、會裝拉頭布玉不別嗎笑今，原申春麼怕聲什耍花蝸都刀筆七松麻葉高掃送！跳扒風右羊枝幼院叫視皮尺着...
-            </p> -->
           </el-col>
           <el-col class="end" :sm="24" :md="4">
-            <p class="right">查看全部</p>
+            <p @click="toggleComment(comment)" class="right">
+              {{ !comment.isTextHidden ? $t("view_all") : $t("collapse") }}
+            </p>
           </el-col>
         </el-row>
 
@@ -84,6 +83,11 @@ import moment from "moment";
 // import { ElNotification } from "element-plus";
 
 export default {
+  data() {
+    return {
+      isTextHidden: true,
+    };
+  },
   computed: {
     currentUserDetails() {
       return this.$store.getters["auth/currentUserDetails"];
@@ -104,6 +108,10 @@ export default {
   methods: {
     formatDate(date) {
       return moment(new Date(date)).format("YYYY-MM-DD");
+    },
+    toggleComment(comment) {
+      comment.isTextHidden = !comment.isTextHidden;
+      comment.readActivated = !comment.readActivated;
     },
   },
   // created() {
@@ -192,6 +200,10 @@ export default {
 
 .second-tab .el-col.end {
   display: flex;
+}
+
+.second-tab .el-col.end p {
+  cursor: pointer;
 }
 
 .second-tab p.right {

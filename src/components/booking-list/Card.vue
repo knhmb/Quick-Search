@@ -2,14 +2,20 @@
   <div class="booking-list-card">
     <el-row>
       <el-col v-for="item in bookings" :key="item.id">
-        <div @click="openDialog(item.id)" class="card">
+        <div
+          v-if="item.status === 'IN_REVIEW'"
+          @click="openDialog(item.id)"
+          class="card"
+        >
           <el-row :gutter="15">
             <el-col :sm="24" :md="8">
-              <img src="../../assets/shop-sample01@2x.jpg" alt="" />
+              <img :src="item.thumbnail" alt="" />
+              <!-- <img src="../../assets/shop-sample01@2x.jpg" alt="" /> -->
             </el-col>
             <el-col :sm="24" :md="16">
               <div class="box">
-                <small> 已確認 </small>
+                <small> {{ item.status }} </small>
+                <!-- <small> 已確認 </small> -->
               </div>
               <p>
                 {{ item.shop }}
@@ -18,16 +24,19 @@
                 活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱
               </p> -->
               <div class="info-box">
-                <p class="faded">預約人數</p>
+                <p class="faded">{{ $t("number_of_reservations") }}</p>
+                <!-- <p class="faded">預約人數</p> -->
                 <p>2人</p>
               </div>
               <div class="info-box">
-                <p class="faded">預約日期</p>
+                <p class="faded">{{ $t("appointment_date") }}</p>
+                <!-- <p class="faded">預約日期</p> -->
                 <p>{{ filterDate(item.schedule) }}</p>
                 <!-- <p>2022-10-10</p> -->
               </div>
               <div class="info-box">
-                <p class="faded">預約時間</p>
+                <p class="faded">{{ $t("appointment") }}</p>
+                <!-- <p class="faded">預約時間</p> -->
                 <p>上午{{ filterTime(item.schedule) }}</p>
                 <!-- <p>上午11:30</p> -->
               </div>
@@ -45,7 +54,7 @@
       small
       background
       layout="prev, pager, next"
-      :total="80"
+      :total="bookings.length + 0"
       pager-count="8"
     />
     <Dialog

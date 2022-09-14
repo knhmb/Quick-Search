@@ -113,7 +113,7 @@ const en = {
   change_button: "Change",
   confirmed: "Confirmed",
   completed: "Completed",
-  number_of_reservations: "Number pf reservations",
+  number_of_reservations: "Number of reservations",
   appointment_date: "Appointment date",
   appointment: "Appointment",
   used: "Used",
@@ -175,8 +175,12 @@ const en = {
   kennedy_town_station: "Kennedy Town Station",
   advanced_search: "Advanced Search",
   book_now: "Book now",
-  number_of_indiviuals_placeholder: "2 person",
+  number_of_indiviuals_placeholder: "person",
   "error.account.booking.missing-schedule": "Please Select a Session!",
+  "error.account.duplicate-email": "Email Already Exists!",
+  "error.account.duplicate-username": "Username Already Exists!",
+  collapse: "Collapse",
+  view_all: "View all",
 };
 
 export default en;
