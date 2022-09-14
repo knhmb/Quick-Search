@@ -11,7 +11,6 @@
         </div>
         <div class="form-section">
           <label>{{ $t("select_date") }}</label>
-          {{ dateArray.length }}
           <v-date-picker
             :disabled-dates="disabledDates"
             :available-dates="dateArray"

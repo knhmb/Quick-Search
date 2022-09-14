@@ -157,7 +157,7 @@ export default {
     //   },
     // });
     console.log(response);
-    context.commit("SET_SINGLE_ITEM", response.data.item);
+    // context.commit("SET_SINGLE_ITEM", response.data.item);
     context.commit("SET_SEARCH_ITEMS", response.data.items);
   },
   //   async filterSearch(_, payload) {

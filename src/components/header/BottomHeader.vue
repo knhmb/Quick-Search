@@ -97,7 +97,7 @@ export default {
     },
   },
   methods: {
-    async searchCategory(category) {
+    searchCategory(category) {
       const data = {
         search: category,
       };
@@ -107,10 +107,7 @@ export default {
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       // this.$store.dispatch("dashboard/getDynamicFilterGroup", category.slug);
-      await this.$store.dispatch(
-        "dashboard/getMainCategoryFilter",
-        category.slug
-      );
+      this.$store.dispatch("dashboard/getMainCategoryFilter", category.slug);
       this.$store.dispatch("search/advancedFilter", category.slug).then(() => {
         this.$router.push({
           path: "/advanced-search",

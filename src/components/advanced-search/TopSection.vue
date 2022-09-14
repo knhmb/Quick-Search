@@ -15,7 +15,11 @@
       <!-- <h5>
         {{ $t("personal_care") }} {{ currentOption ? currentOption : "" }}
       </h5> -->
-      <carousel :breakpoints="breakpoints" :items-to-show="1.5">
+      <carousel
+        v-if="dynamicFilterGroup.length > 0"
+        :breakpoints="breakpoints"
+        :items-to-show="1.5"
+      >
         <slide v-for="item in dynamicFilterGroup" :key="item">
           <div
             @click="setOption(item)"
@@ -25,15 +29,6 @@
             {{ item.name }}
           </div>
         </slide>
-        <!-- <slide v-for="slide in options" :key="slide">
-          <div
-            @click="setOption($t(slide))"
-            :class="{ 'is-active': currentOption === $t(slide) }"
-            class="pill"
-          >
-            {{ $t(slide) }}
-          </div>
-        </slide> -->
 
         <template #addons>
           <navigation />
