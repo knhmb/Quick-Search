@@ -35,5 +35,6 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+  /* color: #393939; */
 }
 </style>

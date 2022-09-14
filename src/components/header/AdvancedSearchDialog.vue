@@ -1051,7 +1051,7 @@ export default {
       this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", item.name);
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
-      this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
+      // this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
       this.$store.dispatch("dashboard/getMainCategoryFilter", item.slug);
     },
     handleCheckAllChange(val) {
@@ -1291,7 +1291,7 @@ export default {
   font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   font-feature-settings: "liga" off;
   color: #393939;
@@ -1321,7 +1321,8 @@ export default {
 }
 
 .advanced-search-dialog .grey-section h5 {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -1332,7 +1333,8 @@ export default {
 }
 
 .advanced-search-dialog .body .body-header .grey-section p {
-  font-family: "PingFang HK";
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -1354,10 +1356,27 @@ export default {
 .advanced-search-dialog .el-tree {
   display: flex;
   justify-content: space-between;
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  font-feature-settings: "liga" off;
+  color: #393939;
 }
 
 .advanced-search-dialog .el-tree :deep(.custom-tree-node) img {
   width: 1.1rem;
+}
+
+/* .advanced-search-dialog .el-tree {
+  color: #393939;
+} */
+
+.advanced-search-dialog
+  .el-tree
+  :deep(.el-icon.el-tree-node__expand-icon.is-leaf) {
+  color: transparent;
 }
 
 @media screen and (max-width: 991px) {

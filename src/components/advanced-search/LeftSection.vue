@@ -906,7 +906,9 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-.left-section .single-content p {
+.left-section .single-content p,
+.left-section .el-tree,
+.left-section p {
   font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
   font-style: normal;
   font-weight: 500;
@@ -997,6 +999,14 @@ export default {
 .left-section .el-tree {
   padding-left: 1rem;
   width: 100%;
+  white-space: break-spaces;
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #393939;
 }
 
 .left-section :deep(.el-tree .el-icon) {
@@ -1020,6 +1030,19 @@ export default {
   .single-content
   :deep(.el-tree-node__content .custom-tree-node img) {
   display: block;
+}
+
+.left-section :deep(.el-checkbox .el-checkbox__label) {
+  white-space: break-spaces;
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #393939;
+
+  /* color: #6f6f6f; */
 }
 
 /* .left-section
