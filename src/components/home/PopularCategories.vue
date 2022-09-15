@@ -10,7 +10,8 @@
         :md="4"
       >
         <!-- <img :src="item.thumbnail" :alt="item.name" /> -->
-        <img src="../../assets/main-category01@2x.jpg" alt="" />
+        <img :src="item.thumbnail" alt="" />
+        <!-- <img src="../../assets/main-category01@2x.jpg" alt="" /> -->
 
         <p>{{ item.name }}</p>
       </el-col>

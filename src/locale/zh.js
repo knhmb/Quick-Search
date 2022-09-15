@@ -178,6 +178,8 @@ const zh = {
   "error.account.duplicate-username": "此用戶名已存在",
   collapse: "收起",
   view_all: "查看全部",
+  IN_REVIEW: "已確認",
+  BOOKED: "已完成",
 
   // showing_search_results: '顯示 0 項搜尋結果'
 };

@@ -24,6 +24,7 @@ const store = createStore({
       category: "",
       selectedShopSlug: "",
       categoryId: null,
+      selectedMainCategorySlug: "",
       // formTitle: "登入",
     };
   },

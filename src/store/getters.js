@@ -14,4 +14,7 @@ export default {
   categoryId(state) {
     return state.categoryId;
   },
+  selectedMainCategorySlug(state) {
+    return state.selectedMainCategorySlug;
+  },
 };

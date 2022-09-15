@@ -16,7 +16,9 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="$emit('closedDialog', false)">關閉</el-button>
+          <el-button @click="$emit('closedDialog', false)">{{
+            $t("cancel_button")
+          }}</el-button>
           <el-button
             v-if="!isLoggedIn"
             class="confirm"

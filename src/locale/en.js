@@ -181,6 +181,8 @@ const en = {
   "error.account.duplicate-username": "Username Already Exists!",
   collapse: "Collapse",
   view_all: "View all",
+  IN_REVIEW: "Confirmed",
+  BOOKED: "Completed",
 };
 
 export default en;

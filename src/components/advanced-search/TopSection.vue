@@ -78,6 +78,14 @@ export default {
       ],
     };
   },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.currentOption = "";
+      },
+    },
+  },
   computed: {
     dynamicFilterGroup() {
       return this.$store.getters["dashboard/dynamicFilterGroup"];

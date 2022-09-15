@@ -1049,6 +1049,7 @@ export default {
       this.currentFilter = item.name;
       console.log(item);
       this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", item.name);
+      this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", item.slug);
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       // this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);

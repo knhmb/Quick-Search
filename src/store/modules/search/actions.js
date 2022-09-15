@@ -38,10 +38,19 @@ export default {
           : ""
         : ""
     }${payload.area ? `area:${payload.area},` : ""}${
-      payload.price ? `price:${payload.price[0]}-${payload.price[1]},` : ""
-    }${payload.discount ? `discount:${payload.discount},` : ""}${
-      payload.payment ? `payment:${payload.payment}` : ""
-    }`;
+      payload.discount ? `discount:${payload.discount},` : ""
+    }${payload.payment ? `payment:${payload.payment}` : ""}`;
+    // param = `${
+    //   !route.currentRoute._rawValue.query.filter
+    //     ? payload.query
+    //       ? payload.query + ","
+    //       : ""
+    //     : ""
+    // }${payload.area ? `area:${payload.area},` : ""}${
+    //   payload.price ? `price:${payload.price[0]}-${payload.price[1]},` : ""
+    // }${payload.discount ? `discount:${payload.discount},` : ""}${
+    //   payload.payment ? `payment:${payload.payment}` : ""
+    // }`;
 
     console.log(param);
 
@@ -142,13 +151,19 @@ export default {
         filter:
           `${payload.dynamicFilter ? `${payload.dynamicFilter},` : ""}${
             payload.area ? `area:${payload.area},` : ""
-          }${
-            payload.price
-              ? `price:${payload.price[0]}-${payload.price[1]},`
-              : ""
           }${payload.discount ? `discount:${payload.discount},` : ""}${
             payload.paymentMethod ? `payment:${payload.paymentMethod}` : ""
-          }${payload ? `category:${payload}` : ""}` || undefined,
+          }${typeof payload !== "object" ? `category:${payload}` : ""}` ||
+          undefined,
+        // filter:
+        //   `${payload.dynamicFilter ? `${payload.dynamicFilter},` : ""}${
+        //     payload.area ? `area:${payload.area},` : ""
+        //   }${
+        //     payload.price ? `price:${payload.price[0]}-${payload.price[1]}` : ""
+        //   }${payload.discount ? `discount:${payload.discount},` : ""}${
+        //     payload.paymentMethod ? `payment:${payload.paymentMethod}` : ""
+        //   }${typeof payload !== "object" ? `category:${payload}` : ""}` ||
+        //   undefined,
       },
     });
     // const response = await axios.get(`/api/v1/shops`, {

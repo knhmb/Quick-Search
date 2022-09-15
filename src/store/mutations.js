@@ -14,4 +14,7 @@ export default {
   SET_CATEGORY_ID(state, payload) {
     state.categoryId = payload;
   },
+  SET_SELECTED_MAIN_CATEGORY_SLUG(state, payload) {
+    state.selectedMainCategorySlug = payload;
+  },
 };

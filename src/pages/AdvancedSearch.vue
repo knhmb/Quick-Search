@@ -39,6 +39,36 @@ export default {
 
     return { setSort, sorting };
   },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+        this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+
+        this.$store
+          .dispatch(
+            "dashboard/getMainCategoryFilter",
+            this.selectedMainCategorySlug
+          )
+          .then(() => {
+            const data = this.categories.find(
+              (item) => item.slug === this.selectedMainCategorySlug
+            );
+            console.log(data);
+            this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", data.name);
+          });
+      },
+    },
+  },
+  computed: {
+    selectedMainCategorySlug() {
+      return this.$store.getters.selectedMainCategorySlug;
+    },
+    categories() {
+      return this.$store.getters["dashboard/categories"];
+    },
+  },
 };
 </script>
 

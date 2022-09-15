@@ -14,7 +14,7 @@
             </el-col>
             <el-col :sm="24" :md="16">
               <div class="box">
-                <small> {{ item.status }} </small>
+                <small> {{ $t(item.status) }} </small>
                 <!-- <small> 已確認 </small> -->
               </div>
               <p>

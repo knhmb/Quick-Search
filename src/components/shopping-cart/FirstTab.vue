@@ -59,8 +59,10 @@
                 >
                   <div
                     class="time-box"
-                    @click="isActive = slot.begin"
-                    :class="{ 'is-active': isActive === slot.begin }"
+                    @click="isActive = filterDate(slot.begin)"
+                    :class="{
+                      'is-active': isActive === filterDate(slot.begin),
+                    }"
                   >
                     {{ filterDate(slot.begin) }}
                   </div>
@@ -79,8 +81,10 @@
                 >
                   <div
                     class="time-box"
-                    @click="isActive = slot.begin"
-                    :class="{ 'is-active': isActive === slot.begin }"
+                    @click="isActive = filterDate(slot.begin)"
+                    :class="{
+                      'is-active': isActive === filterDate(slot.begin),
+                    }"
                   >
                     {{ filterDate(slot.begin) }}
                   </div>
@@ -253,7 +257,7 @@ export default {
         final.getFullYear(),
         final.getMonth(),
         1
-      ).toISOString();
+      ).toISOString("±YYYYYY-MM-DDTHH:mm:ss.sssZ");
       const lastDay = new Date(
         final.getFullYear(),
         final.getMonth() + 1,
@@ -265,10 +269,10 @@ export default {
         start: this.disableFirst,
         end: this.disableLast,
       });
-      console.log(this.disableFirst);
-      console.log(this.disableLast);
-      // console.log(firstDay);
-      // console.log(lastDay);
+      // console.log(this.disableFirst);
+      // console.log(this.disableLast);
+      console.log(firstDay);
+      console.log(lastDay);
       this.$store
         .dispatch("dashboard/getSchedules", { firstDay, lastDay })
         .then(() => {
@@ -303,71 +307,72 @@ export default {
         // account: this.singleItem.item.account,
         shop: this.singleItem.item.name,
         schedule: dated,
+        date: this.date,
         // schedule: new Date(dated).toISOString(),
       };
       // console.log(this.singleItem.item);
       // console.log(this.currentUserDetails);
       console.log(data);
-      if (this.isUserLoggedIn) {
-        this.$store
-          .dispatch("auth/checkAccessToken")
-          .then(() => {
-            this.$store
-              .dispatch("shop/book", data)
-              .then(() => {
-                ElNotification({
-                  title: "Success",
-                  message: this.$t("shop_booked"),
-                  type: "success",
-                });
-                this.$router.replace("/");
-              })
-              .catch((err) => {
-                ElNotification({
-                  title: "Error",
-                  message: this.$t(err.response.data.message),
-                  type: "error",
-                });
-              });
-          })
-          .catch(() => {
-            this.$store
-              .dispatch("auth/checkRefreshToken")
-              .then(() => {
-                this.$store
-                  .dispatch("shop/book", data)
-                  .then(() => {
-                    ElNotification({
-                      title: "Success",
-                      message: this.$t("shop_booked"),
-                      type: "success",
-                    });
-                    this.$router.replace("/");
-                  })
-                  .catch((err) => {
-                    ElNotification({
-                      title: "Error",
-                      message: this.$t(err.response.data.message),
-                      type: "error",
-                    });
-                  });
-              })
-              .catch(() => {
-                ElNotification({
-                  title: "Error",
-                  message: this.$t("token_expired"),
-                  type: "error",
-                });
-                this.$store.dispatch("auth/logout");
-              });
-          });
-      } else {
-        ElNotification({
-          title: "Error",
-          message: this.$t("login_first"),
-          type: "error",
-        });
-      }
+      // if (this.isUserLoggedIn) {
+      //   this.$store
+      //     .dispatch("auth/checkAccessToken")
+      //     .then(() => {
+      //       this.$store
+      //         .dispatch("shop/book", data)
+      //         .then(() => {
+      //           ElNotification({
+      //             title: "Success",
+      //             message: this.$t("shop_booked"),
+      //             type: "success",
+      //           });
+      //           this.$router.replace("/");
+      //         })
+      //         .catch((err) => {
+      //           ElNotification({
+      //             title: "Error",
+      //             message: this.$t(err.response.data.message),
+      //             type: "error",
+      //           });
+      //         });
+      //     })
+      //     .catch(() => {
+      //       this.$store
+      //         .dispatch("auth/checkRefreshToken")
+      //         .then(() => {
+      //           this.$store
+      //             .dispatch("shop/book", data)
+      //             .then(() => {
+      //               ElNotification({
+      //                 title: "Success",
+      //                 message: this.$t("shop_booked"),
+      //                 type: "success",
+      //               });
+      //               this.$router.replace("/");
+      //             })
+      //             .catch((err) => {
+      //               ElNotification({
+      //                 title: "Error",
+      //                 message: this.$t(err.response.data.message),
+      //                 type: "error",
+      //               });
+      //             });
+      //         })
+      //         .catch(() => {
+      //           ElNotification({
+      //             title: "Error",
+      //             message: this.$t("token_expired"),
+      //             type: "error",
+      //           });
+      //           this.$store.dispatch("auth/logout");
+      //         });
+      //     });
+      // } else {
+      //   ElNotification({
+      //     title: "Error",
+      //     message: this.$t("login_first"),
+      //     type: "error",
+      //   });
+      // }
     },
   },
   created() {
