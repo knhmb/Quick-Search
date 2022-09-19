@@ -176,17 +176,42 @@ export default {
         this.$store.dispatch("search/searchItem", data).then(() => {
           console.log(this.searchItems);
           console.log(this.categoryId);
-          this.searchItems.forEach((item) => {
-            console.log(item.resources.category);
-            const temp = item.resources.category.slug === this.categoryId;
-            if (temp) {
-              this.$store.commit("SET_CATEGORY", item.resources.category.name);
-            }
-            // const temp = item.items.find(
-            //   (searchItem) => searchItem.slug === this.categoryId
-            // );
-            console.log(temp);
-          });
+          const found = this.searchItems.find(
+            (item) => item.resources.category.slug === this.categoryId
+          );
+          this.$store.commit("SET_CATEGORY", found.resources.category.name);
+
+          console.log("HEHREHERHERHERHERHERHRH");
+          console.log(found);
+          console.log(found.resources);
+          // const found = this.searchItems.find((item) => {
+          //   console.log(item.resources.category);
+
+          //   const temp = item.resources.category.slug === this.categoryId;
+          //   // if (temp) {
+          //   this.$store.commit("SET_CATEGORY", item.resources.category.name);
+          //   // }
+          //   // const temp = item.items.find(
+          //   //   (searchItem) => searchItem.slug === this.categoryId
+          //   // );
+          //   console.log(temp);
+          //   console.log(item.resources.category.name);
+          // });
+          // this.searchItems.forEach((item) => {
+          //   console.log(item.resources.category);
+          //   const temp = item.resources.category.slug === this.categoryId;
+          //   // if (temp) {
+          //   this.$store.commit(
+          //     "SET_CATEGORY",
+          //     temp ? item.resources.category.name : ""
+          //   );
+          //   // }
+          //   // const temp = item.items.find(
+          //   //   (searchItem) => searchItem.slug === this.categoryId
+          //   // );
+          //   console.log(temp);
+          //   console.log(item.resources.category.name);
+          // });
         });
       },
     },
@@ -229,7 +254,15 @@ export default {
       console.log(new Date(day.id).toISOString());
       const firstDay = new Date(day.id).toISOString();
       const lastDay = new Date(day.id).toISOString();
-      this.$store.dispatch("dashboard/getSchedules", { firstDay, lastDay });
+      this.$store
+        .dispatch("dashboard/getSchedules", { firstDay, lastDay })
+        .then(() => {
+          if (this.schedules.length <= 0) {
+            this.isButtonDisabled = true;
+          } else {
+            this.isButtonDisabled = false;
+          }
+        });
       // this.$store
       //   .dispatch("dashboard/getSchedules", { firstDay, lastDay })
       //   .then(() => {
@@ -298,81 +331,90 @@ export default {
       return moment(new Date(date)).format("h:mm a");
     },
     postDateTime() {
-      // const date = moment(this.date).format("YYYY-MM-DD");
-      // const dated = `${date} ${this.isActive}`;
-      const dated = `${this.isActive}`;
-      console.log(dated);
+      if (!this.date || !this.isActive) {
+        ElNotification({
+          title: "Error",
+          message: this.$t("select_date_time"),
+          type: "error",
+        });
+        return;
+      }
+      // const dated = `${this.isActive}`;
+      const dummy = moment(this.date).format("YYYY-MM-DD");
+      const final = new Date(`${dummy} ${this.isActive}`);
+      const scheduleDate = final.toISOString();
+      // const dated = `${this.date} ${this.isActive}`;
+      // console.log(new Date(dated));
       const data = {
         account: this.currentUserDetails.id,
         // account: this.singleItem.item.account,
         shop: this.singleItem.item.name,
-        schedule: dated,
-        date: this.date,
-        // schedule: new Date(dated).toISOString(),
+        schedule: scheduleDate,
+        // date: this.date,
       };
       // console.log(this.singleItem.item);
       // console.log(this.currentUserDetails);
       console.log(data);
-      // if (this.isUserLoggedIn) {
-      //   this.$store
-      //     .dispatch("auth/checkAccessToken")
-      //     .then(() => {
-      //       this.$store
-      //         .dispatch("shop/book", data)
-      //         .then(() => {
-      //           ElNotification({
-      //             title: "Success",
-      //             message: this.$t("shop_booked"),
-      //             type: "success",
-      //           });
-      //           this.$router.replace("/");
-      //         })
-      //         .catch((err) => {
-      //           ElNotification({
-      //             title: "Error",
-      //             message: this.$t(err.response.data.message),
-      //             type: "error",
-      //           });
-      //         });
-      //     })
-      //     .catch(() => {
-      //       this.$store
-      //         .dispatch("auth/checkRefreshToken")
-      //         .then(() => {
-      //           this.$store
-      //             .dispatch("shop/book", data)
-      //             .then(() => {
-      //               ElNotification({
-      //                 title: "Success",
-      //                 message: this.$t("shop_booked"),
-      //                 type: "success",
-      //               });
-      //               this.$router.replace("/");
-      //             })
-      //             .catch((err) => {
-      //               ElNotification({
-      //                 title: "Error",
-      //                 message: this.$t(err.response.data.message),
-      //                 type: "error",
-      //               });
-      //             });
-      //         })
-      //         .catch(() => {
-      //           ElNotification({
-      //             title: "Error",
-      //             message: this.$t("token_expired"),
-      //             type: "error",
-      //           });
-      //           this.$store.dispatch("auth/logout");
-      //         });
-      //     });
-      // } else {
-      //   ElNotification({
-      //     title: "Error",
-      //     message: this.$t("login_first"),
-      //     type: "error",
-      //   });
-      // }
+      if (this.isUserLoggedIn) {
+        this.$store
+          .dispatch("auth/checkAccessToken")
+          .then(() => {
+            this.$store
+              .dispatch("shop/book", data)
+              .then(() => {
+                ElNotification({
+                  title: "Success",
+                  message: this.$t("shop_booked"),
+                  type: "success",
+                });
+                this.$router.replace("/");
+              })
+              .catch((err) => {
+                ElNotification({
+                  title: "Error",
+                  message: this.$t(err.response.data.message),
+                  type: "error",
+                });
+              });
+          })
+          .catch(() => {
+            this.$store
+              .dispatch("auth/checkRefreshToken")
+              .then(() => {
+                this.$store
+                  .dispatch("shop/book", data)
+                  .then(() => {
+                    ElNotification({
+                      title: "Success",
+                      message: this.$t("shop_booked"),
+                      type: "success",
+                    });
+                    this.$router.replace("/");
+                  })
+                  .catch((err) => {
+                    ElNotification({
+                      title: "Error",
+                      message: this.$t(err.response.data.message),
+                      type: "error",
+                    });
+                  });
+              })
+              .catch(() => {
+                ElNotification({
+                  title: "Error",
+                  message: this.$t("token_expired"),
+                  type: "error",
+                });
+                this.$store.dispatch("auth/logout");
+              });
+          });
+      } else {
+        ElNotification({
+          title: "Error",
+          message: this.$t("login_first"),
+          type: "error",
+        });
+      }
     },
   },
   created() {

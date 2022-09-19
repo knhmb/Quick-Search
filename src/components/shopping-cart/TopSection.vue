@@ -62,11 +62,7 @@
     <div class="reviews">
       <base-container>
         <div class="rating">
-          <img
-            class="good-rating"
-            src="../../assets/rating-excellent@2x.png"
-            alt=""
-          />
+          <img class="good-rating" src="../../assets/rating-ok@2x.png" alt="" />
           <span>{{ singleItem.resources.count.overall5 }}</span>
         </div>
         <div class="rating">
@@ -80,7 +76,7 @@
         <div class="rating">
           <img
             class="good-rating"
-            src="../../assets/rating-dislike@2x.png"
+            src="../../assets/rating-bad@2x.png"
             alt=""
           />
           <span>{{ singleItem.resources.count.overall1 }}</span>

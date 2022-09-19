@@ -180,6 +180,7 @@ const zh = {
   view_all: "查看全部",
   IN_REVIEW: "已確認",
   BOOKED: "已完成",
+  select_date_time: "請選擇日期和時間",
 
   // showing_search_results: '顯示 0 項搜尋結果'
 };

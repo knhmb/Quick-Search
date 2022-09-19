@@ -183,6 +183,7 @@ const en = {
   view_all: "View all",
   IN_REVIEW: "Confirmed",
   BOOKED: "Completed",
+  select_date_time: "Please Select Date and Time",
 };
 
 export default en;
