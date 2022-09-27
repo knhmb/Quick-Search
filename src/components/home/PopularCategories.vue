@@ -85,6 +85,10 @@ export default {
   methods: {
     selectCategory(item) {
       console.log(item);
+      this.$store.commit(
+        "dashboard/SET_MAIN_CATEGORY_CHILDREN",
+        item.resources.children
+      );
       this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", item.name);
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");

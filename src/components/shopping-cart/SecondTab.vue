@@ -196,6 +196,7 @@ export default {
   line-height: 20px;
   color: #393939;
   margin-top: 1rem;
+  word-break: break-all;
 }
 
 .second-tab .el-col.end {
