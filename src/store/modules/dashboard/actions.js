@@ -63,6 +63,7 @@ export default {
       },
       params: {
         filter: `date:{"$gte":"${payload.firstDay}","$lte":"${payload.lastDay}"}`,
+        shop: payload.slug,
       },
     });
     console.log(response);

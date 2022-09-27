@@ -145,6 +145,8 @@ export default {
   methods: {
     selectShop({ slug, category, id }) {
       console.log(category);
+      console.log(slug);
+      console.log(id);
       this.$store.commit("SET_CATEGORY", category);
       this.$store.commit("SET_CATEGORY_ID", id);
       this.$store.commit("SET_SELECTED_SHOP_SLUG", slug);

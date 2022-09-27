@@ -184,6 +184,9 @@ const en = {
   IN_REVIEW: "Confirmed",
   BOOKED: "Completed",
   select_date_time: "Please Select Date and Time",
+  your_email_has_been_reset:
+    "Your password has been reset and sent to your email, please check your email.",
+  sure: "Sure",
 };
 
 export default en;

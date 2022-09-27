@@ -1,6 +1,12 @@
 <template>
   <div class="reset-password">
-    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules">
+    <p class="reset-password-text">
+      {{ $t("your_email_has_been_reset") }}
+    </p>
+    <el-button @click="$emit('closedDialog', false)">{{
+      $t("sure")
+    }}</el-button>
+    <!-- <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules">
       <el-form-item prop="password">
         <el-input
           type="password"
@@ -20,7 +26,7 @@
           $t("reset_password_button")
         }}</el-button>
       </el-form-item>
-    </el-form>
+    </el-form> -->
   </div>
 </template>
 
@@ -108,6 +114,17 @@ export default {
 <style scoped>
 .reset-password {
   padding: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.reset-password p.reset-password-text {
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  font-feature-settings: "liga" off;
+  color: #393939;
 }
 
 .reset-password .el-form :deep(.el-input .el-input__wrapper) {
@@ -134,6 +151,7 @@ export default {
   color: #ffffff;
   width: 100%;
   padding: 1.4rem;
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 991px) {

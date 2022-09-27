@@ -21,6 +21,7 @@ export default {
     state.dynamicFilterGroup = payload;
   },
   SET_DYNAMIC_FILTERS(state, payload) {
+    console.log(payload);
     const arr = [];
     // let uniqueAddresses = [];
     // const index = state.dynamicFilters.findIndex(object => object.id === value2.id);
@@ -92,5 +93,12 @@ export default {
   },
   SET_POPULAR_CATEGORIES(state, payload) {
     state.popularCategories = payload;
+  },
+  SET_MAIN_CATEGORY_CHILDREN(state, payload) {
+    state.mainCategoryChildren = payload;
+    console.log(state.mainCategoryChildren);
+  },
+  RESET_MAIN_CATEGORY_CHILDREN(state) {
+    state.mainCategoryChildren = [];
   },
 };

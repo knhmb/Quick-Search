@@ -144,6 +144,15 @@ export default {
       return time;
     },
   },
+  mounted() {
+    if (this.$i18n.locale === "en-US") {
+      const el = document.querySelector(".button-dot");
+      el.style.width = "6.5rem";
+    } else {
+      const el = document.querySelector(".button-dot");
+      el.style.width = "4rem";
+    }
+  },
   created() {
     console.log(this.singleItem);
   },

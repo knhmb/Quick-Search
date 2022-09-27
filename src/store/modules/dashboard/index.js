@@ -19,6 +19,7 @@ export default {
       mainCategoryFilter: [],
       dynamicMainCategoryFilter: [],
       popularCategories: [],
+      mainCategoryChildren: [],
     };
   },
   getters,

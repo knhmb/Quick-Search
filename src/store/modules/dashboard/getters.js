@@ -38,4 +38,7 @@ export default {
   popularCategories(state) {
     return state.popularCategories;
   },
+  mainCategoryChildren(state) {
+    return state.mainCategoryChildren;
+  },
 };

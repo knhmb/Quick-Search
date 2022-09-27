@@ -254,8 +254,14 @@ export default {
       console.log(new Date(day.id).toISOString());
       const firstDay = new Date(day.id).toISOString();
       const lastDay = new Date(day.id).toISOString();
+      console.log(firstDay);
+      console.log(lastDay);
       this.$store
-        .dispatch("dashboard/getSchedules", { firstDay, lastDay })
+        .dispatch("dashboard/getSchedules", {
+          firstDay,
+          lastDay,
+          slug: this.selectedShopSlug,
+        })
         .then(() => {
           if (this.schedules.length <= 0) {
             this.isButtonDisabled = true;
@@ -307,7 +313,11 @@ export default {
       console.log(firstDay);
       console.log(lastDay);
       this.$store
-        .dispatch("dashboard/getSchedules", { firstDay, lastDay })
+        .dispatch("dashboard/getSchedules", {
+          firstDay,
+          lastDay,
+          slug: this.selectedShopSlug,
+        })
         .then(() => {
           console.log(this.schedules);
           this.schedules.forEach((item) => {
@@ -431,7 +441,11 @@ export default {
       0
     ).toISOString();
     this.$store
-      .dispatch("dashboard/getSchedules", { firstDay, lastDay })
+      .dispatch("dashboard/getSchedules", {
+        firstDay,
+        lastDay,
+        slug: this.selectedShopSlug,
+      })
       .then(() => {
         // console.log(this.schedules);
         this.schedules.forEach((item) => {

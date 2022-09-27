@@ -20,7 +20,7 @@
         :breakpoints="breakpoints"
         :items-to-show="1.5"
       >
-        <slide v-for="item in dynamicFilterGroup" :key="item">
+        <slide v-for="item in mainCategoryChildren" :key="item">
           <div
             @click="setOption(item)"
             :class="{ 'is-active': currentOption === item.name }"
@@ -29,6 +29,15 @@
             {{ item.name }}
           </div>
         </slide>
+        <!-- <slide v-for="item in dynamicFilterGroup" :key="item">
+          <div
+            @click="setOption(item)"
+            :class="{ 'is-active': currentOption === item.name }"
+            class="pill"
+          >
+            {{ item.name }}
+          </div>
+        </slide> -->
 
         <template #addons>
           <navigation />
@@ -92,6 +101,9 @@ export default {
     },
     selectedMainCategory() {
       return this.$store.getters["search/selectedMainCategory"];
+    },
+    mainCategoryChildren() {
+      return this.$store.getters["dashboard/mainCategoryChildren"];
     },
   },
   methods: {

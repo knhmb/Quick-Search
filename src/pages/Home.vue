@@ -39,6 +39,7 @@ export default {
     this.$store.commit("search/RESET_PAYMENT_METHOD");
     this.$store.commit("search/RESET_PRICE_RANGE");
     this.$store.commit("search/RESET_SELECTED_SUB_CATEGORY");
+    this.$store.commit("dashboard/RESET_MAIN_CATEGORY_CHILDREN");
 
     this.$store.dispatch("dashboard/getCategories");
     this.$store.dispatch("dashboard/getLanguages");

@@ -22,7 +22,7 @@ export default {
 .faq {
   background: #ddd;
   padding: 1.5rem 0;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .faq h5 {

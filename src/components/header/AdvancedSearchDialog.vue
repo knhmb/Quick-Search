@@ -53,10 +53,17 @@
         </div>
         <div class="body-header">
           <p>{{ $t("sub_category") }}</p>
-          <div
+          <!-- <div
             @click="getFilterItems(item)"
             :class="{ 'is-active': currentFilter2 === item.name }"
             v-for="item in dynamicFilterGroup"
+            :key="item"
+            class="box"
+          > -->
+          <div
+            @click="getFilterItems(item)"
+            :class="{ 'is-active': currentFilter2 === item.name }"
+            v-for="item in mainCategoryChildren"
             :key="item"
             class="box"
           >
@@ -68,9 +75,15 @@
               <el-col
                 :md="6"
                 :sm="24"
+                v-for="group in mainCategoryChildren"
+                :key="group"
+              >
+                <!-- <el-col
+                :md="6"
+                :sm="24"
                 v-for="group in dynamicFilterGroup"
                 :key="group.id"
-              >
+              > -->
                 <p>{{ group.name }}</p>
                 <template v-for="item in dynamicFilters" :key="item">
                   <el-checkbox-group v-model="checkList[`${item.group}`]">
@@ -860,6 +873,9 @@ export default {
     dynamicFilters() {
       return this.$store.getters["dashboard/dynamicFilters"];
     },
+    mainCategoryChildren() {
+      return this.$store.getters["dashboard/mainCategoryChildren"];
+    },
     checkList: {
       get() {
         return this.$store.getters["search/checkList"];
@@ -1048,6 +1064,10 @@ export default {
     changeFilter(item) {
       this.currentFilter = item.name;
       console.log(item);
+      this.$store.commit(
+        "dashboard/SET_MAIN_CATEGORY_CHILDREN",
+        item.resources.children
+      );
       this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", item.name);
       this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", item.slug);
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
@@ -1110,6 +1130,7 @@ export default {
 <style scoped>
 .advanced-search-dialog :deep(.el-overlay-dialog) {
   top: -70px;
+  overflow-y: hidden;
 }
 
 .advanced-search-dialog :deep(.el-dialog) {

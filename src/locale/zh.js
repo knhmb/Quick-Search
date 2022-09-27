@@ -181,6 +181,9 @@ const zh = {
   IN_REVIEW: "已確認",
   BOOKED: "已完成",
   select_date_time: "請選擇日期和時間",
+  your_email_has_been_reset:
+    "你的密碼已重設並傳送到你的電郵，請檢查你的電子郵箱。",
+  sure: "確定",
 
   // showing_search_results: '顯示 0 項搜尋結果'
 };
