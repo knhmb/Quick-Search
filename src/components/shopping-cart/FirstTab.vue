@@ -251,11 +251,20 @@ export default {
     },
     handleSelected(day) {
       console.log(day);
+      const d = new Date(day.id);
+      const h = d.setHours(0, 0, 0);
+      console.log(new Date(h));
+      console.log(new Date(h).toISOString());
+      // console.log(d.setHours(0, 0, 0));
       console.log(new Date(day.id).toISOString());
-      const firstDay = new Date(day.id).toISOString();
-      const lastDay = new Date(day.id).toISOString();
+      const firstDay = new Date(h).toISOString();
+      const lastDay = new Date(h).toISOString();
       console.log(firstDay);
       console.log(lastDay);
+      console.log(this.schedules);
+      console.log(this.dateArray[0]);
+      console.log(new Date(this.dateArray[0].start));
+      console.log(new Date(this.dateArray[0].start).toISOString());
       this.$store
         .dispatch("dashboard/getSchedules", {
           firstDay,
@@ -269,18 +278,6 @@ export default {
             this.isButtonDisabled = false;
           }
         });
-      // this.$store
-      //   .dispatch("dashboard/getSchedules", { firstDay, lastDay })
-      //   .then(() => {
-      //     console.log(this.schedules);
-      //     this.schedules.forEach((item) => {
-      //       this.dateArray.push({
-      //         start: new Date(item.date),
-      //         end: new Date(item.date),
-      //       });
-      //       console.log(this.dateArray);
-      //     });
-      //   });
     },
     handleNewMonth(day) {
       this.dateArray = [];
@@ -322,8 +319,10 @@ export default {
           console.log(this.schedules);
           this.schedules.forEach((item) => {
             this.dateArray.push({
-              start: new Date(item.date),
-              end: new Date(item.date),
+              // start: new Date(item.date),
+              // end: new Date(item.date),
+              start: item.date,
+              end: item.date,
             });
             console.log(this.dateArray);
           });
@@ -450,8 +449,10 @@ export default {
         // console.log(this.schedules);
         this.schedules.forEach((item) => {
           this.dateArray.push({
-            start: new Date(item.date),
-            end: new Date(item.date),
+            start: item.date,
+            end: item.date,
+            // start: new Date(item.date),
+            // end: new Date(item.date),
           });
           console.log(this.dateArray);
         });
