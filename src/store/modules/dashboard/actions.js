@@ -62,9 +62,13 @@ export default {
         "accept-language": i18n.global.locale,
       },
       params: {
-        filter: `date:{"$gte":"${payload.firstDay}","$lte":"${payload.lastDay}"}`,
-        shop: payload.slug,
+        filter: `date:{"$gte":"${payload.firstDay}","$lte":"${payload.lastDay}"},shop:${payload.slug}`,
+        // shop: payload.slug,
       },
+      // params: {
+      //   filter: `date:{"$gte":"${payload.firstDay}","$lte":"${payload.lastDay}"}`,
+      //   shop: payload.slug,
+      // },
     });
     console.log(response);
     context.commit("SET_SCHEDULES", response.data.items);

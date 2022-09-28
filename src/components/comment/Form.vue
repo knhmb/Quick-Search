@@ -31,7 +31,7 @@
         <el-col :sm="24" :md="19">
           <el-upload
             v-model:file-list="fileList"
-            action="http://localhost:8080/api/v1/system/uploads"
+            :action="`${windowProtocol}//${windowHostname}/api/v1/system/uploads`"
             list-type="picture-card"
             :on-remove="handleRemove"
             :on-success="handleSuccess1"

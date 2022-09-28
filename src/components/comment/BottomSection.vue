@@ -6,8 +6,16 @@
           <p>
             {{ $t("agreement_note") }}
             <span>{{ $t("trade") }}</span> {{ $t("and_agree") }}
-            <span>{{ $t("terms_of_use") }}</span> {{ $t("and") }}
-            <span>{{ $t("privacy_policy") }}</span
+            <span
+              style="cursor: pointer"
+              @click="$router.push('/terms-of-use')"
+              >{{ $t("terms_of_use") }}</span
+            >
+            {{ $t("and") }}
+            <span
+              style="cursor: pointer"
+              @click="$router.push('/privacy-policy')"
+              >{{ $t("privacy_policy") }}</span
             >{{ $i18n.locale === "en-us" ? "." : "。" }}
           </p>
         </el-col>
