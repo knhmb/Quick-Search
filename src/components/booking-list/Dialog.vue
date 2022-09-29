@@ -9,7 +9,7 @@
       <img :src="singleBooking.thumbnail" alt="" />
       <!-- <img src="../../assets/shop-sample01@2x.jpg" alt="" /> -->
       <div class="content">
-        <div class="box">{{ singleBooking.status }}</div>
+        <div class="box">{{ $t(singleBooking.status) }}</div>
         <!-- <div class="box">已確認</div> -->
         <p>{{ singleBooking.shop }}</p>
         <div class="inner-card">

@@ -43,10 +43,13 @@
           </span>
           <div class="user-logged-in">
             <img
+              :style="{
+                backgroundColor: !currentUserDetails.avatar ? '#fff' : '',
+              }"
               @click="isUserDropdown = !isUserDropdown"
               v-if="isLoggedIn"
               class="avatar-img"
-              src="../../assets/avatar-sample02@2x.jpg"
+              :src="currentUserDetails.avatar"
               alt=""
             />
             <div v-if="isUserDropdown" class="user-dropdown">
@@ -156,6 +159,9 @@ export default {
     authDialog() {
       return this.$store.getters.authDialog;
     },
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
   },
   methods: {
     setLocale(lang) {
@@ -235,6 +241,7 @@ export default {
   width: 2rem;
   border: 1px solid #f5f5f5;
   cursor: pointer;
+  height: 2rem;
 }
 
 .top-header .user-logged-in {
