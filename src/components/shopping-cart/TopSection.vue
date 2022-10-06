@@ -9,9 +9,9 @@
           <!-- <el-breadcrumb-item class="first">{{
             singleItem.category
           }}</el-breadcrumb-item> -->
-          <el-breadcrumb-item class="first">{{
+          <!-- <el-breadcrumb-item class="first">{{
             $t("personal_care")
-          }}</el-breadcrumb-item>
+          }}</el-breadcrumb-item> -->
           <el-breadcrumb-item class="first">{{ category }}</el-breadcrumb-item>
           <!-- <el-breadcrumb-item class="first">{{
             $t("hair_salon")
