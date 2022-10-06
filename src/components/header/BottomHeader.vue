@@ -125,6 +125,9 @@ export default {
       // });
     },
   },
+  mounted() {
+    console.log(this.categories);
+  },
 };
 </script>
 
@@ -138,9 +141,9 @@ export default {
   width: 100%;
 }
 
-.bottom-header .carousel .carousel__slide {
+/* .bottom-header .carousel .carousel__slide {
   margin-left: 1rem;
-}
+} */
 
 .bottom-header .carousel__prev--in-active,
 .bottom-header .carousel__next--in-active {
@@ -168,6 +171,13 @@ export default {
 
 .bottom-header .el-menu .el-sub-menu.is-active {
   border-bottom: 2px solid #985f35;
+}
+
+.bottom-header
+  .el-menu
+  .el-sub-menu__title.el-tooltip__trigger.el-tooltip__trigger {
+  white-space: normal;
+  line-height: normal;
 }
 
 .el-menu--horizontal.custom-menu p {
