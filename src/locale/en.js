@@ -187,6 +187,8 @@ const en = {
   your_email_has_been_reset:
     "Your password has been reset and sent to your email, please check your email.",
   sure: "Sure",
+  "error.account.booking.duplicate-booking":
+    "This date and time have already been booked!",
 };
 
 export default en;

@@ -184,6 +184,7 @@ const zh = {
   your_email_has_been_reset:
     "你的密碼已重設並傳送到你的電郵，請檢查你的電子郵箱。",
   sure: "確定",
+  "error.account.booking.duplicate-booking": "此日期和時間已被預訂",
 
   // showing_search_results: '顯示 0 項搜尋結果'
 };
