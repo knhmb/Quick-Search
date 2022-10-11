@@ -167,6 +167,7 @@
               <el-button class="more" @click="expand('kowloon-stations')"
                 >More</el-button
               >
+              <img src="../../assets/Vector-2.png" alt="" />
             </div>
             <div class="single-area">
               <el-checkbox
@@ -193,6 +194,7 @@
                 @click="expand('new-territories-stations')"
                 >More</el-button
               >
+              <img src="../../assets/Vector-2.png" alt="" />
             </div>
             <div class="single-area">
               <el-checkbox
@@ -214,11 +216,11 @@
                   >{{ city }}</el-checkbox
                 >
               </el-checkbox-group>
-              <el-button
+              <!-- <el-button
                 class="more"
                 @click="expand('island-district-stations')"
                 >More</el-button
-              >
+              > -->
             </div>
           </div>
           <div class="other-filters">
@@ -276,10 +278,10 @@ export default {
   props: ["dialogVisible"],
   data() {
     return {
-      hongKongHeight: "120px",
-      kowloonHeight: "120px",
-      newTerritoriesHeight: "120px",
-      islandDistrictHeight: "120px",
+      hongKongHeight: "190px",
+      kowloonHeight: "190px",
+      newTerritoriesHeight: "190px",
+      islandDistrictHeight: "190px",
       filter: {
         arr: [],
       },
@@ -316,6 +318,22 @@ export default {
         this.$t("sheung_wan"),
         this.$t("central_station"),
         this.$t("admiralty_station"),
+        this.$t("wan_chai_station"),
+        this.$t("cause_way_station"),
+        this.$t("tin_hau_station"),
+        this.$t("fortress_hill_station"),
+        this.$t("north_poll_station"),
+        this.$t("quarry_bay_station"),
+        this.$t("tai_koo_station"),
+        this.$t("sai_wan_ho_station"),
+        this.$t("shau_kei_wan_station"),
+        this.$t("heng_fa_chauen_station"),
+        this.$t("chai_wan_station"),
+        this.$t("ocean_park_station"),
+        this.$t("wong_chuk_hang_station"),
+        this.$t("lei_tung_station"),
+        this.$t("south_horizons_station"),
+        this.$t("hong_kong_station"),
       ],
       kowloonAreas: [
         this.$t("lam_tin_station"),
@@ -324,6 +342,33 @@ export default {
         this.$t("kowloon_bay_station"),
         this.$t("rainbow_station"),
         this.$t("diamond_hill_station"),
+        this.$t("wong_tai_sin_station"),
+        this.$t("lok_fu_station"),
+        this.$t("kowloon_tong_station"),
+        this.$t("shek_kip_mei_station"),
+        this.$t("prince_edward_station"),
+        this.$t("mong_kok_station"),
+        this.$t("yau_mei_tei_station"),
+        this.$t("ho_man_tin_station"),
+        this.$t("whapoa_station"),
+        this.$t("lai_king_station"),
+        this.$t("mei_foo_station"),
+        this.$t("lai_chi_kok_station"),
+        this.$t("cheung_sha_wan_station"),
+        this.$t("sham_shui_po_station"),
+        this.$t("jordan_station"),
+        this.$t("tsim_sha_tsui_station"),
+        this.$t("yau_tong_station"),
+        this.$t("kowloon_station"),
+        this.$t("olympic_station"),
+        this.$t("nam_cheong_station"),
+        this.$t("hung_hom_station"),
+        this.$t("mong_kok_east_station"),
+        this.$t("austin_station"),
+        this.$t("east_tsin_sha_tsui_station"),
+        this.$t("to_kwa_wan_station"),
+        this.$t("sung_wong_toi_station"),
+        this.$t("kai_tak_station"),
       ],
       newTerritories: [
         this.$t("tsuen_wan_station"),
@@ -332,6 +377,36 @@ export default {
         this.$t("kwai_fong_station"),
         this.$t("cannes_station"),
         this.$t("pauline_station"),
+        this.$t("hang_hau_station"),
+        this.$t("tseung_kwan_o_station"),
+        this.$t("tiu_keng_leng_station"),
+        this.$t("tai_wai_station"),
+        this.$t("sha_tin_station"),
+        this.$t("fo_tan_station"),
+        this.$t("raoeoourse_station"),
+        this.$t("university_station"),
+        this.$t("tai_po_market_station"),
+        this.$t("tai_wo_station"),
+        this.$t("fanling_station"),
+        this.$t("sheung_shui_station"),
+        this.$t("lo_wu_station"),
+        this.$t("lok_ma_chau_station"),
+        this.$t("tuen_mun_station"),
+        this.$t("siu_hong_station"),
+        this.$t("tin_shui_wai_station"),
+        this.$t("long_ping_station"),
+        this.$t("yuen_long_station"),
+        this.$t("kam_shueg_road_station"),
+        this.$t("tsuen_wan_west_station"),
+        this.$t("hin_keng_station"),
+        this.$t("che_king_temple_station"),
+        this.$t("sha_tin_wai_station"),
+        this.$t("city_one_station"),
+        this.$t("shek_mun_station"),
+        this.$t("tai_shui_hang_station"),
+        this.$t("heng_on_station"),
+        this.$t("ma_on_shan_station"),
+        this.$t("wu_kai_sha_station"),
       ],
       islandDistrict: [
         this.$t("tsing_yi_station"),
@@ -654,6 +729,22 @@ export default {
           this.$t("sheung_wan"),
           this.$t("central_station"),
           this.$t("admiralty_station"),
+          this.$t("wan_chai_station"),
+          this.$t("cause_way_station"),
+          this.$t("tin_hau_station"),
+          this.$t("fortress_hill_station"),
+          this.$t("north_poll_station"),
+          this.$t("quarry_bay_station"),
+          this.$t("tai_koo_station"),
+          this.$t("sai_wan_ho_station"),
+          this.$t("shau_kei_wan_station"),
+          this.$t("heng_fa_chauen_station"),
+          this.$t("chai_wan_station"),
+          this.$t("ocean_park_station"),
+          this.$t("wong_chuk_hang_station"),
+          this.$t("lei_tung_station"),
+          this.$t("south_horizons_station"),
+          this.$t("hong_kong_station"),
         ];
         this.kowloonAreas = [
           this.$t("lam_tin_station"),
@@ -662,6 +753,33 @@ export default {
           this.$t("kowloon_bay_station"),
           this.$t("rainbow_station"),
           this.$t("diamond_hill_station"),
+          this.$t("wong_tai_sin_station"),
+          this.$t("lok_fu_station"),
+          this.$t("kowloon_tong_station"),
+          this.$t("shek_kip_mei_station"),
+          this.$t("prince_edward_station"),
+          this.$t("mong_kok_station"),
+          this.$t("yau_mei_tei_station"),
+          this.$t("ho_man_tin_station"),
+          this.$t("whapoa_station"),
+          this.$t("lai_king_station"),
+          this.$t("mei_foo_station"),
+          this.$t("lai_chi_kok_station"),
+          this.$t("cheung_sha_wan_station"),
+          this.$t("sham_shui_po_station"),
+          this.$t("jordan_station"),
+          this.$t("tsim_sha_tsui_station"),
+          this.$t("yau_tong_station"),
+          this.$t("kowloon_station"),
+          this.$t("olympic_station"),
+          this.$t("nam_cheong_station"),
+          this.$t("hung_hom_station"),
+          this.$t("mong_kok_east_station"),
+          this.$t("austin_station"),
+          this.$t("east_tsin_sha_tsui_station"),
+          this.$t("to_kwa_wan_station"),
+          this.$t("sung_wong_toi_station"),
+          this.$t("kai_tak_station"),
         ];
         this.newTerritories = [
           this.$t("tsuen_wan_station"),
@@ -670,6 +788,36 @@ export default {
           this.$t("kwai_fong_station"),
           this.$t("cannes_station"),
           this.$t("pauline_station"),
+          this.$t("hang_hau_station"),
+          this.$t("tseung_kwan_o_station"),
+          this.$t("tiu_keng_leng_station"),
+          this.$t("tai_wai_station"),
+          this.$t("sha_tin_station"),
+          this.$t("fo_tan_station"),
+          this.$t("raoeoourse_station"),
+          this.$t("university_station"),
+          this.$t("tai_po_market_station"),
+          this.$t("tai_wo_station"),
+          this.$t("fanling_station"),
+          this.$t("sheung_shui_station"),
+          this.$t("lo_wu_station"),
+          this.$t("lok_ma_chau_station"),
+          this.$t("tuen_mun_station"),
+          this.$t("siu_hong_station"),
+          this.$t("tin_shui_wai_station"),
+          this.$t("long_ping_station"),
+          this.$t("yuen_long_station"),
+          this.$t("kam_shueg_road_station"),
+          this.$t("tsuen_wan_west_station"),
+          this.$t("hin_keng_station"),
+          this.$t("che_king_temple_station"),
+          this.$t("sha_tin_wai_station"),
+          this.$t("city_one_station"),
+          this.$t("shek_mun_station"),
+          this.$t("tai_shui_hang_station"),
+          this.$t("heng_on_station"),
+          this.$t("ma_on_shan_station"),
+          this.$t("wu_kai_sha_station"),
         ];
         this.islandDistrict = [
           this.$t("tsing_yi_station"),
@@ -981,13 +1129,13 @@ export default {
   methods: {
     expand(option) {
       if (option === "hong-kong-stations") {
-        this.hongKongHeight = "400px";
+        this.hongKongHeight = "1500px";
       } else if (option === "kowloon-stations") {
-        this.kowloonHeight = "400px";
+        this.kowloonHeight = "1500px";
       } else if (option === "new-territories-stations") {
-        this.newTerritoriesHeight = "400px";
+        this.newTerritoriesHeight = "1500px";
       } else if (option === "island-district-stations") {
-        this.islandDistrictHeight = "400px";
+        this.islandDistrictHeight = "1500px";
       }
     },
     filterItems(item) {
@@ -1501,6 +1649,7 @@ export default {
 
 .advanced-search-dialog .el-checkbox-group {
   overflow: hidden;
+  transition: 0.7s;
 }
 
 @media screen and (max-width: 991px) {
