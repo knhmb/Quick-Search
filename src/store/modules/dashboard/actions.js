@@ -113,6 +113,18 @@ export default {
     // }
     context.commit("SET_DYNAMIC_FILTER_GROUP", response.data.items);
   },
+  // async getDynamicFilterGroup1(context, payload) {
+  //   const response = await axios.get("/api/v1/shops/filters/items", {
+  //     headers: {
+  //       "accept-language": i18n.global.locale,
+  //     },
+  //     params: {
+  //       filter: `group:${payload}`,
+  //       sort: "createdAt",
+  //     },
+  //   });
+  //   console.log(response);
+  // },
   async getMainCategoryFilter(context, payload) {
     const response = await axios.get("/api/v1/shops/filters/groups", {
       headers: {

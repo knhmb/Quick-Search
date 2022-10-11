@@ -32,7 +32,10 @@
                 <!-- <p>{{ item.category }}</p> -->
                 <template v-for="item in dynamicMainCategoryFilter" :key="item">
                   <template v-for="subItem in item" :key="subItem">
-                    <el-checkbox-group v-model="checkList[`${subItem.group}`]">
+                    <el-checkbox-group
+                      @change="filterItems"
+                      v-model="checkList[`${subItem.group}`]"
+                    >
                       <el-checkbox
                         v-if="group.slug === subItem.group"
                         :label="`&quot;${subItem.slug}&quot;`"
@@ -102,7 +105,7 @@
           <p>{{ $t("filter") }}</p>
           <p class="area">{{ $t("area") }}</p>
           <div class="areas">
-            <el-tree
+            <!-- <el-tree
               @check-change="handleChange"
               @check="dummy"
               :data="data"
@@ -114,19 +117,21 @@
               <template #default="{ node }">
                 <span class="custom-tree-node">
                   <span>{{ node.label }}</span>
-                  <!-- <img src="../../assets/chevron-down-black@2x.png" alt="" /> -->
                 </span>
               </template>
-            </el-tree>
-            <!-- <div class="single-area">
+            </el-tree> -->
+
+            <div class="single-area">
               <el-checkbox
                 v-model="checkAll"
                 class="checkbox-header"
                 :indeterminate="isIndeterminate"
                 @change="handleCheckAllChange"
-                >港島區</el-checkbox
+                >{{ $t("hongkong_island") }}</el-checkbox
               >
               <el-checkbox-group
+                :style="{ 'max-height': hongKongHeight }"
+                class="hong-kong-stations"
                 v-model="checkedCities"
                 @change="handleCheckedCitiesChange"
               >
@@ -134,6 +139,10 @@
                   city
                 }}</el-checkbox>
               </el-checkbox-group>
+              <el-button class="more" @click="expand('hong-kong-stations')"
+                >More</el-button
+              >
+              <img src="../../assets/Vector-2.png" alt="" />
             </div>
             <div class="single-area">
               <el-checkbox
@@ -141,9 +150,10 @@
                 class="checkbox-header"
                 :indeterminate="isIndeterminateKowloon"
                 @change="handleKowloon"
-                >九龍區</el-checkbox
+                >{{ $t("kowloon") }}</el-checkbox
               >
               <el-checkbox-group
+                :style="{ 'max-height': kowloonHeight }"
                 v-model="checkedKowloonAreas"
                 @change="handleCheckedKowloonAreas"
               >
@@ -154,6 +164,9 @@
                   >{{ city }}</el-checkbox
                 >
               </el-checkbox-group>
+              <el-button class="more" @click="expand('kowloon-stations')"
+                >More</el-button
+              >
             </div>
             <div class="single-area">
               <el-checkbox
@@ -161,9 +174,10 @@
                 class="checkbox-header"
                 :indeterminate="isIndeterminateNewTerritories"
                 @change="handleNewTerritories"
-                >新界區</el-checkbox
+                >{{ $t("new_territories") }}</el-checkbox
               >
               <el-checkbox-group
+                :style="{ 'max-height': newTerritoriesHeight }"
                 v-model="checkedNewTerritories"
                 @change="handleCheckedNewTerritories"
               >
@@ -174,6 +188,11 @@
                   >{{ city }}</el-checkbox
                 >
               </el-checkbox-group>
+              <el-button
+                class="more"
+                @click="expand('new-territories-stations')"
+                >More</el-button
+              >
             </div>
             <div class="single-area">
               <el-checkbox
@@ -181,9 +200,10 @@
                 class="checkbox-header"
                 :indeterminate="isIndeterminateIslandDistrict"
                 @change="handleIslandDistrict"
-                >離島區</el-checkbox
+                >{{ $t("islands_district") }}</el-checkbox
               >
               <el-checkbox-group
+                :style="{ 'max-height': islandDistrictHeight }"
                 v-model="checkedIslandDistrict"
                 @change="handleCheckedIslandDistrict"
               >
@@ -194,7 +214,12 @@
                   >{{ city }}</el-checkbox
                 >
               </el-checkbox-group>
-            </div> -->
+              <el-button
+                class="more"
+                @click="expand('island-district-stations')"
+                >More</el-button
+              >
+            </div>
           </div>
           <div class="other-filters">
             <div class="single-filter">
@@ -251,6 +276,10 @@ export default {
   props: ["dialogVisible"],
   data() {
     return {
+      hongKongHeight: "120px",
+      kowloonHeight: "120px",
+      newTerritoriesHeight: "120px",
+      islandDistrictHeight: "120px",
       filter: {
         arr: [],
       },
@@ -281,36 +310,36 @@ export default {
       checkedNewTerritories: [],
       checkedIslandDistrict: [],
       cities: [
-        "堅尼地城站",
-        "香港大學站",
-        "西營盤站",
-        "上環站",
-        "中環站",
-        "金鐘站",
+        this.$t("kennedy_town_station"),
+        this.$t("hongkong_university"),
+        this.$t("sai_ying_pun"),
+        this.$t("sheung_wan"),
+        this.$t("central_station"),
+        this.$t("admiralty_station"),
       ],
       kowloonAreas: [
-        "藍田站",
-        "觀塘站",
-        "牛頭角站",
-        "九龍灣站",
-        "彩虹站",
-        "鑽石山站",
+        this.$t("lam_tin_station"),
+        this.$t("kwun_tong_station"),
+        this.$t("ngau_tau_kok_station"),
+        this.$t("kowloon_bay_station"),
+        this.$t("rainbow_station"),
+        this.$t("diamond_hill_station"),
       ],
       newTerritories: [
-        "荃灣站",
-        "大窩口站",
-        "葵興站",
-        "葵芳站",
-        "康城站",
-        "寶琳站",
+        this.$t("tsuen_wan_station"),
+        this.$t("da_wo_hau_station"),
+        this.$t("kwai_hing_station"),
+        this.$t("kwai_fong_station"),
+        this.$t("cannes_station"),
+        this.$t("pauline_station"),
       ],
       islandDistrict: [
-        "青衣站",
-        "欣澳站",
-        "迪士尼站",
-        "東涌站",
-        "機場站",
-        "博覽館站",
+        this.$t("tsing_yi_station"),
+        this.$t("sunny_bay_station"),
+        this.$t("disney_station"),
+        this.$t("tung_chung_station"),
+        this.$t("airport_station"),
+        this.$t("expo_station"),
       ],
       searchItems: [
         {
@@ -406,7 +435,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "堅尼地城站"
-                  : "Kenny Town Station",
+                  : "Kennedy Town Station",
             },
             {
               id: 3,
@@ -618,227 +647,259 @@ export default {
     $i18n: {
       deep: true,
       handler() {
-        this.data = [
-          {
-            id: 1,
-            label:
-              this.$i18n.locale === "zh-Hant-HK"
-                ? "港島區"
-                : "Hong Kong Island",
-            children: [
-              {
-                id: 2,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "堅尼地城站"
-                    : "Kenny Town Station",
-              },
-              {
-                id: 3,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "香港大學站"
-                    : "Hong Kong University Station",
-                disabled: false,
-              },
-              {
-                id: 4,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "西營盤站"
-                    : "Sai Ying Pun Station",
-                disabled: false,
-              },
-              {
-                id: 5,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "上環站"
-                    : "Sheung Wan Station",
-                disabled: false,
-              },
-              {
-                id: 6,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "中環站"
-                    : "Central Station",
-                disabled: false,
-              },
-              {
-                id: 7,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "金鐘站"
-                    : "Admiralty Station",
-                disabled: false,
-              },
-            ],
-          },
-          {
-            id: 2,
-            label: this.$i18n.locale === "zh-Hant-HK" ? "九龍區" : "Kowloon",
-            children: [
-              {
-                id: 2,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "藍田站"
-                    : "Lam Tin Station",
-              },
-              {
-                id: 3,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "觀塘站"
-                    : "Kwun Tong Station",
-                disabled: false,
-              },
-              {
-                id: 4,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "牛頭角站"
-                    : "Ngau Tau Kok Station",
-                disabled: false,
-              },
-              {
-                id: 5,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "九龍灣站"
-                    : "Kowloon Bay Station",
-                disabled: false,
-              },
-              {
-                id: 6,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "彩虹站"
-                    : "Rainbow Station",
-                disabled: false,
-              },
-              {
-                id: 7,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "鑽石山站"
-                    : "Diamond Hill Station",
-                disabled: false,
-              },
-            ],
-          },
-          {
-            id: 3,
-            label:
-              this.$i18n.locale === "zh-Hant-HK" ? "新界區" : "New Territories",
-            children: [
-              {
-                id: 2,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "荃灣站"
-                    : "Tsuen Wan Station",
-              },
-              {
-                id: 3,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "大窩口站"
-                    : "Da Wo Hau Station",
-                disabled: false,
-              },
-              {
-                id: 4,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "葵興站"
-                    : "Kwai Hing Station",
-                disabled: false,
-              },
-              {
-                id: 5,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "葵芳站"
-                    : "Kwai Fong Station",
-                disabled: false,
-              },
-              {
-                id: 6,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "康城站"
-                    : "Cannes Station",
-                disabled: false,
-              },
-              {
-                id: 7,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "寶琳站"
-                    : "Pauline Station",
-                disabled: false,
-              },
-            ],
-          },
-          {
-            id: 4,
-            label:
-              this.$i18n.locale === "zh-Hant-HK"
-                ? "離島區"
-                : "Islands District",
-            children: [
-              {
-                id: 2,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "青衣站"
-                    : "Tsing Yi Station",
-              },
-              {
-                id: 3,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "欣澳站"
-                    : "Sunny Bay Station",
-                disabled: false,
-              },
-              {
-                id: 4,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "迪士尼站"
-                    : "Disney Station",
-                disabled: false,
-              },
-              {
-                id: 5,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "東涌站"
-                    : "Tung Chung Station",
-                disabled: false,
-              },
-              {
-                id: 6,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "機場站"
-                    : "airport station",
-                disabled: false,
-              },
-              {
-                id: 7,
-                label:
-                  this.$i18n.locale === "zh-Hant-HK"
-                    ? "博覽館站"
-                    : "Expo Station",
-                disabled: false,
-              },
-            ],
-          },
+        this.cities = [
+          this.$t("kennedy_town_station"),
+          this.$t("hongkong_university"),
+          this.$t("sai_ying_pun"),
+          this.$t("sheung_wan"),
+          this.$t("central_station"),
+          this.$t("admiralty_station"),
         ];
+        this.kowloonAreas = [
+          this.$t("lam_tin_station"),
+          this.$t("kwun_tong_station"),
+          this.$t("ngau_tau_kok_station"),
+          this.$t("kowloon_bay_station"),
+          this.$t("rainbow_station"),
+          this.$t("diamond_hill_station"),
+        ];
+        this.newTerritories = [
+          this.$t("tsuen_wan_station"),
+          this.$t("da_wo_hau_station"),
+          this.$t("kwai_hing_station"),
+          this.$t("kwai_fong_station"),
+          this.$t("cannes_station"),
+          this.$t("pauline_station"),
+        ];
+        this.islandDistrict = [
+          this.$t("tsing_yi_station"),
+          this.$t("sunny_bay_station"),
+          this.$t("disney_station"),
+          this.$t("tung_chung_station"),
+          this.$t("airport_station"),
+          this.$t("expo_station"),
+        ];
+        // this.data = [
+        //   {
+        //     id: 1,
+        //     label:
+        //       this.$i18n.locale === "zh-Hant-HK"
+        //         ? "港島區"
+        //         : "Hong Kong Island",
+        //     children: [
+        //       {
+        //         id: 2,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "堅尼地城站"
+        //             : "Kennedy Town Station",
+        //       },
+        //       {
+        //         id: 3,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "香港大學站"
+        //             : "Hong Kong University Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 4,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "西營盤站"
+        //             : "Sai Ying Pun Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 5,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "上環站"
+        //             : "Sheung Wan Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 6,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "中環站"
+        //             : "Central Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 7,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "金鐘站"
+        //             : "Admiralty Station",
+        //         disabled: false,
+        //       },
+        //     ],
+        //   },
+        //   {
+        //     id: 2,
+        //     label: this.$i18n.locale === "zh-Hant-HK" ? "九龍區" : "Kowloon",
+        //     children: [
+        //       {
+        //         id: 2,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "藍田站"
+        //             : "Lam Tin Station",
+        //       },
+        //       {
+        //         id: 3,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "觀塘站"
+        //             : "Kwun Tong Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 4,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "牛頭角站"
+        //             : "Ngau Tau Kok Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 5,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "九龍灣站"
+        //             : "Kowloon Bay Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 6,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "彩虹站"
+        //             : "Rainbow Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 7,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "鑽石山站"
+        //             : "Diamond Hill Station",
+        //         disabled: false,
+        //       },
+        //     ],
+        //   },
+        //   {
+        //     id: 3,
+        //     label:
+        //       this.$i18n.locale === "zh-Hant-HK" ? "新界區" : "New Territories",
+        //     children: [
+        //       {
+        //         id: 2,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "荃灣站"
+        //             : "Tsuen Wan Station",
+        //       },
+        //       {
+        //         id: 3,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "大窩口站"
+        //             : "Da Wo Hau Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 4,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "葵興站"
+        //             : "Kwai Hing Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 5,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "葵芳站"
+        //             : "Kwai Fong Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 6,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "康城站"
+        //             : "Cannes Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 7,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "寶琳站"
+        //             : "Pauline Station",
+        //         disabled: false,
+        //       },
+        //     ],
+        //   },
+        //   {
+        //     id: 4,
+        //     label:
+        //       this.$i18n.locale === "zh-Hant-HK"
+        //         ? "離島區"
+        //         : "Islands District",
+        //     children: [
+        //       {
+        //         id: 2,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "青衣站"
+        //             : "Tsing Yi Station",
+        //       },
+        //       {
+        //         id: 3,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "欣澳站"
+        //             : "Sunny Bay Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 4,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "迪士尼站"
+        //             : "Disney Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 5,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "東涌站"
+        //             : "Tung Chung Station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 6,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "機場站"
+        //             : "airport station",
+        //         disabled: false,
+        //       },
+        //       {
+        //         id: 7,
+        //         label:
+        //           this.$i18n.locale === "zh-Hant-HK"
+        //             ? "博覽館站"
+        //             : "Expo Station",
+        //         disabled: false,
+        //       },
+        //     ],
+        //   },
+        // ];
       },
     },
   },
@@ -918,6 +979,22 @@ export default {
     // },
   },
   methods: {
+    expand(option) {
+      if (option === "hong-kong-stations") {
+        this.hongKongHeight = "400px";
+      } else if (option === "kowloon-stations") {
+        this.kowloonHeight = "400px";
+      } else if (option === "new-territories-stations") {
+        this.newTerritoriesHeight = "400px";
+      } else if (option === "island-district-stations") {
+        this.islandDistrictHeight = "400px";
+      }
+    },
+    filterItems(item) {
+      console.log(item.toString().replaceAll('"', ""));
+      const final = item.toString().replaceAll('"', "");
+      this.$store.dispatch("dashboard/getDynamicFilterGroup1", final);
+    },
     setFilter(item) {
       this.currentFilter = item.name;
       this.$store.dispatch("dashboard/getFiltersGroup", item.parent);
@@ -1013,17 +1090,18 @@ export default {
       const areas = [];
 
       this.checkedCities.forEach((city) => {
-        areas.push(city);
+        areas.push(`"${city}"`);
       });
       this.checkedKowloonAreas.forEach((city) => {
-        areas.push(city);
+        areas.push(`"${city}"`);
       });
       this.checkedNewTerritories.forEach((city) => {
-        areas.push(city);
+        areas.push(`"${city}"`);
       });
       this.checkedIslandDistrict.forEach((city) => {
-        areas.push(city);
+        areas.push(`"${city}"`);
       });
+
       console.log(areas);
 
       const dataObject = {
@@ -1031,10 +1109,9 @@ export default {
         dynamicFilter1: arr,
         // dynamicFilter: finalData,
         discount: discountData,
-        area:
-          this.filterArray.length > 0 ? `{"$in":[${this.filterArray}]}` : "",
-        // area: areas.length > 0 ? `{"$in":["${areas}"]}` : "",
-        // area: areas.length > 0 ? areas.toString().replaceAll(",", "|") : "",
+        area: areas.length > 0 ? `{"$in":[${areas}]}` : "",
+        // area:
+        //   this.filterArray.length > 0 ? `{"$in":[${this.filterArray}]}` : "",
         price: this.priceRange,
         paymentMethod: paymentData,
         // paymentMethod:
@@ -1079,6 +1156,7 @@ export default {
       this.checkedCities = val ? this.cities : [];
       this.isIndeterminate = false;
       console.log(val);
+      console.log(this.checkedCities);
     },
     handleCheckedCitiesChange(value) {
       console.log(value);
@@ -1086,6 +1164,7 @@ export default {
       this.checkAll = checkedCount === this.cities.length;
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < this.cities.length;
+      console.log(this.checkedCities);
     },
     handleKowloon(val) {
       this.checkedKowloonAreas = val ? this.kowloonAreas : [];
@@ -1250,8 +1329,8 @@ export default {
 }
 
 .advanced-search-dialog .body .areas {
-  /* display: flex;
-  justify-content: space-between; */
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 2rem;
 }
 
@@ -1399,6 +1478,29 @@ export default {
   .el-tree
   :deep(.el-icon.el-tree-node__expand-icon.is-leaf) {
   color: transparent;
+}
+
+.advanced-search-dialog .el-button.more {
+  margin: 0;
+  background: transparent;
+  border: none;
+  color: #985f35;
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  font-feature-settings: "liga" off;
+  display: inline-flex;
+  padding: 0 0.5rem;
+}
+
+.advanced-search-dialog .el-button.more + img {
+  width: 0.7rem;
+}
+
+.advanced-search-dialog .el-checkbox-group {
+  overflow: hidden;
 }
 
 @media screen and (max-width: 991px) {
