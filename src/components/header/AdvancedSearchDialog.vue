@@ -34,7 +34,7 @@
                   <template v-for="subItem in item" :key="subItem">
                     <el-checkbox-group
                       @change="filterItems"
-                      v-model="checkList[`${subItem.group}`]"
+                      v-model="checkList[`meta.${subItem.group}`]"
                     >
                       <el-checkbox
                         v-if="group.slug === subItem.group"
@@ -216,11 +216,6 @@
                   >{{ city }}</el-checkbox
                 >
               </el-checkbox-group>
-              <!-- <el-button
-                class="more"
-                @click="expand('island-district-stations')"
-                >More</el-button
-              > -->
             </div>
           </div>
           <div class="other-filters">
@@ -278,6 +273,7 @@ export default {
   props: ["dialogVisible"],
   data() {
     return {
+      filteringArray: [],
       hongKongHeight: "190px",
       kowloonHeight: "190px",
       newTerritoriesHeight: "190px",
@@ -1139,9 +1135,25 @@ export default {
       }
     },
     filterItems(item) {
-      console.log(item.toString().replaceAll('"', ""));
-      const final = item.toString().replaceAll('"', "");
-      this.$store.dispatch("dashboard/getDynamicFilterGroup1", final);
+      // item.forEach((item) => {
+      //   this.filteringArray.push(item);
+      // });
+      // console.log(item);
+      // console.log(this.filteringArray);
+      console.log(item);
+      console.log(this.checkList);
+      console.log(this.checkList.toString());
+      // const arr = [];
+      // for (const key in this.checkList) {
+      //   console.log(`${key}:{"$in":[${this.checkList[key]}]}`);
+      //   arr.push(`${key}:{"$in":[${this.checkList[key]}]}`);
+      // }
+      // console.log(arr);
+      // console.log(arr.toString());
+      // console.log(item.toString());
+      // console.log(item.toString().replaceAll('"', ""));
+      // const final = item.toString().replaceAll('"', "");
+      // this.$store.dispatch("dashboard/getDynamicFilterGroup1", final);
     },
     setFilter(item) {
       this.currentFilter = item.name;

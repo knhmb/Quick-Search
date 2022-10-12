@@ -129,7 +129,7 @@
               <template v-for="subItem in item" :key="subItem">
                 <el-checkbox-group
                   @change="handleDiscount(subItem.slug)"
-                  v-model="checkList[`${subItem.group}`]"
+                  v-model="checkList[`meta.${subItem.group}`]"
                 >
                   <el-checkbox
                     v-if="group.slug === subItem.group"
