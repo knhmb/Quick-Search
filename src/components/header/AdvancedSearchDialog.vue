@@ -139,9 +139,9 @@
                   city
                 }}</el-checkbox>
               </el-checkbox-group>
-              <el-button class="more" @click="expand('hong-kong-stations')"
-                >More</el-button
-              >
+              <el-button class="more" @click="expand('hong-kong-stations')">{{
+                $t("more")
+              }}</el-button>
               <img src="../../assets/Vector-2.png" alt="" />
             </div>
             <div class="single-area">
@@ -164,9 +164,9 @@
                   >{{ city }}</el-checkbox
                 >
               </el-checkbox-group>
-              <el-button class="more" @click="expand('kowloon-stations')"
-                >More</el-button
-              >
+              <el-button class="more" @click="expand('kowloon-stations')">{{
+                $t("more")
+              }}</el-button>
               <img src="../../assets/Vector-2.png" alt="" />
             </div>
             <div class="single-area">
@@ -192,7 +192,7 @@
               <el-button
                 class="more"
                 @click="expand('new-territories-stations')"
-                >More</el-button
+                >{{ $t("more") }}</el-button
               >
               <img src="../../assets/Vector-2.png" alt="" />
             </div>
