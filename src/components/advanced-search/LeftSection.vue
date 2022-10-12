@@ -215,7 +215,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "堅尼地城站"
-                  : "Kenny Town Station",
+                  : "Kennedy Town Station",
             },
             {
               id: 3,
@@ -255,6 +255,134 @@ export default {
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "金鐘站"
                   : "Admiralty Station",
+              disabled: false,
+            },
+            {
+              id: 8,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "灣仔站"
+                  : "Wan Chai Station",
+              disabled: false,
+            },
+            {
+              id: 9,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "銅鑼灣站"
+                  : "Causeway Bay Station",
+              disabled: false,
+            },
+            {
+              id: 10,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "天后站"
+                  : "Tin Hau Station",
+              disabled: false,
+            },
+            {
+              id: 11,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "炮台山站"
+                  : "Fortress Hill Station",
+              disabled: false,
+            },
+            {
+              id: 12,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "北角站"
+                  : "North Point Station",
+              disabled: false,
+            },
+            {
+              id: 13,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "鰂魚涌站"
+                  : "Quarry Bay Station",
+              disabled: false,
+            },
+            {
+              id: 14,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "太古站"
+                  : "Tai Koo Station",
+              disabled: false,
+            },
+            {
+              id: 15,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "西灣河站"
+                  : "Sai Wan Ho Station",
+              disabled: false,
+            },
+            {
+              id: 16,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "筲箕灣站"
+                  : "Shau Kei Wan Station",
+              disabled: false,
+            },
+            {
+              id: 17,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "杏花邨站"
+                  : "Heng Fa Chuen Station",
+              disabled: false,
+            },
+            {
+              id: 18,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "柴灣站"
+                  : "Chai Wan Station",
+              disabled: false,
+            },
+            {
+              id: 19,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "海洋公園站"
+                  : "Ocean Park Station",
+              disabled: false,
+            },
+            {
+              id: 20,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "黃竹坑站"
+                  : "Wong Chuk Hang Station",
+              disabled: false,
+            },
+            {
+              id: 21,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "利東站"
+                  : "Lei Tung Station",
+              disabled: false,
+            },
+            {
+              id: 22,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "海怡半島站"
+                  : "South Horizons Station",
+              disabled: false,
+            },
+            {
+              id: 23,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "香港站"
+                  : "Hong Kong Station",
               disabled: false,
             },
           ],
@@ -443,7 +571,7 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "堅尼地城站"
-                    : "Kenny Town Station",
+                    : "Kennedy Town Station",
               },
               {
                 id: 3,
@@ -483,6 +611,134 @@ export default {
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "金鐘站"
                     : "Admiralty Station",
+                disabled: false,
+              },
+              {
+                id: 8,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "灣仔站"
+                    : "Wan Chai Station",
+                disabled: false,
+              },
+              {
+                id: 9,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "銅鑼灣站"
+                    : "Causeway Bay Station",
+                disabled: false,
+              },
+              {
+                id: 10,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "天后站"
+                    : "Tin Hau Station",
+                disabled: false,
+              },
+              {
+                id: 11,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "炮台山站"
+                    : "Fortress Hill Station",
+                disabled: false,
+              },
+              {
+                id: 12,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "北角站"
+                    : "North Point Station",
+                disabled: false,
+              },
+              {
+                id: 13,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "鰂魚涌站"
+                    : "Quarry Bay Station",
+                disabled: false,
+              },
+              {
+                id: 14,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "太古站"
+                    : "Tai Koo Station",
+                disabled: false,
+              },
+              {
+                id: 15,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "西灣河站"
+                    : "Sai Wan Ho Station",
+                disabled: false,
+              },
+              {
+                id: 16,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "筲箕灣站"
+                    : "Shau Kei Wan Station",
+                disabled: false,
+              },
+              {
+                id: 17,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "杏花邨站"
+                    : "Heng Fa Chuen Station",
+                disabled: false,
+              },
+              {
+                id: 18,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "柴灣站"
+                    : "Chai Wan Station",
+                disabled: false,
+              },
+              {
+                id: 19,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "海洋公園站"
+                    : "Ocean Park Station",
+                disabled: false,
+              },
+              {
+                id: 20,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "黃竹坑站"
+                    : "Wong Chuk Hang Station",
+                disabled: false,
+              },
+              {
+                id: 21,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "利東站"
+                    : "Lei Tung Station",
+                disabled: false,
+              },
+              {
+                id: 22,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "海怡半島站"
+                    : "South Horizons Station",
+                disabled: false,
+              },
+              {
+                id: 23,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "香港站"
+                    : "Hong Kong Station",
                 disabled: false,
               },
             ],
