@@ -283,6 +283,8 @@ const zh = {
   heng_on_station: "恒安站",
   ma_on_shan_station: "馬鞍山站",
   wu_kai_sha_station: "烏溪沙站",
+  added_to_favorites: "商店已添加到收藏夾",
+  share_to: "分享到",
 
   // showing_search_results: '顯示 0 項搜尋結果'
 };

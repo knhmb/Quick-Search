@@ -3,7 +3,35 @@
     <base-card>
       <h4>{{ $t("message_management") }}</h4>
       <el-row>
-        <el-col>
+        <el-col v-for="item in profileMessages" :key="item">
+          <div class="card">
+            <div class="header">
+              <div class="avatar">
+                <div class="pill"></div>
+                <img :src="item.resources.account.avatar" alt="" />
+              </div>
+              <div class="text">
+                <p class="name">{{ item.title }}</p>
+                <p>{{ item.shop }} - {{ filterDate(item.createdAt) }}</p>
+              </div>
+            </div>
+            <div class="main">
+              <el-row>
+                <el-col :span="21">
+                  <div class="paragraphs">
+                    <p>
+                      {{ item.content }}
+                    </p>
+                  </div>
+                </el-col>
+                <el-col style="display: flex" :span="3">
+                  <p class="brown">{{ $t("put_away") }}</p>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
+        </el-col>
+        <!-- <el-col>
           <div class="card">
             <div class="header">
               <div class="avatar">
@@ -37,8 +65,8 @@
               </el-row>
             </div>
           </div>
-        </el-col>
-        <el-col v-for="item in 7" :key="item">
+        </el-col> -->
+        <!-- <el-col v-for="item in 7" :key="item">
           <div class="card">
             <div class="header">
               <div class="avatar">
@@ -64,13 +92,13 @@
               </el-row>
             </div>
           </div>
-        </el-col>
+        </el-col> -->
       </el-row>
       <el-pagination
         small
         background
         layout="prev, pager, next"
-        :total="80"
+        :total="profileMessages.length"
         pager-count="8"
       />
     </base-card>
@@ -79,6 +107,7 @@
 
 <script>
 import { ElNotification } from "element-plus";
+import moment from "moment";
 
 export default {
   watch: {
@@ -89,18 +118,35 @@ export default {
       },
     },
   },
+  computed: {
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
+    profileMessages() {
+      return this.$store.getters["profile/profileMessages"];
+    },
+  },
   methods: {
+    filterDate(date) {
+      return moment(date).format("YYYY-MM-DD");
+    },
     getComments() {
       this.$store
         .dispatch("auth/checkAccessToken")
         .then(() => {
-          this.$store.dispatch("profile/getComments");
+          this.$store.dispatch(
+            "profile/getComments",
+            this.currentUserDetails.id
+          );
         })
         .catch(() => {
           this.$store
             .dispatch("auth/checkRefreshToken")
             .then(() => {
-              this.$store.dispatch("profile/getComments");
+              this.$store.dispatch(
+                "profile/getComments",
+                this.currentUserDetails.id
+              );
             })
             .catch(() => {
               ElNotification({
@@ -143,7 +189,7 @@ export default {
 }
 
 .notification .card .avatar {
-  background: #985f35;
+  /* background: #985f35; */
   border-radius: 100%;
   width: 3rem;
   height: 3rem;
@@ -159,6 +205,12 @@ export default {
   border-radius: 100%;
   right: 0;
   top: 0;
+}
+
+.notification .card .avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
 }
 
 .notification .card p.name {
@@ -207,6 +259,7 @@ export default {
 
 .notification .main .paragraphs p {
   text-align: start;
+  word-break: break-all;
 }
 
 .notification .main p {

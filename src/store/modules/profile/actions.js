@@ -66,7 +66,7 @@ export default {
     console.log(response);
     context.commit("SET_PROMOTIONS", response.data.items);
   },
-  async getComments() {
+  async getComments(context, payload) {
     const userToken = sessionStorage.getItem("accessToken");
 
     const response = await axios.get("/api/v1/accounts/comments", {
@@ -74,8 +74,12 @@ export default {
         Authorization: `Bearer ${userToken}`,
         "accept-language": i18n.global.locale,
       },
+      params: {
+        filter: `account:${payload}`,
+      },
     });
     console.log(response);
+    context.commit("SET_PROFILE_MESSAGES", response.data.items);
   },
   async getAccountPromotions() {
     const userToken = sessionStorage.getItem("accessToken");

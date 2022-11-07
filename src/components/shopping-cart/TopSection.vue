@@ -38,22 +38,48 @@
             <p>{{ singleItem.item.district }} ． $120-320 ． {{ category }}</p>
           </el-col>
           <el-col style="text-align: end" :sm="12" :md="7">
-            <img
-              @click="$router.push('/comment')"
-              class="shop-profile-icon"
-              src="../../assets/shop-profile-comment@2x.png"
-              alt=""
-            />
-            <img
-              class="shop-profile-icon"
-              src="../../assets/shop-profile-share@2x.png"
-              alt=""
-            />
-            <img
-              class="shop-profile-icon"
-              src="../../assets/shop-profile-bookmark@2x.png"
-              alt=""
-            />
+            <div class="social-content">
+              <div class="social-media-share" v-if="isSocialOpen">
+                <p>{{ $t("share_to") }}</p>
+                <div class="media-icons">
+                  <ShareNetwork
+                    network="facebook"
+                    :url="href"
+                    title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
+                    description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
+                    quote="The hot reload is so fast it\'s near instant. - Evan You"
+                    hashtags="vuejs,vite"
+                  >
+                    <img
+                      src="../../assets/share-social-media-facebook.png"
+                      alt=""
+                    />
+                  </ShareNetwork>
+                  <img
+                    src="../../assets/share-social-media-instagram.png"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <img
+                @click="$router.push('/comment')"
+                class="shop-profile-icon"
+                src="../../assets/shop-profile-comment@2x.png"
+                alt=""
+              />
+              <img
+                @click="isSocialOpen = !isSocialOpen"
+                class="shop-profile-icon"
+                src="../../assets/shop-profile-share@2x.png"
+                alt=""
+              />
+              <img
+                @click="checkAccessToken"
+                class="shop-profile-icon"
+                src="../../assets/shop-profile-bookmark@2x.png"
+                alt=""
+              />
+            </div>
           </el-col>
         </el-row>
       </base-container>
@@ -88,19 +114,64 @@
 
 <script>
 import { ArrowRight } from "@element-plus/icons-vue";
+import { ElNotification } from "element-plus";
 
 export default {
   data() {
     return {
       ArrowRight,
+      isSocialOpen: false,
     };
   },
   computed: {
     singleItem() {
       return this.$store.getters["search/singleItem"];
     },
+    currentUserDetails() {
+      return this.$store.getters["auth/currentUserDetails"];
+    },
     category() {
       return this.$store.getters.category;
+    },
+  },
+  methods: {
+    bookmark() {
+      console.log(this.singleItem);
+      console.log(this.currentUserDetails);
+      const data = {
+        account: this.currentUserDetails.id,
+        resource: "shop",
+        resourceRef: this.singleItem.item.slug,
+      };
+      console.log(data);
+      this.$store.dispatch("auth/addToFavorites", data).then(() => {
+        ElNotification({
+          title: "Success",
+          message: this.$t("added_to_favorites"),
+          type: "success",
+        });
+      });
+    },
+    checkAccessToken() {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.bookmark();
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.bookmark();
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: this.$t("token_expired"),
+                type: "error",
+              });
+            });
+        });
     },
   },
   created() {
@@ -207,7 +278,6 @@ export default {
 .top-section .reviews {
   background-color: #fff;
   padding-left: 28%;
-  /* padding-left: 9.4rem; */
 }
 
 .top-section .reviews .container {
@@ -223,6 +293,48 @@ export default {
 .top-section .reviews .container .rating span {
   margin-left: 0.5rem;
   margin-right: 2rem;
+}
+
+.top-section .social-media-share {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  left: 50%;
+  bottom: -5.5rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 7rem;
+}
+
+.top-section .social-media-share p {
+  text-align: start;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.top-section .social-media-share .media-icons {
+  /* display: flex;
+  align-items: center;
+  justify-content: space-between; */
+  width: 100%;
+}
+
+.top-section .social-media-share .media-icons .share-network-facebook {
+  margin-right: 1rem;
+}
+
+.top-section .social-media-share .media-icons img {
+  width: 2rem;
+  cursor: pointer;
+}
+
+.top-section .social-content {
+  position: relative;
+  width: fit-content;
+  margin-left: auto;
 }
 
 @media screen and (max-width: 991px) {

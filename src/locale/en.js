@@ -287,6 +287,8 @@ const en = {
   heng_on_station: "Heng On Station",
   ma_on_shan_station: "Ma On Shan Station",
   wu_kai_sha_station: "Wu Kai Sha Station",
+  added_to_favorites: "Shop has been added to favorites",
+  share_to: "Share to",
 };
 
 export default en;

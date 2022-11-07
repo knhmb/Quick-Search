@@ -25,6 +25,14 @@
   </section>
 </template>
 
+<script>
+export default {
+  created() {
+    this.$store.dispatch("auth/getFavorites");
+  },
+};
+</script>
+
 <style scoped>
 .bookmark h4 {
   font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;

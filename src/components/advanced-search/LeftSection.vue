@@ -427,7 +427,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "彩虹站"
-                  : "Rainbow Station",
+                  : "Choi Hung Station",
               disabled: false,
             },
             {
@@ -436,6 +436,222 @@ export default {
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "鑽石山站"
                   : "Diamond Hill Station",
+              disabled: false,
+            },
+            {
+              id: 8,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "黃大仙站"
+                  : "Wong Tai Sin Station",
+              disabled: false,
+            },
+            {
+              id: 9,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "樂富站"
+                  : "Lok Fu Station",
+              disabled: false,
+            },
+            {
+              id: 10,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "九龍塘站"
+                  : "Kowloon Tong Station",
+              disabled: false,
+            },
+            {
+              id: 11,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "石硤尾站"
+                  : "Shek Kip Mei Station",
+              disabled: false,
+            },
+            {
+              id: 12,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "太子站"
+                  : "Prince Edward Station",
+              disabled: false,
+            },
+            {
+              id: 13,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "旺角站"
+                  : "Mong Kok Station",
+              disabled: false,
+            },
+            {
+              id: 14,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "油麻地站"
+                  : "Yau Ma Tei Station",
+              disabled: false,
+            },
+            {
+              id: 15,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "何文田站"
+                  : "Ho Man Tin Station",
+              disabled: false,
+            },
+            {
+              id: 16,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "黃埔站"
+                  : "Whampoa Station",
+              disabled: false,
+            },
+            {
+              id: 17,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "荔景站"
+                  : "Lai King Station",
+              disabled: false,
+            },
+            {
+              id: 18,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "美孚站"
+                  : "Mei Foo Station",
+              disabled: false,
+            },
+            {
+              id: 19,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "荔枝角站"
+                  : "Lai Chi Kok Station",
+              disabled: false,
+            },
+            {
+              id: 20,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "長沙灣站"
+                  : "Cheung Sha Wan Station",
+              disabled: false,
+            },
+            {
+              id: 21,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "深水埗站"
+                  : "Sham Shui Po Station",
+              disabled: false,
+            },
+            {
+              id: 22,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "佐敦站"
+                  : "Jordan Station",
+              disabled: false,
+            },
+            {
+              id: 23,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "尖沙咀站"
+                  : "Tsim Sha Tsui Station",
+              disabled: false,
+            },
+            {
+              id: 24,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "油塘站"
+                  : "Yau Tong Station",
+              disabled: false,
+            },
+            {
+              id: 25,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "九龍站"
+                  : "Kowloon Station",
+              disabled: false,
+            },
+            {
+              id: 26,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "奧運站"
+                  : "Olympic Station",
+              disabled: false,
+            },
+            {
+              id: 27,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "南昌站"
+                  : "Nam Cheong Station",
+              disabled: false,
+            },
+            {
+              id: 28,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "紅磡站"
+                  : "Hung Hom Station",
+              disabled: false,
+            },
+            {
+              id: 29,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "旺角東站"
+                  : "Mong Kok East Station",
+              disabled: false,
+            },
+            {
+              id: 30,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "柯士甸站"
+                  : "Austin Station",
+              disabled: false,
+            },
+            {
+              id: 31,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "尖東站"
+                  : "East Tsim Sha Tsui Station",
+              disabled: false,
+            },
+            {
+              id: 32,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "土瓜灣站"
+                  : "To Kwa Wan Station",
+              disabled: false,
+            },
+            {
+              id: 33,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "宋皇臺站"
+                  : "Sung Wong Toi Station",
+              disabled: false,
+            },
+            {
+              id: 29,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "啟德站"
+                  : "Kai Tak Station",
               disabled: false,
             },
           ],
@@ -457,7 +673,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "大窩口站"
-                  : "Da Wo Hau Station",
+                  : "Tai Wo Hau Station",
               disabled: false,
             },
             {
@@ -481,7 +697,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "康城站"
-                  : "Cannes Station",
+                  : "LOHAS Park Station",
               disabled: false,
             },
             {
@@ -489,7 +705,245 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "寶琳站"
-                  : "Pauline Station",
+                  : "Po Lam Station",
+              disabled: false,
+            },
+            {
+              id: 8,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "坑口站"
+                  : "Hang Hau Station",
+              disabled: false,
+            },
+            {
+              id: 9,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "將軍澳站"
+                  : "Tseung Kwan O Station",
+              disabled: false,
+            },
+            {
+              id: 10,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "調景嶺站"
+                  : "Tiu Keng Leng Station",
+              disabled: false,
+            },
+            {
+              id: 11,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "大圍站"
+                  : "Tai Wai Station",
+              disabled: false,
+            },
+            {
+              id: 12,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "沙田站"
+                  : "Sha Tin Station",
+              disabled: false,
+            },
+            {
+              id: 13,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "火炭站"
+                  : "Fo Tan Station",
+              disabled: false,
+            },
+            {
+              id: 14,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "馬場站"
+                  : "Racecourse Station",
+              disabled: false,
+            },
+            {
+              id: 15,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "大學站"
+                  : "University Station",
+              disabled: false,
+            },
+            {
+              id: 16,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "大埔墟站"
+                  : "Tai Po Market Station",
+              disabled: false,
+            },
+            {
+              id: 17,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "太和站"
+                  : "Tai Wo Station",
+              disabled: false,
+            },
+            {
+              id: 18,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "粉嶺站"
+                  : "Fanling Station",
+              disabled: false,
+            },
+            {
+              id: 19,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "上水站"
+                  : "Sheung Shui Station",
+              disabled: false,
+            },
+            {
+              id: 20,
+              label:
+                this.$i18n.locale === "zh-Hant-HK" ? "羅湖站" : "Lo Wu Station",
+              disabled: false,
+            },
+            {
+              id: 21,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "落馬洲站"
+                  : "Lok Ma Chau Station",
+              disabled: false,
+            },
+            {
+              id: 22,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "屯門站"
+                  : "Tuen Mun Station",
+              disabled: false,
+            },
+            {
+              id: 23,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "兆康站"
+                  : "Siu Hong Station",
+              disabled: false,
+            },
+            {
+              id: 24,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "天水圍站"
+                  : "Tin Shui Wai Station",
+              disabled: false,
+            },
+            {
+              id: 25,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "朗屏站"
+                  : "Long Ping Station",
+              disabled: false,
+            },
+            {
+              id: 26,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "元朗站"
+                  : "Yuen Long Station",
+              disabled: false,
+            },
+            {
+              id: 27,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "錦上路站"
+                  : "Kam Sheung Road Station",
+              disabled: false,
+            },
+            {
+              id: 28,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "荃灣西站"
+                  : "Tsuen Wan West Station",
+              disabled: false,
+            },
+            {
+              id: 29,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "顯徑站"
+                  : "Hin Keng Station",
+              disabled: false,
+            },
+            {
+              id: 30,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "車公廟站"
+                  : "Che Kung Temple Station",
+              disabled: false,
+            },
+            {
+              id: 31,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "沙田圍站"
+                  : "Sha Tin Wai Station",
+              disabled: false,
+            },
+            {
+              id: 32,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "第一城站"
+                  : "City One Station",
+              disabled: false,
+            },
+            {
+              id: 33,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "石門站"
+                  : "Shek Mun Station",
+              disabled: false,
+            },
+            {
+              id: 34,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "大水坑站"
+                  : "Tai Shui Hang Station",
+              disabled: false,
+            },
+            {
+              id: 35,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "恒安站"
+                  : "Heng On Station",
+              disabled: false,
+            },
+            {
+              id: 36,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "馬鞍山站"
+                  : "Ma On Shan Station",
+              disabled: false,
+            },
+            {
+              id: 37,
+              label:
+                this.$i18n.locale === "zh-Hant-HK"
+                  ? "烏溪沙站"
+                  : "Wu Kai Sha Station",
               disabled: false,
             },
           ],
@@ -519,7 +973,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "迪士尼站"
-                  : "Disney Station",
+                  : "Disneyland Resort Station",
               disabled: false,
             },
             {
@@ -535,7 +989,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "機場站"
-                  : "airport station",
+                  : "Airport station",
               disabled: false,
             },
             {
@@ -543,7 +997,7 @@ export default {
               label:
                 this.$i18n.locale === "zh-Hant-HK"
                   ? "博覽館站"
-                  : "Expo Station",
+                  : "AsiaWorld-Expo Station",
               disabled: false,
             },
           ],
@@ -783,7 +1237,7 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "彩虹站"
-                    : "Rainbow Station",
+                    : "Choi Hung Station",
                 disabled: false,
               },
               {
@@ -792,6 +1246,222 @@ export default {
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "鑽石山站"
                     : "Diamond Hill Station",
+                disabled: false,
+              },
+              {
+                id: 8,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "黃大仙站"
+                    : "Wong Tai Sin Station",
+                disabled: false,
+              },
+              {
+                id: 9,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "樂富站"
+                    : "Lok Fu Station",
+                disabled: false,
+              },
+              {
+                id: 10,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "九龍塘站"
+                    : "Kowloon Tong Station",
+                disabled: false,
+              },
+              {
+                id: 11,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "石硤尾站"
+                    : "Shek Kip Mei Station",
+                disabled: false,
+              },
+              {
+                id: 12,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "太子站"
+                    : "Prince Edward Station",
+                disabled: false,
+              },
+              {
+                id: 13,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "旺角站"
+                    : "Mong Kok Station",
+                disabled: false,
+              },
+              {
+                id: 14,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "油麻地站"
+                    : "Yau Ma Tei Station",
+                disabled: false,
+              },
+              {
+                id: 15,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "何文田站"
+                    : "Ho Man Tin Station",
+                disabled: false,
+              },
+              {
+                id: 16,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "黃埔站"
+                    : "Whampoa Station",
+                disabled: false,
+              },
+              {
+                id: 17,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "荔景站"
+                    : "Lai King Station",
+                disabled: false,
+              },
+              {
+                id: 18,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "美孚站"
+                    : "Mei Foo Station",
+                disabled: false,
+              },
+              {
+                id: 19,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "荔枝角站"
+                    : "Lai Chi Kok Station",
+                disabled: false,
+              },
+              {
+                id: 20,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "長沙灣站"
+                    : "Cheung Sha Wan Station",
+                disabled: false,
+              },
+              {
+                id: 21,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "深水埗站"
+                    : "Sham Shui Po Station",
+                disabled: false,
+              },
+              {
+                id: 22,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "佐敦站"
+                    : "Jordan Station",
+                disabled: false,
+              },
+              {
+                id: 23,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "尖沙咀站"
+                    : "Tsim Sha Tsui Station",
+                disabled: false,
+              },
+              {
+                id: 24,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "油塘站"
+                    : "Yau Tong Station",
+                disabled: false,
+              },
+              {
+                id: 25,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "九龍站"
+                    : "Kowloon Station",
+                disabled: false,
+              },
+              {
+                id: 26,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "奧運站"
+                    : "Olympic Station",
+                disabled: false,
+              },
+              {
+                id: 27,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "南昌站"
+                    : "Nam Cheong Station",
+                disabled: false,
+              },
+              {
+                id: 28,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "紅磡站"
+                    : "Hung Hom Station",
+                disabled: false,
+              },
+              {
+                id: 29,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "旺角東站"
+                    : "Mong Kok East Station",
+                disabled: false,
+              },
+              {
+                id: 30,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "柯士甸站"
+                    : "Austin Station",
+                disabled: false,
+              },
+              {
+                id: 31,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "尖東站"
+                    : "East Tsim Sha Tsui Station",
+                disabled: false,
+              },
+              {
+                id: 32,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "土瓜灣站"
+                    : "To Kwa Wan Station",
+                disabled: false,
+              },
+              {
+                id: 33,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "宋皇臺站"
+                    : "Sung Wong Toi Station",
+                disabled: false,
+              },
+              {
+                id: 29,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "啟德站"
+                    : "Kai Tak Station",
                 disabled: false,
               },
             ],
@@ -813,7 +1483,7 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "大窩口站"
-                    : "Da Wo Hau Station",
+                    : "Tai Wo Hau Station",
                 disabled: false,
               },
               {
@@ -837,7 +1507,7 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "康城站"
-                    : "Cannes Station",
+                    : "LOHAS Park Station",
                 disabled: false,
               },
               {
@@ -845,7 +1515,247 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "寶琳站"
-                    : "Pauline Station",
+                    : "Po Lam Station",
+                disabled: false,
+              },
+              {
+                id: 8,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "坑口站"
+                    : "Hang Hau Station",
+                disabled: false,
+              },
+              {
+                id: 9,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "將軍澳站"
+                    : "Tseung Kwan O Station",
+                disabled: false,
+              },
+              {
+                id: 10,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "調景嶺站"
+                    : "Tiu Keng Leng Station",
+                disabled: false,
+              },
+              {
+                id: 11,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "大圍站"
+                    : "Tai Wai Station",
+                disabled: false,
+              },
+              {
+                id: 12,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "沙田站"
+                    : "Sha Tin Station",
+                disabled: false,
+              },
+              {
+                id: 13,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "火炭站"
+                    : "Fo Tan Station",
+                disabled: false,
+              },
+              {
+                id: 14,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "馬場站"
+                    : "Racecourse Station",
+                disabled: false,
+              },
+              {
+                id: 15,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "大學站"
+                    : "University Station",
+                disabled: false,
+              },
+              {
+                id: 16,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "大埔墟站"
+                    : "Tai Po Market Station",
+                disabled: false,
+              },
+              {
+                id: 17,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "太和站"
+                    : "Tai Wo Station",
+                disabled: false,
+              },
+              {
+                id: 18,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "粉嶺站"
+                    : "Fanling Station",
+                disabled: false,
+              },
+              {
+                id: 19,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "上水站"
+                    : "Sheung Shui Station",
+                disabled: false,
+              },
+              {
+                id: 20,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "羅湖站"
+                    : "Lo Wu Station",
+                disabled: false,
+              },
+              {
+                id: 21,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "落馬洲站"
+                    : "Lok Ma Chau Station",
+                disabled: false,
+              },
+              {
+                id: 22,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "屯門站"
+                    : "Tuen Mun Station",
+                disabled: false,
+              },
+              {
+                id: 23,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "兆康站"
+                    : "Siu Hong Station",
+                disabled: false,
+              },
+              {
+                id: 24,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "天水圍站"
+                    : "Tin Shui Wai Station",
+                disabled: false,
+              },
+              {
+                id: 25,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "朗屏站"
+                    : "Long Ping Station",
+                disabled: false,
+              },
+              {
+                id: 26,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "元朗站"
+                    : "Yuen Long Station",
+                disabled: false,
+              },
+              {
+                id: 27,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "錦上路站"
+                    : "Kam Sheung Road Station",
+                disabled: false,
+              },
+              {
+                id: 28,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "荃灣西站"
+                    : "Tsuen Wan West Station",
+                disabled: false,
+              },
+              {
+                id: 29,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "顯徑站"
+                    : "Hin Keng Station",
+                disabled: false,
+              },
+              {
+                id: 30,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "車公廟站"
+                    : "Che Kung Temple Station",
+                disabled: false,
+              },
+              {
+                id: 31,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "沙田圍站"
+                    : "Sha Tin Wai Station",
+                disabled: false,
+              },
+              {
+                id: 32,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "第一城站"
+                    : "City One Station",
+                disabled: false,
+              },
+              {
+                id: 33,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "石門站"
+                    : "Shek Mun Station",
+                disabled: false,
+              },
+              {
+                id: 34,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "大水坑站"
+                    : "Tai Shui Hang Station",
+                disabled: false,
+              },
+              {
+                id: 35,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "恒安站"
+                    : "Heng On Station",
+                disabled: false,
+              },
+              {
+                id: 36,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "馬鞍山站"
+                    : "Ma On Shan Station",
+                disabled: false,
+              },
+              {
+                id: 37,
+                label:
+                  this.$i18n.locale === "zh-Hant-HK"
+                    ? "烏溪沙站"
+                    : "Wu Kai Sha Station",
                 disabled: false,
               },
             ],
@@ -877,7 +1787,7 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "迪士尼站"
-                    : "Disney Station",
+                    : "Disneyland Resort Station",
                 disabled: false,
               },
               {
@@ -893,7 +1803,7 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "機場站"
-                    : "airport station",
+                    : "Airport station",
                 disabled: false,
               },
               {
@@ -901,7 +1811,7 @@ export default {
                 label:
                   this.$i18n.locale === "zh-Hant-HK"
                     ? "博覽館站"
-                    : "Expo Station",
+                    : "AsiaWorld-Expo Station",
                 disabled: false,
               },
             ],

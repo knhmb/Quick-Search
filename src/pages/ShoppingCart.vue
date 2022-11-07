@@ -21,14 +21,17 @@
 import TopSection from "../components/shopping-cart/TopSection.vue";
 import LeftSection from "../components/shopping-cart/LeftSection.vue";
 import RightSection from "../components/shopping-cart/RightSection.vue";
-// import moment from "moment";
-// import dayjs from "dayjs";
 
 export default {
   components: {
     TopSection,
     LeftSection,
     RightSection,
+  },
+  computed: {
+    url() {
+      return window.location.href;
+    },
   },
 };
 </script>

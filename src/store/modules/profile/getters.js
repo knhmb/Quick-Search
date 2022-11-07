@@ -8,4 +8,7 @@ export default {
   promotions(state) {
     return state.promotions;
   },
+  profileMessages(state) {
+    return state.profileMessages;
+  },
 };

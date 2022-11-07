@@ -13,4 +13,7 @@ export default {
   SET_PROMOTIONS(state, payload) {
     state.promotions = payload;
   },
+  SET_PROFILE_MESSAGES(state, payload) {
+    state.profileMessages = payload;
+  },
 };

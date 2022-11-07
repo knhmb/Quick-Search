@@ -10,6 +10,8 @@ import i18n from "./i18n";
 import "v-calendar/dist/style.css";
 import VCalendar from "v-calendar";
 
+import VueSocialSharing from "vue-social-sharing";
+
 import BaseContainer from "./ui/BaseContainer";
 import BaseCard from "./ui/BaseCard";
 
@@ -23,5 +25,6 @@ app.use(router);
 app.use(store);
 app.use(VCalendar, {});
 app.use(i18n);
+app.use(VueSocialSharing);
 
 app.mount("#app");

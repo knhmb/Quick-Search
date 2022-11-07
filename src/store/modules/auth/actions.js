@@ -60,4 +60,25 @@ export default {
     sessionStorage.setItem("accessToken", response.data.accessToken);
     sessionStorage.setItem("refreshToken", response.data.refreshToken);
   },
+
+  async addToFavorites(_, payload) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.post("/api/v1/accounts/favourites", payload, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+  },
+  async getFavorites() {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get("/api/v1/accounts/favourites", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+  },
 };

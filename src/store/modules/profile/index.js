@@ -9,6 +9,7 @@ export default {
       bookings: [],
       singleBooking: [],
       promotions: [],
+      profileMessages: [],
     };
   },
   getters,
