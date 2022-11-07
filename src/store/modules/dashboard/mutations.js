@@ -39,27 +39,6 @@ export default {
         state.dynamicFilters.push(item);
       }
     });
-    // state.dynamicFilters = [...arr];
-    // arr.push(payload);
-    // arr.forEach((item) => {
-    //   console.log(item);
-    //   state.dynamicFilters.push(item);
-    // });
-
-    // uniqueAddresses = Array.from(
-    //   new Set(state.dynamicFilters.map((a) => a.id))
-    // ).map((id) => {
-    //   return state.dynamicFilters.find((a) => a.id === id);
-    // });
-
-    // console.log(uniqueAddresses);
-
-    // const found = uniqueAddresses.some((r) => state.dynamicFilters.includes(r));
-    // console.log(found);
-
-    // state.dynamicFilters = result;
-
-    // state.dynamicFilters.push(payload);
     console.log(state.dynamicFilters);
   },
   RESET_DYNAMIC_FILTERS(state) {
@@ -100,5 +79,8 @@ export default {
   },
   RESET_MAIN_CATEGORY_CHILDREN(state) {
     state.mainCategoryChildren = [];
+  },
+  SET_BANNERS(state, payload) {
+    state.banners = payload;
   },
 };

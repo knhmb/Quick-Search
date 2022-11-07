@@ -191,4 +191,8 @@ export default {
     console.log(response);
     context.commit("SET_POPULAR_CATEGORIES", response.data.items);
   },
+  async getBanners(context) {
+    const response = await axios.get("/api/v1/application/banners");
+    context.commit("SET_BANNERS", response.data.items);
+  },
 };

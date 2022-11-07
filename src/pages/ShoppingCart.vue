@@ -11,7 +11,7 @@
         </el-col>
       </el-row>
     </base-container>
-    <div class="img-content">
+    <div class="img-content" v-if="singleItem.item.chatwootWebsiteToken">
       <img class="comment-img" src="../assets/vector.png" alt="" />
     </div>
   </div>
@@ -29,8 +29,8 @@ export default {
     RightSection,
   },
   computed: {
-    url() {
-      return window.location.href;
+    singleItem() {
+      return this.$store.getters["search/singleItem"];
     },
   },
 };

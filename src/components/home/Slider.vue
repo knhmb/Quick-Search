@@ -2,8 +2,8 @@
   <div class="slider">
     <base-container>
       <el-carousel arrow="always" :interval="4000">
-        <el-carousel-item v-for="item in imgs" :key="item">
-          <img :src="item" alt="" />
+        <el-carousel-item v-for="item in banners" :key="item">
+          <img :src="item.thumbnail" alt="" />
         </el-carousel-item>
       </el-carousel>
     </base-container>
@@ -20,6 +20,14 @@ export default {
         `${require("../../assets/featured-sample02@2x.jpg")}`,
       ],
     };
+  },
+  computed: {
+    banners() {
+      return this.$store.getters["dashboard/banners"];
+    },
+  },
+  created() {
+    this.$store.dispatch("dashboard/getBanners");
   },
 };
 </script>

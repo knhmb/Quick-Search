@@ -20,6 +20,7 @@ export default {
       dynamicMainCategoryFilter: [],
       popularCategories: [],
       mainCategoryChildren: [],
+      banners: [],
     };
   },
   getters,

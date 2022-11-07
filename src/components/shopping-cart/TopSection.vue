@@ -46,9 +46,6 @@
                     network="facebook"
                     :url="href"
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
-                    description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
-                    quote="The hot reload is so fast it\'s near instant. - Evan You"
-                    hashtags="vuejs,vite"
                   >
                     <img
                       src="../../assets/share-social-media-facebook.png"
@@ -132,6 +129,9 @@ export default {
     },
     category() {
       return this.$store.getters.category;
+    },
+    href() {
+      return window.location.href;
     },
   },
   methods: {

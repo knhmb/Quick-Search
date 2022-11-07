@@ -41,4 +41,7 @@ export default {
   mainCategoryChildren(state) {
     return state.mainCategoryChildren;
   },
+  banners(state) {
+    return state.banners;
+  },
 };
