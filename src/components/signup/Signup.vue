@@ -12,10 +12,18 @@
             />
           </el-col>
           <el-col :span="2">
-            <img src="../../assets/signup-facebook@2x.png" alt="" />
+            <img
+              @click="signupWithFacebook"
+              src="../../assets/signup-facebook@2x.png"
+              alt=""
+            />
           </el-col>
           <el-col :span="2">
-            <img src="../../assets/signup-google@2x.png" alt="" />
+            <img
+              @click="googleRegister"
+              src="../../assets/signup-google@2x.png"
+              alt=""
+            />
           </el-col>
           <el-col :span="2">
             <img src="../../assets/signup-apple@2x.png" alt="" />
@@ -36,6 +44,8 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
+import { googleTokenLogin } from "vue3-google-login";
 import Form from "./Form.vue";
 
 export default {
@@ -47,10 +57,60 @@ export default {
       isEmail: false,
     };
   },
+  computed: {
+    facebookUserDetails() {
+      return this.$store.getters["auth/facebookUserDetails"];
+    },
+  },
   methods: {
     login() {
       this.$store.commit("changeFormTitle", this.$t("login"));
       // this.$store.commit("changeFormTitle", "登入");
+    },
+    async signupWithFacebook() {
+      const vue = this;
+      window.FB.login(
+        function (response) {
+          console.log(response);
+          if (response.status === "connected") {
+            // Logged into your webpage and Facebook.\
+            vue.$store
+              .dispatch("auth/facebookLogin", response.authResponse.accessToken)
+              .then(() => {
+                console.log(vue.facebookUserDetails);
+                const isAvailable = "accessToken" in vue.facebookUserDetails;
+                console.log(isAvailable);
+                if (!isAvailable) {
+                  vue.$store.commit("OPEN_DIALOG", "register");
+                  return;
+                }
+                vue.$emit("dialogClosed", false);
+              });
+          } else {
+            // The person is not logged into your webpage or we are unable to tell.
+          }
+        },
+        { scope: "public_profile,email" }
+      );
+    },
+    async googleRegister() {
+      googleTokenLogin().then((response) => {
+        console.log(response);
+        if (response.access_token) {
+          this.$store
+            .dispatch("auth/googleLogin", response.access_token)
+            .then(() => {
+              this.$emit("dialogClosed", false);
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: this.$t(err.response.data.message),
+                type: "error",
+              });
+            });
+        }
+      });
     },
   },
 };

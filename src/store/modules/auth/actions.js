@@ -13,7 +13,15 @@ export default {
     sessionStorage.setItem("accessToken", response.data.accessToken);
     sessionStorage.setItem("refreshToken", response.data.refreshToken);
   },
-  logout(context) {
+  async logout(context) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.delete("/api/v1/authenticate", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
     sessionStorage.removeItem("accessToken");
     sessionStorage.removeItem("refreshToken");
     context.commit("LOGOUT");
@@ -89,5 +97,25 @@ export default {
     });
     console.log(response);
     context.commit("SET_FACEBOOK_USER_DETAILS", response.data);
+    context.commit("LOGIN", response.data.item);
+    sessionStorage.setItem("accessToken", response.data.accessToken);
+    sessionStorage.setItem("refreshToken", response.data.refreshToken);
+  },
+  async googleLogin(context, payload) {
+    const response = await axios.get("/api/v1/authenticate/oauth2/google", {
+      params: {
+        access_token: payload,
+      },
+    });
+    console.log(response);
+    context.commit("LOGIN", response.data.item);
+    sessionStorage.setItem("accessToken", response.data.accessToken);
+    sessionStorage.setItem("refreshToken", response.data.refreshToken);
+  },
+  async googleRegister(_, payload) {
+    const response = await axios.post("/api/v1/authenticate/oauth2/google", {
+      id_token: payload,
+    });
+    console.log(response);
   },
 };

@@ -11,7 +11,11 @@
           />
         </el-col>
         <el-col :span="2">
-          <img src="../../assets/signup-google@2x.png" alt="" />
+          <img
+            @click="googleLogin"
+            src="../../assets/signup-google@2x.png"
+            alt=""
+          />
         </el-col>
         <el-col :span="2">
           <img src="../../assets/signup-apple@2x.png" alt="" />
@@ -29,6 +33,8 @@
 </template>
 
 <script>
+import { googleTokenLogin } from "vue3-google-login";
+import { ElNotification } from "element-plus";
 import Form from "./Form.vue";
 
 export default {
@@ -56,11 +62,9 @@ export default {
                 console.log(isAvailable);
                 if (!isAvailable) {
                   vue.$store.commit("OPEN_DIALOG", "register");
+                  return;
                 }
-                // if (this.facebookUserDetails.accessToken !== undefined) {
-                //   return;
-                // }
-                // this.$store.commit("OPEN_DIALOG", "register");
+                vue.$emit("closedDialog", false);
               });
           } else {
             // The person is not logged into your webpage or we are unable to tell.
@@ -68,6 +72,24 @@ export default {
         },
         { scope: "public_profile,email" }
       );
+    },
+    async googleLogin() {
+      googleTokenLogin().then((response) => {
+        if (response.access_token) {
+          this.$store
+            .dispatch("auth/googleLogin", response.access_token)
+            .then(() => {
+              this.$emit("closedDialog", false);
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: this.$t(err.response.data.message),
+                type: "error",
+              });
+            });
+        }
+      });
     },
   },
 };
