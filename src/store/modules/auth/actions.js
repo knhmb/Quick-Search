@@ -81,4 +81,13 @@ export default {
     });
     console.log(response);
   },
+  async facebookLogin(context, payload) {
+    const response = await axios.get("/api/v1/authenticate/oauth2/facebook", {
+      params: {
+        access_token: payload,
+      },
+    });
+    console.log(response);
+    context.commit("SET_FACEBOOK_USER_DETAILS", response.data);
+  },
 };

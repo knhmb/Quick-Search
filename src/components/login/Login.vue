@@ -4,7 +4,11 @@
       <p>{{ $t("login_with_third_party") }}</p>
       <el-row justify="space-evenly">
         <el-col :span="2">
-          <img src="../../assets/signup-facebook@2x.png" alt="" />
+          <img
+            @click="logInWithFacebook"
+            src="../../assets/signup-facebook@2x.png"
+            alt=""
+          />
         </el-col>
         <el-col :span="2">
           <img src="../../assets/signup-google@2x.png" alt="" />
@@ -31,6 +35,41 @@ export default {
   components: {
     Form,
   },
+  computed: {
+    facebookUserDetails() {
+      return this.$store.getters["auth/facebookUserDetails"];
+    },
+  },
+  methods: {
+    async logInWithFacebook() {
+      const vue = this;
+      window.FB.login(
+        function (response) {
+          console.log(response);
+          if (response.status === "connected") {
+            // Logged into your webpage and Facebook.\
+            vue.$store
+              .dispatch("auth/facebookLogin", response.authResponse.accessToken)
+              .then(() => {
+                console.log(vue.facebookUserDetails);
+                const isAvailable = "accessToken" in vue.facebookUserDetails;
+                console.log(isAvailable);
+                if (!isAvailable) {
+                  vue.$store.commit("OPEN_DIALOG", "register");
+                }
+                // if (this.facebookUserDetails.accessToken !== undefined) {
+                //   return;
+                // }
+                // this.$store.commit("OPEN_DIALOG", "register");
+              });
+          } else {
+            // The person is not logged into your webpage or we are unable to tell.
+          }
+        },
+        { scope: "public_profile,email" }
+      );
+    },
+  },
 };
 </script>
 
@@ -49,6 +88,7 @@ export default {
 
 .login img {
   width: 100%;
+  cursor: pointer;
 }
 
 .login .el-divider {

@@ -9,6 +9,7 @@ export default {
       isLoggedIn: false,
       currentUserDetails: [],
       userForgotPasswordDetails: [],
+      facebookUserDetails: [],
     };
   },
   getters,

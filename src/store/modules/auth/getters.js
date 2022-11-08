@@ -8,4 +8,7 @@ export default {
   userForgotPasswordDetails(state) {
     return state.userForgotPasswordDetails;
   },
+  facebookUserDetails(state) {
+    return state.facebookUserDetails;
+  },
 };

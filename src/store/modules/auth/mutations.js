@@ -13,4 +13,7 @@ export default {
   UPDATE_USER(state, payload) {
     state.currentUserDetails.username = payload.username;
   },
+  SET_FACEBOOK_USER_DETAILS(state, payload) {
+    state.facebookUserDetails = payload;
+  },
 };
