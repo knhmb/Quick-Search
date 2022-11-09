@@ -29,7 +29,6 @@ app.use(i18n);
 app.use(VueSocialSharing);
 app.use(vue3GoogleLogin, {
   clientId:
-    // "824016799486-kn6gtoe8mbebgr607m5ksqc5eq16kl09.apps.googleusercontent.com",
     "824016799486-kn6gtoe8mbebgr607m5ksqc5eq16kl09.apps.googleusercontent.com",
 });
 

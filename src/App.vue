@@ -7,6 +7,7 @@
 <script>
 import TheHeader from "./components/common/TheHeader.vue";
 import TheFooter from "./components/common/TheFooter.vue";
+import { initApple } from "./plugins/apple-sdk";
 
 export default {
   components: {
@@ -25,6 +26,9 @@ export default {
         this.$store.dispatch("dashboard/getFiltersItem");
       },
     },
+  },
+  mounted() {
+    initApple();
   },
 };
 </script>

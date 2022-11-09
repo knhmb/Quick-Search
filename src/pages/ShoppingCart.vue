@@ -11,7 +11,7 @@
         </el-col>
       </el-row>
     </base-container>
-    <div class="img-content" v-if="singleItem.item.chatwootWebsiteToken">
+    <div class="img-content" v-if="isChatwootAvailable">
       <img class="comment-img" src="../assets/vector.png" alt="" />
     </div>
   </div>
@@ -31,6 +31,9 @@ export default {
   computed: {
     singleItem() {
       return this.$store.getters["search/singleItem"];
+    },
+    isChatwootAvailable() {
+      return "chatwootWebsiteToken" in this.singleItem.item;
     },
   },
 };

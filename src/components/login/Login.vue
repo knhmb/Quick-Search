@@ -18,7 +18,11 @@
           />
         </el-col>
         <el-col :span="2">
-          <img src="../../assets/signup-apple@2x.png" alt="" />
+          <img
+            @click="appleSignup"
+            src="../../assets/signup-apple@2x.png"
+            alt=""
+          />
         </el-col>
         <el-col :span="2">
           <img src="../../assets/signup-wechat@2x.png" alt="" />
@@ -90,6 +94,21 @@ export default {
             });
         }
       });
+    },
+    async appleSignup() {
+      try {
+        const data = await window.AppleID.auth.signIn();
+        console.log(data);
+        this.$store
+          .dispatch("auth/appleSignup", {
+            id_token: data.authorization.id_token,
+          })
+          .then(() => {
+            this.$emit("closedDialog", false);
+          });
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

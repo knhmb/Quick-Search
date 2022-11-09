@@ -289,6 +289,7 @@ const en = {
   wu_kai_sha_station: "Wu Kai Sha Station",
   added_to_favorites: "Shop has been added to favorites",
   share_to: "Share to",
+  "error.authenticate.duplicate-email": "Email Already in use!",
 };
 
 export default en;

@@ -118,4 +118,14 @@ export default {
     });
     console.log(response);
   },
+  async appleSignup(context, payload) {
+    const response = await axios.post(
+      "/api/v1/authenticate/oauth2/apple",
+      payload
+    );
+    console.log(response);
+    context.commit("LOGIN", response.data.item);
+    sessionStorage.setItem("accessToken", response.data.accessToken);
+    sessionStorage.setItem("refreshToken", response.data.refreshToken);
+  },
 };
