@@ -25,7 +25,28 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
 
+    <!-- Chatwoot Script -->
+    <!-- <script>
+      (function (d, t) {
+        var BASE_URL = "https://app.chatwoot.com";
+        var g = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+        g.src = BASE_URL + "/packs/js/sdk.js";
+        g.defer = true;
+        g.async = true;
+        s.parentNode.insertBefore(g, s);
+        g.onload = function () {
+          window.chatwootSDK.run({
+            websiteToken: "kNytd7JqD57hqSh5sDBbXrpF",
+            baseUrl: BASE_URL,
+          });
+        };
+      })(document, "script");
+    </script> -->
+
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+
+    <!-- Facebook Script -->
     <script
       async
       defer
@@ -33,6 +54,8 @@
       src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0&appId=455710219803294&autoLogAppEvents=1"
       nonce="sTS4ATUL"
     ></script>
+
+    <!-- Apple Script -->
     <script
       type="text/javascript"
       src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"

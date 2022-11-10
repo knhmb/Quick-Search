@@ -11,9 +11,9 @@
         </el-col>
       </el-row>
     </base-container>
-    <div class="img-content" v-if="isChatwootAvailable">
+    <!-- <div class="img-content" v-if="isChatwootAvailable">
       <img class="comment-img" src="../assets/vector.png" alt="" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -21,6 +21,7 @@
 import TopSection from "../components/shopping-cart/TopSection.vue";
 import LeftSection from "../components/shopping-cart/LeftSection.vue";
 import RightSection from "../components/shopping-cart/RightSection.vue";
+import { useChatWoot } from "@huntersofbook/chatwoot-vue";
 
 export default {
   components: {
@@ -35,6 +36,17 @@ export default {
     isChatwootAvailable() {
       return "chatwootWebsiteToken" in this.singleItem.item;
     },
+  },
+  created() {
+    const { toggleBubbleVisibility } = useChatWoot();
+
+    if (this.isChatwootAvailable) {
+      toggleBubbleVisibility("show");
+    }
+  },
+  unmounted() {
+    const { toggleBubbleVisibility } = useChatWoot();
+    toggleBubbleVisibility("hide");
   },
 };
 </script>

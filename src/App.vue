@@ -8,6 +8,7 @@
 import TheHeader from "./components/common/TheHeader.vue";
 import TheFooter from "./components/common/TheFooter.vue";
 import { initApple } from "./plugins/apple-sdk";
+import { useChatWoot } from "@huntersofbook/chatwoot-vue";
 
 export default {
   components: {
@@ -29,6 +30,10 @@ export default {
   },
   mounted() {
     initApple();
+  },
+  created() {
+    const { toggleBubbleVisibility } = useChatWoot();
+    toggleBubbleVisibility("hide");
   },
 };
 </script>
