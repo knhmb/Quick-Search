@@ -3,7 +3,22 @@
     <base-card>
       <h4>{{ $t("my_collection") }}</h4>
       <el-row :gutter="15">
-        <el-col v-for="item in 12" :key="item" :sm="12" :md="8">
+        <el-col v-for="item in favorites" :key="item" :sm="12" :md="8">
+          <div class="card">
+            <img src="../assets/shop-sample01@2x.jpg" alt="" />
+            <div class="content">
+              <p class="name">
+                {{ item.resource }}
+              </p>
+              <p>{{ item.resourceRef }}</p>
+              <div @click="removeFavorite(item.id)" class="bookmark-action">
+                <img src="../assets/shop-profile-bookmark-on@2x.png" alt="" />
+                <p>{{ $t("remove_favorite_button") }}</p>
+              </div>
+            </div>
+          </div>
+        </el-col>
+        <!-- <el-col v-for="item in favorites" :key="item" :sm="12" :md="8">
           <div class="card">
             <img src="../assets/shop-sample01@2x.jpg" alt="" />
             <div class="content">
@@ -19,16 +34,70 @@
               </div>
             </div>
           </div>
-        </el-col>
+        </el-col> -->
       </el-row>
     </base-card>
   </section>
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
+
 export default {
+  computed: {
+    favorites() {
+      return this.$store.getters["auth/favorites"];
+    },
+  },
+  methods: {
+    removeFavorite(id) {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store.dispatch("auth/removeFavorite", id).then(() => {
+            this.$store.dispatch("auth/getFavorites");
+          });
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store.dispatch("auth/removeFavorite", id).then(() => {
+                this.$store.dispatch("auth/getFavorites");
+              });
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: this.$t("token_expired"),
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+            });
+        });
+    },
+  },
   created() {
-    this.$store.dispatch("auth/getFavorites");
+    this.$store
+      .dispatch("auth/checkAccessToken")
+      .then(() => {
+        this.$store.dispatch("auth/getFavorites");
+      })
+      .catch(() => {
+        this.$store
+          .dispatch("auth/checkRefreshToken")
+          .then(() => {
+            this.$store.dispatch("auth/getFavorites");
+          })
+          .catch(() => {
+            ElNotification({
+              title: "Error",
+              message: this.$t("token_expired"),
+              type: "error",
+            });
+            this.$store.dispatch("auth/logout");
+          });
+      });
   },
 };
 </script>
@@ -98,6 +167,7 @@ export default {
   align-items: center;
   justify-content: center;
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .bookmark .bookmark-action img {

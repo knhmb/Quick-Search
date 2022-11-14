@@ -79,7 +79,7 @@ export default {
     });
     console.log(response);
   },
-  async getFavorites() {
+  async getFavorites(context) {
     const userToken = sessionStorage.getItem("accessToken");
 
     const response = await axios.get("/api/v1/accounts/favourites", {
@@ -88,6 +88,7 @@ export default {
       },
     });
     console.log(response);
+    context.commit("SET_FAVORITES", response.data.items);
   },
   async facebookLogin(context, payload) {
     const response = await axios.get("/api/v1/authenticate/oauth2/facebook", {
@@ -127,5 +128,15 @@ export default {
     context.commit("LOGIN", response.data.item);
     sessionStorage.setItem("accessToken", response.data.accessToken);
     sessionStorage.setItem("refreshToken", response.data.refreshToken);
+  },
+  async removeFavorite(_, id) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.delete(`/api/v1/accounts/favourites/${id}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
   },
 };

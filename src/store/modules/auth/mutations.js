@@ -16,4 +16,7 @@ export default {
   SET_FACEBOOK_USER_DETAILS(state, payload) {
     state.facebookUserDetails = payload;
   },
+  SET_FAVORITES(state, payload) {
+    state.favorites = payload;
+  },
 };

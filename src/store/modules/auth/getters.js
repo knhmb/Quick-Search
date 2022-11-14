@@ -11,4 +11,7 @@ export default {
   facebookUserDetails(state) {
     return state.facebookUserDetails;
   },
+  favorites(state) {
+    return state.favorites;
+  },
 };

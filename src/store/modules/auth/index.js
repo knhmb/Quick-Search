@@ -10,6 +10,7 @@ export default {
       currentUserDetails: [],
       userForgotPasswordDetails: [],
       facebookUserDetails: [],
+      favorites: [],
     };
   },
   getters,

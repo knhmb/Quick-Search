@@ -6,7 +6,7 @@
         @click="selectCategory(item)"
         v-for="item in popularCategories"
         :key="item.id"
-        :sm="6"
+        :sm="12"
         :md="4"
       >
         <!-- <img :src="item.thumbnail" :alt="item.name" /> -->
@@ -124,10 +124,6 @@ export default {
   margin-bottom: 1rem;
 }
 
-/* .popular-categories .el-row {
-  gap: 0.5rem;
-} */
-
 .popular-categories .el-col {
   position: relative;
   margin-bottom: 0.5rem;
@@ -135,10 +131,9 @@ export default {
 }
 
 .popular-categories img {
-  /* width: 100%;
-  height: 100%; */
-  width: 8rem;
-  height: 8rem;
+  /* width: 8rem;
+  height: 8rem; */
+  width: 100%;
   object-fit: cover;
   border-radius: 8px;
 }
