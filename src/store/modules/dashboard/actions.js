@@ -195,4 +195,19 @@ export default {
     const response = await axios.get("/api/v1/application/banners");
     context.commit("SET_BANNERS", response.data.items);
   },
+  async getEventSchedule(context, payload) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get(`/api/v1/shops/schedules`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
+      },
+      params: {
+        filter: `shop:${payload}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_EVENT_SCHEDULE", response.data.items);
+  },
 };

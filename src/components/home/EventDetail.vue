@@ -49,8 +49,17 @@ export default {
     promotionDetail() {
       return this.$store.getters["dashboard/promotionDetail"];
     },
+    eventSchedules() {
+      return this.$store.getters["dashboard/eventSchedules"];
+    },
     currentUserDetails() {
       return this.$store.getters["auth/currentUserDetails"];
+    },
+    singleSchedule() {
+      const schedule = this.eventSchedules.find(
+        (item) => item.shop === this.promotionDetail.shop
+      );
+      return schedule;
     },
   },
   methods: {
@@ -62,11 +71,18 @@ export default {
     },
     book() {
       console.log(this.promotionDetail);
+      this.$store.dispatch(
+        "dashboard/getEventSchedule",
+        this.promotionDetail.shop
+      );
+      console.log(this.singleSchedule);
+
       const data = {
         account: this.currentUserDetails.id,
         // account: this.singleItem.item.account,
         shop: this.promotionDetail.shop,
-        schedule: this.promotionDetail.id,
+        schedule: this.singleSchedule.id,
+        timeslot: this.singleSchedule.timeslot[0].hash,
       };
       console.log(data);
       this.$store

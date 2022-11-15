@@ -83,4 +83,7 @@ export default {
   SET_BANNERS(state, payload) {
     state.banners = payload;
   },
+  SET_EVENT_SCHEDULE(state, payload) {
+    state.eventSchedules = payload;
+  },
 };

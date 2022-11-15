@@ -44,4 +44,7 @@ export default {
   banners(state) {
     return state.banners;
   },
+  eventSchedules(state) {
+    return state.eventSchedules;
+  },
 };
