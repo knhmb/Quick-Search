@@ -16,4 +16,7 @@ export default {
   SET_PROFILE_MESSAGES(state, payload) {
     state.profileMessages = payload;
   },
+  SET_ACCOUNT_PROMOTIONS(state, payload) {
+    state.accountPromotions = payload;
+  },
 };

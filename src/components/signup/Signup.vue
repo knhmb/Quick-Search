@@ -32,9 +32,9 @@
               alt=""
             />
           </el-col>
-          <el-col :span="2">
+          <!-- <el-col :span="2">
             <img src="../../assets/signup-wechat@2x.png" alt="" />
-          </el-col>
+          </el-col> -->
         </el-row>
       </div>
     </div>

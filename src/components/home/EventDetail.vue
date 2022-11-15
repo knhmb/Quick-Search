@@ -66,7 +66,7 @@ export default {
         account: this.currentUserDetails.id,
         // account: this.singleItem.item.account,
         shop: this.promotionDetail.shop,
-        schedule: this.promotionDetail.startedAt,
+        schedule: this.promotionDetail.id,
       };
       console.log(data);
       this.$store

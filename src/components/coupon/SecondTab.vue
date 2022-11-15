@@ -7,7 +7,8 @@
           <div class="header">
             <h5>{{ $t("discount") }}</h5>
             <div class="box">
-              <p>可使用</p>
+              <!-- <p>可使用</p> -->
+              <p>{{ promotion.used ? $t("completed") : "" }}</p>
             </div>
           </div>
           <p class="name">{{ promotion.shop }}</p>
@@ -35,7 +36,7 @@
 export default {
   computed: {
     promotions() {
-      return this.$store.getters["profile/promotions"];
+      return this.$store.getters["profile/accountPromotions"];
     },
   },
 };

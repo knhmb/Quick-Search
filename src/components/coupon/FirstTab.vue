@@ -34,7 +34,7 @@
 export default {
   computed: {
     promotions() {
-      return this.$store.getters["profile/promotions"];
+      return this.$store.getters["profile/accountPromotions"];
     },
   },
 };

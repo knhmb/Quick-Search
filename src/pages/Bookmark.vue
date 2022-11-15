@@ -5,12 +5,13 @@
       <el-row :gutter="15">
         <el-col v-for="item in favorites" :key="item" :sm="12" :md="8">
           <div class="card">
-            <img src="../assets/shop-sample01@2x.jpg" alt="" />
+            <img :src="item.resources.shop.image" alt="" />
+            <!-- <img src="../assets/shop-sample01@2x.jpg" alt="" /> -->
             <div class="content">
               <p class="name">
-                {{ item.resource }}
+                {{ item.resources.shop.name }}
               </p>
-              <p>{{ item.resourceRef }}</p>
+              <p>{{ item.resources.shop.description }}</p>
               <div @click="removeFavorite(item.id)" class="bookmark-action">
                 <img src="../assets/shop-profile-bookmark-on@2x.png" alt="" />
                 <p>{{ $t("remove_favorite_button") }}</p>

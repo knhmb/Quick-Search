@@ -11,4 +11,7 @@ export default {
   profileMessages(state) {
     return state.profileMessages;
   },
+  accountPromotions(state) {
+    return state.accountPromotions;
+  },
 };

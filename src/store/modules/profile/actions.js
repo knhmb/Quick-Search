@@ -81,7 +81,7 @@ export default {
     console.log(response);
     context.commit("SET_PROFILE_MESSAGES", response.data.items);
   },
-  async getAccountPromotions() {
+  async getAccountPromotions(context) {
     const userToken = sessionStorage.getItem("accessToken");
 
     const response = await axios.get("/api/v1/accounts/promotions", {
@@ -91,5 +91,6 @@ export default {
       },
     });
     console.log(response);
+    context.commit("SET_ACCOUNT_PROMOTIONS", response.data.items);
   },
 };

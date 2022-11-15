@@ -189,7 +189,6 @@ export default {
 }
 
 .notification .card .avatar {
-  /* background: #985f35; */
   border-radius: 100%;
   width: 3rem;
   height: 3rem;

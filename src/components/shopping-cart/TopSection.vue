@@ -52,10 +52,10 @@
                       alt=""
                     />
                   </ShareNetwork>
-                  <img
+                  <!-- <img
                     src="../../assets/share-social-media-instagram.png"
                     alt=""
-                  />
+                  /> -->
                 </div>
               </div>
               <img
@@ -320,11 +320,12 @@ export default {
   align-items: center;
   justify-content: space-between; */
   width: 100%;
+  text-align: center;
 }
 
-.top-section .social-media-share .media-icons .share-network-facebook {
+/* .top-section .social-media-share .media-icons .share-network-facebook {
   margin-right: 1rem;
-}
+} */
 
 .top-section .social-media-share .media-icons img {
   width: 2rem;

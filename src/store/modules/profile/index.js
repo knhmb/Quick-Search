@@ -10,6 +10,7 @@ export default {
       singleBooking: [],
       promotions: [],
       profileMessages: [],
+      accountPromotions: [],
     };
   },
   getters,

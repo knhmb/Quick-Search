@@ -30,7 +30,9 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="$emit('closedDialog', false)">確定</el-button>
+          <el-button @click="$emit('closedDialog', false)">{{
+            $t("sure")
+          }}</el-button>
         </span>
       </template>
     </el-dialog>

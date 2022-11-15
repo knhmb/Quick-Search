@@ -1,8 +1,14 @@
 <template>
   <div class="home-main-content">
-    <base-container>
-      <h4>{{ $t("featured_events") }}</h4>
-    </base-container>
+    <!-- <base-container> -->
+    <el-row justify="space-between">
+      <el-col :span="4"></el-col>
+      <el-col :span="15">
+        <h4>{{ $t("featured_events") }}</h4>
+      </el-col>
+      <el-col :span="4"></el-col>
+    </el-row>
+    <!-- </base-container> -->
     <el-row justify="space-between">
       <el-col :sm="12" :md="4">
         <img src="../../assets/adv-sample01@2x.jpg" alt="" />
@@ -130,6 +136,7 @@ export default {
   line-height: 36px;
   font-feature-settings: "liga" off;
   color: #393939;
+  margin-bottom: 1.5rem;
 }
 
 .home-main-content .card {
@@ -168,7 +175,7 @@ export default {
   }
 
   .home-main-content .el-col.middle-col {
-    margin: 2rem 0;
+    /* margin: 2rem 0; */
   }
 }
 </style>

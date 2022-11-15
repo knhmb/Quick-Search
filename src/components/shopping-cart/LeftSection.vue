@@ -190,6 +190,7 @@ export default {
   line-height: 24px;
   font-feature-settings: "liga" off;
   color: #393939;
+  word-break: break-all;
 }
 
 .left-section h6 {

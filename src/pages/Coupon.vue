@@ -24,7 +24,6 @@
 
 <script>
 import { ElNotification } from "element-plus";
-// import { ElNotification } from "element-plus";
 
 import FirstTab from "../components/coupon/FirstTab.vue";
 import SecondTab from "../components/coupon/SecondTab.vue";

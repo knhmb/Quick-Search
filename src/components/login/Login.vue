@@ -24,9 +24,9 @@
             alt=""
           />
         </el-col>
-        <el-col :span="2">
+        <!-- <el-col :span="2">
           <img src="../../assets/signup-wechat@2x.png" alt="" />
-        </el-col>
+        </el-col> -->
       </el-row>
       <el-divider content-position="center">{{
         $t("login_with_account")
