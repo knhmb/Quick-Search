@@ -35,7 +35,11 @@
               src="../../assets/arrowhead-down@2x.png"
               alt=""
             />
-            <p>{{ singleItem.item.district }} ． $120-320 ． {{ category }}</p>
+            <p>
+              {{ singleItem.item.district }} ． ${{
+                singleItem.item.priceRange[0]
+              }}-{{ singleItem.item.priceRange[1] }} ． {{ category }}
+            </p>
           </el-col>
           <el-col style="text-align: end" :sm="12" :md="7">
             <div class="social-content">

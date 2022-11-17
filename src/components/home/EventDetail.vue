@@ -70,45 +70,71 @@ export default {
       this.$store.commit("OPEN_DIALOG", "register");
     },
     book() {
+      let data;
       console.log(this.promotionDetail);
-      this.$store.dispatch(
-        "dashboard/getEventSchedule",
-        this.promotionDetail.shop
-      );
+      this.$store
+        .dispatch("dashboard/getEventSchedule", this.promotionDetail.shop)
+        .then(() => {
+          data = {
+            account: this.currentUserDetails.id,
+            // account: this.singleItem.item.account,
+            shop: this.promotionDetail.shop,
+            schedule: this.singleSchedule.id,
+            timeslot: this.singleSchedule.timeslot[0].hash,
+          };
+        });
       console.log(this.singleSchedule);
 
-      const data = {
-        account: this.currentUserDetails.id,
-        // account: this.singleItem.item.account,
-        shop: this.promotionDetail.shop,
-        schedule: this.singleSchedule.id,
-        timeslot: this.singleSchedule.timeslot[0].hash,
-      };
+      // data = {
+      //   account: this.currentUserDetails.id,
+      //   // account: this.singleItem.item.account,
+      //   shop: this.promotionDetail.shop,
+      //   schedule: this.singleSchedule.id,
+      //   timeslot: this.singleSchedule.timeslot[0].hash,
+      // };
       console.log(data);
       this.$store
         .dispatch("auth/checkAccessToken")
         .then(() => {
-          this.$store.dispatch("shop/book", data).then(() => {
-            ElNotification({
-              title: "Success",
-              message: this.$t("shop_booked"),
-              type: "success",
+          this.$store
+            .dispatch("shop/book", data)
+            .then(() => {
+              ElNotification({
+                title: "Success",
+                message: this.$t("shop_booked"),
+                type: "success",
+              });
+              this.$router.replace("/");
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: this.$t(err.response.data.message),
+                type: "error",
+              });
             });
-            this.$router.replace("/");
-          });
         })
         .catch(() => {
           this.$store
             .dispatch("auth/checkRefreshToken")
             .then(() => {
-              this.$store.dispatch("shop/book", data).then(() => {
-                ElNotification({
-                  title: "Success",
-                  message: this.$t("shop_booked"),
-                  type: "success",
+              this.$store
+                .dispatch("shop/book", data)
+                .then(() => {
+                  ElNotification({
+                    title: "Success",
+                    message: this.$t("shop_booked"),
+                    type: "success",
+                  });
+                  this.$router.replace("/");
+                })
+                .catch((err) => {
+                  ElNotification({
+                    title: "Error",
+                    message: this.$t(err.response.data.message),
+                    type: "error",
+                  });
                 });
-                this.$router.replace("/");
-              });
             })
             .catch(() => {
               ElNotification({
