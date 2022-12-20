@@ -27,7 +27,7 @@
       <div class="right-section">
         <div class="vendor-login hidden-xs-only">
           <img src="../../assets/header-vendor-login@2x.png" alt="" />
-          <span>{{ $t("merchant_zone") }}</span>
+          <span @click="vendorLogin">{{ $t("merchant_zone") }}</span>
         </div>
         <div class="member-login">
           <img
@@ -162,6 +162,12 @@ export default {
     currentUserDetails() {
       return this.$store.getters["auth/currentUserDetails"];
     },
+    // protocol() {
+    //   return window.location.protocol;
+    // },
+    // hostname() {
+    //   return window.location.hostname;
+    // },
   },
   methods: {
     setLocale(lang) {
@@ -209,6 +215,12 @@ export default {
       this.$router.push(path);
       this.isUserDropdown = false;
     },
+    vendorLogin() {
+      window.location.href = `${window.location.protocol}//${window.location.hostname}/admin/`;
+    },
+  },
+  created() {
+    console.log(window);
   },
 };
 </script>

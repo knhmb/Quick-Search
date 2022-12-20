@@ -57,7 +57,7 @@
             </template>
 
             <li>{{ $t("merchant_registration") }}</li>
-            <li>{{ $t("merchant_login") }}</li>
+            <li @click="vendorLogin">{{ $t("merchant_login") }}</li>
           </ul>
         </el-col>
         <el-col :sm="24" :md="5">
@@ -96,6 +96,11 @@ export default {
   computed: {
     footerContent() {
       return this.$store.getters["dashboard/footerContent"];
+    },
+  },
+  methods: {
+    vendorLogin() {
+      window.location.href = `${window.location.protocol}//${window.location.hostname}/admin/`;
     },
   },
 };
