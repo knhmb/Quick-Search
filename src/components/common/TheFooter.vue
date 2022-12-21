@@ -56,7 +56,9 @@
               </li>
             </template>
 
-            <li>{{ $t("merchant_registration") }}</li>
+            <li @click="dialogVisible = true">
+              {{ $t("merchant_registration") }}
+            </li>
             <li @click="vendorLogin">{{ $t("merchant_login") }}</li>
           </ul>
         </el-col>
@@ -89,10 +91,24 @@
       </el-row>
     </base-container>
   </footer>
+  <VendorRegisterDialogueVue
+    :dialog-visible="dialogVisible"
+    @closeDialog="dialogVisible = $event"
+  />
 </template>
 
 <script>
+import VendorRegisterDialogueVue from "./VendorRegisterDialogue.vue";
+
 export default {
+  components: {
+    VendorRegisterDialogueVue,
+  },
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
   computed: {
     footerContent() {
       return this.$store.getters["dashboard/footerContent"];
