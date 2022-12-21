@@ -17,6 +17,7 @@
         </el-form-item>
         <el-form-item prop="password">
           <el-input
+            show-password
             type="password"
             v-model="ruleForm.password"
             placeholder="密碼"
@@ -24,12 +25,14 @@
         </el-form-item>
         <el-form-item prop="confirmPassword">
           <el-input
+            show-password
+            type="password"
             v-model="ruleForm.confirmPassword"
             placeholder="再次輸入密碼"
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button>註冊</el-button>
+          <el-button @click="signup">註冊</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -37,6 +40,8 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
+
 export default {
   props: ["dialogVisible"],
   data() {
@@ -100,6 +105,39 @@ export default {
         ],
       },
     };
+  },
+  methods: {
+    signup() {
+      this.$refs.ruleFormRef.validate((valid) => {
+        if (valid) {
+          const data = {
+            email: this.ruleForm.email,
+            username: this.ruleForm.username,
+            password: this.ruleForm.password,
+            password2: this.ruleForm.confirmPassword,
+          };
+          console.log(data);
+          this.$store
+            .dispatch("auth/register", data)
+            .then(() => {
+              ElNotification({
+                title: "Success",
+                message: this.$t("registered_successfully"),
+                type: "success",
+              });
+              this.$refs.ruleFormRef.resetFields();
+              this.$emit("closeDialog", false);
+            })
+            .catch((err) => {
+              ElNotification({
+                title: "Error",
+                message: this.$t(err.response.data.message),
+                type: "error",
+              });
+            });
+        }
+      });
+    },
   },
 };
 </script>
