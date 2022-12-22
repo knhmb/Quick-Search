@@ -139,4 +139,8 @@ export default {
     });
     console.log(response);
   },
+  async vendorRegister(_, payload) {
+    const response = await axios.post("/api/v1/shops", payload);
+    console.log(response);
+  },
 };

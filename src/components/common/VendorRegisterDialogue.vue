@@ -118,7 +118,7 @@ export default {
           };
           console.log(data);
           this.$store
-            .dispatch("auth/register", data)
+            .dispatch("auth/vendorRegister", data)
             .then(() => {
               ElNotification({
                 title: "Success",
