@@ -188,7 +188,7 @@
 
 <script>
 export default {
-  props: ["sorting"],
+  props: ["sorting", "currentPage"],
   data() {
     return {
       arr: [],
@@ -1007,6 +1007,9 @@ export default {
   },
   watch: {
     sorting() {
+      this.handlePayment();
+    },
+    currentPage() {
       this.handlePayment();
     },
     $i18n: {
@@ -2029,6 +2032,7 @@ export default {
         payment: paymentData,
         sort: this.sorting ? this.sorting : "",
         dynamic: arr.length > 0 ? arr.toString() : "",
+        page: this.currentPage,
       };
       console.log(filter);
       // console.log(this.$route.query);

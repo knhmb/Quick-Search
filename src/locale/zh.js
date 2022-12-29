@@ -139,7 +139,7 @@ const zh = {
   password_changed: "密碼已更改！",
   username_required: "用戶名是必需的！",
   email_required: "電子郵件是必需的！",
-  profile: "輪廓",
+  profile: "個人資料",
   log_out: "登出",
   "error.account.invalid-password": "無效的密碼！",
   password_required: "密碼是必需的！",

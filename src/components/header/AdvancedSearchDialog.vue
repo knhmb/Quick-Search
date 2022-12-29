@@ -1274,6 +1274,8 @@ export default {
         //   this.filterArray.length > 0 ? `{"$in":[${this.filterArray}]}` : "",
         price: this.priceRange,
         paymentMethod: paymentData,
+        page: 1,
+        pageSize: 15,
         // paymentMethod:
         //   this.paymentMethod.length > 0
         //     ? this.paymentMethod.toString().replaceAll(",", "|")

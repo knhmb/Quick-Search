@@ -1,6 +1,6 @@
 <template>
   <div class="basic-search-card">
-    <template v-for="item in searchItems" :key="item">
+    <template v-for="item in searchItems.items" :key="item">
       <el-row :gutter="10">
         <el-col :sm="24" :md="12">
           <h5>{{ item.resources.category.name }}</h5>

@@ -5,10 +5,17 @@
     <base-container>
       <el-row :gutter="15">
         <el-col :sm="24" :lg="7">
-          <left-section :sorting="sorting"></left-section>
+          <left-section
+            :current-page="currentPage"
+            :sorting="sorting"
+          ></left-section>
         </el-col>
         <el-col :sm="24" :lg="17">
-          <right-section @sort="setSort"></right-section>
+          <right-section
+            :current-page="currentPage"
+            @sort="setSort"
+            @updatePage="currentPage = $event"
+          ></right-section>
         </el-col>
       </el-row>
     </base-container>
@@ -30,6 +37,7 @@ export default {
   },
   setup() {
     const sorting = ref("");
+    const currentPage = ref(1);
 
     function setSort(option) {
       console.log(option);
@@ -37,7 +45,7 @@ export default {
       console.log(sorting.value);
     }
 
-    return { setSort, sorting };
+    return { setSort, sorting, currentPage };
   },
   watch: {
     $i18n: {

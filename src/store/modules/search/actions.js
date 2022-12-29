@@ -22,7 +22,8 @@ export default {
       },
     });
     console.log(response);
-    context.commit("SET_SEARCH_ITEMS", response.data.items);
+    context.commit("SET_SEARCH_ITEMS", response.data);
+    // context.commit("SET_SEARCH_ITEMS", response.data.items);
   },
   async filterSearch(context, payload) {
     console.log(payload);
@@ -60,7 +61,7 @@ export default {
       },
       params: {
         search: payload.query.q ? payload.query.q : undefined,
-        page: 1,
+        page: payload.page,
         pageSize: 10,
         filter:
           route.currentRoute._rawValue.query.filter && payload.query
@@ -120,7 +121,8 @@ export default {
     //   },
     // });
     console.log(response);
-    context.commit("SET_SEARCH_ITEMS", response.data.items);
+    context.commit("SET_SEARCH_ITEMS", response.data);
+    // context.commit("SET_SEARCH_ITEMS", response.data.items);
   },
   async searchSingleShop(context, payload) {
     // const userToken = localStorage.getItem("accessToken");
@@ -148,6 +150,9 @@ export default {
         "accept-language": i18n.global.locale,
       },
       params: {
+        page: payload.page,
+        pageSize: 10,
+        // pageSize: payload.pageSize,
         filter:
           `${payload.dynamicFilter ? `${payload.dynamicFilter},` : ""}${
             payload.area ? `area:${payload.area},` : ""
@@ -173,7 +178,8 @@ export default {
     // });
     console.log(response);
     // context.commit("SET_SINGLE_ITEM", response.data.item);
-    context.commit("SET_SEARCH_ITEMS", response.data.items);
+    context.commit("SET_SEARCH_ITEMS", response.data);
+    // context.commit("SET_SEARCH_ITEMS", response.data.items);
   },
   //   async filterSearch(_, payload) {
   //     console.log(payload.area);

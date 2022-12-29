@@ -46,7 +46,7 @@
             </base-card>
           </div>
         </div>
-        <div class="form-section">
+        <div class="form-section" v-if="!hideDates">
           <label>{{ $t("selection_period") }}</label>
           <p class="am">{{ $t("morning_session") }}</p>
           <el-row :gutter="15">
@@ -121,6 +121,7 @@ export default {
       },
       dateArray: [],
       isActive: "",
+      hideDates: true,
     };
   },
   watch: {
@@ -176,7 +177,7 @@ export default {
         this.$store.dispatch("search/searchItem", data).then(() => {
           console.log(this.searchItems);
           console.log(this.categoryId);
-          const found = this.searchItems.find(
+          const found = this.searchItems.items.find(
             (item) => item.resources.category.slug === this.categoryId
           );
           this.$store.commit("SET_CATEGORY", found.resources.category.name);
@@ -272,11 +273,16 @@ export default {
           slug: this.selectedShopSlug,
         })
         .then(() => {
+          console.log("HEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHE");
+          console.log(this.schedules);
           if (this.schedules.length <= 0) {
             this.isButtonDisabled = true;
+            this.hideDates = true;
           } else {
+            this.hideDates = false;
             this.isButtonDisabled = false;
           }
+          console.log(this.isButtonDisabled);
         });
     },
     handleNewMonth(day) {

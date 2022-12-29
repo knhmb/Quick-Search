@@ -2,7 +2,7 @@
   <div class="basic-search-main">
     <base-container>
       <h4>{{ $t("browse_by_category") }}</h4>
-      <p v-for="item in searchItems" :key="item">
+      <p v-for="item in searchItems.items" :key="item">
         {{ item.resources.category.name }} <span>({{ item.count }})</span>
       </p>
       <!-- <p>{{ $t("personal_care") }} <span>(924)</span></p>

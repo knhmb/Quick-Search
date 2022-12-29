@@ -5,7 +5,9 @@
         <el-col :sm="24" :md="12">
           <p>
             {{ $t("turn_up") }}
-            <span>{{ searchItems.length > 0 ? searchItems.length : 0 }}</span>
+            <span>{{
+              searchItems.items.length > 0 ? searchItems.items.length : 0
+            }}</span>
             {{ $t("search_results") }}
           </p>
         </el-col>
@@ -33,7 +35,7 @@
       </el-row>
     </base-card>
     <el-row :gutter="15">
-      <el-col v-for="item in searchItems" :key="item" :sm="12" :md="8">
+      <el-col v-for="item in searchItems.items" :key="item" :sm="12" :md="8">
         <div class="card" @click="selectShop(item.slug)">
           <img :src="item.image" alt="" />
           <div class="content">
@@ -46,10 +48,12 @@
       </el-col>
       <el-col>
         <el-pagination
+          :current-page="currentPage"
+          @update:current-page="updateCurrentPage"
           small
           background
           layout="prev, pager, next"
-          :total="searchItems.length + 0"
+          :total="searchItems.count + 0"
           :pager-count="8"
         />
       </el-col>
@@ -60,9 +64,11 @@
 <script>
 // import { ElNotification } from "element-plus";
 export default {
+  props: ["currentPage"],
   data() {
     return {
       sort: "",
+      // currentPage: 1,
     };
   },
   watch: {
@@ -80,6 +86,11 @@ export default {
       // this.currentOption = option;
       console.log(option);
       // this.$emit("sort", option);
+    },
+    updateCurrentPage(page) {
+      console.log(page);
+      this.$emit("updatePage", page);
+      // this.currentPage = page;
     },
     selectShop(slug) {
       this.$store
