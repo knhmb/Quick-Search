@@ -22,14 +22,8 @@
               :label="$t('most_comment')"
               :value="$t('most_comment')"
             />
-            <el-option
-              :label="$t('newest_to_oldest')"
-              :value="$t('newest_to_oldest')"
-            />
-            <el-option
-              :label="$t('oldest_to_newest')"
-              :value="$t('oldest_to_newest')"
-            />
+            <el-option :label="$t('newest_to_oldest')" value="createdAt" />
+            <el-option :label="$t('oldest_to_newest')" value="createdAt" />
           </el-select>
         </el-col>
       </el-row>
