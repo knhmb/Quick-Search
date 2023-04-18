@@ -4,42 +4,100 @@
     <el-row justify="space-between">
       <el-col :span="4"></el-col>
       <el-col :span="15">
-        <h4>{{ $t("featured_events") }}</h4>
+        <!-- <h4>{{ $t("featured_events") }}</h4> -->
       </el-col>
       <el-col :span="4"></el-col>
     </el-row>
     <!-- </base-container> -->
     <el-row justify="space-between">
       <el-col :sm="12" :md="4">
-        <img src="../../assets/adv-sample01@2x.jpg" alt="" />
+        <!-- <img src="../../assets/adv-sample01@2x.jpg" alt="" />
         <img src="../../assets/adv-sample02@2x.jpg" alt="" />
         <img src="../../assets/adv-sample03@2x.jpg" alt="" />
         <img src="../../assets/adv-sample01@2x.jpg" alt="" />
         <img src="../../assets/adv-sample02@2x.jpg" alt="" />
-        <img src="../../assets/adv-sample03@2x.jpg" alt="" />
+        <img src="../../assets/adv-sample03@2x.jpg" alt="" /> -->
       </el-col>
       <el-col class="middle-col" :sm="24" :md="15">
-        <el-row :gutter="20">
-          <el-col v-for="item in promotions" :key="item" :sm="12" :md="8">
-            <div @click="getItemDetail(item.slug)" class="card">
-              <img :src="item.thumbnail" alt="" />
-              <div class="content">
-                <p>
-                  {{ item.name }}
-                </p>
-              </div>
-            </div>
-          </el-col>
-        </el-row>
+        <!-- <template v-for="category in promotionCategories" :key="category">
+          <template v-for="item in promotions" :key="item"> -->
+        <!-- <h4
+              v-if="
+                category.slug === item.category &&
+                new Date(item.endedAt) > new Date()
+              "
+            >
+              {{ category.name }}
+            </h4> -->
+        <template v-for="category in promotionCategories" :key="category">
+          <h4>{{ category.name }}</h4>
+          <el-row :gutter="20">
+            <template v-for="item in promotions" :key="item">
+              <el-col
+                :sm="12"
+                :md="8"
+                v-if="
+                  category.slug === item.category &&
+                  new Date(item.endedAt) > new Date()
+                "
+              >
+                <div @click="getItemDetail(item.slug)" class="card">
+                  <img :src="item.thumbnail" alt="" />
+                  <div class="content">
+                    <p>
+                      {{ item.name }}
+                    </p>
+                  </div>
+                </div>
+              </el-col>
+            </template>
+          </el-row>
+        </template>
+        <!-- <el-row :gutter="20">
+          <template v-for="category in promotionCategories" :key="category">
+            <template v-for="item in promotions" :key="item">
+              <el-col>
+                <h4
+                  v-if="
+                    category.slug === item.category &&
+                    new Date(item.endedAt) > new Date()
+                  "
+                >
+                  {{ category.name }}
+                </h4>
+              </el-col>
+
+              <el-col
+                v-if="
+                  new Date(item.endedAt) > new Date() &&
+                  category.slug === item.category
+                "
+                :sm="12"
+                :md="8"
+              >
+                <div @click="getItemDetail(item.slug)" class="card">
+                  <img :src="item.thumbnail" alt="" />
+                  <div class="content">
+                    <p>
+                      {{ item.name }}
+                    </p>
+                  </div>
+                </div>
+              </el-col>
+            </template>
+          </template>
+        </el-row> -->
+        <!-- </template>
+        </template> -->
         <popular-categories></popular-categories>
       </el-col>
       <el-col :sm="12" :md="4">
-        <img src="../../assets/adv-sample01@2x.jpg" alt="" />
+        <!-- <img src="../../assets/adv-sample01@2x.jpg" alt="" />
         <img src="../../assets/adv-sample02@2x.jpg" alt="" />
         <img src="../../assets/adv-sample03@2x.jpg" alt="" />
         <img src="../../assets/adv-sample01@2x.jpg" alt="" />
         <img src="../../assets/adv-sample02@2x.jpg" alt="" />
-        <img src="../../assets/adv-sample03@2x.jpg" alt="" />
+        <img src="../../assets/adv-sample03@2x.jpg" alt="" /> -->
       </el-col>
     </el-row>
     <event-detail
@@ -50,8 +108,8 @@
 </template>
 
 <script>
-import PopularCategories from "./PopularCategories.vue";
 import EventDetail from "./EventDetail.vue";
+import PopularCategories from "./PopularCategories.vue";
 
 export default {
   components: {
@@ -101,9 +159,25 @@ export default {
       ],
     };
   },
+  watch: {
+    $i18n: {
+      deep: true,
+      handler() {
+        this.$store.dispatch("dashboard/getPromotionCategories");
+      },
+    },
+  },
   computed: {
     promotions() {
-      return this.$store.getters["dashboard/promotions"];
+      const today = new Date();
+      const promotions = this.$store.getters["dashboard/promotions"];
+      return promotions.filter(
+        (promotion) => new Date(promotion.endedAt) > today
+      );
+    },
+    promotionCategories() {
+      const categories = this.$store.getters["dashboard/promotionCategories"];
+      return categories.filter((cate) => this.hasPromotions(cate.slug));
     },
   },
   methods: {
@@ -111,6 +185,9 @@ export default {
       this.$store.dispatch("dashboard/promotionDetail", slug).then(() => {
         this.dialogVisible = true;
       });
+    },
+    hasPromotions(slug) {
+      return this.promotions.findIndex((i) => i.category === slug) > -1;
     },
   },
 };

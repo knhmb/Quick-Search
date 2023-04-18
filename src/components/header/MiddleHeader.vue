@@ -16,6 +16,7 @@
         </el-col>
         <el-col :sm="24" :md="16">
           <el-input
+            @keyup.enter="searchItem"
             v-model="search"
             :placeholder="$t('search_store_placeholder')"
             clearable
@@ -152,6 +153,10 @@ export default {
 .middle-header .el-row .el-button img {
   width: 1.5rem;
   margin-right: 0.2rem;
+}
+
+.middle-header .el-input .el-input__suffix-inner {
+  flex-direction: row-reverse;
 }
 
 @media screen and (max-width: 991px) {

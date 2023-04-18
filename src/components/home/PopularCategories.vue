@@ -85,6 +85,9 @@ export default {
   methods: {
     selectCategory(item) {
       console.log(item);
+      const data = {
+        page: 1,
+      };
       this.$store.commit(
         "dashboard/SET_MAIN_CATEGORY_CHILDREN",
         item.resources.children
@@ -94,12 +97,14 @@ export default {
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       // this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
       this.$store.dispatch("dashboard/getMainCategoryFilter", item.slug);
-      this.$store.dispatch("search/advancedFilter", item.slug).then(() => {
-        this.$router.push({
-          path: "/advanced-search",
-          query: { filter: `category:${item.slug}` },
+      this.$store
+        .dispatch("search/advancedFilter", { category: item.slug, data })
+        .then(() => {
+          this.$router.push({
+            path: "/advanced-search",
+            query: { filter: `category:${item.slug}` },
+          });
         });
-      });
     },
   },
   created() {

@@ -52,6 +52,17 @@ export default {
     });
     console.log(response);
   },
+  async claimPromotion(_, promotion) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.post(`/api/v1/shops/promotions/${promotion}/claim`, {}, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+        "accept-language": i18n.global.locale,
+      },
+    });
+    console.log(response);
+  },
   async getComments(context, payload) {
     const userToken = sessionStorage.getItem("accessToken");
 

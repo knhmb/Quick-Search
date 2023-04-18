@@ -41,4 +41,7 @@ export default {
   selectedSubCategory(state) {
     return state.selectedSubCategory;
   },
+  selectedSubCategorySlug(state) {
+    return state.selectedSubCategorySlug;
+  },
 };

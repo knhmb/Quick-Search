@@ -21,7 +21,6 @@
           <div class="grey-section" v-if="dynamicMainCategoryFilter.length > 0">
             <h5>{{ selectedMainCategory }} {{ $t("filter") }}</h5>
             <el-row class="alignment">
-              <!-- <template v-for="item in categories" :key="item"> -->
               <el-col
                 :md="6"
                 :sm="24"
@@ -29,7 +28,6 @@
                 :key="group"
               >
                 <p>{{ group.name }}</p>
-                <!-- <p>{{ item.category }}</p> -->
                 <template v-for="item in dynamicMainCategoryFilter" :key="item">
                   <template v-for="subItem in item" :key="subItem">
                     <el-checkbox-group
@@ -43,26 +41,14 @@
                       >
                     </el-checkbox-group>
                   </template>
-                  <!-- <el-checkbox-group v-model="mainCategory[`${item.group}`]">
-                    <el-checkbox :label="`&quot;${item.slug}&quot;`">{{
-                      item.name
-                    }}</el-checkbox>
-                  </el-checkbox-group> -->
                 </template>
               </el-col>
-              <!-- </template> -->
             </el-row>
           </div>
         </div>
+
         <div class="body-header">
           <p>{{ $t("sub_category") }}</p>
-          <!-- <div
-            @click="getFilterItems(item)"
-            :class="{ 'is-active': currentFilter2 === item.name }"
-            v-for="item in dynamicFilterGroup"
-            :key="item"
-            class="box"
-          > -->
           <div
             @click="getFilterItems(item)"
             :class="{ 'is-active': currentFilter2 === item.name }"
@@ -78,24 +64,22 @@
               <el-col
                 :md="6"
                 :sm="24"
-                v-for="group in mainCategoryChildren"
+                v-for="group in subCategoryFilter"
                 :key="group"
               >
-                <!-- <el-col
-                :md="6"
-                :sm="24"
-                v-for="group in dynamicFilterGroup"
-                :key="group.id"
-              > -->
                 <p>{{ group.name }}</p>
                 <template v-for="item in dynamicFilters" :key="item">
-                  <el-checkbox-group v-model="checkList[`${item.group}`]">
-                    <el-checkbox
-                      v-if="item.group === group.slug"
-                      :label="`&quot;${item.slug}&quot;`"
-                      >{{ item.name }}</el-checkbox
+                  <template v-for="subItem in item" :key="subItem">
+                    <el-checkbox-group
+                      v-model="checkList[`meta.${subItem.group}`]"
                     >
-                  </el-checkbox-group>
+                      <el-checkbox
+                        v-if="subItem.group === group.slug"
+                        :label="`&quot;${subItem.slug}&quot;`"
+                        >{{ subItem.name }}</el-checkbox
+                      >
+                    </el-checkbox-group>
+                  </template>
                 </template>
               </el-col>
             </el-row>
@@ -105,22 +89,6 @@
           <p>{{ $t("filter") }}</p>
           <p class="area">{{ $t("area") }}</p>
           <div class="areas">
-            <!-- <el-tree
-              @check-change="handleChange"
-              @check="dummy"
-              :data="data"
-              :props="defaultProps"
-              show-checkbox
-              default-expand-all
-              node-key="uniqueNode"
-            >
-              <template #default="{ node }">
-                <span class="custom-tree-node">
-                  <span>{{ node.label }}</span>
-                </span>
-              </template>
-            </el-tree> -->
-
             <div class="single-area">
               <el-checkbox
                 v-model="checkAll"
@@ -229,17 +197,15 @@
                   $t("no_discount")
                 }}</el-checkbox>
               </el-checkbox-group>
-              <!-- <el-checkbox v-model="discount" label="有優惠"
-                >有優惠</el-checkbox
-              >
-              <el-checkbox v-model="discount" label="無優惠"
-                >無優惠</el-checkbox
-              > -->
             </div>
             <div class="single-filter middle">
               <p class="area">{{ $t("price_range") }}</p>
               <p class="any">{{ $t("any") }}</p>
-              <el-slider v-model="priceRange" range :max="100" />
+              <el-slider v-model="priceRange" step="10" range :max="1000000" />
+              <div class="range-selector">
+                <el-input type="number" v-model="priceRange[0]"></el-input>
+                <el-input type="number" v-model="priceRange[1]"></el-input>
+              </div>
             </div>
             <div class="single-filter">
               <p class="area">{{ $t("payment_method") }}</p>
@@ -273,6 +239,10 @@ export default {
   props: ["dialogVisible"],
   data() {
     return {
+      mainCat: false,
+      subCat: false,
+      categorySlug: null,
+      subCategorySlug: null,
       filteringArray: [],
       hongKongHeight: "190px",
       kowloonHeight: "190px",
@@ -287,14 +257,10 @@ export default {
         label: "label",
         disabled: "disabled",
       },
-      // checkList: {},
-      // discount: [],
       finalDiscount: [],
       finalPayment: [],
       currentFilter: "",
       currentFilter2: "",
-      // priceRange: [0, 100],
-      // paymentMethod: [],
       checkAll: false,
       checkAllKowloon: false,
       checkAllNewTerritories: false,
@@ -325,11 +291,11 @@ export default {
         this.$t("shau_kei_wan_station"),
         this.$t("heng_fa_chauen_station"),
         this.$t("chai_wan_station"),
-        this.$t("ocean_park_station"),
+        // this.$t("ocean_park_station"),
         this.$t("wong_chuk_hang_station"),
         this.$t("lei_tung_station"),
         this.$t("south_horizons_station"),
-        this.$t("hong_kong_station"),
+        // this.$t("hong_kong_station"),
       ],
       kowloonAreas: [
         this.$t("lam_tin_station"),
@@ -355,15 +321,15 @@ export default {
         this.$t("jordan_station"),
         this.$t("tsim_sha_tsui_station"),
         this.$t("yau_tong_station"),
-        this.$t("kowloon_station"),
+        // this.$t("kowloon_station"),
         this.$t("olympic_station"),
         this.$t("nam_cheong_station"),
         this.$t("hung_hom_station"),
-        this.$t("mong_kok_east_station"),
-        this.$t("austin_station"),
+        // this.$t("mong_kok_east_station"), #Island district
+        // this.$t("austin_station"),
         this.$t("east_tsin_sha_tsui_station"),
         this.$t("to_kwa_wan_station"),
-        this.$t("sung_wong_toi_station"),
+        // this.$t("sung_wong_toi_station"),
         this.$t("kai_tak_station"),
       ],
       newTerritories: [
@@ -379,28 +345,28 @@ export default {
         this.$t("tai_wai_station"),
         this.$t("sha_tin_station"),
         this.$t("fo_tan_station"),
-        this.$t("raoeoourse_station"),
+        // this.$t("raoeoourse_station"),
         this.$t("university_station"),
         this.$t("tai_po_market_station"),
         this.$t("tai_wo_station"),
         this.$t("fanling_station"),
         this.$t("sheung_shui_station"),
-        this.$t("lo_wu_station"),
-        this.$t("lok_ma_chau_station"),
+        // this.$t("lo_wu_station"),
+        // this.$t("lok_ma_chau_station"),
         this.$t("tuen_mun_station"),
-        this.$t("siu_hong_station"),
+        // this.$t("siu_hong_station"),
         this.$t("tin_shui_wai_station"),
         this.$t("long_ping_station"),
         this.$t("yuen_long_station"),
         this.$t("kam_shueg_road_station"),
         this.$t("tsuen_wan_west_station"),
-        this.$t("hin_keng_station"),
+        // this.$t("hin_keng_station"),
         this.$t("che_king_temple_station"),
-        this.$t("sha_tin_wai_station"),
-        this.$t("city_one_station"),
-        this.$t("shek_mun_station"),
-        this.$t("tai_shui_hang_station"),
-        this.$t("heng_on_station"),
+        // this.$t("sha_tin_wai_station"),
+        // this.$t("city_one_station"),
+        // this.$t("shek_mun_station"),
+        // this.$t("tai_shui_hang_station"),
+        // this.$t("heng_on_station"),
         this.$t("ma_on_shan_station"),
         this.$t("wu_kai_sha_station"),
       ],
@@ -409,308 +375,9 @@ export default {
         this.$t("sunny_bay_station"),
         this.$t("disney_station"),
         this.$t("tung_chung_station"),
-        this.$t("airport_station"),
-        this.$t("expo_station"),
-      ],
-      searchItems: [
-        {
-          name: "個人護理",
-        },
-        {
-          name: "寵物",
-        },
-        {
-          name: "手工藝",
-        },
-        {
-          name: "藥妝",
-        },
-        {
-          name: "攝影",
-        },
-        {
-          name: "化妝",
-        },
-        {
-          name: "保健食品",
-        },
-        {
-          name: "興趣",
-        },
-        {
-          name: "烘焙",
-        },
-        {
-          name: "醫療",
-        },
-        {
-          name: "媽媽",
-        },
-        {
-          name: "母嬰",
-        },
-        {
-          name: "精品",
-        },
-        {
-          name: "玩具",
-        },
-        {
-          name: "車項目",
-        },
-        {
-          name: "工程裝飾",
-        },
-        {
-          name: "長者",
-        },
-        {
-          name: "旅行社",
-        },
-        {
-          name: "商務",
-        },
-        {
-          name: "私人服務",
-        },
-        {
-          name: "補習社",
-        },
-        {
-          name: "娛樂",
-        },
-        {
-          name: "運動",
-        },
-        {
-          name: "個人服飾",
-        },
-        {
-          name: "名牌代購",
-        },
-        {
-          name: "科技電子",
-        },
-        {
-          name: "影音項目",
-        },
-      ],
-      data: [
-        {
-          id: 1,
-          label:
-            this.$i18n.locale === "zh-Hant-HK" ? "港島區" : "Hong Kong Island",
-          children: [
-            {
-              id: 2,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "堅尼地城站"
-                  : "Kennedy Town Station",
-            },
-            {
-              id: 3,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "香港大學站"
-                  : "Hong Kong University Station",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "西營盤站"
-                  : "Sai Ying Pun Station",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "上環站"
-                  : "Sheung Wan Station",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "中環站"
-                  : "Central Station",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "金鐘站"
-                  : "Admiralty Station",
-              disabled: false,
-            },
-          ],
-        },
-        {
-          id: 2,
-          label: this.$i18n.locale === "zh-Hant-HK" ? "九龍區" : "Kowloon",
-          children: [
-            {
-              id: 2,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "藍田站"
-                  : "Lam Tin Station",
-            },
-            {
-              id: 3,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "觀塘站"
-                  : "Kwun Tong Station",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "牛頭角站"
-                  : "Ngau Tau Kok Station",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "九龍灣站"
-                  : "Kowloon Bay Station",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "彩虹站"
-                  : "Rainbow Station",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "鑽石山站"
-                  : "Diamond Hill Station",
-              disabled: false,
-            },
-          ],
-        },
-        {
-          id: 3,
-          label:
-            this.$i18n.locale === "zh-Hant-HK" ? "新界區" : "New Territories",
-          children: [
-            {
-              id: 2,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "荃灣站"
-                  : "Tsuen Wan Station",
-            },
-            {
-              id: 3,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "大窩口站"
-                  : "Da Wo Hau Station",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "葵興站"
-                  : "Kwai Hing Station",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "葵芳站"
-                  : "Kwai Fong Station",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "康城站"
-                  : "Cannes Station",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "寶琳站"
-                  : "Pauline Station",
-              disabled: false,
-            },
-          ],
-        },
-        {
-          id: 4,
-          label:
-            this.$i18n.locale === "zh-Hant-HK" ? "離島區" : "Islands District",
-          children: [
-            {
-              id: 2,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "青衣站"
-                  : "Tsing Yi Station",
-            },
-            {
-              id: 3,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "欣澳站"
-                  : "Sunny Bay Station",
-              disabled: false,
-            },
-            {
-              id: 4,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "迪士尼站"
-                  : "Disney Station",
-              disabled: false,
-            },
-            {
-              id: 5,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "東涌站"
-                  : "Tung Chung Station",
-              disabled: false,
-            },
-            {
-              id: 6,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "機場站"
-                  : "airport station",
-              disabled: false,
-            },
-            {
-              id: 7,
-              label:
-                this.$i18n.locale === "zh-Hant-HK"
-                  ? "博覽館站"
-                  : "Expo Station",
-              disabled: false,
-            },
-          ],
-        },
+        this.$t("mong_kok_east_station"),
+        // this.$t("airport_station"),
+        // this.$t("expo_station"),
       ],
     };
   },
@@ -736,11 +403,11 @@ export default {
           this.$t("shau_kei_wan_station"),
           this.$t("heng_fa_chauen_station"),
           this.$t("chai_wan_station"),
-          this.$t("ocean_park_station"),
+          // this.$t("ocean_park_station"),
           this.$t("wong_chuk_hang_station"),
           this.$t("lei_tung_station"),
           this.$t("south_horizons_station"),
-          this.$t("hong_kong_station"),
+          // this.$t("hong_kong_station"),
         ];
         this.kowloonAreas = [
           this.$t("lam_tin_station"),
@@ -766,15 +433,15 @@ export default {
           this.$t("jordan_station"),
           this.$t("tsim_sha_tsui_station"),
           this.$t("yau_tong_station"),
-          this.$t("kowloon_station"),
+          // this.$t("kowloon_station"),
           this.$t("olympic_station"),
           this.$t("nam_cheong_station"),
           this.$t("hung_hom_station"),
-          this.$t("mong_kok_east_station"),
-          this.$t("austin_station"),
-          this.$t("east_tsin_sha_tsui_station"),
+          // this.$t("mong_kok_east_station"),
+          // this.$t("austin_station"),
+          // this.$t("east_tsin_sha_tsui_station"),
           this.$t("to_kwa_wan_station"),
-          this.$t("sung_wong_toi_station"),
+          // this.$t("sung_wong_toi_station"),
           this.$t("kai_tak_station"),
         ];
         this.newTerritories = [
@@ -790,38 +457,41 @@ export default {
           this.$t("tai_wai_station"),
           this.$t("sha_tin_station"),
           this.$t("fo_tan_station"),
-          this.$t("raoeoourse_station"),
+          // this.$t("raoeoourse_station"),
           this.$t("university_station"),
           this.$t("tai_po_market_station"),
           this.$t("tai_wo_station"),
           this.$t("fanling_station"),
           this.$t("sheung_shui_station"),
-          this.$t("lo_wu_station"),
-          this.$t("lok_ma_chau_station"),
+          // this.$t("lo_wu_station"),
+          // this.$t("lok_ma_chau_station"),
           this.$t("tuen_mun_station"),
-          this.$t("siu_hong_station"),
+          // this.$t("siu_hong_station"),
           this.$t("tin_shui_wai_station"),
           this.$t("long_ping_station"),
           this.$t("yuen_long_station"),
           this.$t("kam_shueg_road_station"),
           this.$t("tsuen_wan_west_station"),
-          this.$t("hin_keng_station"),
+          // this.$t("hin_keng_station"),
           this.$t("che_king_temple_station"),
-          this.$t("sha_tin_wai_station"),
-          this.$t("city_one_station"),
-          this.$t("shek_mun_station"),
-          this.$t("tai_shui_hang_station"),
-          this.$t("heng_on_station"),
+          // this.$t("sha_tin_wai_station"),
+          // this.$t("city_one_station"),
+          // this.$t("shek_mun_station"),
+          // this.$t("tai_shui_hang_station"),
+          // this.$t("heng_on_station"),
           this.$t("ma_on_shan_station"),
           this.$t("wu_kai_sha_station"),
         ];
         this.islandDistrict = [
           this.$t("tsing_yi_station"),
-          this.$t("sunny_bay_station"),
-          this.$t("disney_station"),
+          // this.$t("sunny_bay_station"),
+          // this.$t("disney_station"),
           this.$t("tung_chung_station"),
-          this.$t("airport_station"),
-          this.$t("expo_station"),
+          this.$t("tai_o"),
+          this.$t("dumbbell_island"),
+          this.$t("lamma_island"),
+          // this.$t("airport_station"),
+          // this.$t("expo_station"),
         ];
         // this.data = [
         //   {
@@ -1051,9 +721,6 @@ export default {
     filtersGroup() {
       return this.$store.getters["dashboard/filtersGroup"];
     },
-    // defaultProps() {
-    //   return this.$store.getters["search/defaultProps"];
-    // },
     dynamicMainCategoryFilter() {
       return this.$store.getters["dashboard/dynamicMainCategoryFilter"];
     },
@@ -1065,6 +732,9 @@ export default {
     },
     mainCategoryFilter() {
       return this.$store.getters["dashboard/mainCategoryFilter"];
+    },
+    subCategoryFilter() {
+      return this.$store.getters["dashboard/subCategoryFilter"];
     },
     filtersItem() {
       return this.$store.getters["dashboard/filtersItem"];
@@ -1113,14 +783,6 @@ export default {
         this.$store.commit("search/UPDATE_PRICE_RANGE", value);
       },
     },
-    // data: {
-    //   get() {
-    //     return this.$store.getters["search/data"];
-    //   },
-    //   set(value) {
-    //     this.$store.commit("search/UPDATE_DATA", value);
-    //   },
-    // },
   },
   methods: {
     expand(option) {
@@ -1197,9 +859,22 @@ export default {
     },
     getFilterItems(item) {
       console.log(item);
+      // this.$store.commit("search/RESET_SELECTED_SUB_CATEGORY");
+      this.subCat = true;
+      this.mainCat = false;
+
       this.currentFilter2 = item.name;
+      this.subCategorySlug = item.slug;
       this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", item.name);
-      this.$store.dispatch("dashboard/getDynamicFilters", item);
+      this.$store.commit("search/SET_SELECTED_SUB_CATEGORY_SLUG", item.slug);
+      // this.$store.dispatch("dashboard/getDynamicFilters", item);
+
+      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      // this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+
+      // this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+      // this.$store.dispatch("dashboard/getMainCategoryFilter", item.slug);
+      this.$store.dispatch("dashboard/getSubCategoryFilter", item.slug);
     },
     searchFilter() {
       console.log(this.checkList);
@@ -1232,7 +907,7 @@ export default {
         }
       });
 
-      const paymentData =
+      let paymentData =
         this.finalPayment.length > 0 ? `{"$in":[${this.finalPayment}]}` : "";
 
       this.discount.forEach((item) => {
@@ -1242,7 +917,7 @@ export default {
       });
       console.log(this.finalDiscount);
 
-      const discountData =
+      let discountData =
         this.finalDiscount.length > 0 ? `{"$in":[${this.finalDiscount}]}` : "";
       // const discountData =
       //   this.discount.length > 0 ? `{"$in":[${this.discount}]}` : "";
@@ -1264,34 +939,156 @@ export default {
 
       console.log(areas);
 
-      const dataObject = {
+      let dataObject = {
         dynamicFilter: arr.toString(),
         dynamicFilter1: arr,
-        // dynamicFilter: finalData,
         discount: discountData,
         area: areas.length > 0 ? `{"$in":[${areas}]}` : "",
-        // area:
-        //   this.filterArray.length > 0 ? `{"$in":[${this.filterArray}]}` : "",
         price: this.priceRange,
         paymentMethod: paymentData,
         page: 1,
         pageSize: 15,
-        // paymentMethod:
-        //   this.paymentMethod.length > 0
-        //     ? this.paymentMethod.toString().replaceAll(",", "|")
-        //     : "",
       };
 
       console.log(dataObject);
 
-      this.$store.dispatch("search/advancedFilter", dataObject).then(() => {
-        this.$emit("closeDialog", false);
-        this.$router.push({
-          path: "/advanced-search",
-          query: { filter: arr.toString() },
-        });
-      });
+      const filter = {
+        mainCategory: this.categorySlug ? this.categorySlug : undefined,
+        subCategory: this.subCategorySlug ? this.subCategorySlug : undefined,
+        dynamicFilter: dataObject.dynamicFilter
+          ? dataObject.dynamicFilter
+          : undefined,
+        area: dataObject.area ? dataObject.area : undefined,
+        discount: dataObject.discount ? dataObject.discount : undefined,
+        payment: dataObject.paymentMethod
+          ? dataObject.paymentMethod
+          : undefined,
+        price: dataObject.price
+          ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
+          : undefined,
+      };
+
+      // this.$store.dispatch("search/advancedFilter", dataObject).then(() => {
+      //   this.$emit("closeDialog", false);
+      //   this.$router.push({
+      //     path: "/advanced-search",
+      //     query: { filter: arr.toString() },
+      //   });
+      // });
+      if (this.subCategorySlug) {
+        this.$store
+          .dispatch("search/advancedFilter", {
+            category: this.subCategorySlug ? this.subCategorySlug : "",
+            data: dataObject,
+          })
+          .then(() => {
+            this.$emit("closeDialog", false);
+
+            this.$router.push({
+              path: "/advanced-search",
+              query: {
+                filter: JSON.stringify(filter),
+              },
+              // query: {
+              //   filter: `${
+              //     this.subCategorySlug
+              //       ? `category:${this.subCategorySlug},`
+              //       : ""
+              //   }${
+              //     dataObject.dynamicFilter ? `${dataObject.dynamicFilter},` : ""
+              //   }${dataObject.area ? `area:${dataObject.area},` : ""}${
+              //     dataObject.discount ? `discount:${discountData},` : ""
+              //   }${
+              //     dataObject.paymentMethod
+              //       ? `payment:${dataObject.paymentMethod},`
+              //       : ""
+              //   }${
+              //     dataObject.price
+              //       ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
+              //       : ":"
+              //   }`,
+              // },
+              // query: {
+              //   filter: this.subCategorySlug
+              //     ? `category:${this.subCategorySlug}`
+              //     : "",
+              // },
+            });
+            this.categorySlug = null;
+            this.subCategorySlug = null;
+          });
+      } else {
+        this.$store
+          .dispatch("search/advancedFilter", {
+            category: this.categorySlug ? this.categorySlug : "",
+            data: dataObject,
+          })
+          .then(() => {
+            this.$emit("closeDialog", false);
+
+            this.$router.push({
+              path: "/advanced-search",
+              query: {
+                filter: JSON.stringify(filter),
+              },
+              // query: {
+              //   filter: `${
+              //     this.categorySlug ? `category:${this.categorySlug},` : ""
+              //   }${
+              //     dataObject.dynamicFilter ? `${dataObject.dynamicFilter},` : ""
+              //   }${dataObject.area ? `area:${dataObject.area},` : ""}${
+              //     dataObject.discount ? `discount:${dataObject.discount},` : ""
+              //   }${
+              //     dataObject.paymentMethod
+              //       ? `payment:${dataObject.paymentMethod},`
+              //       : ""
+              //   }${
+              //     dataObject.price
+              //       ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
+              //       : ":"
+              //   }`,
+              // },
+              // query: {
+              //   filter: this.categorySlug
+              //     ? `category:${this.categorySlug}`
+              //     : "",
+              // },
+            });
+            this.categorySlug = null;
+            this.subCategorySlug = null;
+          });
+      }
+      // this.$store
+      //   .dispatch("search/advancedFilter", this.categorySlug)
+      //   .then(() => {
+      //     this.$router.push({
+      //       path: "/advanced-search",
+      //       query: { filter: `category:${this.categorySlug}` },
+      //     });
+      //   });
       this.currentFilter = "";
+      this.currentFilter2 = "";
+      // this.$store.commit("search/RESET_SELECTED_MAIN_CATEGORY");
+      // this.$store.commit("search/RESET_SELECTED_SUB_CATEGORY");
+      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+      // this.$store.commit("search/RESET_PAYMENT");
+      // this.$store.commit("search/RESET_PAYMENT_METHOD");
+      // this.$store.commit("search/RESET_PRICE_RANGE");
+      // this.$store.commit("search/RESET_DISCOUNT");
+      this.subCat = false;
+      this.mainCat = false;
+      this.checkedCities = [];
+      this.checkedKowloonAreas = [];
+      this.checkedNewTerritories = [];
+      this.checkedIslandDistrict = [];
+      this.checkAll = false;
+      this.checkAllKowloon = false;
+      this.checkAllNewTerritories = false;
+      this.checkAllIslandDistrict = false;
+      this.finalDiscount = [];
+      this.finalPayment = [];
+
       // this.$store.dispatch("search/advancedFilter", dataObject).then(() => {
       //   this.$emit("closeDialog", false);
       //   this.$router.push({
@@ -1301,8 +1098,14 @@ export default {
       // });
     },
     changeFilter(item) {
+      this.subCat = false;
+      this.mainCat = true;
       this.currentFilter = item.name;
+      this.categorySlug = item.slug;
       console.log(item);
+      this.$store.commit("search/RESET_SELECTED_MAIN_CATEGORY");
+      this.$store.commit("search/RESET_SELECTED_SUB_CATEGORY");
+
       this.$store.commit(
         "dashboard/SET_MAIN_CATEGORY_CHILDREN",
         item.resources.children
@@ -1492,7 +1295,7 @@ export default {
 
 .advanced-search-dialog .body .areas {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 2rem;
 }
 
@@ -1665,6 +1468,45 @@ export default {
   overflow: hidden;
   transition: 0.7s;
 }
+.advanced-search-dialog :deep(.body .areas .single-area) {
+  margin-bottom: 0.5rem;
+  margin-right: 11rem;
+}
+
+.advanced-search-dialog .range-selector {
+  display: flex;
+  justify-content: space-between;
+}
+
+.advanced-search-dialog .range-selector .el-input {
+  width: 6rem;
+  position: relative;
+}
+
+.advanced-search-dialog .range-selector .el-input::before {
+  content: "$";
+  position: absolute;
+  top: 50%;
+  left: 0.5rem;
+  transform: translateY(-50%);
+}
+
+.advanced-search-dialog .range-selector :deep(.el-input__wrapper) {
+  background: #f5f4f0;
+  /* border: 1px solid #ebeae6; */
+  border-radius: 8px;
+}
+.advanced-search-dialog .range-selector :deep(.el-input__inner) {
+  text-align: end;
+}
+
+.advanced-search-dialog .range-selector .range-box {
+  background: #f5f4f0;
+  border: 1px solid #ebeae6;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  width: 6rem;
+}
 
 @media screen and (max-width: 991px) {
   .advanced-search-dialog .el-button {
@@ -1691,9 +1533,10 @@ export default {
     flex-direction: column;
   }
 
-  .advanced-search-dialog .body .areas .single-area {
+  /* .advanced-search-dialog :deep(.body .areas .single-area) {
     margin-bottom: 0.5rem;
-  }
+    margin-right: 3rem;
+  } */
 
   .advanced-search-dialog .body .other-filters {
     flex-direction: column;

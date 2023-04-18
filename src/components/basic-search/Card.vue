@@ -15,6 +15,7 @@
             class="card"
             @click="
               selectShop({
+                mainCat: subItem.category,
                 slug: subItem.slug,
                 category: item.resources.category.name,
                 id: item.resources.category.slug,
@@ -143,17 +144,24 @@ export default {
     },
   },
   methods: {
-    selectShop({ slug, category, id }) {
+    selectShop({ slug, category, id, mainCat }) {
       console.log(category);
       console.log(slug);
       console.log(id);
+      console.log(mainCat);
+      this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", mainCat);
+
       this.$store.commit("SET_CATEGORY", category);
       this.$store.commit("SET_CATEGORY_ID", id);
       this.$store.commit("SET_SELECTED_SHOP_SLUG", slug);
       this.$store
         .dispatch("search/searchSingleShop", { slug: slug })
         .then(() => {
-          this.$router.push({ path: "/shop", query: { q: slug } });
+          this.$router.push({
+            name: "shop",
+            params: { id: slug },
+            // query: { q: slug },
+          });
         });
     },
   },

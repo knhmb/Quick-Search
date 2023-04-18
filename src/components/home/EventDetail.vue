@@ -70,20 +70,20 @@ export default {
       this.$store.commit("OPEN_DIALOG", "register");
     },
     book() {
-      let data;
+      // let data;
       console.log(this.promotionDetail);
-      this.$store
-        .dispatch("dashboard/getEventSchedule", this.promotionDetail.shop)
-        .then(() => {
-          data = {
-            account: this.currentUserDetails.id,
-            // account: this.singleItem.item.account,
-            shop: this.promotionDetail.shop,
-            schedule: this.singleSchedule.id,
-            timeslot: this.singleSchedule.timeslot[0].hash,
-          };
-        });
-      console.log(this.singleSchedule);
+      // this.$store
+      //   .dispatch("dashboard/getEventSchedule", this.promotionDetail.shop)
+      //   .then(() => {
+      //     data = {
+      //       account: this.currentUserDetails.id,
+      //       // account: this.singleItem.item.account,
+      //       shop: this.promotionDetail.shop,
+      //       schedule: this.singleSchedule.id,
+      //       timeslot: this.singleSchedule.timeslot[0].hash,
+      //     };
+      //   });
+      // console.log(this.singleSchedule);
 
       // data = {
       //   account: this.currentUserDetails.id,
@@ -92,12 +92,12 @@ export default {
       //   schedule: this.singleSchedule.id,
       //   timeslot: this.singleSchedule.timeslot[0].hash,
       // };
-      console.log(data);
+      // console.log(data);
       this.$store
         .dispatch("auth/checkAccessToken")
         .then(() => {
           this.$store
-            .dispatch("shop/book", data)
+            .dispatch("shop/claimPromotion", this.promotionDetail.slug)
             .then(() => {
               ElNotification({
                 title: "Success",
@@ -119,7 +119,7 @@ export default {
             .dispatch("auth/checkRefreshToken")
             .then(() => {
               this.$store
-                .dispatch("shop/book", data)
+                .dispatch("shop/claimPromotion", this.promotionDetail.slug)
                 .then(() => {
                   ElNotification({
                     title: "Success",

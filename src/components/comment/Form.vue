@@ -37,6 +37,7 @@
             :on-success="handleSuccess1"
             :on-progress="handlePending"
             :on-error="handleError"
+            multiple
             ref="uploadDocument"
           >
             <el-icon><Plus /></el-icon>

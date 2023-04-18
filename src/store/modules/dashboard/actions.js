@@ -152,6 +152,34 @@ export default {
     //   // response.data.items[0].category
     // );
   },
+  async getSubCategoryFilter(context, payload) {
+    const response = await axios.get("/api/v1/shops/filters/groups", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+      params: {
+        filter: `category:${payload}`,
+        sort: "createdAt",
+      },
+    });
+    console.log(response);
+    // context.commit("SET_DYNAMIC_FILTER_GROUP", response.data.items);
+    context.commit("SET_SUB_CATEGORY_FILTER", response.data.items);
+    const data = response.data.items;
+    data.forEach((item) => {
+      context.dispatch(
+        "getDynamicFilters",
+        item
+        // item.slug
+        // response.data.items[0].category
+      );
+    });
+    // context.dispatch(
+    //   "getDynamicMainCategoryFilters",
+    //   payload
+    //   // response.data.items[0].category
+    // );
+  },
   async getDynamicMainCategoryFilters(context, payload) {
     console.log(payload);
     const response = await axios.get("/api/v1/shops/filters/items", {
@@ -160,12 +188,14 @@ export default {
       },
       params: {
         filter: `group:${payload}`,
+        sort: "createdAt",
       },
     });
     console.log(response);
     context.commit("SET_DYNAMIC_MAIN_CATEGORY_FILTER", response.data.items);
   },
   async getDynamicFilters(context, payload) {
+    console.log(payload);
     const response = await axios.get("/api/v1/shops/filters/items", {
       headers: {
         "accept-language": i18n.global.locale,
@@ -209,5 +239,13 @@ export default {
     });
     console.log(response);
     context.commit("SET_EVENT_SCHEDULE", response.data.items);
+  },
+  async getPromotionCategories(context) {
+    const response = await axios.get("/api/v1/shops/promotions/categories", {
+      headers: {
+        "accept-language": i18n.global.locale,
+      },
+    });
+    context.commit("SET_PROMOTION_CATEGORIES", response.data.items);
   },
 };

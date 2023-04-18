@@ -3,7 +3,7 @@
     <div class="main-section">
       <base-container>
         <el-breadcrumb :separator-icon="ArrowRight">
-          <el-breadcrumb-item class="first">{{
+          <el-breadcrumb-item class="first" @click="$router.push('/')">{{
             $t("home")
           }}</el-breadcrumb-item>
           <!-- <el-breadcrumb-item class="first">{{
@@ -12,11 +12,28 @@
           <!-- <el-breadcrumb-item class="first">{{
             $t("personal_care")
           }}</el-breadcrumb-item> -->
-          <el-breadcrumb-item class="first">{{ category }}</el-breadcrumb-item>
+          <el-breadcrumb-item
+            class="first"
+            @click="
+              searchCategory({
+                category: selectedMainCategorySlug,
+                type: 'cat',
+              })
+            "
+            >{{ category }}</el-breadcrumb-item
+          >
           <!-- <el-breadcrumb-item class="first">{{
             $t("hair_salon")
           }}</el-breadcrumb-item> -->
-          <el-breadcrumb-item>{{ singleItem.item.name }}</el-breadcrumb-item>
+          <el-breadcrumb-item
+            @click="
+              searchCategory({
+                category: selectedShopSlug,
+                type: 'subCat',
+              })
+            "
+            >{{ singleItem.item.name }}</el-breadcrumb-item
+          >
         </el-breadcrumb>
         <el-row :gutter="15">
           <el-col :sm="12" :md="4">
@@ -56,6 +73,12 @@
                       alt=""
                     />
                   </ShareNetwork>
+                  <img
+                    @click="copyMe"
+                    style="margin-left: 0.5rem"
+                    src="../../assets/link.png"
+                    alt=""
+                  />
                   <!-- <img
                     src="../../assets/share-social-media-instagram.png"
                     alt=""
@@ -137,8 +160,29 @@ export default {
     href() {
       return window.location.href;
     },
+    selectedSubCategorySlug() {
+      return this.$store.getters["search/selectedSubCategorySlug"];
+    },
+    selectedMainCategorySlug() {
+      return this.$store.getters.selectedMainCategorySlug;
+    },
+    selectedShopSlug() {
+      return this.$store.getters.selectedShopSlug;
+    },
+    categories() {
+      return this.$store.getters["dashboard/categories"];
+    },
   },
   methods: {
+    copyMe() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        ElNotification({
+          title: "Success",
+          message: "Url Copied!",
+          type: "success",
+        });
+      });
+    },
     bookmark() {
       console.log(this.singleItem);
       console.log(this.currentUserDetails);
@@ -175,6 +219,49 @@ export default {
                 type: "error",
               });
             });
+        });
+    },
+    searchCategory({ category, type }) {
+      console.log(category);
+      console.log(type);
+      console.log(this.singleItem);
+      let cat;
+      if (type === "subCat") {
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", "");
+        // cat = this.selectedSubCategorySlug;
+        cat = this.selectedMainCategorySlug;
+      } else {
+        cat = this.selectedMainCategorySlug;
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", "");
+        const categoryChildren = this.categories.find(
+          (item) => item.slug === cat
+        );
+        console.log(categoryChildren);
+        if (categoryChildren) {
+          this.$store.commit(
+            "dashboard/SET_MAIN_CATEGORY_CHILDREN",
+            categoryChildren.resources.children
+          );
+        }
+      }
+      this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", this.category);
+
+      const data = {
+        slug: cat,
+      };
+
+      const dataObject = {
+        page: 1,
+      };
+
+      this.$store.dispatch("dashboard/getDynamicFilters", data);
+      this.$store
+        .dispatch("search/advancedFilter", { category: cat, data: dataObject })
+        .then(() => {
+          this.$router.push({
+            path: "/advanced-search",
+            query: { filter: `category:${cat}` },
+          });
         });
     },
   },
@@ -214,6 +301,9 @@ export default {
 
 .top-section :deep(.el-breadcrumb__item.first .el-breadcrumb__inner) {
   color: #7a4117;
+}
+.top-section :deep(.el-breadcrumb__inner) {
+  cursor: pointer !important;
 }
 
 .top-section img.product-img {

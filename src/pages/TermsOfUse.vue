@@ -18,6 +18,16 @@ export default {
       return this.$store.getters["dashboard/footerContent"];
     },
   },
+  created() {
+    this.$store.dispatch("dashboard/getCategories");
+    this.$store.dispatch("dashboard/getLanguages");
+    this.$store.dispatch("dashboard/getContent");
+    this.$store.dispatch("dashboard/getPromotions");
+    this.$store.dispatch("dashboard/getPromotionCategories");
+    // this.$store.dispatch("dashboard/getFiltersGroup");
+    this.$store.dispatch("dashboard/getFiltersItem");
+    this.$store.dispatch("dashboard/getSubCategory");
+  },
 };
 </script>
 

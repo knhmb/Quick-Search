@@ -26,7 +26,6 @@
             @dayclick="handleSelected"
             @update:to-page="handleNewMonth"
             :locale="$i18n.locale"
-            :columns="$screens({ default: 1, lg: 1 })"
           />
           <!-- <v-date-picker
             v-model="range"
@@ -102,8 +101,8 @@
 </template>
 
 <script>
-import moment from "moment";
 import { ElNotification } from "element-plus";
+import moment from "moment";
 
 export default {
   data() {
@@ -135,7 +134,8 @@ export default {
         const startDateTime = `${startDate} ${time}`;
         const endDateTime = `${endDate} ${time}`;
         const data = {
-          param: this.$route.query.q,
+          // param: this.$route.query.q,
+          param: this.$route.params.id,
           start: new Date(startDateTime).toISOString(),
           end: new Date(endDateTime).toISOString(),
         };
@@ -288,23 +288,13 @@ export default {
     handleNewMonth(day) {
       this.dateArray = [];
       this.disableDates = [];
-      const currentMonth = moment(`${day.year}/${day.month}`).format();
+      const currentMonth = moment(`${day.year}/${day.month}`, "YYYY/MM");
       console.log(currentMonth);
-      const final = new Date(currentMonth);
-      console.log(final);
 
       // const now = new Date();
       // console.log(now);
-      const firstDay = new Date(
-        final.getFullYear(),
-        final.getMonth(),
-        1
-      ).toISOString("±YYYYYY-MM-DDTHH:mm:ss.sssZ");
-      const lastDay = new Date(
-        final.getFullYear(),
-        final.getMonth() + 1,
-        0
-      ).toISOString();
+      const firstDay = currentMonth.format();
+      const lastDay = currentMonth.add(1, "month").subtract(1, "day").format();
       this.disableFirst = new Date(firstDay);
       this.disableLast = new Date(lastDay);
       this.disabledDates.push({
@@ -355,16 +345,21 @@ export default {
         return;
       }
       // const dated = `${this.isActive}`;
-      const dummy = moment(this.date).format("YYYY-MM-DD");
-      const final = new Date(`${dummy} ${this.isActive}`);
-      const scheduleDate = final.toISOString();
+      // const dummy = moment(this.date).format("YYYY-MM-DD");
+      // const final = new Date(`${dummy} ${this.isActive}`);
+      // const scheduleDate = final.toISOString();
       // const dated = `${this.date} ${this.isActive}`;
       // console.log(new Date(dated));
+      const schedule = this.schedules.at(0);
+      const timeslot = schedule.timeslot.find(
+        (o) => this.filterDate(o.begin) === this.isActive
+      );
       const data = {
         account: this.currentUserDetails.id,
         // account: this.singleItem.item.account,
-        shop: this.singleItem.item.name,
-        schedule: scheduleDate,
+        shop: this.singleItem.item.slug,
+        schedule: schedule?.id,
+        timeslot: timeslot.hash,
         // date: this.date,
       };
       // console.log(this.singleItem.item);

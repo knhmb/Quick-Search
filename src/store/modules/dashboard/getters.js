@@ -47,4 +47,10 @@ export default {
   eventSchedules(state) {
     return state.eventSchedules;
   },
+  promotionCategories(state) {
+    return state.promotionCategories;
+  },
+  subCategoryFilter(state) {
+    return state.subCategoryFilter;
+  },
 };

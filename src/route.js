@@ -39,7 +39,7 @@ const router = createRouter({
     { path: "/", redirect: "/home" },
     { path: "/basic-search", component: BasicSearch },
     { path: "/advanced-search", component: AdvancedSearch },
-    { path: "/shop", component: ShoppingCart },
+    { path: "/shop/:id", component: ShoppingCart, name: "shop" },
     { path: "/about-us", component: AboutUs },
     { path: "/contact-us", component: ContactUs },
     { path: "/faq", component: Faq },

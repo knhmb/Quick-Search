@@ -2,42 +2,40 @@
   <div class="top-section">
     <base-container>
       <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item class="first">{{ $t("home") }}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{ selectedMainCategory }}</el-breadcrumb-item>
-        <!-- <el-breadcrumb-item>{{ $t("personal_care") }}</el-breadcrumb-item> -->
-        <el-breadcrumb-item v-if="currentOption">{{
-          currentOption
+        <el-breadcrumb-item class="first" @click="$router.push('/')">{{
+          $t("home")
         }}</el-breadcrumb-item>
+        <el-breadcrumb-item
+          @click="setSearch({ category: selectedMainCategory, type: 'cat' })"
+          >{{ selectedMainCategory }}</el-breadcrumb-item
+        >
+        <el-breadcrumb-item
+          v-if="selectedSubCategory"
+          @click="setSearch({ category: selectedSubCategory, type: 'subCat' })"
+          >{{ selectedSubCategory }}</el-breadcrumb-item
+        >
       </el-breadcrumb>
       <h5>
-        {{ selectedMainCategory }} {{ currentOption ? currentOption : "" }}
+        {{ selectedMainCategory }}
+        {{ selectedSubCategory ? selectedSubCategory : "" }}
       </h5>
       <!-- <h5>
         {{ $t("personal_care") }} {{ currentOption ? currentOption : "" }}
       </h5> -->
       <carousel
-        v-if="dynamicFilterGroup.length > 0"
+        v-if="mainCategoryChildren.length > 0"
         :breakpoints="breakpoints"
         :items-to-show="1.5"
       >
         <slide v-for="item in mainCategoryChildren" :key="item">
           <div
             @click="setOption(item)"
-            :class="{ 'is-active': currentOption === item.name }"
+            :class="{ 'is-active': currentOption === item.slug }"
             class="pill"
           >
             {{ item.name }}
           </div>
         </slide>
-        <!-- <slide v-for="item in dynamicFilterGroup" :key="item">
-          <div
-            @click="setOption(item)"
-            :class="{ 'is-active': currentOption === item.name }"
-            class="pill"
-          >
-            {{ item.name }}
-          </div>
-        </slide> -->
 
         <template #addons>
           <navigation />
@@ -62,6 +60,7 @@ export default {
     return {
       ArrowRight,
       currentOption: "",
+      renderComponent: true,
       breakpoints: {
         // 700px and up
         700: {
@@ -96,8 +95,18 @@ export default {
       deep: true,
       handler() {
         this.currentOption = "";
+        const cat = this.$route.query.filter.split(":").pop();
+        this.currentOption = cat;
+        // this.forceRerender();
       },
     },
+    // $route: {
+    //   deep: true,
+    //   handler() {
+    //     const cat = this.$route.query.filter.split(":").pop();
+    //     this.currentOption = cat;
+    //   },
+    // },
   },
   computed: {
     dynamicFilterGroup() {
@@ -109,13 +118,122 @@ export default {
     mainCategoryChildren() {
       return this.$store.getters["dashboard/mainCategoryChildren"];
     },
+    selectedSubCategory() {
+      return this.$store.getters["search/selectedSubCategory"];
+    },
+    selectedSubCategorySlug() {
+      return this.$store.getters["search/selectedSubCategorySlug"];
+    },
+    categories() {
+      return this.$store.getters["dashboard/categories"];
+    },
+    selectedMainCategorySlug() {
+      return this.$store.getters.selectedMainCategorySlug;
+    },
+    mainCat() {
+      return this.$route.query.filter
+        ? JSON.parse(this.$route.query.filter).mainCategory
+        : "";
+    },
+    subCat() {
+      return this.$route.query.filter
+        ? JSON.parse(this.$route.query.filter).subCategory
+        : "";
+    },
   },
   methods: {
-    setOption(option) {
-      this.currentOption = option.name;
-      // this.$emit("sort", option);
-      this.$store.dispatch("dashboard/getDynamicFilters", option);
+    async forceRerender() {
+      // Remove MyComponent from the DOM
+      this.renderComponent = false;
+
+      // Wait for the change to get flushed to the DOM
+      await this.$nextTick();
+
+      // Add the component back in
+      this.renderComponent = true;
     },
+    setOption(option) {
+      console.log(option);
+      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+
+      this.currentOption = option.slug;
+      this.$store.dispatch("dashboard/getSubCategoryFilter", option.slug);
+
+      // this.$emit("sort", option);
+      this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", option.name);
+      this.$store.commit("search/SET_SELECTED_SUB_CATEGORY_SLUG", option.slug);
+
+      const data = {
+        page: 1,
+      };
+
+      const filter = JSON.stringify({
+        mainCategory: JSON.parse(this.$route.query.filter).mainCategory
+          ? JSON.parse(this.$route.query.filter).mainCategory
+          : undefined,
+        subCategory: option.slug,
+      });
+
+      this.$store.dispatch("dashboard/getDynamicFilters", option);
+      this.$store
+        .dispatch("search/advancedFilter", { category: option.slug, data })
+        .then(() => {
+          this.$router.push({
+            path: "/advanced-search",
+            query: { filter: filter },
+            // query: { filter: `category:${option.slug}` },
+          });
+        });
+    },
+    setSearch({ category, type }) {
+      let cat;
+      // const finalCategory = (
+      //   this.selectedMainCategory.replaceAll(" ", "-") +
+      //   "-" +
+      //   category
+      // ).toLowerCase();
+      // const finalCategory =
+      //   this.selectedMainCategorySlug + "-" + this.selectedSubCategorySlug;
+      if (type === "subCat") {
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", category);
+        cat = this.selectedSubCategorySlug;
+      } else {
+        cat = this.selectedMainCategorySlug;
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", "");
+        const categoryChildren = this.categories.find(
+          (item) => item.slug === cat
+        );
+        console.log(categoryChildren);
+        this.$store.commit(
+          "dashboard/SET_MAIN_CATEGORY_CHILDREN",
+          categoryChildren.resources.children
+        );
+        this.currentOption = "";
+      }
+      const data = {
+        slug: cat,
+      };
+
+      const dataObject = {
+        page: 1,
+      };
+
+      this.$store.dispatch("dashboard/getDynamicFilters", data);
+      this.$store
+        .dispatch("search/advancedFilter", { category: cat, data: dataObject })
+        .then(() => {
+          this.$router.push({
+            path: "/advanced-search",
+            query: { filter: `category:${cat}` },
+          });
+        });
+    },
+  },
+  created() {
+    console.log(this.$route.query);
+    console.log(JSON.parse(this.$route.query.filter));
+    this.currentOption = this.$route.query.filter.split(":").pop();
+    // console.log(this.$route.query.filter.split(":").pop());
   },
 };
 </script>
@@ -138,6 +256,9 @@ export default {
 
 .top-section :deep(.el-breadcrumb__item.first .el-breadcrumb__inner) {
   color: #7a4117;
+}
+.top-section :deep(.el-breadcrumb__inner) {
+  cursor: pointer !important;
 }
 
 .top-section h5 {

@@ -6,17 +6,27 @@
           <p>
             {{ $t("agreement_note") }}
             <span>{{ $t("trade") }}</span> {{ $t("and_agree") }}
-            <span
+            <a :href="`${protocol}//${hostname}/terms-of-use`" target="_blank">
+              <span>{{ $t("terms_of_use") }}</span></a
+            >
+            <!-- <span
               style="cursor: pointer"
               @click="$router.push('/terms-of-use')"
               >{{ $t("terms_of_use") }}</span
-            >
+            > -->
             {{ $t("and") }}
-            <span
+            <a
+              :href="`${protocol}//${hostname}/privacy-policy`"
+              target="_blank"
+            >
+              <span>{{ $t("privacy_policy") }}</span
+              >{{ $i18n.locale === "en-us" ? "." : "。" }}</a
+            >
+            <!-- <span
               style="cursor: pointer"
               @click="$router.push('/privacy-policy')"
               >{{ $t("privacy_policy") }}</span
-            >{{ $i18n.locale === "en-us" ? "." : "。" }}
+            >{{ $i18n.locale === "en-us" ? "." : "。" }} -->
           </p>
         </el-col>
         <el-col style="text-align: end" :sm="24" :md="24" :lg="7">
@@ -53,6 +63,12 @@ export default {
     singleItem() {
       return this.$store.getters["search/singleItem"];
     },
+    protocol() {
+      return window.location.protocol;
+    },
+    hostname() {
+      return window.location.hostname;
+    },
   },
   methods: {
     addReview() {
@@ -84,6 +100,7 @@ export default {
         overall: this.review,
       };
       console.log(data);
+      // this.$store.commit("shop/SET_COMMENTS", []);
       this.$store
         .dispatch("auth/checkAccessToken")
         .then(() => {
@@ -93,7 +110,8 @@ export default {
               message: this.$t("review_added"),
               type: "success",
             });
-            this.$router.replace("/");
+            this.$store.commit("shop/SET_TAB_VALUE", "second");
+            this.$router.replace("/shop");
           });
         })
         .catch(() => {
@@ -174,6 +192,11 @@ export default {
   color: #fff;
   background: #985f35;
   border-color: #985f35;
+}
+
+.bottom-section a {
+  text-decoration: none;
+  color: #985f35;
 }
 
 @media screen and (max-width: 1199px) {

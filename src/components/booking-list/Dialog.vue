@@ -6,12 +6,12 @@
       width="30%"
       :before-close="handleClose"
     >
-      <img :src="singleBooking.thumbnail" alt="" />
+      <img :src="singleBooking.resources?.shop?.image" alt="" />
       <!-- <img src="../../assets/shop-sample01@2x.jpg" alt="" /> -->
       <div class="content">
         <div class="box">{{ $t(singleBooking.status) }}</div>
         <!-- <div class="box">已確認</div> -->
-        <p>{{ singleBooking.shop }}</p>
+        <p>{{ singleBooking.resources?.shop?.name }}</p>
         <div class="inner-card">
           <div class="single-card">
             <label>{{ $t("number_of_reservations") }}</label>
@@ -51,12 +51,12 @@ export default {
   },
   methods: {
     filterDate() {
-      const newDate = new Date(this.singleBooking.schedule);
+      const newDate = new Date(this.singleBooking.begin);
       const finalDate = moment(newDate).format("YYYY-MM-DD");
       return finalDate;
     },
     filterTime() {
-      const newTime = new Date(this.singleBooking.schedule);
+      const newTime = new Date(this.singleBooking.begin);
       const finalTime = moment(newTime).format("LT");
       //   const finalTime = moment(newTime).format("LT").replace("PM", "");
       return finalTime;

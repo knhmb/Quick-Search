@@ -4,16 +4,23 @@
       <el-row justify="space-between">
         <el-col :sm="24" :md="5">
           <img src="../../assets/brand-logo-footer@2x.png" alt="" />
-          <img
-            src="../../assets/social-media-facebook@2x.png"
-            alt=""
-            class="social-media"
-          />
-          <img
-            src="../../assets/social-media-instagram@2x.png"
-            alt=""
-            class="social-media"
-          />
+          <a
+            href="https://www.facebook.com/profile.php?id=100087977491259"
+            target="_blank"
+          >
+            <img
+              src="../../assets/social-media-facebook@2x.png"
+              alt=""
+              class="social-media"
+            />
+          </a>
+          <a href="https://www.instagram.com/quicksearch_hk" target="_blank">
+            <img
+              src="../../assets/social-media-instagram@2x.png"
+              alt=""
+              class="social-media"
+            />
+          </a>
         </el-col>
         <el-col :sm="24" :md="5">
           <p>{{ $t("meet_quick_search") }}</p>
@@ -85,7 +92,7 @@
       <el-row>
         <el-col>
           <p class="copyright">
-            © 2022 Ten In One Company Limited. All Rights Reserved.
+            © {{ year }} Ten In One Company Limited. All Rights Reserved.
           </p>
         </el-col>
       </el-row>
@@ -113,10 +120,16 @@ export default {
     footerContent() {
       return this.$store.getters["dashboard/footerContent"];
     },
+    year() {
+      return new Date().getFullYear();
+    },
   },
   methods: {
     vendorLogin() {
       window.location.href = `${window.location.protocol}//${window.location.hostname}/admin/`;
+    },
+    goToInstagram() {
+      window.location.href = `https://www.instagram.com/quicksearch_hk`;
     },
   },
 };

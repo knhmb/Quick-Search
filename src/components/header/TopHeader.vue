@@ -25,10 +25,10 @@
         </el-dropdown>
       </div>
       <div class="right-section">
-        <div class="vendor-login hidden-xs-only">
+        <!-- <div class="vendor-login hidden-xs-only">
           <img src="../../assets/header-vendor-login@2x.png" alt="" />
           <span @click="vendorLogin">{{ $t("merchant_zone") }}</span>
-        </div>
+        </div> -->
         <div class="member-login">
           <img
             v-if="!isLoggedIn"
@@ -49,9 +49,14 @@
               @click="isUserDropdown = !isUserDropdown"
               v-if="isLoggedIn"
               class="avatar-img"
-              :src="currentUserDetails.avatar"
+              :src="
+                currentUserDetails.avatar
+                  ? currentUserDetails.avatar
+                  : defaultAvatar
+              "
               alt=""
             />
+            <p class="username">{{ currentUserDetails.username }}</p>
             <div v-if="isUserDropdown" class="user-dropdown">
               <p @click="navigate('/member-profile')">{{ $t("profile") }}</p>
               <p @click="logout">{{ $t("log_out") }}</p>
@@ -73,10 +78,10 @@
   <teleport to="body">
     <div v-if="isCollapse" ref="mySidenav" class="sidenav">
       <div @click="closeSideNav" class="close"></div>
-      <div class="vendor-login">
+      <!-- <div class="vendor-login">
         <img src="../../assets/header-vendor-login@2x.png" alt="" />
         <span>{{ $t("merchant_zone") }}</span>
-      </div>
+      </div> -->
       <div class="member-login">
         <img src="../../assets/header-member-login@2x.png" alt="" />
         <span @click="openDialog"
@@ -132,6 +137,7 @@ export default {
   },
   data() {
     return {
+      defaultAvatar: require("../../assets/avatar-default-lg@2x.png"),
       dialogVisible: false,
       isCollapse: false,
       isUserDropdown: false,
@@ -317,6 +323,21 @@ export default {
   background-color: #fff;
   margin: 5px 0;
   border-radius: 2px;
+}
+
+.top-header .user-logged-in {
+  display: flex;
+  align-items: center;
+}
+
+.top-header p.username {
+  font-family: Noto Sans TC, PingFang, Helvetica, Arial, sans-serif, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  font-feature-settings: "liga" off;
+  color: #ffffff;
 }
 
 .sidenav {

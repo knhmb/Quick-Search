@@ -3,20 +3,23 @@
     <el-row :gutter="10">
       <!-- <el-col v-for="item in 12" :key="item" :sm="12" :md="8"> -->
       <el-col v-for="promotion in promotions" :key="promotion" :sm="12" :md="8">
-        <div class="card">
+        <div class="card" v-if="!promotion.used">
           <div class="header">
             <h5>{{ $t("discount") }}</h5>
             <div class="box">
               <!-- <p>可使用</p> -->
-              <p>{{ promotion.used ? $t("completed") : "" }}</p>
+
+              <p>{{ promotion.used ? $t("confirmed") : "" }}</p>
             </div>
           </div>
-          <p class="name">{{ promotion.shop }}</p>
+          <p class="name">{{ promotion.resources.shop.name }}</p>
           <p class="fade">
-            {{ promotion.promotion }}
+            {{ promotion.resources.shop.description }}
           </p>
           <div class="btn-content">
-            <el-button>{{ $t("view_offers") }}</el-button>
+            <el-button @click="viewPromotionDetail(promotion.promotion)">{{
+              $t("view_offers")
+            }}</el-button>
           </div>
         </div>
       </el-col>
@@ -29,14 +32,59 @@
       pager-count="8"
     />
   </div>
+  <Dialog
+    :dialog-visible="dialogVisible"
+    @closedDialog="dialogVisible = $event"
+  />
 </template>
 
 
 <script>
+import { ElNotification } from "element-plus";
+import Dialog from "./Dialog.vue";
 export default {
+  components: {
+    Dialog,
+  },
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
   computed: {
     promotions() {
       return this.$store.getters["profile/accountPromotions"];
+    },
+  },
+  methods: {
+    viewPromotionDetail(slug) {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store.dispatch("profile/getPromotionDetail", slug).then(() => {
+            this.dialogVisible = true;
+          });
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store
+                .dispatch("profile/getPromotionDetail", slug)
+                .then(() => {
+                  this.dialogVisible = true;
+                });
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: "Token Expired! Please Login Again.",
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+              this.$router.replace("/");
+            });
+        });
     },
   },
 };

@@ -29,6 +29,21 @@ export default {
     );
     console.log(response);
   },
+  async updateUserAvatar(_, payload) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.put(
+      `/api/v1/accounts/${payload.id}`,
+      { avatar: payload.avatar },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "accept-language": i18n.global.locale,
+        },
+      }
+    );
+    console.log(response);
+  },
   async getUser(context, payload) {
     console.log(context);
     const userToken = sessionStorage.getItem("accessToken");
@@ -40,7 +55,7 @@ export default {
       },
     });
     console.log(response);
-    context.commit("auth/UPDATE_USER", response.data.item, { root: true });
+    context.commit("auth/LOGIN", response.data.item, { root: true });
   },
 
   async getSingleBooking(context, id) {
@@ -52,6 +67,7 @@ export default {
       },
     });
     console.log(response);
+    response.data.item.resources = response.data.resources;
     context.commit("SET_SINGLE_BOOKING", response.data.item);
   },
   async getPromotions(context) {
@@ -93,4 +109,45 @@ export default {
     console.log(response);
     context.commit("SET_ACCOUNT_PROMOTIONS", response.data.items);
   },
+  async getPromotionDetail(context, payload) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get(`/api/v1/shops/promotions/${payload}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    context.commit("SET_PROMOTION_DETAIL", response.data.item);
+  },
+  async getImage(context, payload) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get(`/api/v1/system/uploads/${payload}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    console.log(response);
+    context.commit("SET_IMAGE", response.data);
+  },
+  async getProfileMessages(context) {
+    const userToken = sessionStorage.getItem("accessToken");
+
+    const response = await axios.get("/api/v1/application/messages", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    context.commit("SET_MESSAGES", response.data.items);
+  },
+  // async getMessages(context) {
+  //   const userToken = localStorage.getItem("accessToken");
+
+  //   const response = await axios.get("/api/v1/application/messages", {
+  //     headers: {
+  //       Authorization: `Bearer ${userToken}`,
+  //     },
+  //   });
+  //   context.commit("SET_MESSAGES", response.data.items);
+  // },
 };

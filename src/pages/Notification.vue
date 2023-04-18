@@ -3,25 +3,28 @@
     <base-card>
       <h4>{{ $t("message_management") }}</h4>
       <el-row>
-        <el-col v-for="item in profileMessages" :key="item">
+        <el-col v-for="item in messages" :key="item">
           <div class="card">
             <div class="header">
               <div class="avatar">
                 <div class="pill"></div>
-                <img :src="item.resources.account.avatar" alt="" />
+                <!-- <img :src="item.resources.account.avatar" alt="" /> -->
               </div>
               <div class="text">
                 <p class="name">{{ item.title }}</p>
-                <p>{{ item.shop }} - {{ filterDate(item.createdAt) }}</p>
+                <!-- <p class="name">{{ item.title }}</p> -->
+                <!-- <p>{{ item.shop }} - {{ filterDate(item.createdAt) }}</p> -->
+                <p>shop - {{ filterDate(item.publishedAt) }}</p>
               </div>
             </div>
             <div class="main">
               <el-row>
                 <el-col :span="21">
                   <div class="paragraphs">
-                    <p>
+                    <!-- <p>
                       {{ item.content }}
-                    </p>
+                    </p> -->
+                    <p>{{ item.message }}</p>
                   </div>
                 </el-col>
                 <el-col style="display: flex" :span="3">
@@ -125,28 +128,25 @@ export default {
     profileMessages() {
       return this.$store.getters["profile/profileMessages"];
     },
+    messages() {
+      return this.$store.getters["profile/messages"];
+    },
   },
   methods: {
     filterDate(date) {
       return moment(date).format("YYYY-MM-DD");
     },
-    getComments() {
+    getMessages() {
       this.$store
         .dispatch("auth/checkAccessToken")
         .then(() => {
-          this.$store.dispatch(
-            "profile/getComments",
-            this.currentUserDetails.id
-          );
+          this.$store.dispatch("profile/getProfileMessages");
         })
         .catch(() => {
           this.$store
             .dispatch("auth/checkRefreshToken")
             .then(() => {
-              this.$store.dispatch(
-                "profile/getComments",
-                this.currentUserDetails.id
-              );
+              this.$store.dispatch("profile/getProfileMessages");
             })
             .catch(() => {
               ElNotification({
@@ -158,9 +158,37 @@ export default {
             });
         });
     },
+    // getComments() {
+    //   this.$store
+    //     .dispatch("auth/checkAccessToken")
+    //     .then(() => {
+    //       this.$store.dispatch(
+    //         "profile/getComments",
+    //         this.currentUserDetails.id
+    //       );
+    //     })
+    //     .catch(() => {
+    //       this.$store
+    //         .dispatch("auth/checkRefreshToken")
+    //         .then(() => {
+    //           this.$store.dispatch(
+    //             "profile/getComments",
+    //             this.currentUserDetails.id
+    //           );
+    //         })
+    //         .catch(() => {
+    //           ElNotification({
+    //             title: "Error",
+    //             message: this.$t("token_expired"),
+    //             type: "error",
+    //           });
+    //           this.$store.dispatch("auth/logout");
+    //         });
+    //     });
+    // },
   },
   created() {
-    this.getComments();
+    this.getMessages();
   },
 };
 </script>

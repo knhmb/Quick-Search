@@ -1,5 +1,13 @@
 <template>
   <div class="shopping-cart">
+    <a
+      aria-label="Chat on WhatsApp"
+      :href="`https://wa.me/852${singleItem.item.phoneno}`"
+      target="_blank"
+    >
+      <img class="whatsapp" src="../assets/1240341.png" alt="" />
+    </a>
+
     <top-section></top-section>
     <base-container>
       <el-row :gutter="15">
@@ -37,16 +45,17 @@ export default {
       return "chatwootWebsiteToken" in this.singleItem.item;
     },
   },
-  created() {
-    const { toggleBubbleVisibility } = useChatWoot();
+  // created() {
+  //   const { toggleBubbleVisibility } = useChatWoot();
 
-    if (this.isChatwootAvailable) {
-      toggleBubbleVisibility("show");
-    }
-  },
+  //   if (this.isChatwootAvailable) {
+  //     toggleBubbleVisibility("show");
+  //   }
+  // },
   unmounted() {
     const { toggleBubbleVisibility } = useChatWoot();
     toggleBubbleVisibility("hide");
+    this.$store.commit("shop/SET_TAB_VALUE", "first");
   },
 };
 </script>
@@ -68,6 +77,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.shopping-cart img.whatsapp {
+  width: 3rem;
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 100%;
+  cursor: pointer;
 }
 
 .shopping-cart img.comment-img {

@@ -1,9 +1,6 @@
 <template>
   <div class="right-section">
     <el-tabs @tab-click="openSecondTab" v-model="activeName" class="demo-tabs">
-      <el-tab-pane :label="$t('reserve')" name="first">
-        <first-tab></first-tab>
-      </el-tab-pane>
       <el-tab-pane
         @click="openSecondTab"
         :label="$t('evaluation')"
@@ -14,6 +11,19 @@
       <el-tab-pane :label="$t('photo')" name="third">
         <third-tab></third-tab>
       </el-tab-pane>
+      <el-tab-pane :label="$t('reserve')" name="first">
+        <first-tab></first-tab>
+      </el-tab-pane>
+      <!-- <el-tab-pane
+        @click="openSecondTab"
+        :label="$t('evaluation')"
+        name="second"
+      >
+        <second-tab></second-tab>
+      </el-tab-pane> -->
+      <!-- <el-tab-pane :label="$t('photo')" name="third">
+        <third-tab></third-tab>
+      </el-tab-pane> -->
     </el-tabs>
   </div>
 </template>
@@ -32,18 +42,22 @@ export default {
   },
   data() {
     return {
-      activeName: "first",
+      // activeName: "first",
     };
   },
   computed: {
     singleItem() {
       return this.$store.getters["search/singleItem"];
     },
+    activeName() {
+      return this.$store.getters["shop/activeName"];
+    },
   },
   methods: {
     openSecondTab(val) {
       if (val.paneName === "second") {
-        this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
+        // this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
+        this.$store.commit("shop/SET_TAB_VALUE", val.paneName);
 
         // this.$store
         //   .dispatch("auth/checkAccessToken")

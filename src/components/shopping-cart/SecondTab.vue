@@ -3,10 +3,10 @@
     <div class="second-tab">
       <div class="content" v-for="comment in comments" :key="comment.id">
         <el-row :gutter="10">
-          <el-col :span="3">
+          <el-col :span="5">
             <img :src="comment.resources.account.avatar" alt="" />
           </el-col>
-          <el-col :span="21">
+          <el-col :span="19">
             <h5>{{ comment.title }}</h5>
             <p>
               {{ comment.resources.account.username }} ．
@@ -80,7 +80,7 @@
 
 <script>
 import moment from "moment";
-// import { ElNotification } from "element-plus";
+import { ElNotification } from "element-plus";
 
 export default {
   data() {
@@ -114,28 +114,28 @@ export default {
       comment.readActivated = !comment.readActivated;
     },
   },
-  // created() {
-  //   this.$store
-  //     .dispatch("auth/checkAccessToken")
-  //     .then(() => {
-  //       this.$store.dispatch("shop/getComments");
-  //     })
-  //     .catch(() => {
-  //       this.$store
-  //         .dispatch("auth/checkRefreshToken")
-  //         .then(() => {
-  //           this.$store.dispatch("shop/getComments");
-  //         })
-  //         .catch(() => {
-  //           ElNotification({
-  //             title: "Error",
-  //             message: this.$t("token_expired"),
-  //             type: "error",
-  //           });
-  //           this.$store.dispatch("auth/logout");
-  //         });
-  //     });
-  // },
+  created() {
+    this.$store
+      .dispatch("auth/checkAccessToken")
+      .then(() => {
+        this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
+      })
+      .catch(() => {
+        this.$store
+          .dispatch("auth/checkRefreshToken")
+          .then(() => {
+            this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
+          })
+          .catch(() => {
+            ElNotification({
+              title: "Error",
+              message: this.$t("token_expired"),
+              type: "error",
+            });
+            this.$store.dispatch("auth/logout");
+          });
+      });
+  },
 };
 </script>
 

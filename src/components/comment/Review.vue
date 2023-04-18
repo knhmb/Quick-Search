@@ -41,7 +41,7 @@
         <el-col>
           <h5>{{ $t("overall_rating") }}</h5>
         </el-col>
-        <el-col :span="8">
+        <!-- <el-col :span="8">
           <div class="review-content">
             <img
               @click="selectReview('excellent')"
@@ -52,7 +52,7 @@
             />
             <p class="review-comment">{{ $t("like") }}</p>
           </div>
-        </el-col>
+        </el-col> -->
         <el-col :span="8">
           <div class="review-content">
             <img
@@ -63,6 +63,18 @@
               alt=""
             />
             <p class="review-comment">{{ $t("ok") }}</p>
+          </div>
+        </el-col>
+        <el-col :span="8">
+          <div class="review-content">
+            <img
+              @click="selectReview('excellent')"
+              @mouseover="hover('excellent')"
+              @mouseleave="unHover('excellent')"
+              :src="ratingExcellent"
+              alt=""
+            />
+            <p class="review-comment">{{ $t("like") }}</p>
           </div>
         </el-col>
         <el-col :span="8">

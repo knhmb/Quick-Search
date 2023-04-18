@@ -11,6 +11,9 @@ export default {
       promotions: [],
       profileMessages: [],
       accountPromotions: [],
+      promotionDetail: [],
+      image: null,
+      messages: [],
     };
   },
   getters,

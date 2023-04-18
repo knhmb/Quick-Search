@@ -40,6 +40,10 @@ export default {
         : ""
     }${payload.area ? `area:${payload.area},` : ""}${
       payload.discount ? `discount:${payload.discount},` : ""
+    }${
+      payload.price
+        ? `priceRange.0:{"$gte":${payload.price[0]},"$lte":${payload.price[1]}},priceRange.1:{"$gte":${payload.price[0]},"$lte":${payload.price[1]}},`
+        : ":"
     }${payload.payment ? `payment:${payload.payment}` : ""}`;
     // param = `${
     //   !route.currentRoute._rawValue.query.filter
@@ -150,16 +154,30 @@ export default {
         "accept-language": i18n.global.locale,
       },
       params: {
-        page: payload.page,
+        page: payload.data.page,
         pageSize: 10,
         // pageSize: payload.pageSize,
         filter:
-          `${payload.dynamicFilter ? `${payload.dynamicFilter},` : ""}${
-            payload.area ? `area:${payload.area},` : ""
-          }${payload.discount ? `discount:${payload.discount},` : ""}${
-            payload.paymentMethod ? `payment:${payload.paymentMethod}` : ""
-          }${typeof payload !== "object" ? `category:${payload}` : ""}` ||
-          undefined,
+          `${
+            payload.data.dynamicFilter ? `${payload.data.dynamicFilter},` : ""
+          }${payload.data.area ? `area:${payload.data.area},` : ""}${
+            payload.data.discount ? `discount:${payload.data.discount},` : ""
+          }${
+            payload.category && typeof payload === "object"
+              ? `category:${payload.category},`
+              : ""
+          }${
+            payload.data.paymentMethod
+              ? `payment:${payload.data.paymentMethod},`
+              : ""
+          }${
+            payload.data.price ? payload.data.price : ":"
+            // payload.data.price
+            //   ? `priceRange.0:{"$gte":${payload.data.price[0]},"$lte":${payload.data.price[1]}},priceRange.1:{"$gte":${payload.data.price[0]},"$lte":${payload.data.price[1]}}`
+            //   : ":"
+          }${
+            typeof payload !== "object" ? `category:${payload.category}` : ""
+          }` || undefined,
         // filter:
         //   `${payload.dynamicFilter ? `${payload.dynamicFilter},` : ""}${
         //     payload.area ? `area:${payload.area},` : ""

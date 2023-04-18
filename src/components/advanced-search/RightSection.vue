@@ -5,9 +5,9 @@
         <el-col :sm="24" :md="12">
           <p>
             {{ $t("turn_up") }}
-            <span>{{
-              searchItems.items.length > 0 ? searchItems.items.length : 0
-            }}</span>
+            <span>
+              <!-- {{ searchItems.items.length > 0 ? searchItems.items.length : 0 }} -->
+            </span>
             {{ $t("search_results") }}
           </p>
         </el-col>
@@ -22,20 +22,35 @@
               :label="$t('most_comment')"
               :value="$t('most_comment')"
             />
-            <el-option :label="$t('newest_to_oldest')" value="createdAt" />
-            <el-option :label="$t('oldest_to_newest')" value="createdAt" />
+            <el-option :label="$t('newest_to_oldest')" value="-createdAt" />
+            <el-option :label="$t('oldest_to_newest')" value="+createdAt" />
           </el-select>
         </el-col>
       </el-row>
     </base-card>
     <el-row :gutter="15">
       <el-col v-for="item in searchItems.items" :key="item" :sm="12" :md="8">
-        <div class="card" @click="selectShop(item.slug)">
+        <div
+          class="card"
+          @click="
+            selectShop({
+              slug: item.slug,
+              category: item.category,
+            })
+          "
+        >
           <img :src="item.image" alt="" />
           <div class="content">
             <h5>{{ item.name }}</h5>
-            <p>
+            <!-- <p>
               {{ item.description }}
+            </p> -->
+            <p>
+              {{
+                item.description.length > 45
+                  ? `${item.description.slice(0, 45)}...`
+                  : item.description
+              }}
             </p>
           </div>
         </div>
@@ -86,11 +101,24 @@ export default {
       this.$emit("updatePage", page);
       // this.currentPage = page;
     },
-    selectShop(slug) {
+    selectShop({ slug, category }) {
+      console.log(slug);
+      this.$store.commit("SET_SELECTED_SHOP_SLUG", slug);
+      this.$store.commit("SET_CATEGORY", category);
+
       this.$store
         .dispatch("search/searchSingleShop", { slug: slug })
         .then(() => {
-          this.$router.push({ path: "/shop", query: { q: slug } });
+          this.$router.push({
+            name: "shop",
+            params: { id: slug },
+            // query: { q: slug },
+          });
+          // this.$router.push({
+          //   path: "/shop",
+          //   params: { id: slug },
+          //   query: { q: slug },
+          // });
         });
       // this.$store
       //   .dispatch("auth/checkAccessToken")

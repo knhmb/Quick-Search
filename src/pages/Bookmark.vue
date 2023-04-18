@@ -4,7 +4,16 @@
       <h4>{{ $t("my_collection") }}</h4>
       <el-row :gutter="15">
         <el-col v-for="item in favorites" :key="item" :sm="12" :md="8">
-          <div class="card">
+          <div
+            class="card"
+            @click="
+              goToShop({
+                slug: item.resources.shop.slug,
+                category: item.resources.shop.name,
+                id: item.resources.shop.slug,
+              })
+            "
+          >
             <img :src="item.resources.shop.image" alt="" />
             <!-- <img src="../assets/shop-sample01@2x.jpg" alt="" /> -->
             <div class="content">
@@ -51,6 +60,20 @@ export default {
     },
   },
   methods: {
+    goToShop({ slug, category, id }) {
+      this.$store.commit("SET_CATEGORY", category);
+      this.$store.commit("SET_CATEGORY_ID", id);
+      this.$store.commit("SET_SELECTED_SHOP_SLUG", slug);
+      this.$store
+        .dispatch("search/searchSingleShop", { slug: slug })
+        .then(() => {
+          this.$router.push({
+            name: "shop",
+            params: { id: slug },
+            // query: { q: slug },
+          });
+        });
+    },
     removeFavorite(id) {
       this.$store
         .dispatch("auth/checkAccessToken")
@@ -121,6 +144,7 @@ export default {
   border-radius: 8px;
   position: relative;
   margin-bottom: 0.7rem;
+  cursor: pointer;
 }
 
 .bookmark .card::after {

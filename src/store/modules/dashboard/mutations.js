@@ -21,26 +21,31 @@ export default {
     state.dynamicFilterGroup = payload;
   },
   SET_DYNAMIC_FILTERS(state, payload) {
-    console.log(payload);
     const arr = [];
-    // let uniqueAddresses = [];
-    // const index = state.dynamicFilters.findIndex(object => object.id === value2.id);
-    payload.forEach((item) => {
-      arr.push(item);
-    });
-    console.log(arr);
-
+    arr.push(payload);
     arr.forEach((item) => {
-      const index = state.dynamicFilters.findIndex(
-        (object) => object.id === item.id
-      );
-      console.log(index);
-      if (index === -1) {
-        state.dynamicFilters.push(item);
-      }
+      state.dynamicFilters.push(item);
     });
-    console.log(state.dynamicFilters);
   },
+  // SET_DYNAMIC_FILTERS(state, payload) {
+  //   console.log(payload);
+  //   const arr = [];
+  //   payload.forEach((item) => {
+  //     arr.push(item);
+  //   });
+  //   console.log(arr);
+
+  //   arr.forEach((item) => {
+  //     const index = state.dynamicFilters.findIndex(
+  //       (object) => object.id === item.id
+  //     );
+  //     console.log(index);
+  //     if (index === -1) {
+  //       state.dynamicFilters.push(item);
+  //     }
+  //   });
+  //   console.log(state.dynamicFilters);
+  // },
   RESET_DYNAMIC_FILTERS(state) {
     state.dynamicFilters = [];
   },
@@ -55,6 +60,9 @@ export default {
   },
   SET_MAIN_CATEGORY_FILTER(state, payload) {
     state.mainCategoryFilter = payload;
+  },
+  SET_SUB_CATEGORY_FILTER(state, payload) {
+    state.subCategoryFilter = payload;
   },
   SET_DYNAMIC_MAIN_CATEGORY_FILTER(state, payload) {
     const arr = [];
@@ -85,5 +93,8 @@ export default {
   },
   SET_EVENT_SCHEDULE(state, payload) {
     state.eventSchedules = payload;
+  },
+  SET_PROMOTION_CATEGORIES(state, payload) {
+    state.promotionCategories = payload;
   },
 };

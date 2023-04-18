@@ -16,6 +16,14 @@
         <p>{{ singleItem.item.email }}</p>
       </div>
       <div class="single-text">
+        <p class="title">Facebbok</p>
+        <p>{{ singleItem.item.socialFacebook }}</p>
+      </div>
+      <div class="single-text">
+        <p class="title">Instagram</p>
+        <p>{{ singleItem.item.socialInstagram }}</p>
+      </div>
+      <div class="single-text">
         <p class="title">{{ $t("shop_address") }}</p>
         <el-row :gutter="10">
           <el-col :span="16">
@@ -77,7 +85,7 @@
             </p>
             <!-- <p class="time">12:30 - 22:00</p> -->
           </el-col>
-          <el-col :span="12">
+          <!-- <el-col :span="12">
             <p class="time-text">{{ $t("eve_of_public_holiday") }}</p>
           </el-col>
           <el-col style="text-align: end" :span="12">
@@ -85,8 +93,7 @@
               {{ formatDate(singleItem.item.openingHours[2][0]) }} -
               {{ formatDate(singleItem.item.openingHours[2][1]) }}
             </p>
-            <!-- <p class="time">12:30 - 22:00</p> -->
-          </el-col>
+          </el-col> -->
           <!-- </template> -->
         </el-row>
       </div>

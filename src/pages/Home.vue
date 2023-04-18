@@ -41,13 +41,14 @@ export default {
     this.$store.commit("search/RESET_SELECTED_SUB_CATEGORY");
     this.$store.commit("dashboard/RESET_MAIN_CATEGORY_CHILDREN");
 
-    this.$store.dispatch("dashboard/getCategories");
-    this.$store.dispatch("dashboard/getLanguages");
-    this.$store.dispatch("dashboard/getContent");
-    this.$store.dispatch("dashboard/getPromotions");
-    // this.$store.dispatch("dashboard/getFiltersGroup");
-    this.$store.dispatch("dashboard/getFiltersItem");
-    this.$store.dispatch("dashboard/getSubCategory");
+    // this.$store.dispatch("dashboard/getCategories");
+    // this.$store.dispatch("dashboard/getLanguages");
+    // this.$store.dispatch("dashboard/getContent");
+    // this.$store.dispatch("dashboard/getPromotions");
+    // this.$store.dispatch("dashboard/getPromotionCategories");
+    // // this.$store.dispatch("dashboard/getFiltersGroup");
+    // this.$store.dispatch("dashboard/getFiltersItem");
+    // this.$store.dispatch("dashboard/getSubCategory");
   },
 };
 </script>

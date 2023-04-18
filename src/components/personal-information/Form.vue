@@ -9,6 +9,38 @@
     >
       <el-row :gutter="20">
         <el-col>
+          <el-form-item :label="$t('profile_picture')">
+            <el-avatar
+              :size="70"
+              :src="
+                currentUserDetails.avatar
+                  ? currentUserDetails.avatar
+                  : defaultAvatar
+              "
+            />
+            <el-upload
+              v-model:file-list="fileList"
+              class="upload-demo"
+              :action="`${protocol}//${hostname}/api/v1/system/uploads`"
+              :on-success="handleAvatarSuccess"
+            >
+              <el-button type="primary" class="replace">{{
+                $t("replace")
+              }}</el-button>
+            </el-upload>
+            <el-button @click="deleteProfile" class="delete">{{
+              $t("delete")
+            }}</el-button>
+            <!-- <el-avatar :src="imgSrc" icon :size="100" shape="circle">
+                  <img
+                    class="image-avatar"
+                    :src="currentUserDetails.avatar"
+                    alt=""
+                  />
+                </el-avatar> -->
+          </el-form-item>
+        </el-col>
+        <el-col>
           <el-form-item :label="$t('account_name')" prop="username">
             <el-input disabled v-model="ruleForm.username"></el-input>
           </el-form-item>
@@ -68,6 +100,10 @@ export default {
   data() {
     return {
       Calendar,
+      defaultAvatar: require("../../assets/avatar-default-lg@2x.png"),
+      fileList: [],
+      circleUrl:
+        "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       ruleForm: {
         username: "mvanhouten",
         email: "chantaiman@email.com",
@@ -91,15 +127,109 @@ export default {
     currentUserDetails() {
       return this.$store.getters["auth/currentUserDetails"];
     },
+    protocol() {
+      return window.location.protocol;
+    },
+    hostname() {
+      return window.location.hostname;
+    },
   },
   methods: {
+    handleAvatarSuccess(response, uploadFile) {
+      console.log(response);
+      this.sendAvatar(response.item.name);
+      console.log(uploadFile);
+    },
+    sendAvatar(data) {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store
+            .dispatch("profile/updateUserAvatar", {
+              avatar: `${this.protocol}//${this.hostname}/api/v1/system/uploads/${data}`,
+              id: this.currentUserDetails.id,
+            })
+            .then(() => {
+              this.$store
+                .dispatch("profile/getUser", this.currentUserDetails.id)
+                .then(() => {});
+            });
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store
+                .dispatch("profile/updateUserAvatar", {
+                  avatar: `${this.protocol}//${this.hostname}/api/v1/system/uploads/${data}`,
+                  id: this.currentUserDetails.id,
+                })
+                .then(() => {
+                  this.$store
+                    .dispatch("profile/getUser", this.currentUserDetails.id)
+                    .then(() => {});
+                });
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: "Token Expired! Please Login Again.",
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+              this.$router.replace("/");
+            });
+        });
+    },
+    deleteProfile() {
+      this.$store
+        .dispatch("auth/checkAccessToken")
+        .then(() => {
+          this.$store
+            .dispatch("profile/updateUserAvatar", {
+              avatar: "",
+              id: this.currentUserDetails.id,
+            })
+            .then(() => {
+              this.$store
+                .dispatch("profile/getUser", this.currentUserDetails.id)
+                .then(() => {});
+            });
+        })
+        .catch(() => {
+          this.$store
+            .dispatch("auth/checkRefreshToken")
+            .then(() => {
+              this.$store
+                .dispatch("profile/updateUserAvatar", {
+                  avatar: "",
+                  id: this.currentUserDetails.id,
+                })
+                .then(() => {
+                  this.$store
+                    .dispatch("profile/getUser", this.currentUserDetails.id)
+                    .then(() => {});
+                });
+            })
+            .catch(() => {
+              ElNotification({
+                title: "Error",
+                message: "Token Expired! Please Login Again.",
+                type: "error",
+              });
+              this.$store.dispatch("auth/logout");
+              this.$router.replace("/");
+            });
+        });
+    },
     edit() {
       this.$refs.ruleFormRef.validate((valid) => {
         if (valid) {
           const data = {
             id: this.currentUserDetails.id,
             username: this.ruleForm.username,
-            birth: this.ruleForm.dob ? this.ruleForm.dob.toISOString() : "",
+            // birth: this.ruleForm.dob ? this.ruleForm.dob.toISOString() : "",
+            birth: this.ruleForm.dob,
             gender: this.ruleForm.gender,
             phoneno: this.ruleForm.phoneNumber,
             name: this.ruleForm.actualName,
@@ -124,10 +254,16 @@ export default {
                   message: this.$t("data_updated"),
                   type: "success",
                 });
-                this.$store.dispatch(
-                  "profile/getUser",
-                  this.currentUserDetails.id
-                );
+
+                this.$store
+                  .dispatch("profile/getUser", this.currentUserDetails.id)
+                  .then(() => {
+                    console.log(this.currentUserDetails);
+                    this.ruleForm.actualName = this.currentUserDetails.name;
+                    this.ruleForm.phoneNumber = this.currentUserDetails.phoneno;
+                    this.ruleForm.dob = this.currentUserDetails.birth;
+                    this.ruleForm.gender = this.currentUserDetails.gender;
+                  });
               });
             })
             .catch(() => {
@@ -140,10 +276,16 @@ export default {
                       message: this.$t("data_updated"),
                       type: "success",
                     });
-                    this.$store.dispatch(
-                      "profile/getUser",
-                      this.currentUserDetails.id
-                    );
+
+                    this.$store
+                      .dispatch("profile/getUser", this.currentUserDetails.id)
+                      .then(() => {
+                        this.ruleForm.actualName = this.currentUserDetails.name;
+                        this.ruleForm.phoneNumber =
+                          this.currentUserDetails.phoneno;
+                        this.ruleForm.dob = this.currentUserDetails.birth;
+                        this.ruleForm.gender = this.currentUserDetails.gender;
+                      });
                   });
                 })
                 .catch(() => {
@@ -163,6 +305,9 @@ export default {
     this.ruleForm.username = this.currentUserDetails.username;
     this.ruleForm.email = this.currentUserDetails.email;
     this.ruleForm.actualName = this.currentUserDetails.name;
+    this.ruleForm.phoneNumber = this.currentUserDetails.phoneno;
+    this.ruleForm.dob = this.currentUserDetails.birth;
+    this.ruleForm.gender = this.currentUserDetails.gender;
   },
 };
 </script>
@@ -206,6 +351,26 @@ export default {
   margin-left: auto;
   display: flex;
   margin: 1rem 0 1rem auto;
+}
+
+.form .el-button.replace,
+.form .el-button.delete {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0 1rem;
+  width: 5rem;
+  padding: 1.2rem;
+  border-color: #985f35;
+}
+
+.form .el-button.delete {
+  background: #fff;
+  color: #985f35;
+  margin: 0;
+}
+
+.form :deep(.el-upload-list.el-upload-list--text) {
+  display: none;
 }
 
 @media screen and (max-width: 991px) {

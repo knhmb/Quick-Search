@@ -57,6 +57,7 @@ export default {
 .image-dialog img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
   border-radius: 8px 0 0 8px;
 }
 

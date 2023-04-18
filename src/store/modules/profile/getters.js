@@ -14,4 +14,13 @@ export default {
   accountPromotions(state) {
     return state.accountPromotions;
   },
+  promotionDetail(state) {
+    return state.promotionDetail;
+  },
+  image(state) {
+    return state.image;
+  },
+  messages(state) {
+    return state.messages;
+  },
 };

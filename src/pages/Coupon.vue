@@ -3,17 +3,23 @@
     <base-card>
       <h4>{{ $t("offer_list") }}</h4>
       <div class="component-switch">
-        <p
+        <!-- <p
           @click="currentOption = 'first'"
           :class="{ 'is-active': currentOption === 'first' }"
         >
           {{ $t("completed") }}
-        </p>
+        </p> -->
         <p
           @click="currentOption = 'second'"
           :class="{ 'is-active': currentOption === 'second' }"
         >
           {{ $t("confirmed") }}
+        </p>
+        <p
+          @click="currentOption = 'first'"
+          :class="{ 'is-active': currentOption === 'first' }"
+        >
+          {{ $t("completed") }}
         </p>
       </div>
       <first-tab v-if="currentOption === 'first'"></first-tab>

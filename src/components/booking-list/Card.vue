@@ -9,7 +9,7 @@
         >
           <el-row :gutter="15">
             <el-col :sm="24" :md="8">
-              <img :src="item.thumbnail" alt="" />
+              <img :src="item.resources.shop.image" alt="" />
               <!-- <img src="../../assets/shop-sample01@2x.jpg" alt="" /> -->
             </el-col>
             <el-col :sm="24" :md="16">
@@ -18,7 +18,7 @@
                 <!-- <small> 已確認 </small> -->
               </div>
               <p>
-                {{ item.shop }}
+                {{ item.resources.shop.name }}
               </p>
               <!-- <p>
                 活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱活動名稱
@@ -31,13 +31,13 @@
               <div class="info-box">
                 <p class="faded">{{ $t("appointment_date") }}</p>
                 <!-- <p class="faded">預約日期</p> -->
-                <p>{{ filterDate(item.schedule) }}</p>
+                <p>{{ filterDate(item.begin) }}</p>
                 <!-- <p>2022-10-10</p> -->
               </div>
               <div class="info-box">
                 <p class="faded">{{ $t("appointment") }}</p>
                 <!-- <p class="faded">預約時間</p> -->
-                <p>上午{{ filterTime(item.schedule) }}</p>
+                <p>上午{{ filterTime(item.begin) }}</p>
                 <!-- <p>上午11:30</p> -->
               </div>
             </el-col>

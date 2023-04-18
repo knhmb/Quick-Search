@@ -16,13 +16,14 @@ export default {
       selectedMainCategory: "",
       discount: [],
       paymentMethod: [],
-      priceRange: [0, 100],
+      priceRange: [0, 1000000],
       selectedSubCategory: "",
       defaultProps: {
         children: "children",
         label: "label",
         disabled: "disabled",
       },
+      selectedSubCategorySlug: "",
       // data: [
       //   {
       //     id: 1,

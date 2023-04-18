@@ -10,9 +10,9 @@
               <p>{{ promotion.used ? $t("completed") : "" }}</p>
             </div>
           </div>
-          <p class="name">{{ promotion.shop }}</p>
+          <p class="name">{{ promotion.resources.shop.name }}</p>
           <p class="fade">
-            {{ promotion.promotion }}
+            {{ promotion.resources.shop.description }}
           </p>
           <div class="btn-content">
             <el-button>{{ $t("view_offers") }}</el-button>

@@ -45,7 +45,7 @@ export default {
     console.log(state.priceRange);
   },
   RESET_PRICE_RANGE(state) {
-    state.priceRange = [0, 100];
+    state.priceRange = [0, 1000000];
   },
   UPDATE_DATA(state, payload) {
     state.data = payload;
@@ -59,5 +59,8 @@ export default {
   },
   RESET_SELECTED_SUB_CATEGORY(state) {
     state.selectedSubCategory = "";
+  },
+  SET_SELECTED_SUB_CATEGORY_SLUG(state, payload) {
+    state.selectedSubCategorySlug = payload;
   },
 };

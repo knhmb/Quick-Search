@@ -19,4 +19,13 @@ export default {
   SET_ACCOUNT_PROMOTIONS(state, payload) {
     state.accountPromotions = payload;
   },
+  SET_PROMOTION_DETAIL(state, payload) {
+    state.promotionDetail = payload;
+  },
+  SET_IMAGE(state, payload) {
+    state.image = payload;
+  },
+  SET_MESSAGES(state, payload) {
+    state.messages = payload;
+  },
 };

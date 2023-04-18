@@ -6,6 +6,11 @@ module.exports = {
         ws: true,
         changeOrigin: true,
       },
+      "^/uat": {
+        target: "https://quick-search.uat.marvelconnect.com",
+        ws: true,
+        changeOrigin: true,
+      },
     },
   },
 };

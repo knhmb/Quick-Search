@@ -22,6 +22,8 @@ export default {
       mainCategoryChildren: [],
       banners: [],
       eventSchedules: [],
+      promotionCategories: [],
+      subCategoryFilter: [],
     };
   },
   getters,
