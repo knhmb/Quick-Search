@@ -6,7 +6,7 @@
           <p>
             {{ $t("turn_up") }}
             <span>
-              <!-- {{ searchItems.items.length > 0 ? searchItems.items.length : 0 }} -->
+              {{ searchItems.items.length > 0 ? searchItems.items.length : 0 }}
             </span>
             {{ $t("search_results") }}
           </p>

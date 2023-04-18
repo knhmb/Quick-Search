@@ -95,7 +95,10 @@ export default {
       deep: true,
       handler() {
         this.currentOption = "";
-        const cat = this.$route.query.filter.split(":").pop();
+        // const cat = this.$route.query.filter.split(":").pop();
+        const cat = JSON.parse(this.$route.query.filter).subCategory
+          ? JSON.parse(this.$route.query.filter).subCategory
+          : "";
         this.currentOption = cat;
         // this.forceRerender();
       },
@@ -232,7 +235,10 @@ export default {
   created() {
     console.log(this.$route.query);
     console.log(JSON.parse(this.$route.query.filter));
-    this.currentOption = this.$route.query.filter.split(":").pop();
+    const cat = JSON.parse(this.$route.query.filter).subCategory
+      ? JSON.parse(this.$route.query.filter).subCategory
+      : "";
+    this.currentOption = cat;
     // console.log(this.$route.query.filter.split(":").pop());
   },
 };

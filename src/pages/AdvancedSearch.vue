@@ -1,5 +1,5 @@
 <template>
-  <section class="advanced-search">
+  <section class="advanced-search" v-if="isSearchItemsLoaded">
     <!-- <top-section @sort="setSort"></top-section> -->
     <top-section></top-section>
     <base-container>
@@ -46,6 +46,11 @@ export default {
     }
 
     return { setSort, sorting, currentPage };
+  },
+  data() {
+    return {
+      isSearchItemsLoaded: false,
+    };
   },
   watch: {
     $i18n: {
@@ -112,7 +117,7 @@ export default {
         : "";
     },
   },
-  mounted() {
+  async mounted() {
     const routeFilter = this.$route.query.filter
       ? JSON.parse(this.$route.query.filter)
       : "";
@@ -143,6 +148,8 @@ export default {
         subCategory.slug
       );
       this.$store.dispatch("dashboard/getSubCategoryFilter", subCategory.slug);
+    } else {
+      this.$store.dispatch("dashboard/getMainCategoryFilter", category.slug);
     }
 
     let dataObject = {
@@ -173,7 +180,7 @@ export default {
         : undefined,
     };
 
-    this.$store
+    await this.$store
       .dispatch("search/advancedFilter", {
         category: routeFilter.subCategory
           ? routeFilter.subCategory
@@ -190,6 +197,7 @@ export default {
           },
         });
       });
+    this.isSearchItemsLoaded = true;
     //  else {
     //   this.$store
     //     .dispatch("search/advancedFilter", {

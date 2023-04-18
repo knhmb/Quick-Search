@@ -33,14 +33,18 @@ export default {
     console.log(route.currentRoute._rawValue.query.filter);
 
     param = `${
-      !route.currentRoute._rawValue.query.filter
-        ? payload.query
-          ? payload.query + ","
-          : ""
-        : ""
-    }${payload.area ? `area:${payload.area},` : ""}${
-      payload.discount ? `discount:${payload.discount},` : ""
-    }${
+      JSON.parse(route.currentRoute._rawValue.query.filter).subCategory
+        ? `category:${
+            JSON.parse(route.currentRoute._rawValue.query.filter).subCategory
+          },`
+        : !JSON.parse(route.currentRoute._rawValue.query.filter).subCategory
+        ? `category:${
+            JSON.parse(route.currentRoute._rawValue.query.filter).mainCategory
+          },`
+        : undefined
+    }${payload.dynamic ? `${payload.dynamic},` : ""}${
+      payload.area ? `area:${payload.area},` : ""
+    }${payload.discount ? `discount:${payload.discount},` : ""}${
       payload.price
         ? `priceRange.0:{"$gte":${payload.price[0]},"$lte":${payload.price[1]}},priceRange.1:{"$gte":${payload.price[0]},"$lte":${payload.price[1]}},`
         : ":"
@@ -52,10 +56,12 @@ export default {
     //       : ""
     //     : ""
     // }${payload.area ? `area:${payload.area},` : ""}${
-    //   payload.price ? `price:${payload.price[0]}-${payload.price[1]},` : ""
-    // }${payload.discount ? `discount:${payload.discount},` : ""}${
-    //   payload.payment ? `payment:${payload.payment}` : ""
-    // }`;
+    //   payload.discount ? `discount:${payload.discount},` : ""
+    // }${
+    //   payload.price
+    //     ? `priceRange.0:{"$gte":${payload.price[0]},"$lte":${payload.price[1]}},priceRange.1:{"$gte":${payload.price[0]},"$lte":${payload.price[1]}},`
+    //     : ":"
+    // }${payload.payment ? `payment:${payload.payment}` : ""}`;
 
     console.log(param);
 
@@ -67,37 +73,21 @@ export default {
         search: payload.query.q ? payload.query.q : undefined,
         page: payload.page,
         pageSize: 10,
-        filter:
-          route.currentRoute._rawValue.query.filter && payload.query
-            ? payload.query + "," + param
-            : route.currentRoute._rawValue.query.filter
-            ? route.currentRoute._rawValue.query.filter + "," + param
-            : param,
-        // filter: payload.dynamic
-        //   ? payload.dynamic + "," + param
-        //   : payload.query.filter
-        //   ? payload.query.filter + "," + param
-        //   : param,
+        filter: route.currentRoute._rawValue.query.filter ? param : undefined,
         sort: payload.sort ? payload.sort : undefined,
-        // filter: payload.query.filter
-        //   ? payload.query.filter + "," + param
-        //   : param,
-        // // filter: payload.dynamic
-        // //   ? payload.dynamic + "," + param
-        // //   : payload.query.filter
-        // //   ? payload.query.filter + "," + param
-        // //   : param,
-        // sort: payload.sort ? payload.sort : undefined,
-        // `${payload.query.filter ? `${payload.query.filter}` : ""}${
-        //   payload.area ? `area:${payload.area},` : ""
-        // }${
-        //   payload.price
-        //     ? `price:${payload.price[0]}-${payload.price[1]},`
-        //     : ""
-        // }${payload.discount ? `discount:${payload.discount},` : ""}${
-        //   payload.payment ? `payment:${payload.payment}` : ""
-        // }${payload.sort ? `&sort:${payload.sort}` : ""}` || undefined,
       },
+      // params: {
+      //   search: payload.query.q ? payload.query.q : undefined,
+      //   page: payload.page,
+      //   pageSize: 10,
+      //   filter:
+      //     route.currentRoute._rawValue.query.filter && payload.query
+      //       ? payload.query + "," + param
+      //       : route.currentRoute._rawValue.query.filter
+      //       ? route.currentRoute._rawValue.query.filter + "," + param
+      //       : param,
+      //   sort: payload.sort ? payload.sort : undefined,
+      // },
     });
     // const response = await axios.get(`/api/v1/shops`, {
     //   params: {
