@@ -141,7 +141,7 @@ export default {
     );
     console.log(subCategory);
 
-    if (JSON.parse(this.$route.query.filter).subCategory) {
+    if (JSON.parse(this.$route.query.filter).subCategory && subCategory) {
       this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", subCategory.name);
       this.$store.commit(
         "search/SET_SELECTED_SUB_CATEGORY_SLUG",

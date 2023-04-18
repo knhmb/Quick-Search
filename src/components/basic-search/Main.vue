@@ -7,7 +7,8 @@
         v-for="item in searchItems.items"
         :key="item"
       >
-        {{ item.resources.category.name }} <span>({{ item.count }})</span>
+        {{ item.resources.category ? item.resources.category.name : "" }}
+        <span>({{ item.count }})</span>
       </p>
       <!-- <p>{{ $t("personal_care") }} <span>(924)</span></p>
       <p>{{ $t("cosmeceutical") }} <span>(924)</span></p>
@@ -35,10 +36,29 @@ export default {
     popularCategories() {
       return this.$store.getters["dashboard/popularCategories"];
     },
+    categories() {
+      return this.$store.getters["dashboard/categories"];
+    },
   },
   methods: {
     selectCategory(item) {
       console.log(item);
+      console.log(this.categories);
+      let mainCat = null;
+
+      const findMainCat = this.categories.find((catItem) => {
+        if (catItem.children.length > 0) {
+          return catItem.children.find((subItem) => subItem === item.category);
+        } else {
+          return catItem.slug;
+        }
+      });
+      mainCat = findMainCat;
+      console.log(findMainCat);
+      console.log(mainCat);
+      const isHasChildren = mainCat.slug === item.resources.category.slug;
+
+      let cat = null;
       const data = {
         page: 1,
       };
@@ -46,10 +66,37 @@ export default {
       //   "dashboard/SET_MAIN_CATEGORY_CHILDREN",
       //   item.resources.children
       // );
-      this.$store.commit(
-        "search/SET_SELECTED_MAIN_CATEGORY",
-        item.resources.category.name
-      );
+      this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", mainCat.name);
+      this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", mainCat.slug);
+
+      if (!isHasChildren) {
+        this.$store.commit(
+          "search/SET_SELECTED_SUB_CATEGORY",
+          item.resources.category.name
+        );
+        this.$store.commit(
+          "search/SET_SELECTED_SUB_CATEGORY_SLUG",
+          item.resources.category.slug
+        );
+        cat = {
+          mainCategory: mainCat.slug,
+          subCategory: item.resources.category.slug,
+        };
+      } else {
+        cat = {
+          mainCategory: mainCat.slug,
+        };
+      }
+
+      // this.$store.commit(
+      //   "search/SET_SELECTED_MAIN_CATEGORY",
+      //   item.resources.category.name
+      // );
+      // this.$store.commit(
+      //   "SET_SELECTED_MAIN_CATEGORY_SLUG",
+      //   item.resources.category.slug
+      // );
+
       this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       // this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
@@ -57,6 +104,7 @@ export default {
         "dashboard/getMainCategoryFilter",
         item.resources.category.slug
       );
+
       this.$store
         .dispatch("search/advancedFilter", {
           category: item.resources.category.slug,
@@ -65,7 +113,8 @@ export default {
         .then(() => {
           this.$router.push({
             path: "/advanced-search",
-            query: { filter: `category:${item.resources.category.slug}` },
+            query: { filter: JSON.stringify(cat) },
+            // query: { filter: `category:${item.resources.category.slug}` },
           });
         });
     },

@@ -3,7 +3,9 @@
     <template v-for="item in searchItems.items" :key="item">
       <el-row :gutter="10">
         <el-col :sm="24" :md="12">
-          <h5>{{ item.resources.category.name }}</h5>
+          <h5>
+            {{ item.resources.category ? item.resources.category.name : "" }}
+          </h5>
           <div class="box">{{ item.count }}</div>
         </el-col>
         <el-col :sm="24" :md="12">
