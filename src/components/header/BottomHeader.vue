@@ -231,6 +231,11 @@ export default {
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       this.$store.dispatch("dashboard/getSubCategoryFilter", category.slug);
       // this.$store.dispatch("dashboard/getMainCategoryFilter", category.slug);
+
+      const filter = {
+        mainCategory: mainCat.slug,
+        subCategory: category.slug,
+      };
       this.$store
         .dispatch("search/advancedFilter", {
           category: category.slug,
@@ -239,7 +244,8 @@ export default {
         .then(() => {
           this.$router.push({
             path: "/advanced-search",
-            query: { filter: `category:${category.slug}` },
+            query: { filter: JSON.stringify(filter) },
+            // query: { filter: `category:${category.slug}` },
           });
         });
       this.shortcutMenu = false;
@@ -271,12 +277,18 @@ export default {
       this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       // this.$store.dispatch("dashboard/getDynamicFilterGroup", item.slug);
       this.$store.dispatch("dashboard/getMainCategoryFilter", item.slug);
+
+      const filter = {
+        mainCategory: item.slug,
+      };
+
       this.$store
         .dispatch("search/advancedFilter", { category: item.slug, data })
         .then(() => {
           this.$router.push({
             path: "/advanced-search",
-            query: { filter: `category:${item.slug}` },
+            query: { filter: JSON.stringify(filter) },
+            // query: { filter: `category:${item.slug}` },
           });
         });
       this.shortcutMenu = false;

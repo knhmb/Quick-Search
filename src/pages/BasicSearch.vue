@@ -14,6 +14,26 @@ export default {
     TopSection,
     Main,
   },
+  computed: {
+    searchValue() {
+      return this.$store.getters["search/searchValue"];
+    },
+  },
+  created() {
+    this.$store.commit("search/SET_SEARCH_VALUE", this.$route.query.q);
+    const data = {
+      search: this.searchValue,
+    };
+    this.$;
+
+    this.$store.dispatch("search/searchItem", data).then(() => {
+      this.$router.push({
+        path: "/basic-search",
+        query: { q: this.searchValue },
+      });
+      // this.search = "";
+    });
+  },
 };
 </script>
 

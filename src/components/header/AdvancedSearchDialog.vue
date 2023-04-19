@@ -1031,28 +1031,6 @@ export default {
               query: {
                 filter: JSON.stringify(filter),
               },
-              // query: {
-              //   filter: `${
-              //     this.categorySlug ? `category:${this.categorySlug},` : ""
-              //   }${
-              //     dataObject.dynamicFilter ? `${dataObject.dynamicFilter},` : ""
-              //   }${dataObject.area ? `area:${dataObject.area},` : ""}${
-              //     dataObject.discount ? `discount:${dataObject.discount},` : ""
-              //   }${
-              //     dataObject.paymentMethod
-              //       ? `payment:${dataObject.paymentMethod},`
-              //       : ""
-              //   }${
-              //     dataObject.price
-              //       ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
-              //       : ":"
-              //   }`,
-              // },
-              // query: {
-              //   filter: this.categorySlug
-              //     ? `category:${this.categorySlug}`
-              //     : "",
-              // },
             });
             this.categorySlug = null;
             this.subCategorySlug = null;

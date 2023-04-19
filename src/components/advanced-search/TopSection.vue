@@ -103,13 +103,18 @@ export default {
         // this.forceRerender();
       },
     },
-    // $route: {
-    //   deep: true,
-    //   handler() {
-    //     const cat = this.$route.query.filter.split(":").pop();
-    //     this.currentOption = cat;
-    //   },
-    // },
+    $route: {
+      deep: true,
+      handler() {
+        // const cat = this.$route.query.filter.split(":").pop();
+        // this.currentOption = cat;
+
+        const cat = JSON.parse(this.$route.query.filter).subCategory
+          ? JSON.parse(this.$route.query.filter).subCategory
+          : "";
+        this.currentOption = cat;
+      },
+    },
   },
   computed: {
     dynamicFilterGroup() {

@@ -47,7 +47,7 @@
             </p> -->
             <p>
               {{
-                item.description.length > 45
+                item.description && item.description.length > 45
                   ? `${item.description.slice(0, 45)}...`
                   : item.description
               }}

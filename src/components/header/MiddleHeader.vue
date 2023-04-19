@@ -77,6 +77,12 @@ export default {
       const data = {
         search: this.search,
       };
+      // this.$store.commit("search/SET_SEARCH_VALUE", this.search);
+      // this.$router.push({
+      //   path: "/basic-search",
+      //   query: { q: this.search },
+      // });
+      // this.search = "";
 
       this.$store.dispatch("search/searchItem", data).then(() => {
         this.$router.push({

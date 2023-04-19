@@ -162,6 +162,31 @@ export default {
       pageSize: 15,
     };
 
+    let minPrice, maxPrice;
+
+    if (dataObject.price) {
+      const finalPrice = dataObject.price
+        .split("priceRange.0:")
+        .pop()
+        .split(`"$gte":`)
+        .pop()
+        .split(`,"$lte":`);
+
+      minPrice = finalPrice[0];
+      maxPrice = finalPrice[1].replace("}", "");
+      this.$store.commit("search/UPDATE_PRICE_RANGE", [minPrice, maxPrice]);
+    }
+    // const finalPrice = dataObject.price
+    //   .split("priceRange.0:")
+    //   .pop()
+    //   .split(`"$gte":`)
+    //   .pop()
+    //   .split(`,"$lte":`);
+
+    // const minPrice = finalPrice[0];
+    // const maxPrice = finalPrice[1].replace("}", "");
+    // this.$store.commit("search/UPDATE_PRICE_RANGE", [minPrice, maxPrice]);
+
     const filter = {
       mainCategory: routeFilter.mainCategory
         ? routeFilter.mainCategory
@@ -176,9 +201,10 @@ export default {
       discount: routeFilter.discount ? routeFilter.discount : undefined,
       payment: routeFilter.payment ? routeFilter.payment : undefined,
       price: routeFilter.price
-        ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
+        ? `priceRange.0:{"$gte":${minPrice},"$lte":${maxPrice}},priceRange.1:{"$gte":${minPrice},"$lte":${maxPrice}}`
         : undefined,
     };
+    console.log(filter.price);
 
     await this.$store
       .dispatch("search/advancedFilter", {
