@@ -1757,15 +1757,13 @@ export default {
       this.handleDiscount();
     },
   },
-  mounted() {
-    console.log(JSON.parse(this.$route.query.filter));
-    console.log(JSON.parse(this.$route.query.filter).dynamicFilter.split(":"));
-    console.log(
-      JSON.parse(this.$route.query.filter).dynamicFilter.split(":")[1]
-    );
-    // const dummy = JSON.parse(this.$route.query.filter).dynamicFilter;
-    // console.log(JSON.parse(dummy));
-  },
+  // mounted() {
+  //   console.log(JSON.parse(this.$route.query.filter));
+  //   console.log(JSON.parse(this.$route.query.filter).dynamicFilter.split(":"));
+  //   console.log(
+  //     JSON.parse(this.$route.query.filter).dynamicFilter.split(":")[1]
+  //   );
+  // },
 };
 </script>
 

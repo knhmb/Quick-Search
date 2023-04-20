@@ -719,6 +719,14 @@ export default {
         // ];
       },
     },
+    dialogVisible: {
+      deep: true,
+      handler() {
+        if (this.dialogVisible) {
+          this.$store.commit("search/UPDATE_CHECKLIST", []);
+        }
+      },
+    },
   },
   computed: {
     filtersGroup() {
@@ -880,6 +888,32 @@ export default {
       this.$store.dispatch("dashboard/getSubCategoryFilter", item.slug);
     },
     searchFilter() {
+      if (!this.currentFilter && !this.currentFilter2) {
+        this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", "");
+        this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", "");
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", "");
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY_SLUG", "");
+        // this.$store.dispatch("dashboard/getMainCategoryFilter", "");
+        this.$store.commit("dashboard/RESET_MAIN_CATEGORY_FILTER");
+        this.$store.commit("dashboard/RESET_DYNAMIC_FILTER_GROUP");
+        this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+        this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+        this.$store.commit("search/UPDATE_CHECKLIST", []);
+        this.$store.commit("dashboard/SET_MAIN_CATEGORY_CHILDREN", []);
+      } else if (!this.currentFilter2) {
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", "");
+        this.$store.commit("search/SET_SELECTED_SUB_CATEGORY_SLUG", "");
+        this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+        this.$store.commit("search/UPDATE_CHECKLIST", []);
+      } else if (!this.currentFilter) {
+        this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", "");
+        this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", "");
+        this.$store.commit("dashboard/RESET_MAIN_CATEGORY_FILTER");
+        this.$store.commit("dashboard/RESET_DYNAMIC_FILTER_GROUP");
+        this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+        this.$store.commit("search/UPDATE_CHECKLIST", []);
+        this.$store.commit("dashboard/SET_MAIN_CATEGORY_CHILDREN", []);
+      }
       console.log(this.checkList);
       const arr = [];
       const compareArr = [];
