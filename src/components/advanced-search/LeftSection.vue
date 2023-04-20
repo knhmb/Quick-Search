@@ -182,7 +182,10 @@
             </template> -->
           </el-col>
         </el-row>
-        <el-row class="alignment" v-if="dynamicFilters.length > 0">
+        <el-row
+          class="alignment"
+          v-if="dynamicFilters.length > 0 && selectedSubCategory"
+        >
           <h5>{{ $t("sub_category") }}</h5>
 
           <el-col :span="24" v-for="group in subCategoryFilter" :key="group.id">

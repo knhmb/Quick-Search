@@ -194,7 +194,7 @@ export default {
         });
     },
     setSearch({ category, type }) {
-      let cat;
+      let cat, filter;
       // const finalCategory = (
       //   this.selectedMainCategory.replaceAll(" ", "-") +
       //   "-" +
@@ -203,9 +203,22 @@ export default {
       // const finalCategory =
       //   this.selectedMainCategorySlug + "-" + this.selectedSubCategorySlug;
       if (type === "subCat") {
+        this.$store.commit("dashboard/SET_MAIN_CATEGORY_CHILDREN", []);
+
         this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", category);
         cat = this.selectedSubCategorySlug;
+        filter = {
+          mainCategory: this.selectedMainCategorySlug,
+          subCategory: this.selectedSubCategorySlug,
+        };
       } else {
+        filter = {
+          mainCategory: this.selectedMainCategorySlug,
+        };
+        this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+
+        this.$store.commit("search/UPDATE_CHECKLIST", []);
+
         cat = this.selectedMainCategorySlug;
         this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", "");
         const categoryChildren = this.categories.find(
@@ -216,6 +229,8 @@ export default {
           "dashboard/SET_MAIN_CATEGORY_CHILDREN",
           categoryChildren.resources.children
         );
+        this.$store.dispatch("dashboard/getMainCategoryFilter", cat);
+
         this.currentOption = "";
       }
       const data = {
@@ -232,7 +247,8 @@ export default {
         .then(() => {
           this.$router.push({
             path: "/advanced-search",
-            query: { filter: `category:${cat}` },
+            query: { filter: JSON.stringify(filter) },
+            // query: { filter: `category:${cat}` },
           });
         });
     },
