@@ -857,6 +857,14 @@ export default {
     };
   },
   watch: {
+    $route: {
+      deep: true,
+      handler() {
+        if (!JSON.parse(this.$route.query.filter).discount) {
+          this.$store.commit("search/UPDATE_DISCOUNT", []);
+        }
+      },
+    },
     sorting() {
       this.handlePayment();
     },
@@ -1523,9 +1531,12 @@ export default {
         ];
       },
     },
-    // checkList() {
-    //   console.log(this.checkList);
-    // },
+    checkList: {
+      deep: true,
+      handler() {
+        console.log(this.checkList);
+      },
+    },
   },
   computed: {
     dynamicFilterGroup() {
@@ -1603,13 +1614,6 @@ export default {
         //   arr = [];
         // }
       }
-      // console.log("HERERERERERER");
-      // console.log(arr);
-      // if (arr.includes(this.$route.query.filters)) {
-      //   console.log(this.$route);
-      // } else {
-      //   console.log("LOSER");
-      // }
 
       if (checked) {
         this.filter.arr.push({
@@ -1671,9 +1675,25 @@ export default {
 
       this.$store.dispatch("search/filterSearch", filter);
     },
+    removeAllBlankObjects(detailsObj) {
+      Object.keys(detailsObj).forEach((k) => {
+        if (
+          detailsObj[k] &&
+          typeof detailsObj[k] === "object" &&
+          this.removeAllBlankObjects(detailsObj[k]) === null
+        ) {
+          delete detailsObj[k];
+        }
+      });
+      if (!Object.keys(detailsObj).length) {
+        return null;
+      }
+    },
     handleDiscount(item) {
       console.log(item);
       console.log(this.checkList);
+      this.removeAllBlankObjects(this.checkList);
+
       const filterArr = [];
       const filterDiscount = [];
       const filterPayment = [];
@@ -1691,18 +1711,6 @@ export default {
         //   console.log(this.checkList[item]);
         // }
       }
-      // console.log(this.storeCompareArr);
-      // console.log(this.storeCompareArr[0]);
-      // console.log("HERERERERERER");
-      // console.log(arr);
-      // console.log(this.$route.query.filter);
-      // console.log(compareArr);
-      // console.log(arr.toString());
-      // if (compareArr[0].item.includes(this.$route.query.filters)) {
-      //   console.log("YYEESSS");
-      // } else {
-      //   console.log("LOSER");
-      // }
 
       this.filter.arr.forEach((item) => {
         filterArr.push(`"${item.label}"`);
@@ -1750,16 +1758,13 @@ export default {
     },
   },
   mounted() {
-    // this.$refs.treeRef.load((one, two) => {
-    //   console.log(one);
-    //   console.log(two);
-    // });
-    console.log(this.selectedAreas);
-    // if (Object.keys(this.selectedAreas).length > 0) {
-    //   this.$refs.treeRef.setCheckedNodes(this.selectedAreas.checkedNodes);
-    // }
-    // this.$refs.treeRef.getHalfCheckedNodes();
-    // this.$refs.treeRef.setCheckedKeys(this.selectedAreas.checkedNodes);
+    console.log(JSON.parse(this.$route.query.filter));
+    console.log(JSON.parse(this.$route.query.filter).dynamicFilter.split(":"));
+    console.log(
+      JSON.parse(this.$route.query.filter).dynamicFilter.split(":")[1]
+    );
+    // const dummy = JSON.parse(this.$route.query.filter).dynamicFilter;
+    // console.log(JSON.parse(dummy));
   },
 };
 </script>

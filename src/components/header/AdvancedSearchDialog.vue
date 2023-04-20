@@ -18,7 +18,10 @@
           >
             {{ item.name }}
           </div>
-          <div class="grey-section" v-if="dynamicMainCategoryFilter.length > 0">
+          <div
+            class="grey-section"
+            v-if="dynamicMainCategoryFilter.length > 0 && mainCat"
+          >
             <h5>{{ selectedMainCategory }} {{ $t("filter") }}</h5>
             <el-row class="alignment">
               <el-col
@@ -58,7 +61,7 @@
           >
             {{ item.name }}
           </div>
-          <div class="grey-section" v-if="dynamicFilters.length > 0">
+          <div class="grey-section" v-if="dynamicFilters.length > 0 && subCat">
             <h5>{{ selectedSubCategory }} {{ $t("filter") }}</h5>
             <el-row class="alignment">
               <el-col
@@ -888,6 +891,7 @@ export default {
       this.$store.commit("search/SET_COMPARE_ARR", compareArr);
       console.log(arr);
       console.log(arr.toString());
+
       // let result = Object.keys(this.checkList).map((key) => [
       //   `${key}:${this.checkList[key].toString().replaceAll(",", "|")}`,
       // ]);
@@ -944,7 +948,8 @@ export default {
         dynamicFilter1: arr,
         discount: discountData,
         area: areas.length > 0 ? `{"$in":[${areas}]}` : "",
-        price: this.priceRange,
+        price: `priceRange.0:{"$gte":${this.priceRange[0]},"$lte":${this.priceRange[1]}},priceRange.1:{"$gte":${this.priceRange[0]},"$lte":${this.priceRange[1]}}`,
+        // price: this.priceRange,
         paymentMethod: paymentData,
         page: 1,
         pageSize: 15,
@@ -964,7 +969,7 @@ export default {
           ? dataObject.paymentMethod
           : undefined,
         price: dataObject.price
-          ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
+          ? `priceRange.0:{"$gte":${this.priceRange[0]},"$lte":${this.priceRange[1]}},priceRange.1:{"$gte":${this.priceRange[0]},"$lte":${this.priceRange[1]}}`
           : undefined,
       };
 
@@ -1048,8 +1053,8 @@ export default {
       this.currentFilter2 = "";
       // this.$store.commit("search/RESET_SELECTED_MAIN_CATEGORY");
       // this.$store.commit("search/RESET_SELECTED_SUB_CATEGORY");
-      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
-      this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+      // this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      // this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
       // this.$store.commit("search/RESET_PAYMENT");
       // this.$store.commit("search/RESET_PAYMENT_METHOD");
       // this.$store.commit("search/RESET_PRICE_RANGE");

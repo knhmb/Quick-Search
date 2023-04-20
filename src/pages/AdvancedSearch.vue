@@ -118,6 +118,10 @@ export default {
     },
   },
   async mounted() {
+    this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+    this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+    console.log(this.$route.query.filter);
+    console.log(JSON.parse(this.$route.query.filter));
     const routeFilter = this.$route.query.filter
       ? JSON.parse(this.$route.query.filter)
       : "";
