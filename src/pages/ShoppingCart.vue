@@ -45,13 +45,32 @@ export default {
       return "chatwootWebsiteToken" in this.singleItem.item;
     },
   },
-  // created() {
-  //   const { toggleBubbleVisibility } = useChatWoot();
+  created() {
+    this.$store
+      .dispatch("search/searchSingleShop", { slug: this.$route.params.id })
+      .then(() => {
+        this.$store.commit(
+          "SET_SELECTED_MAIN_CATEGORY_SLUG",
+          this.singleItem.resources.category.slug
+        );
 
-  //   if (this.isChatwootAvailable) {
-  //     toggleBubbleVisibility("show");
-  //   }
-  // },
+        this.$store.commit(
+          "SET_CATEGORY",
+          this.singleItem.resources.category.name
+        );
+        this.$store.commit("SET_CATEGORY_ID", this.singleItem.item.slug);
+        this.$store.commit(
+          "SET_SELECTED_SHOP_SLUG",
+          this.singleItem.resources.category.slug
+        );
+      });
+
+    // const { toggleBubbleVisibility } = useChatWoot();
+
+    // if (this.isChatwootAvailable) {
+    //   toggleBubbleVisibility("show");
+    // }
+  },
   unmounted() {
     const { toggleBubbleVisibility } = useChatWoot();
     toggleBubbleVisibility("hide");

@@ -142,35 +142,45 @@ export default {
         console.log(data);
         // console.log(new Date(startDateTime).toISOString());
         // console.log(new Date(endDateTime).toISOString());
-        this.$store
-          .dispatch("auth/checkAccessToken")
-          .then(() => {
-            this.$store.dispatch("shop/getSchedule", data);
-          })
-          .catch(() => {
-            this.$store
-              .dispatch("auth/checkRefreshToken")
-              .then(() => {
-                this.$store.dispatch("shop/getSchedule", data);
-              })
-              .catch(() => {
-                ElNotification({
-                  title: "Error",
-                  message: this.$t("token_expired"),
-                  type: "error",
-                });
-                this.$store.dispatch("auth/logout");
-              });
-          });
+        // this.$store
+        //   .dispatch("auth/checkAccessToken")
+        //   .then(() => {
+        this.$store.dispatch("shop/getSchedule", data);
+        // })
+        // .catch(() => {
+        // this.$store
+        //   .dispatch("auth/checkRefreshToken")
+        // .then(() => {
+        // this.$store.dispatch("shop/getSchedule", data);
+        // })
+        // .catch(() => {
+        //   ElNotification({
+        //     title: "Error",
+        //     message: this.$t("token_expired"),
+        //     type: "error",
+        //   });
+        //   this.$store.dispatch("auth/logout");
+        // });
+        // });
       },
     },
     $i18n: {
       deep: true,
       handler() {
         // this.$store.dispatch("dashboard/getSchedules");
-        this.$store.dispatch("search/searchSingleShop", {
-          slug: this.selectedShopSlug,
-        });
+        // this.$store.dispatch("search/searchSingleShop", {
+        //   slug: this.selectedShopSlug,
+        // });
+        this.$store
+          .dispatch("search/searchSingleShop", {
+            slug: this.$route.params.id,
+          })
+          .then(() => {
+            this.$store.commit(
+              "SET_CATEGORY",
+              this.singleItem.resources.category.name
+            );
+          });
         const data = {
           search: this.searchValue,
         };

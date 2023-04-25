@@ -88,6 +88,35 @@ export default {
       isTextHidden: true,
     };
   },
+  watch: {
+    activeName() {
+      if (this.activeName === "second") {
+        this.$store
+          .dispatch("auth/checkAccessToken")
+          .then(() => {
+            this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
+          })
+          .catch(() => {
+            this.$store
+              .dispatch("auth/checkRefreshToken")
+              .then(() => {
+                this.$store.dispatch(
+                  "shop/getComments",
+                  this.singleItem.item.slug
+                );
+              })
+              .catch(() => {
+                ElNotification({
+                  title: "Error",
+                  message: this.$t("token_expired"),
+                  type: "error",
+                });
+                this.$store.dispatch("auth/logout");
+              });
+          });
+      }
+    },
+  },
   computed: {
     currentUserDetails() {
       return this.$store.getters["auth/currentUserDetails"];
@@ -104,6 +133,9 @@ export default {
     windowHostname() {
       return window.location.hostname;
     },
+    activeName() {
+      return this.$store.getters["shop/activeName"];
+    },
   },
   methods: {
     formatDate(date) {
@@ -114,28 +146,33 @@ export default {
       comment.readActivated = !comment.readActivated;
     },
   },
-  created() {
-    this.$store
-      .dispatch("auth/checkAccessToken")
-      .then(() => {
-        this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
-      })
-      .catch(() => {
-        this.$store
-          .dispatch("auth/checkRefreshToken")
-          .then(() => {
-            this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
-          })
-          .catch(() => {
-            ElNotification({
-              title: "Error",
-              message: this.$t("token_expired"),
-              type: "error",
-            });
-            this.$store.dispatch("auth/logout");
-          });
-      });
-  },
+  // created() {
+  //   if (this.activeName === "second") {
+  //     this.$store
+  //       .dispatch("auth/checkAccessToken")
+  //       .then(() => {
+  //         this.$store.dispatch("shop/getComments", this.singleItem.item.slug);
+  //       })
+  //       .catch(() => {
+  //         this.$store
+  //           .dispatch("auth/checkRefreshToken")
+  //           .then(() => {
+  //             this.$store.dispatch(
+  //               "shop/getComments",
+  //               this.singleItem.item.slug
+  //             );
+  //           })
+  //           .catch(() => {
+  //             ElNotification({
+  //               title: "Error",
+  //               message: this.$t("token_expired"),
+  //               type: "error",
+  //             });
+  //             this.$store.dispatch("auth/logout");
+  //           });
+  //       });
+  //   }
+  // },
 };
 </script>
 
@@ -226,9 +263,9 @@ export default {
 }
 
 .box-card
-  ~ :deep(.el-pagination.is-background
-    .el-pager
-    li:not(.is-disabled).is-active) {
+  ~ :deep(
+    .el-pagination.is-background .el-pager li:not(.is-disabled).is-active
+  ) {
   background-color: #985f35;
 }
 

@@ -156,15 +156,19 @@ export default {
       this.$store.commit("SET_CATEGORY", category);
       this.$store.commit("SET_CATEGORY_ID", id);
       this.$store.commit("SET_SELECTED_SHOP_SLUG", slug);
-      this.$store
-        .dispatch("search/searchSingleShop", { slug: slug })
-        .then(() => {
-          this.$router.push({
-            name: "shop",
-            params: { id: slug },
-            // query: { q: slug },
-          });
-        });
+      this.$router.push({
+        name: "shop",
+        params: { id: slug },
+      });
+      // this.$store
+      //   .dispatch("search/searchSingleShop", { slug: slug })
+      //   .then(() => {
+      //     this.$router.push({
+      //       name: "shop",
+      //       params: { id: slug },
+      //       // query: { q: slug },
+      //     });
+      //   });
     },
   },
 };
