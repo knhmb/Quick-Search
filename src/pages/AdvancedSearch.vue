@@ -118,116 +118,133 @@ export default {
     },
   },
   async mounted() {
-    this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
-    this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
-    console.log(this.$route.query.filter);
-    console.log(JSON.parse(this.$route.query.filter));
-    const routeFilter = this.$route.query.filter
-      ? JSON.parse(this.$route.query.filter)
-      : "";
+    if (Object.keys(this.$route.query).length > 0) {
+      this.$store.commit("dashboard/RESET_DYNAMIC_FILTERS");
+      this.$store.commit("dashboard/RESET_DYNAMIC_MAIN_CATEGORY_FILTER");
+      const routeFilter = this.$route.query.filter
+        ? JSON.parse(this.$route.query.filter)
+        : "";
 
-    const category = this.categories.find(
-      (item) => item.slug === routeFilter.mainCategory
-    );
-    console.log(category);
-
-    this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", category.name);
-    this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", category.slug);
-
-    this.$store.commit(
-      "dashboard/SET_MAIN_CATEGORY_CHILDREN",
-      category.resources.children
-    );
-    console.log(this.mainCategoryChildren);
-
-    const subCategory = this.mainCategoryChildren.find(
-      (item) => item.slug === routeFilter.subCategory
-    );
-    console.log(subCategory);
-
-    if (JSON.parse(this.$route.query.filter).subCategory && subCategory) {
-      this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", subCategory.name);
-      this.$store.commit(
-        "search/SET_SELECTED_SUB_CATEGORY_SLUG",
-        subCategory.slug
+      const category = this.categories.find(
+        (item) => item.slug === routeFilter.mainCategory
       );
-      this.$store.dispatch("dashboard/getSubCategoryFilter", subCategory.slug);
-    } else {
-      this.$store.dispatch("dashboard/getMainCategoryFilter", category.slug);
-    }
+      console.log(category);
 
-    let dataObject = {
-      dynamicFilter: routeFilter.dynamicFilter ? routeFilter.dynamicFilter : "",
-      discount: routeFilter.discount ? routeFilter.discount : "",
-      area: routeFilter.area ? routeFilter.area : "",
-      price: routeFilter.price ? routeFilter.price : "",
-      paymentMethod: routeFilter.payment ? routeFilter.payment : "",
-      page: 1,
-      pageSize: 15,
-    };
+      this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", category.name);
+      this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", category.slug);
 
-    let minPrice, maxPrice;
+      this.$store.commit(
+        "dashboard/SET_MAIN_CATEGORY_CHILDREN",
+        category.resources.children
+      );
+      console.log(this.mainCategoryChildren);
 
-    if (dataObject.price) {
-      const finalPrice = dataObject.price
-        .split("priceRange.0:")
-        .pop()
-        .split(`"$gte":`)
-        .pop()
-        .split(`,"$lte":`);
+      const subCategory = this.mainCategoryChildren.find(
+        (item) => item.slug === routeFilter.subCategory
+      );
+      console.log(subCategory);
 
-      minPrice = finalPrice[0];
-      maxPrice = finalPrice[1].replace("}", "");
-      this.$store.commit("search/UPDATE_PRICE_RANGE", [minPrice, maxPrice]);
-    }
-    // const finalPrice = dataObject.price
-    //   .split("priceRange.0:")
-    //   .pop()
-    //   .split(`"$gte":`)
-    //   .pop()
-    //   .split(`,"$lte":`);
+      if (JSON.parse(this.$route.query.filter).subCategory && subCategory) {
+        this.$store.commit(
+          "search/SET_SELECTED_SUB_CATEGORY",
+          subCategory.name
+        );
+        this.$store.commit(
+          "search/SET_SELECTED_SUB_CATEGORY_SLUG",
+          subCategory.slug
+        );
+        this.$store.dispatch(
+          "dashboard/getSubCategoryFilter",
+          subCategory.slug
+        );
+      } else {
+        this.$store.dispatch("dashboard/getMainCategoryFilter", category.slug);
+      }
 
-    // const minPrice = finalPrice[0];
-    // const maxPrice = finalPrice[1].replace("}", "");
-    // this.$store.commit("search/UPDATE_PRICE_RANGE", [minPrice, maxPrice]);
+      let dataObject = {
+        dynamicFilter: routeFilter.dynamicFilter
+          ? routeFilter.dynamicFilter
+          : "",
+        discount: routeFilter.discount ? routeFilter.discount : "",
+        area: routeFilter.area ? routeFilter.area : "",
+        price: routeFilter.price ? routeFilter.price : "",
+        paymentMethod: routeFilter.payment ? routeFilter.payment : "",
+        page: 1,
+        pageSize: 15,
+      };
 
-    const filter = {
-      mainCategory: routeFilter.mainCategory
-        ? routeFilter.mainCategory
-        : undefined,
-      subCategory: routeFilter.subCategory
-        ? routeFilter.subCategory
-        : undefined,
-      dynamicFilter: routeFilter.dynamicFilter
-        ? routeFilter.dynamicFilter
-        : undefined,
-      area: routeFilter.area ? routeFilter.area : undefined,
-      discount: routeFilter.discount ? routeFilter.discount : undefined,
-      payment: routeFilter.payment ? routeFilter.payment : undefined,
-      price: routeFilter.price
-        ? `priceRange.0:{"$gte":${minPrice},"$lte":${maxPrice}},priceRange.1:{"$gte":${minPrice},"$lte":${maxPrice}}`
-        : undefined,
-    };
-    console.log(filter.price);
+      let minPrice, maxPrice;
 
-    await this.$store
-      .dispatch("search/advancedFilter", {
-        category: routeFilter.subCategory
+      if (dataObject.price) {
+        const finalPrice = dataObject.price
+          .split("priceRange.0:")
+          .pop()
+          .split(`"$gte":`)
+          .pop()
+          .split(`,"$lte":`);
+
+        minPrice = finalPrice[0];
+        maxPrice = finalPrice[1].replace("}", "");
+        this.$store.commit("search/UPDATE_PRICE_RANGE", [minPrice, maxPrice]);
+      }
+      // const finalPrice = dataObject.price
+      //   .split("priceRange.0:")
+      //   .pop()
+      //   .split(`"$gte":`)
+      //   .pop()
+      //   .split(`,"$lte":`);
+
+      // const minPrice = finalPrice[0];
+      // const maxPrice = finalPrice[1].replace("}", "");
+      // this.$store.commit("search/UPDATE_PRICE_RANGE", [minPrice, maxPrice]);
+
+      const filter = {
+        mainCategory: routeFilter.mainCategory
+          ? routeFilter.mainCategory
+          : undefined,
+        subCategory: routeFilter.subCategory
           ? routeFilter.subCategory
-          : routeFilter.mainCategory,
-        data: dataObject,
-      })
-      .then(() => {
-        this.$emit("closeDialog", false);
+          : undefined,
+        dynamicFilter: routeFilter.dynamicFilter
+          ? routeFilter.dynamicFilter
+          : undefined,
+        area: routeFilter.area ? routeFilter.area : undefined,
+        discount: routeFilter.discount ? routeFilter.discount : undefined,
+        payment: routeFilter.payment ? routeFilter.payment : undefined,
+        price: routeFilter.price
+          ? `priceRange.0:{"$gte":${minPrice},"$lte":${maxPrice}},priceRange.1:{"$gte":${minPrice},"$lte":${maxPrice}}`
+          : undefined,
+      };
+      console.log(filter.price);
 
-        this.$router.push({
-          path: "/advanced-search",
-          query: {
-            filter: JSON.stringify(filter),
-          },
+      await this.$store
+        .dispatch("search/advancedFilter", {
+          category: routeFilter.subCategory
+            ? routeFilter.subCategory
+            : routeFilter.mainCategory,
+          data: dataObject,
+        })
+        .then(() => {
+          this.$emit("closeDialog", false);
+
+          this.$router.push({
+            path: "/advanced-search",
+            query: {
+              filter: JSON.stringify(filter),
+            },
+          });
         });
-      });
-    this.isSearchItemsLoaded = true;
+      this.isSearchItemsLoaded = true;
+    } else {
+      this.$store
+        .dispatch("search/advancedFilter", {
+          category: "",
+          data: { page: 1 },
+        })
+        .then(() => {
+          this.isSearchItemsLoaded = true;
+        });
+    }
     //  else {
     //   this.$store
     //     .dispatch("search/advancedFilter", {

@@ -94,13 +94,15 @@ export default {
     $i18n: {
       deep: true,
       handler() {
-        this.currentOption = "";
-        // const cat = this.$route.query.filter.split(":").pop();
-        const cat = JSON.parse(this.$route.query.filter).subCategory
-          ? JSON.parse(this.$route.query.filter).subCategory
-          : "";
-        this.currentOption = cat;
-        // this.forceRerender();
+        if (Object.keys(this.$route.query).length > 0) {
+          this.currentOption = "";
+          // const cat = this.$route.query.filter.split(":").pop();
+          const cat = JSON.parse(this.$route.query.filter).subCategory
+            ? JSON.parse(this.$route.query.filter).subCategory
+            : "";
+          this.currentOption = cat;
+          // this.forceRerender();
+        }
       },
     },
     $route: {
@@ -254,13 +256,12 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.query);
-    console.log(JSON.parse(this.$route.query.filter));
-    const cat = JSON.parse(this.$route.query.filter).subCategory
-      ? JSON.parse(this.$route.query.filter).subCategory
-      : "";
-    this.currentOption = cat;
-    // console.log(this.$route.query.filter.split(":").pop());
+    if (Object.keys(this.$route.query).length > 0) {
+      const cat = JSON.parse(this.$route.query.filter).subCategory
+        ? JSON.parse(this.$route.query.filter).subCategory
+        : "";
+      this.currentOption = cat;
+    }
   },
 };
 </script>
