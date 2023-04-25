@@ -25,37 +25,37 @@ export default {
   watch: {
     $i18n: {
       deep: true,
-      handler() {
-        this.$store.dispatch("dashboard/getSubCategory").then(() => {
-          if (this.$route.query.filter) {
-            const cat = JSON.parse(this.$route.query.filter).subCategory;
-            const main = this.categories.find(
-              (mainSlug) => mainSlug.slug === this.selectedMainCategorySlug
-            );
-            console.log(main);
-            const sub = main.resources.children.find(
-              (subItem) => subItem.slug === cat
-            );
-            console.log(sub);
-            if (sub) {
-              this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", sub.name);
-              this.$store.dispatch("dashboard/getSubCategoryFilter", cat);
-            }
-            if (!this.selectedSubCategory) {
-              this.$store.dispatch(
-                "dashboard/getMainCategoryFilter",
-                main.slug
-              );
-            }
+      async handler() {
+        // this.$store.dispatch("dashboard/getSubCategory").then(() => {
+        //   if (this.$route.query.filter) {
+        //     const cat = JSON.parse(this.$route.query.filter).subCategory;
+        //     const main = this.categories.find(
+        //       (mainSlug) => mainSlug.slug === this.selectedMainCategorySlug
+        //     );
+        //     console.log(main);
+        //     const sub = main.resources.children.find(
+        //       (subItem) => subItem.slug === cat
+        //     );
+        //     console.log(sub);
+        //     if (sub) {
+        //       this.$store.commit("search/SET_SELECTED_SUB_CATEGORY", sub.name);
+        //       this.$store.dispatch("dashboard/getSubCategoryFilter", cat);
+        //     }
+        //     if (!this.selectedSubCategory) {
+        //       this.$store.dispatch(
+        //         "dashboard/getMainCategoryFilter",
+        //         main.slug
+        //       );
+        //     }
 
-            // this.$store.dispatch("dashboard/getSubCategoryFilter", cat);
-            this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", main.name);
-            this.$store.commit(
-              "dashboard/SET_MAIN_CATEGORY_CHILDREN",
-              main.resources.children
-            );
-          }
-        });
+        //     // this.$store.dispatch("dashboard/getSubCategoryFilter", cat);
+        //     this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", main.name);
+        //     this.$store.commit(
+        //       "dashboard/SET_MAIN_CATEGORY_CHILDREN",
+        //       main.resources.children
+        //     );
+        //   }
+        // });
         this.$store.dispatch("dashboard/getCategories");
         this.$store.dispatch("dashboard/getContent");
         this.$store.dispatch("dashboard/getPromotions");
