@@ -117,6 +117,10 @@ export default {
     dynamicFilterGroup() {
       return this.$store.getters["dashboard/dynamicFilterGroup"];
     },
+    checkList() {
+      return this.$store.getters["search/checkList"];
+    },
+
     // mainCategoryChildren() {
     //   return this.$store.getters["dashboard/mainCategoryChildren"];
     // },
@@ -285,6 +289,9 @@ export default {
   // },
   async mounted() {
     this.fetchData();
+    console.log(JSON.parse(this.$route.query.filter));
+    // const dum = JSON.stringify(JSON.parse(this.$route.query.filter));
+    // console.log(dum);
   },
 };
 </script>

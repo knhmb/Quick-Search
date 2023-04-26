@@ -926,28 +926,18 @@ export default {
       }
       console.log(this.checkList);
       const arr = [];
+      const arrFilter = [];
       const compareArr = [];
       for (const item in this.checkList) {
-        console.log(`${item}:{"$in":[${this.checkList[item]}]}`);
         arr.push(`${item}:{"$in":[${this.checkList[item]}]}`);
+        arrFilter.push(`${`{"${item}":"{"$in":[${this.checkList[item]}]}"}`}`);
         compareArr.push(this.checkList[item]);
       }
       this.$store.commit("search/SET_COMPARE_ARR", compareArr);
       console.log(arr);
       console.log(arr.toString());
-
-      // let result = Object.keys(this.checkList).map((key) => [
-      //   `${key}:${this.checkList[key].toString().replaceAll(",", "|")}`,
-      // ]);
-      // this.checkList = {};
-      // const finalData = result.toString();
-      // console.log(finalData);
-
-      // const discountData =
-      //   this.discount.length > 0
-      //     ? this.discount.toString().replaceAll(",", "|")
-      //     : "";
-      // const finalDiscount = []
+      console.log("FILTEERERERERE");
+      console.log(arrFilter);
 
       this.paymentMethod.forEach((item) => {
         if (!this.finalPayment.includes(item)) {
@@ -989,7 +979,7 @@ export default {
 
       let dataObject = {
         dynamicFilter: arr.toString(),
-        dynamicFilter1: arr,
+        dynamicFilter1: arrFilter,
         discount: discountData,
         area: areas.length > 0 ? `{"$in":[${areas}]}` : "",
         price: `priceRange.0:{"$gte":${this.priceRange[0]},"$lte":${this.priceRange[1]}},priceRange.1:{"$gte":${this.priceRange[0]},"$lte":${this.priceRange[1]}}`,

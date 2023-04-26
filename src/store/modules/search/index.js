@@ -12,6 +12,7 @@ export default {
       singleItem: [],
       compareArr: [],
       checkList: {},
+      // checkList: [],
       searchValue: "",
       selectedMainCategory: "",
       discount: [],
