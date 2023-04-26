@@ -238,6 +238,8 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
+
 export default {
   props: ["dialogVisible"],
   data() {
@@ -869,6 +871,14 @@ export default {
       // console.log(filterArr);
     },
     getFilterItems(item) {
+      if (!this.currentFilter) {
+        ElNotification({
+          title: "Error",
+          message: "Please select main category first!",
+          type: "error",
+        });
+        return;
+      }
       console.log(item);
       // this.$store.commit("search/RESET_SELECTED_SUB_CATEGORY");
       this.subCat = true;
@@ -1014,67 +1024,67 @@ export default {
       //     query: { filter: arr.toString() },
       //   });
       // });
-      if (this.subCategorySlug) {
-        this.$store
-          .dispatch("search/advancedFilter", {
-            category: this.subCategorySlug ? this.subCategorySlug : "",
-            data: dataObject,
-          })
-          .then(() => {
-            this.$emit("closeDialog", false);
+      // if (this.subCategorySlug) {
+      //   this.$store
+      //     .dispatch("search/advancedFilter", {
+      //       category: this.subCategorySlug ? this.subCategorySlug : "",
+      //       data: dataObject,
+      //     })
+      //     .then(() => {
+      //       this.$emit("closeDialog", false);
 
-            this.$router.push({
-              path: "/advanced-search",
-              query: {
-                filter: JSON.stringify(filter),
-              },
-              // query: {
-              //   filter: `${
-              //     this.subCategorySlug
-              //       ? `category:${this.subCategorySlug},`
-              //       : ""
-              //   }${
-              //     dataObject.dynamicFilter ? `${dataObject.dynamicFilter},` : ""
-              //   }${dataObject.area ? `area:${dataObject.area},` : ""}${
-              //     dataObject.discount ? `discount:${discountData},` : ""
-              //   }${
-              //     dataObject.paymentMethod
-              //       ? `payment:${dataObject.paymentMethod},`
-              //       : ""
-              //   }${
-              //     dataObject.price
-              //       ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
-              //       : ":"
-              //   }`,
-              // },
-              // query: {
-              //   filter: this.subCategorySlug
-              //     ? `category:${this.subCategorySlug}`
-              //     : "",
-              // },
-            });
-            this.categorySlug = null;
-            this.subCategorySlug = null;
-          });
-      } else {
-        this.$store
-          .dispatch("search/advancedFilter", {
-            category: this.categorySlug ? this.categorySlug : "",
-            data: dataObject,
-          })
-          .then(() => {
-            this.$emit("closeDialog", false);
+      //       this.$router.push({
+      //         path: "/advanced-search",
+      //         query: {
+      //           filter: JSON.stringify(filter),
+      //         },
+      //         // query: {
+      //         //   filter: `${
+      //         //     this.subCategorySlug
+      //         //       ? `category:${this.subCategorySlug},`
+      //         //       : ""
+      //         //   }${
+      //         //     dataObject.dynamicFilter ? `${dataObject.dynamicFilter},` : ""
+      //         //   }${dataObject.area ? `area:${dataObject.area},` : ""}${
+      //         //     dataObject.discount ? `discount:${discountData},` : ""
+      //         //   }${
+      //         //     dataObject.paymentMethod
+      //         //       ? `payment:${dataObject.paymentMethod},`
+      //         //       : ""
+      //         //   }${
+      //         //     dataObject.price
+      //         //       ? `priceRange.0:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}},priceRange.1:{"$gte":${dataObject.price[0]},"$lte":${dataObject.price[1]}}`
+      //         //       : ":"
+      //         //   }`,
+      //         // },
+      //         // query: {
+      //         //   filter: this.subCategorySlug
+      //         //     ? `category:${this.subCategorySlug}`
+      //         //     : "",
+      //         // },
+      //       });
+      //       this.categorySlug = null;
+      //       this.subCategorySlug = null;
+      //     });
+      // } else {
+      //   this.$store
+      //     .dispatch("search/advancedFilter", {
+      //       category: this.categorySlug ? this.categorySlug : "",
+      //       data: dataObject,
+      //     })
+      //     .then(() => {
+      //       this.$emit("closeDialog", false);
 
-            this.$router.push({
-              path: "/advanced-search",
-              query: {
-                filter: JSON.stringify(filter),
-              },
-            });
-            this.categorySlug = null;
-            this.subCategorySlug = null;
-          });
-      }
+      //       this.$router.push({
+      //         path: "/advanced-search",
+      //         query: {
+      //           filter: JSON.stringify(filter),
+      //         },
+      //       });
+      //       this.categorySlug = null;
+      //       this.subCategorySlug = null;
+      //     });
+      // }
       // this.$store
       //   .dispatch("search/advancedFilter", this.categorySlug)
       //   .then(() => {
@@ -1083,6 +1093,16 @@ export default {
       //       query: { filter: `category:${this.categorySlug}` },
       //     });
       //   });
+      this.$emit("closeDialog", false);
+
+      this.$router.push({
+        path: "/advanced-search",
+        query: {
+          filter: JSON.stringify(filter),
+        },
+      });
+      this.categorySlug = null;
+      this.subCategorySlug = null;
       this.currentFilter = "";
       this.currentFilter2 = "";
       // this.$store.commit("search/RESET_SELECTED_MAIN_CATEGORY");

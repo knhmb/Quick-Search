@@ -30,14 +30,18 @@ export default {
           (item) => item.slug === routeFilter.mainCategory
         );
         console.log(category);
+        if (category) {
+          this.$store.commit(
+            "search/SET_SELECTED_MAIN_CATEGORY",
+            category.name
+          );
+          this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", category.slug);
+          this.$store.commit(
+            "dashboard/SET_MAIN_CATEGORY_CHILDREN",
+            category.resources.children
+          );
+        }
 
-        this.$store.commit("search/SET_SELECTED_MAIN_CATEGORY", category.name);
-        this.$store.commit("SET_SELECTED_MAIN_CATEGORY_SLUG", category.slug);
-
-        this.$store.commit(
-          "dashboard/SET_MAIN_CATEGORY_CHILDREN",
-          category.resources.children
-        );
         console.log(this.mainCategoryChildren);
 
         const subCategory = this.mainCategoryChildren.find(
@@ -59,7 +63,7 @@ export default {
             "dashboard/getSubCategoryFilter",
             subCategory.slug
           );
-        } else {
+        } else if (JSON.parse(this.$route.query.filter).mainCategory) {
           this.$store.dispatch(
             "dashboard/getMainCategoryFilter",
             category.slug

@@ -49,6 +49,16 @@ export default {
 
     return { setSort, sorting, currentPage };
   },
+  watch: {
+    $route: {
+      deep: true,
+      async handler() {
+        console.log("mememememem");
+        this.fetchData();
+      },
+    },
+  },
+
   // data() {
   //   return {
   //     isSearchItemsLoaded: false,
