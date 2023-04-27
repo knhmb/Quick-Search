@@ -106,6 +106,8 @@ export default {
                 );
               })
               .catch(() => {
+                this.$store.commit("shop/SET_TAB_VALUE", "first");
+
                 ElNotification({
                   title: "Error",
                   message: this.$t("token_expired"),
